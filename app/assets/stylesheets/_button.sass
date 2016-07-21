@@ -1,0 +1,83 @@
++keyframes(button-animation-over)
+  0%
+    width: 25%
+  0%, 50%
+    height: 1px
+  25%
+    width: 100%
+  100%
+    height: 50%
+
++keyframes(button-animation-out)
+  0%
+    height: 50%
+  0%, 75%
+    width: 100%
+  50%, 100%
+    height: 1px
+  100%
+    width: 25%
+
+
+
+.btn
+
+  padding: 0 22px
+  height: 47px
+  line-height: 47px
+  color: $green
+  font-style: italic
+  // text-transform: lowercase
+  text-decoration: none
+  display: inline-block
+  position: relative
+  border-top: 1px solid $grey
+  border-bottom: 1px solid $grey
+  +transition(0.25s)
+
+  span
+    position: relative
+    z-index: 1
+
+
+  &:before, &:after
+    content: ""
+    width: 25%
+    display: block
+    background: $green
+    height: 1px
+    position: absolute
+
+  &:before
+    top: -1px
+    left: 0
+
+  &:after
+    bottom: -1px
+    right: 0
+
+  &.light
+    border-top: 1px solid $light-grey
+    border-bottom: 1px solid $light-grey
+
+  &.dark
+    background: $dark-grey
+
+
+  &.btn-hire-us
+
+  &:hover
+    color: #fff
+    &:before, &:after
+      width: 100%
+      height: 60%
+      +animation-name(button-animation-over)
+      +animation-duration(0.8s)
+    &.dark
+      color: #fff
+  &.out
+    &:before, &:after
+      width: 25%
+      height: 3px
+      +animation-name(button-animation-out)
+      +animation-duration(0.8s)

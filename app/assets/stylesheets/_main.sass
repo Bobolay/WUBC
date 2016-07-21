@@ -1,0 +1,392 @@
+.home-banner
+  height: 100vh
+  background-size: cover
+  background-position: center
+  .text
+    position: relative
+    height: 100vh
+  .middle
+    position: absolute
+    width: 100%
+    top: 50%
+    +translate(0,-50%)
+    @media #{$small-only}
+      padding: 0 1rem
+  .main-title
+    font-family: Vremena
+    font-size: 2.5em
+    color: #fff
+    @media #{$small-only}
+      font-size: 1.25em
+  .main-header
+    font-family: Vremena
+    font-size: 5.3rem
+    line-height: 5rem
+    color: $main
+    text-transform: uppercase
+    @media #{$small-only}
+      font-size: 2rem
+      line-height: 2rem
+  hr
+    border: 0
+    margin: 30px 0
+    height: 1px
+    background: linear-gradient(to right, rgba(0,0,0,0), rgba(188,188,188,0.75), rgba(0,0,0,0))  
+    @media #{$small-only}
+      margin: 10px 0
+  .regular
+    font-size: 1.125rem
+    color: #fff
+    opacity: 0.7
+    line-height: 1.5rem
+    @media #{$small-only}
+      font-size: 0.875rem
+      line-height: 0.875rem
+    @media #{$medium-up}
+      max-width: 500px
+  .btn
+    margin-top: 30px
+  .bottom
+    position: absolute
+    bottom: 30px
+    cursor: pointer
+    @media #{$small-only}
+      left: 1rem
+    svg
+      height: 26px
+      fill: $light-grey
+      stroke: $light-grey
+    span
+      font-size: 15px
+      color: $light-grey
+      font-style: italic
+      position: relative
+      left: 10px
+      top: -7px
+.about-us-container
+  text-align: center
+  padding: 50px 1em
+  @media #{$medium-up}
+    padding: 100px 1em
+  .regular
+    color: $grey
+    margin: 30px auto
+    max-width: 550px
+.calendar-container
+  background-color: $dirt-white
+  padding: 70px 0
+  svg
+    @media #{$small-only}
+      width: 80px
+      height: 80px
+  .section-header
+    text-align: center
+  .future-events
+    font-size: 1.25rem
+    color: $main
+    text-align: center
+    margin: 50px 0
+  .past-events
+    font-size: 1.25rem
+    color: $grey
+    text-align: center
+    margin: 0 0 50px 0
+  .event-container
+    position: relative
+    border-left: 1px solid $main
+    max-width: 500px
+    margin: 0 auto 50px
+    .date
+      font-size: 2.5rem
+      color: $main
+      margin-left: 20px
+      span
+        font-style: italic
+        font-size: 0.875rem
+        color: $grey
+    .img
+      height: 250px
+      left: -1px
+      .text
+        position: absolute
+        top: 50%
+        left: 50%
+        width: 90%
+        +translate(-50%,-50%)
+        text-align: center
+        svg
+          fill: #fff
+          width: 40px
+        p
+          font-size: 15px
+          color: #fff
+          margin: 20px 0
+        a
+          font-size: 14px
+          color: #fff
+          border-bottom: 1px solid #fff
+          display: inline-block
+          line-height: 22px
+          +transition(0.25s)
+          &:hover
+            color: $main
+            border-bottom: 1px solid $main
+    .description
+      color: $grey
+      padding: 20px
+  .past-events ~ .row
+    +grayscale
+  .btn-container
+    text-align: center
+.meeting-container
+  height: 600px
+  position: relative
+  @media #{$small-only}
+    height: 300px
+  p
+    color: #fff
+    font-style: italic
+    position: absolute
+    z-index: 1
+    left: 50%
+    top: 20px
+    +translate(-50%,0)
+  .slider-prev, .slider-next
+    position: absolute
+    cursor: pointer
+    z-index: 1
+    width: 40px
+    height: 40px
+    border: 1px solid #fff
+    top: 50%
+    +translate(0,-50%)
+    +transition(0.25s)
+    @media #{$medium-up}
+      width: 60px
+      height: 60px
+    svg
+      position: absolute
+      top: 50%
+      left: 50%
+      +translate(-50%,-50%)
+      fill: #fff
+      stroke: #fff
+      width: 20px
+      +transition(0.25s)
+      @media #{$medium-up}
+        width: 30px
+    &:hover
+      border: 1px solid $green
+      svg
+        fill: $green
+        stroke: $green
+  .slider-prev
+    left: 10px
+    @media #{$medium-only}
+      left: 30px
+    @media #{$large-up}
+      left: 100px
+  .slider-next
+    right: 10px
+    @media #{$medium-only}
+      right: 30px
+    @media #{$large-up}
+      right: 100px
+  .slider-1
+    height: 100%
+.members-container
+  position: relative
+  background-color: $dark-grey
+  padding: 70px 0
+  margin-top: -15px
+  .line
+    background-color: $main
+  .section-header
+    color: #fff
+    font-weight: initial
+    text-align: center
+  .under-header
+    color: $green
+    font-size: 14px
+    text-align: center
+    margin-top: 10px
+  .slider-2
+    height: 700px
+    margin-top: 100px
+.join-us-container
+  position: relative
+  padding: 70px 1em
+  text-align: center
+  margin-top: -15px
+  .line
+    background-color: $grey
+  .title
+    font-family: VremenaBook
+    font-size: 2.25em
+    color: $dark-grey
+    max-width: 500px
+    margin: 0 auto
+    line-height: 2.25rem
+  a
+    // vremena
+    font-size: 1.125em
+    display: inline-block
+    margin-top: 30px
+    font-style: italic
+    color: #fff
+    padding: 15px 30px
+    text-align: center
+    background-color: $green
+.club-speakers-container
+  background-color: $dirt-white
+  padding: 70px 1em
+  .section-header
+    font-family: Vremena
+    font-weight: initial
+    text-align: center
+  .under-header
+    color: $green
+    font-size: 14px
+    text-align: center
+    margin-top: 10px
+  .block-wrapper
+    padding: 70px 0
+  .block-container
+    position: relative
+    height: 300px
+    width: 100%
+    overflow: hidden
+    margin-bottom: 25px
+    @media #{$small-only}
+      height: 250px
+    &.hide
+      @media #{$small-only}
+        display: none
+    .title
+      position: absolute
+      z-index: 2
+      top: 30px
+      left: 20px
+      // vremena
+      color: #fff
+      text-transform: uppercase
+      font-size: 1.375rem
+      line-height: 1.5rem
+    .hover-block
+      position: absolute
+      z-index: 1
+      width: 200px
+      height: 100%
+      background-color: $green
+      +translate(-100%,0)
+      +transition(0.5s)
+      opacity: 0.25
+      .hover-text
+        font-size: 0.75em
+        color: #fff
+        width: 80%
+        position: absolute
+        top: 50%
+        left: 50%
+        opacity: 0
+        +translate(-50%,-50%)
+      svg
+        position: absolute
+        opacity: 0
+        bottom: 20px
+        right: 30px
+        fill: #fff
+        stroke: #fff
+        width: 30px
+        +translate(-200%,0)
+        +transition(0.25s)
+    &:hover
+      .hover-block
+        +translate(0,0)
+        opacity: 1
+        .hover-text
+          opacity: 1
+          transition: 0.25s ease-out
+          transition-delay: 0.25s
+        svg
+          opacity: 1
+          +translate(0,0)
+          transition: 0.4s ease-in-out
+          transition-delay: 0.35s
+  .btn-container
+    text-align: center
+    margin-bottom: 70px
+  .news-wrapper
+    padding: 50px 0
+  .news-block
+    max-width: 500px
+    margin: 30px auto
+    .img
+      height: 250px
+      @media #{$small-only}
+        height: 200px
+    .bottom-text
+      +clearfix
+      margin-top: 20px
+      .date
+        float: left
+        border-right: 1px solid $green
+        width: 70px
+      .day
+        font-size: 3.125em
+        color: $green
+        line-height: 50px
+      .month
+        font-size: 0.875em
+        color: $light-grey
+        font-style: italic
+      .text
+        float: left
+        width: calc(100% - 70px)
+        padding-left: 15px
+        border-left: 1px solid $green
+        position: relative
+        left: -1px
+        p
+          color: $grey
+.companies
+  padding: 70px 0
+  .slider-container
+    position: relative
+    margin-top: 50px
+  .carousel-slider-prev, .carousel-slider-next
+    position: absolute
+    fill: $grey
+    stroke: $grey
+    width: 40px
+    top: 50%
+    cursor: pointer
+  .carousel-slider-prev
+    left: 0
+  .carousel-slider-next
+    right: 0
+  .slider-3
+    width: 260px
+    margin: 0 auto
+    @media #{$medium-up}
+      width: 80%
+  .company-block
+    text-align: center
+    width: 100%
+    @media #{$medium-only}
+      width: 50%
+    @media #{$large-only}
+      width: 20%
+  .img
+    width: 100px
+    height: 100px
+    margin: 0 auto
+  .name
+    // vremena
+    font-size: 1.125em
+    color: $green
+    text-transform: uppercase
+    margin-top: 10px
+  .description
+    font-size: 0.875em
+    color: $grey

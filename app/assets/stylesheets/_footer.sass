@@ -1,0 +1,111 @@
+.footer-wrapper
+  background-color: $dark-grey
+  color: $light-grey
+  padding: 0 1rem
+  .title
+    font-family: Vremena
+    color: $green
+    font-size: 1.375em
+    text-transform: uppercase
+    margin-bottom: 10px
+  .top
+    padding: 70px 0
+    @media #{$small-only}
+      padding: 50px 0
+    .text
+      position: relative
+      padding-left: 100px
+      @media #{$small-only}
+        margin-top: 30px
+        padding-bottom: 80px
+      @media #{$medium-only}
+        margin-top: 30px
+        padding-bottom: 80px
+        width: 320px
+        margin: 30px auto 0
+      svg
+        position: absolute
+        top: -30px
+        left: 0
+        width: 80px
+        height: 80px
+        @media #{$small-only}
+          top: 0
+        @media #{$medium-only}
+          top: 0
+      .title
+        color: #fff
+      .regular
+        font-size: 0.875em
+        font-style: italic
+        max-width: 200px
+      .btn
+        margin-top: 30px
+        @media #{$small-only}
+          position: absolute
+          width: 170px
+          left: 50%
+          +translate(-50%,0)
+        @media #{$medium-only}
+          position: absolute
+          width: 220px
+          left: 50%
+          +translate(-50%,0)
+    .pages
+      a
+        display: inline-block
+        color: $light-grey
+        margin-bottom: 10px
+        +transition(0.25s)
+        &:hover
+          color: $green
+    .contacts
+      span
+        font-size: 0.875em
+        color: $green
+        font-style: italic
+      p
+        padding-bottom: 15px
+      a
+        display: inline-block
+        margin-right: 10px
+      svg
+        fill: $light-grey
+        width: 40px
+        height: 40px
+        border: 1px solid $light-grey
+        margin-top: 5px
+        cursor: pointer
+        +transition(0.25s)
+        &:hover
+          fill: $green
+          border: 1px solid $green
+  .bottom
+    padding: 30px 0
+    border-top: 1px solid $grey
+    a
+      font-size: 12px
+      color: $light-grey
+      width: 250px
+      padding-left: 60px
+      position: relative
+      +transition(0.25s)
+      svg
+        fill: $light-grey
+        +transition(0.25s)
+        width: 40px
+        position: absolute
+        left: 0
+        top: -10px
+      &:hover
+        color: #fff
+        svg
+          fill: #fff
+      @media #{$small-only}
+        margin: 0 auto
+    p
+      font-size: 12px
+      text-align: right
+      @media #{$small-only}
+        margin-top: 20px
+        text-align: center

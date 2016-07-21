@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title
+      | WUBC
+    meta name="description" content="some text goes here"
+    meta name="keywords" keywords="few words"
+    / = seo_tags
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    = stylesheet_link_tag    "home.build", media: 'all', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    = render "header"
+    = yield
+    = render "footer"
+    = javascript_include_tag "home.build", 'data-turbolinks-track' => true

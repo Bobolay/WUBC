@@ -1,0 +1,256 @@
+.home-banner style="background-image: url(#{asset_path('photo/home-banner.jpg')})"
+  .row
+    .columns
+      .text
+        .middle
+          p.main-title West Ukrainian
+          p.main-header business club
+          hr
+          p.regular Спільнота для комунікації і розвитку власників та перших осіб бізнесу.
+          a.btn
+            span Долучитись до клубу
+        .bottom
+          = inline_svg "icons/arrow-down.svg"
+          span Детальніше
+.about-us-container
+  = inline_svg "icons/logo2.svg"
+  p.section-header wubc
+  p.regular Західно український бізнес Клуб - проводить від 12 зустрічей на рік. Гостями WUBC є провідні бізнесмени країни, політики, члени інших клубів, професійні бізнес тренери, консультанти та аналітики.
+  p.regular Місія WUBC створений для підвищення якості та рентабельності своїх підприємств за рахунок обміну досвідом та особистісного росту. Клуб дає чудову можливість зустрітись з однодумцями для обміну ідеями, а також знайти нових друзів.
+.margin-block.calendar-container
+  p.section-header календар подій клубу
+  p.future-events Майбутні події
+  .row
+    .large-4.medium-12.columns
+      .event-container
+        p.date
+          | 28 
+          span жовтня 2016
+        .img style="background-image: url(#{asset_path('photo/event1.jpg')})"
+        p.description Конструктивна зустріч клубу з Юрий Романенко.
+    .large-4.medium-12.columns
+      .event-container
+        p.date
+          | 10 
+          span жовтня 2016
+        .img style="background-image: url(#{asset_path('photo/event2.jpg')})"
+        p.description Цінна інформація про цифровий захист на кожен день.
+    .large-4.medium-12.columns
+      .event-container
+        p.date
+          | 17 
+          span серпня 2016
+        .img style="background: grey"
+          .text
+            = inline_svg "icons/lock.svg"
+            p Тільки для учасників
+            a.login-button href="#" Увійти
+        p.description Зустріч з Оксаною Марусич на тему: "Включи свої можливості". Як завжди, емоційно
+  p.past-events Минулі події
+  .row
+    .large-4.medium-12.columns
+      .event-container
+        p.date
+          | 15 
+          span квітня 2016
+        .img style="background-image: url(#{asset_path('photo/event4.jpg')})"
+        p.description Конструктивна зустріч клубу з Юрий Романенко.
+    .large-4.medium-12.columns
+      .event-container
+        p.date
+          | 07 
+          span лютого 2016
+        .img style="background-image: url(#{asset_path('photo/event5.jpg')})"
+        p.description Цінна інформація про цифровий захист на кожен день.
+    .large-4.medium-12.columns
+      .event-container
+        p.date
+          | 23 
+          span січня 2016
+        .img style="background-image: url(#{asset_path('photo/event6.jpg')})"
+        p.description Зустріч з Оксаною Марусич на тему: "Включи свої можливості". Як завжди, емоційно
+  .btn-container
+    a.btn.light href="#"
+      span Переглянути всі
+.margin-block.meeting-container
+  p Перша зустріч WUBC
+  .slider-prev
+    = inline_svg "icons/arrow-left.svg"
+  .slider-next
+    = inline_svg "icons/arrow-right.svg"
+  ul.slider-1
+    li
+      .img-background style="background-image: url(#{asset_path('photo/slider1.jpg')})"
+    li
+      .img-background style="background-image: url(#{asset_path('photo/slider2.jpg')})"
+    li
+      .img-background style="background-image: url(#{asset_path('photo/slider3.jpg')})"
+.margin-block.members-container
+  .line
+  p.section-header учасники клубу
+  p.under-header Відомі люди, які є учасниками нашого клубу
+  ul.slider-2
+    li
+      .img-background style="background-image: url(#{asset_path('photo/slider-member-1.jpg')})"
+    li
+      .img-background style="background-image: url(#{asset_path('photo/slider-member-2.jpg')})"
+    li
+      .img-background style="background-image: url(#{asset_path('photo/slider-member-3.jpg')})"
+.join-us-container
+  .line
+  p.title Бажаєте приєднатись до нашого клубу
+  a href="#" Cтати учасником
+.margin-block.club-speakers-container
+  p.section-header спікери клубу
+  p.under-header Люди, які виступали з доповідями у нашому клубі
+  .block-wrapper
+    .row
+      .large-6.medium-12.columns
+        .block-container
+          .img-background style="background-image: url(#{asset_path('photo/speaker-1.jpg')})"
+          .title
+            | микола
+            br
+            | воронін
+          .hover-block
+            p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
+            a href="#" = inline_svg "icons/arrow-right.svg"
+      .large-3.medium-6.columns
+        .block-container
+          .img-background style="background-image: url(#{asset_path('photo/speaker-2.jpg')})"
+          .title
+            | назарій
+            br
+            | папіж
+          .hover-block
+            p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
+            a href="#" = inline_svg "icons/arrow-right.svg"
+      .large-3.medium-6.columns
+        .block-container
+          .img-background style="background-image: url(#{asset_path('photo/speaker-3.jpg')})"
+          .title
+            | павло
+            br
+            | коренєв
+          .hover-block
+            p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
+            a href="#" = inline_svg "icons/arrow-right.svg"
+      .large-3.medium-12.columns
+        .block-container.hide
+          .img-background style="background-image: url(#{asset_path('photo/speaker-4.jpg')})"
+          .title
+            | антон
+            br
+            | курбан
+          .hover-block
+            p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
+            a href="#" = inline_svg "icons/arrow-right.svg"
+      .large-6.medium-6.columns
+        .block-container.hide
+          .img-background style="background-image: url(#{asset_path('photo/speaker-5.jpg')})"
+          .title
+            | петро
+            br
+            | василь
+          .hover-block
+            p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
+            a href="#" = inline_svg "icons/arrow-right.svg"
+      .large-3.medium-6.columns
+        .block-container.hide
+          .img-background style="background-image: url(#{asset_path('photo/speaker-6.jpg')})"
+          .title
+            | богдан
+            br
+            | огірко
+          .hover-block
+            p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
+            a href="#" = inline_svg "icons/arrow-right.svg"
+  .btn-container
+    a.btn.light href="#"
+      span Переглянути всіх
+  .subheader блог та новини
+  .news-wrapper
+    .row
+      .large-4.columns
+        .news-block
+          .img style="background-image: url(#{asset_path('photo/new-1.jpg')})"
+          .bottom-text
+            .date
+              p.day 28
+              p.month 10.2016
+            .text 
+              p
+                | Конструктивна зустріч клубу з Юрий Романенко на тему: "Положення України в 2016р. ризики,сценарії і ...
+      .large-4.columns
+        .news-block
+          .img style="background-image: url(#{asset_path('photo/new-2.jpg')})"
+          .bottom-text
+            .date
+              p.day 08
+              p.month 04.2016
+            .text 
+              p
+                | Зустріч з Оксаною Марусич на тему: "Включи свої можливості".
+      .large-4.columns
+        .news-block
+          .img style="background-image: url(#{asset_path('photo/new-3.jpg')})"
+          .bottom-text
+            .date
+              p.day 15
+              p.month 03.2016
+            .text 
+              p
+                | Семінар - "Як втілювати успішні бізнес-практики в сім'ї" від сімейного психолога - Тетяни Богашевої.
+  .btn-container
+    a.btn.light href="#"
+      span Всі новини
+.companies
+  p.subheader компанії учасники клубу
+  .row
+    .columns
+      .slider-container
+        .carousel-slider-prev
+          = inline_svg "icons/arrow-left.svg"
+        .carousel-slider-next
+          = inline_svg "icons/arrow-right.svg"
+        ul.slider-3
+          li.company-block
+            .img style="background-image: url(#{asset_path('photo/company-1.png')})"
+            p.name monotoning
+            p.description Невеликий опис про компанію
+          li.company-block
+            .img style="background-image: url(#{asset_path('photo/company-2.png')})"
+            p.name monoromb
+            p.description Невеликий опис про компанію
+          li.company-block
+            .img style="background-image: url(#{asset_path('photo/company-3.png')})"
+            p.name monoromb
+            p.description Невеликий опис про компанію
+          li.company-block
+            .img style="background-image: url(#{asset_path('photo/company-2.png')})"
+            p.name monoromb
+            p.description Невеликий опис про компанію
+          li.company-block
+            .img style="background-image: url(#{asset_path('photo/company-1.png')})"
+            p.name monoromb
+            p.description Невеликий опис про компанію
+          li.company-block
+            .img style="background-image: url(#{asset_path('photo/company-1.png')})"
+            p.name monotoning
+            p.description Невеликий опис про компанію
+          li.company-block
+            .img style="background-image: url(#{asset_path('photo/company-2.png')})"
+            p.name ventors
+            p.description Невеликий опис про компанію
+          li.company-block
+            .img style="background-image: url(#{asset_path('photo/company-3.png')})"
+            p.name monoromb
+            p.description Невеликий опис про компанію
+          li.company-block
+            .img style="background-image: url(#{asset_path('photo/company-2.png')})"
+            p.name monotoning
+            p.description Невеликий опис про компанію
+          li.company-block
+            .img style="background-image: url(#{asset_path('photo/company-1.png')})"
+            p.name ventors
+            p.description Невеликий опис про компанію
