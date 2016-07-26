@@ -7,6 +7,10 @@
 
 #= require global
 
+#= require blurfix
+
+#= require main
+
 #= require scroll-banner
 
 #= require plugins/jquery.bxslider
@@ -16,3 +20,5 @@
 #= require header
 
 #= require button
+
+#= require form

@@ -1,0 +1,170 @@
+.event-one-wrapper
+  .event-one-banner
+    position: relative
+    height: 600px
+    background-color: $dark-grey
+  .main-info
+    margin-top: -400px
+    position: relative
+  .title-field
+    border-left: 1px solid #fff
+    padding-left: 30px
+    padding-bottom: 30px
+    .date
+      font-size: 2.5em
+      color: $green
+      span
+        font-size: 1.125rem
+        color: $light-grey
+        font-style: italic
+    .event-name
+      font-size: 2.25em
+      line-height: 2.75rem
+      color: #fff
+      text-transform: uppercase
+  .event-photo
+    height: 600px
+    position: relative
+    @media #{$small-only}
+      height: 300px
+    p
+      color: #fff
+      font-style: italic
+      position: absolute
+      z-index: 1
+      left: 50%
+      bottom: 20px
+      +translate(-50%,0)
+      @media #{$small-only}
+        width: 180px
+  .main-text
+    max-width: 1000px
+    margin: 0 auto
+    color: $dark-grey
+    .event-info-container
+      padding: 70px 0
+      @media #{$medium-only}
+        padding: 70px 50px
+      .event-info
+        border-right: 1px solid $dirt-white
+        margin-bottom: 20px
+        .title
+          font-family: Vremena
+          font-size: 1.125em
+          color: $green
+        a
+          display: inline-block
+          margin-right: 10px
+        svg
+          fill: $grey
+          width: 40px
+          height: 40px
+          border: 1px solid $light-grey
+          margin-top: 5px
+          cursor: pointer
+          +transition(0.25s)
+          &:hover
+            fill: $green
+            border: 1px solid $green
+      .link
+        margin: 15px 0
+    .bigger
+      font-size: 1.375em
+      font-style: italic
+      line-height: 1.875rem
+      & ~ p
+        margin: 30px 0
+    .link-container
+      text-align: center
+      margin: 70px 0
+    .navigation-container
+      border-top: 1px solid $light-grey  
+      +clearfix
+      margin-bottom: 150px
+      & > p
+        font-family: Vremena
+        font-size: 1.125em
+        color: $grey
+        text-transform: uppercase
+        width: 180px
+        margin: 50px auto
+      .date
+        font-size: 2.5em
+        color: $green
+        span
+          font-size: 1.125rem
+          color: $light-grey
+          font-style: italic
+        @media #{$small-only}
+          font-size: 1.5em
+          span
+            font-size: 0.75rem
+      .main
+        +clearfix
+        position: relative
+        .img
+          width: 200px
+          height: 200px
+          @media #{$small-only}
+            width: 100px
+            height: 100px
+        p
+          font-size: 1.25em
+          color: $grey
+          max-width: 200px
+          line-height: 1.75rem
+          @media #{$small-only}
+            font-size: 0.875em
+            line-height: 1rem
+      span
+        color: $grey
+        font-style: italic
+        @media #{$small-only}
+          display: none
+      svg
+        fill: $grey
+        stroke: $grey
+        width: 40px
+        position: relative
+        top: 10px
+      .left-nav-container
+        float: left
+        text-align: left
+        @media #{$small-only}
+          width: 120px
+        .date
+          padding-left: 15px
+          border-left: 1px solid $green
+          @media #{$small-only}
+            padding-left: 5px
+        .main
+          .img
+            float: left
+          p
+            @media #{$large-up}
+              position: absolute
+              left: 220px
+              width: 200px
+        svg
+          margin-right: 15px
+      .right-nav-container
+        float: right
+        text-align: right
+        @media #{$small-only}
+          width: 120px
+        .date
+          text-align: right
+          padding-right: 15px
+          border-right: 1px solid $green
+          @media #{$small-only}
+            padding-right: 5px
+        .main
+          .img
+            float: right
+          p
+            @media #{$large-up}
+              position: absolute
+              right: 220px
+              width: 200px
+        svg
+          margin-left: 15px

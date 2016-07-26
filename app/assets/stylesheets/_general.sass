@@ -33,6 +33,13 @@ a
   display: block
   text-decoration: none
 
+.link
+  color: #fff
+  padding: 10px 15px
+  background-color: $green
+  display: inline-block
+  font-style: italic
+
 .margin-block
   margin: 15px
 
@@ -89,3 +96,55 @@ ul
 
 .active-slide
   +grayscale
+
+.slider-container
+  .slider-prev, .slider-next
+    position: absolute
+    cursor: pointer
+    z-index: 1
+    width: 40px
+    height: 40px
+    border: 1px solid #fff
+    top: 50%
+    +translate(0,-50%)
+    +transition(0.25s)
+    @media #{$medium-up}
+      width: 60px
+      height: 60px
+    svg
+      position: absolute
+      top: 50%
+      left: 50%
+      +translate(-50%,-50%)
+      fill: #fff
+      stroke: #fff
+      width: 20px
+      +transition(0.25s)
+      @media #{$medium-up}
+        width: 30px
+    &:hover
+      border: 1px solid $green
+      svg
+        fill: $green
+        stroke: $green
+  .slider-prev
+    left: 10px
+    @media #{$medium-only}
+      left: 30px
+    @media #{$large-up}
+      left: 100px
+  .slider-next
+    right: 10px
+    @media #{$medium-only}
+      right: 30px
+    @media #{$large-up}
+      right: 100px
+  .slider-1
+    height: 100%
+
+.go-left
+  @media #{$large-up}
+    float: left !important
+.go-right
+  @media #{$large-up}
+    float: right !important

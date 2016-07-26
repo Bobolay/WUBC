@@ -104,9 +104,12 @@
         font-style: italic
         font-size: 0.875rem
         color: $grey
-    .img
+    .img-container
       height: 250px
       left: -1px
+      position: relative
+      .blur
+        -webkit-filter: blur(3px)
       .text
         position: absolute
         top: 50%
@@ -134,7 +137,7 @@
     .description
       color: $grey
       padding: 20px
-  .past-events ~ .row
+  .past-event
     +grayscale
   .btn-container
     text-align: center
@@ -151,49 +154,6 @@
     left: 50%
     top: 20px
     +translate(-50%,0)
-  .slider-prev, .slider-next
-    position: absolute
-    cursor: pointer
-    z-index: 1
-    width: 40px
-    height: 40px
-    border: 1px solid #fff
-    top: 50%
-    +translate(0,-50%)
-    +transition(0.25s)
-    @media #{$medium-up}
-      width: 60px
-      height: 60px
-    svg
-      position: absolute
-      top: 50%
-      left: 50%
-      +translate(-50%,-50%)
-      fill: #fff
-      stroke: #fff
-      width: 20px
-      +transition(0.25s)
-      @media #{$medium-up}
-        width: 30px
-    &:hover
-      border: 1px solid $green
-      svg
-        fill: $green
-        stroke: $green
-  .slider-prev
-    left: 10px
-    @media #{$medium-only}
-      left: 30px
-    @media #{$large-up}
-      left: 100px
-  .slider-next
-    right: 10px
-    @media #{$medium-only}
-      right: 30px
-    @media #{$large-up}
-      right: 100px
-  .slider-1
-    height: 100%
 .members-container
   position: relative
   background-color: $dark-grey
@@ -228,7 +188,7 @@
     margin: 0 auto
     line-height: 2.25rem
   a
-    // vremena
+    font-family: Vremena
     font-size: 1.125em
     display: inline-block
     margin-top: 30px
@@ -316,41 +276,12 @@
   .btn-container
     text-align: center
     margin-bottom: 70px
-  .news-wrapper
+  .news-container
     padding: 50px 0
-  .news-block
-    max-width: 500px
-    margin: 30px auto
-    .img
-      height: 250px
-      @media #{$small-only}
-        height: 200px
-    .bottom-text
-      +clearfix
-      margin-top: 20px
-      .date
-        float: left
-        border-right: 1px solid $green
-        width: 70px
-      .day
-        font-size: 3.125em
-        color: $green
-        line-height: 50px
-      .month
-        font-size: 0.875em
-        color: $light-grey
-        font-style: italic
-      .text
-        float: left
-        width: calc(100% - 70px)
-        padding-left: 15px
-        border-left: 1px solid $green
-        position: relative
-        left: -1px
-        p
-          color: $grey
 .companies
   padding: 70px 0
+  @media #{$small-only}
+    display: none
   .slider-container
     position: relative
     margin-top: 50px
@@ -365,24 +296,24 @@
     left: 0
   .carousel-slider-next
     right: 0
+  .bx-wrapper
+    @media #{$medium-only}
+      width: 500px
   .slider-3
-    width: 260px
     margin: 0 auto
-    @media #{$medium-up}
-      width: 80%
+    padding: 0 70px
   .company-block
     text-align: center
-    width: 100%
     @media #{$medium-only}
-      width: 50%
-    @media #{$large-only}
+      width: 33%
+    @media #{$large-up}
       width: 20%
   .img
-    width: 100px
+    width: 110px
     height: 100px
     margin: 0 auto
   .name
-    // vremena
+    font-family: Vremena
     font-size: 1.125em
     color: $green
     text-transform: uppercase

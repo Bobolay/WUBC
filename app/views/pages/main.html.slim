@@ -22,25 +22,28 @@
   p.future-events Майбутні події
   .row
     .large-4.medium-12.columns
-      .event-container
+      a.event-container href=event_one_path
         p.date
           | 28 
           span жовтня 2016
-        .img style="background-image: url(#{asset_path('photo/event1.jpg')})"
+        .img-container
+          .img-background style="background-image: url(#{asset_path('photo/event1.jpg')})"
         p.description Конструктивна зустріч клубу з Юрий Романенко.
     .large-4.medium-12.columns
       .event-container
         p.date
           | 10 
           span жовтня 2016
-        .img style="background-image: url(#{asset_path('photo/event2.jpg')})"
+        .img-container
+          .img-background style="background-image: url(#{asset_path('photo/event2.jpg')})"
         p.description Цінна інформація про цифровий захист на кожен день.
     .large-4.medium-12.columns
       .event-container
         p.date
           | 17 
           span серпня 2016
-        .img style="background: grey"
+        .img-container
+          .img-background.blur style="background-image: url(#{asset_path('photo/event3.jpg')})"
           .text
             = inline_svg "icons/lock.svg"
             p Тільки для учасників
@@ -49,30 +52,33 @@
   p.past-events Минулі події
   .row
     .large-4.medium-12.columns
-      .event-container
+      .event-container.past-event
         p.date
           | 15 
           span квітня 2016
-        .img style="background-image: url(#{asset_path('photo/event4.jpg')})"
+        .img-container
+          .img-background style="background-image: url(#{asset_path('photo/event4.jpg')})"
         p.description Конструктивна зустріч клубу з Юрий Романенко.
     .large-4.medium-12.columns
-      .event-container
+      .event-container.past-event
         p.date
           | 07 
           span лютого 2016
-        .img style="background-image: url(#{asset_path('photo/event5.jpg')})"
+        .img-container
+          .img-background style="background-image: url(#{asset_path('photo/event5.jpg')})"
         p.description Цінна інформація про цифровий захист на кожен день.
     .large-4.medium-12.columns
-      .event-container
+      .event-container.past-event
         p.date
           | 23 
           span січня 2016
-        .img style="background-image: url(#{asset_path('photo/event6.jpg')})"
+        .img-container
+          .img-background style="background-image: url(#{asset_path('photo/event6.jpg')})"
         p.description Зустріч з Оксаною Марусич на тему: "Включи свої можливості". Як завжди, емоційно
   .btn-container
-    a.btn.light href="#"
+    a.btn.light href=events_path
       span Переглянути всі
-.margin-block.meeting-container
+.margin-block.meeting-container.slider-container
   p Перша зустріч WUBC
   .slider-prev
     = inline_svg "icons/arrow-left.svg"
@@ -177,11 +183,12 @@
     a.btn.light href="#"
       span Переглянути всіх
   .subheader блог та новини
-  .news-wrapper
+  .news-container
     .row
       .large-4.columns
-        .news-block
-          .img style="background-image: url(#{asset_path('photo/new-1.jpg')})"
+        a.news-block href=new_one_path
+          .img-container
+            .img-background style="background-image: url(#{asset_path('photo/new-1.jpg')})"
           .bottom-text
             .date
               p.day 28
@@ -190,8 +197,9 @@
               p
                 | Конструктивна зустріч клубу з Юрий Романенко на тему: "Положення України в 2016р. ризики,сценарії і ...
       .large-4.columns
-        .news-block
-          .img style="background-image: url(#{asset_path('photo/new-2.jpg')})"
+        a.news-block href=new_one_path
+          .img-container
+            .img-background style="background-image: url(#{asset_path('photo/new-2.jpg')})"
           .bottom-text
             .date
               p.day 08
@@ -200,8 +208,9 @@
               p
                 | Зустріч з Оксаною Марусич на тему: "Включи свої можливості".
       .large-4.columns
-        .news-block
-          .img style="background-image: url(#{asset_path('photo/new-3.jpg')})"
+        a.news-block href=new_one_path
+          .img-container
+            .img-background style="background-image: url(#{asset_path('photo/new-3.jpg')})"
           .bottom-text
             .date
               p.day 15
@@ -210,7 +219,7 @@
               p
                 | Семінар - "Як втілювати успішні бізнес-практики в сім'ї" від сімейного психолога - Тетяни Богашевої.
   .btn-container
-    a.btn.light href="#"
+    a.btn.light href=news_path
       span Всі новини
 .companies
   p.subheader компанії учасники клубу

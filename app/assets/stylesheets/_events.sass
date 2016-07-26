@@ -1,0 +1,74 @@
+.events-wrapper
+  .events-banner
+    position: relative
+    height: 500px
+    .text
+      position: relative
+      text-align: center
+      top: 50%
+      +translate(0,-50%)
+      .future-event
+        color: #fff
+        opacity: 0.5
+        font-size: 0.75em
+        text-transform: uppercase
+        display: inline-block
+        padding: 5px 20px
+        border-bottom: 1px solid rgba(188,188,188,0.5)
+      .date
+        font-size: 4.375em
+        color: $green
+        line-height: 4rem
+        @media #{$small-only}
+          font-size: 3em
+          line-height: 2.5rem
+      .month
+        font-size: 0.875em
+        color: #fff
+        font-style: italic
+      .title
+        font-size: 2em
+        color: #fff
+        line-height: 2rem
+        max-width: 600px
+        margin: 30px auto
+        @media #{$small-only}
+          font-size: 1.75em
+          line-height: 1.75rem
+  .calendar-container
+    position: relative
+    background-color: #fff
+    .current-events
+      position: relative
+      color: $green
+      font-style: italic
+      margin: 30px auto
+      width: 80px
+      cursor: pointer
+      svg
+        position: absolute
+        fill: $green
+        width: 26px
+        height: 26px
+        +transition(0.25s)
+        &.rotate
+          +rotate(180deg)
+    .expand-field
+      margin: -20px 0 30px
+      height: 0
+      text-align: center
+      +transition(0.25s)
+      &.expand
+        height: auto
+      p
+        opacity: 0
+        font-size: 14px
+        color: $green
+        font-style: italic
+        +transition(0.25s)
+        &.show-it
+          opacity: 1
+    .line
+      background-color: $green
+    .section-header
+      font-size: 1.75em

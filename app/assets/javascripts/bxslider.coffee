@@ -52,7 +52,7 @@ $(document).ready ->
   slider3 = $('.slider-3').bxSlider
     pager: false
     controls: false
-    minSlides: 1
+    minSlides: 3
     maxSlides: 5
     slideWidth: $blockWidth
     slideMargin: 10
