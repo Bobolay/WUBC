@@ -155,4 +155,5 @@ if use_custom_scroll_speed
         })
 
 $(".menu-button").on "click", ()->
-  $('.menu').toggleClass("opened")
+  $(this).toggleClass("opened")
+  $('.menu-wrapper').toggleClass("opened")

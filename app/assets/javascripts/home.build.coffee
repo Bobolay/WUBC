@@ -4,6 +4,7 @@
 #= require plugins/jquery.appear
 #= require appear-initialize
 #= require plugins/jquery-easing
+#= require plugins/jquery.scrolldelta
 
 #= require global
 
