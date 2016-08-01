@@ -1,14 +1,15 @@
-.home-banner style="background-image: url(#{asset_path('photo/home-banner.jpg')})"
+.home-banner
+  .banner-background style="background-image: url(#{asset_path('photo/home-banner-background.jpg')})"
+  .banner-man style="background-image: url(#{asset_path('photo/home-banner-man.png')})"
   .row
     .columns
       .text
-        .middle
-          p.main-title West Ukrainian
-          p.main-header business club
-          hr
-          p.regular Спільнота для комунікації і розвитку власників та перших осіб бізнесу.
-          a.btn
-            span Долучитись до клубу
+        p.main-title West Ukrainian
+        p.main-header business club
+        hr
+        p.regular Спільнота для комунікації і розвитку власників та перших осіб бізнесу.
+        a.btn
+          span Долучитись до клубу
         .bottom
           = inline_svg "icons/arrow-down.svg"
           span Детальніше
@@ -96,20 +97,45 @@
   p.section-header учасники клубу
   p.under-header Відомі люди, які є учасниками нашого клубу
   ul.slider-2
-    li.slide
+    li.slide.active-slide
       .img-background style="background-image: url(#{asset_path('photo/slider-member-1.jpg')})"
+      .overlay
+      .text
+        p.title
+          | віктор
+          br
+          | кобзар
+        p.subtitle Бізнес аналітик
+        p.comment Провів вечір в компанії хлопців з Західно-українського бізнес клубу. Я виступив з доповіддю, а потім послухав їх бачення щодо ситуації і дав низку порад як розвивати регіон.
     li.slide
       .img-background style="background-image: url(#{asset_path('photo/slider-member-2.jpg')})"
+      .overlay
+      .text
+        p.title
+          | віктор
+          br
+          | кобзар
+        p.subtitle Бізнес аналітик
+        p.comment Провів вечір в компанії хлопців з Західно-українського бізнес клубу. Я виступив з доповіддю, а потім послухав їх бачення щодо ситуації і дав низку порад як розвивати регіон.
     li.slide
       .img-background style="background-image: url(#{asset_path('photo/slider-member-3.jpg')})"
-    li.slide
-      .img-background style="background-image: url(#{asset_path('photo/slider-member-2.jpg')})"
-    li.slide
-      .img-background style="background-image: url(#{asset_path('photo/slider-member-1.jpg')})"
-    li.slide
-      .img-background style="background-image: url(#{asset_path('photo/slider-member-3.jpg')})"
-    li.slide
-      .img-background style="background-image: url(#{asset_path('photo/slider-member-2.jpg')})"
+      .overlay
+      .text
+        p.title
+          | віктор
+          br
+          | кобзар
+        p.subtitle Бізнес аналітик
+        p.comment Провів вечір в компанії хлопців з Західно-українського бізнес клубу. Я виступив з доповіддю, а потім послухав їх бачення щодо ситуації і дав низку порад як розвивати регіон.
+  .slider-selectors
+    .slider-prev
+      = inline_svg "icons/arrow-left.svg"
+    .current-slide
+      span.number
+       | 1
+      span &#47;3
+    .slider-next
+      = inline_svg "icons/arrow-right.svg"
 .join-us-container
   .line
   p.title Бажаєте приєднатись до нашого клубу

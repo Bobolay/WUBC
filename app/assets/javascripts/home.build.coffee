@@ -15,6 +15,7 @@
 #= require scroll-banner
 
 #= require plugins/jquery.bxslider
+#= require plugins/jquery.featureCarousel.min
 
 #= require bxslider
 

@@ -19,32 +19,33 @@ $(document).ready ->
 
 $(document).ready ->
   width = $(".members-container").width()
-  activeSlide = $(".active-slide").width()
+  console.log(width)
   slider2 = $('.slider-2').bxSlider
-    controls: true
+    controls: false
     pager: false
+    pause: 30000
+    # slideWidth: width*0.8
+    # minSlides: 2
+    # maxSlides: 3
+    moveSlides: 1
     infiniteLoop: true
-    hideControlOnEnd: true
-    speed: 500
-    pause: 10000
-    minSlides: 3
-    maxSlides: 3
-    slideWidth: (width-activeSlide)/2
     slideMargin: 50
     auto: true
-    infiniteLoop: true
-    onSliderLoad: ->
-      $('.slider2->div:not(.bx-clone)').eq(1).addClass('active-slide')
-    onSlideBefore: ($slideElement)->
+    onSliderLoad: ()->
+      $('.slider-2>div:not(.bx-clone)').eq(0).addClass('active-slide')
+    onSlideBefore: ($slideElement, oldIndex, newIndex)->
       $('.slide').removeClass('active-slide')
-      $($slideElement).next().addClass('active-slide')
-
-  # $('.slider-prev').click ->
-  #   current = slider2.getCurrentSlide()
-  #   slider2.goToPrevSlide(current) - 1
-  # $('.slider-next').click ->
-  #   current = slider2.getCurrentSlide()
-  #   slider2.goToNextSlide(current) + 1
+      $($slideElement).addClass('active-slide')
+    onSlideAfter: ($slideElement, oldIndex, newIndex)->
+      $('.current-slide .number').text((slider2.getCurrentSlide()+1))
+      $('.slide').removeClass('active-slide')
+      $($slideElement).addClass('active-slide')
+  $('.slider-prev').click ->
+    current = slider2.getCurrentSlide()
+    slider2.goToPrevSlide(current) - 1
+  $('.slider-next').click ->
+    current = slider2.getCurrentSlide()
+    slider2.goToNextSlide(current) + 1
 
 
 $(document).ready ->
