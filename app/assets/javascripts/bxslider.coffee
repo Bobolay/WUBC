@@ -23,7 +23,7 @@ $(document).ready ->
     pager: false
     pause: 8000
     infiniteLoop: false
-    auto: true
+    # auto: true
 
     onSlideBefore: ($slideElement, oldIndex, newIndex)->
       $('.current-slide .number').text((slider2.getCurrentSlide()+1))

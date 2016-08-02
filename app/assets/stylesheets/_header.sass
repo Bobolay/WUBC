@@ -112,7 +112,13 @@
     margin-top: -400px
     +transition(1s)
     @media #{$small-only}
-      height: 600px
-      margin-top: -600px
+      height: 400px
+      margin-top: -400px
     &.opened
       margin-top: 0
+    .contacts-field
+      @media #{$small-only}
+        display: none
+    .top
+      @media #{$small-only}
+        padding: 30px 0

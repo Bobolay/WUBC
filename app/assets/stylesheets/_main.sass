@@ -206,12 +206,17 @@
     @media #{$xxlarge-up}
       width: $slide-width !important
     .img-background
-      top: 50px
-      left: 50px
-      right: 50px
-      bottom: 50px
+      top: 0px
+      left: 0px
+      right: 0px
+      bottom: 0px
       width: initial
       height: initial
+      @media #{$xxlarge-up}
+        top: 50px
+        left: 50px
+        right: 50px
+        bottom: 50px
       +transition(0.5s)
     &.active-slide
       opacity: 1
