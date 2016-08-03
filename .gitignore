@@ -15,3 +15,9 @@
 /log/*
 !/log/.keep
 /tmp
+
+public
+db/schema.rb
+vendor/assets/bower_components
+.idea
+tmp

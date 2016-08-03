@@ -119,6 +119,10 @@
     border-left: 1px solid $main
     max-width: 500px
     margin: 0 auto 50px
+    cursor: pointer
+    &.past-event
+      +transition(0.25s)
+      +grayscale
     .date
       font-size: 2.5rem
       color: $main
@@ -131,6 +135,31 @@
       height: 250px
       left: -1px
       position: relative
+      overflow: hidden
+      .img-background
+        +transition(0.25s)
+      .hover-text
+        position: absolute
+        left: 50%
+        top: 50%
+        +translate(-50%,-50%)
+        padding: 5px 10px
+        opacity: 0
+        +transition(0.25s)
+        p
+          font-style: italic
+          color: #fff
+          position: relative
+          z-index: 1
+        &:before
+          content: ''
+          position: absolute
+          width: 100%
+          height: 100%
+          left: 0
+          top: 0
+          background-color: #000
+          opacity: 0.5
       .blur
         -webkit-filter: blur(3px)
       .text
@@ -160,8 +189,16 @@
     .description
       color: $grey
       padding: 20px
-  .past-event
-    +grayscale
+      +transition(0.25s)
+    &:hover
+      .img-background
+        +scale(1.1)
+      .description
+        color: $green
+      .hover-text
+        opacity: 1
+      &.past-event
+        +disable-grayscale
   .btn-container
     text-align: center
 .meeting-container
@@ -350,11 +387,11 @@
       @media #{$small-only}
         display: none
     .title
+      font-family: Vremena
       position: absolute
       z-index: 2
       top: 30px
       left: 20px
-      // vremena
       color: #fff
       text-transform: uppercase
       font-size: 1.375rem

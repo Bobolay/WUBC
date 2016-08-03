@@ -29,14 +29,18 @@
           span жовтня 2016
         .img-container
           .img-background style="background-image: url(#{asset_path('photo/event1.jpg')})"
+          .hover-text
+            p Детальніше
         p.description Конструктивна зустріч клубу з Юрий Романенко.
     .large-4.medium-12.columns
-      .event-container
+      a.event-container href=event_one_path
         p.date
           | 10 
           span жовтня 2016
         .img-container
           .img-background style="background-image: url(#{asset_path('photo/event2.jpg')})"
+          .hover-text
+            p Детальніше
         p.description Цінна інформація про цифровий захист на кожен день.
     .large-4.medium-12.columns
       .event-container
@@ -53,28 +57,34 @@
   p.past-events Минулі події
   .row
     .large-4.medium-12.columns
-      .event-container.past-event
+      a.event-container.past-event href=event_one_path
         p.date
           | 15 
           span квітня 2016
         .img-container
           .img-background style="background-image: url(#{asset_path('photo/event4.jpg')})"
+          .hover-text
+            p Детальніше
         p.description Конструктивна зустріч клубу з Юрий Романенко.
     .large-4.medium-12.columns
-      .event-container.past-event
+      a.event-container.past-event href=event_one_path
         p.date
           | 07 
           span лютого 2016
         .img-container
           .img-background style="background-image: url(#{asset_path('photo/event5.jpg')})"
+          .hover-text
+            p Детальніше
         p.description Цінна інформація про цифровий захист на кожен день.
     .large-4.medium-12.columns
-      .event-container.past-event
+      a.event-container.past-event href=event_one_path
         p.date
           | 23 
           span січня 2016
         .img-container
           .img-background style="background-image: url(#{asset_path('photo/event6.jpg')})"
+          .hover-text
+            p Детальніше
         p.description Зустріч з Оксаною Марусич на тему: "Включи свої можливості". Як завжди, емоційно
   .btn-container
     a.btn.light href=events_path
@@ -215,6 +225,8 @@
         a.news-block href=new_one_path
           .img-container
             .img-background style="background-image: url(#{asset_path('photo/new-1.jpg')})"
+            .hover-text
+              p Детальніше
           .bottom-text
             .date
               p.day 28
@@ -226,6 +238,8 @@
         a.news-block href=new_one_path
           .img-container
             .img-background style="background-image: url(#{asset_path('photo/new-2.jpg')})"
+            .hover-text
+              p Детальніше
           .bottom-text
             .date
               p.day 08
@@ -237,6 +251,8 @@
         a.news-block href=new_one_path
           .img-container
             .img-background style="background-image: url(#{asset_path('photo/new-3.jpg')})"
+            .hover-text
+              p Детальніше
           .bottom-text
             .date
               p.day 15

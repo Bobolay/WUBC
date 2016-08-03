@@ -78,8 +78,33 @@
   .img-container
     position: relative
     height: 250px
+    overflow: hidden
     @media #{$small-only}
       height: 200px
+    .img-background
+      +transition(0.25s)
+    .hover-text
+      position: absolute
+      left: 50%
+      top: 50%
+      +translate(-50%,-50%)
+      padding: 5px 10px
+      opacity: 0
+      +transition(0.25s)
+      p
+        font-style: italic
+        color: #fff
+        position: relative
+        z-index: 1
+      &:before
+        content: ''
+        position: absolute
+        width: 100%
+        height: 100%
+        left: 0
+        top: 0
+        background-color: #000
+        opacity: 0.5
     .type
       position: absolute
       left: 0
@@ -114,3 +139,12 @@
       left: -1px
       p
         color: $grey
+        +transition(0.25s)
+  &:hover
+    .img-background
+      +scale(1.1)
+    .text
+      p
+        color: $green
+    .hover-text
+      opacity: 1
