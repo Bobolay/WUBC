@@ -16,7 +16,7 @@ class PagesController < ApplicationController
   end
 
   def news
-
+    @articles = t("articles")
   end
 
   def new_one

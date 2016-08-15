@@ -146,17 +146,18 @@
             .text 
               p
                 | Зустріч з Оксаною Марусич на тему: "Включи свої можливості".
-      .large-4.columns
-        a.news-block href=new_one_path
-          .img-container
-            .img-background style="background-image: url(#{asset_path('photo/new-1.jpg')})"
-            .hover-text
-              p Детальніше
-            p.type Блог
-          .bottom-text
-            .date
-              p.day 15
-              p.month 03.2016
-            .text 
-              p
-                | Семінар - "Як втілювати успішні бізнес-практики в сім'ї" від сімейного психолога - Тетяни Богашевої.
+      - @articles.each do |item|
+        .large-4.columns
+          a.news-block href=new_one_path
+            .img-container
+              .img-background style="background-image: url(#{asset_path("photo/#{item[:image]}")})"
+              .hover-text
+                p Детальніше
+              p.type Блог
+            .bottom-text
+              .date
+                p.day 15
+                p.month 03.2016
+              .text 
+                p
+                  = item[:description]
