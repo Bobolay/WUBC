@@ -49,7 +49,7 @@ gem 'slim-rails'
 
 gem 'bower-rails'
 
-gem "protected_attributes"
+gem 'protected_attributes'
 
 gem 'rails_admin'
 gem 'rails_admin_nestable'
@@ -78,7 +78,7 @@ gem 'quiet_assets'
 
 gem 'kaminari'
 
-gem "htmlcompressor"
+gem 'htmlcompressor'
 gem 'rack-page_caching'
 
 #gem 'paperclip-optimizer'
@@ -87,8 +87,18 @@ gem 'rack-page_caching'
 #gem 'attachable', path:"/media/data/pasha/gems/attachable"
 #gem 'cms', path: "/media/data/pasha/gems/cms"
 
-# gem 'cms', github: "pkorenev/cms"
+gem 'cms', github: 'pkorenev/cms'
 
 gem 'require_reloader'
 
-gem 'thin'
+gem 'puma'
+
+gem 'globalize'
+gem 'rails_admin_globalize_field'
+gem 'russian'
+
+gem 'figaro'
+
+gem 'pg'
+
+gem "cancancan"

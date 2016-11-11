@@ -1,0 +1,26 @@
+.events-wrapper
+  .events-banner
+    / .img-background style="background-image: url(#{asset_path('photo/banner-events.jpg')})"
+    .img-background style="background-color: #bcbcbc"
+    .text
+      p.future-event
+        | майбутня
+        br
+        | подія
+      p.date 28
+      p.month жовтня 2016
+      p.title Зустріч з Іваном Герасимовичем на тему: "Включи свої можливості".
+      a.btn href="#"
+        span Переглянути
+  .calendar-container
+    .line
+    p.section-header календар подій клубу
+    p.current-events.choose-option
+      | Всі події
+      = inline_svg "icons/arrow-down.svg"
+    .expand-field
+      p.future Майбутні
+      p.past Минулі
+    .row.events-row
+      - @events.each do |event|
+        = render "event", event: event

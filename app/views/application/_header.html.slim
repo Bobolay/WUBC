@@ -1,62 +1,25 @@
 .header-container
-  .menu-wrapper
-    .row.top
-      .large-4.medium-3.columns
-        p.title розділи
-        .pages
-          .row
-            .large-6.medium-12.small-6.columns
-              a href=root_path Головна
-              br
-              a href="#" Про клуб
-              br
-              a href="#" Події
-              br
-              a href="#" Блог та новини
-              br
-            .large-6.medium-12.small-6.columns
-              a href="#" Учасники
-              br
-              a href="#" Партнери
-              br
-              a href="#" Контакти
-      .large-4.medium-4.columns.contacts-field
-        p.title контакти
-        .contacts
-          .row
-            .large-12.medium-12.small-6.columns
-              span тел.
-              p +38 (067) 341 39 49
-              span e-mail
-              p
-                | office
-                span @
-                | wubc.club
-            .large-12.medium-12.small-6.columns
-              span соц.
-              br
-              a = inline_svg "icons/social-fb.svg"
-              a = inline_svg "icons/social-google.svg"
-      .large-4.medium-5.columns
-        p.title особистий кабінет
-        form
-          .group
-            input type="text"
-              span.bar
-            label Логін
-          .group
-            input type="password"
-              span.bar
-            label Пароль
-          button type="submit" Вхід
-          p або
-          a href="#" Стати учасником
+  = render "menu"
   .navigation
     a.logo href=root_path
       = inline_svg "icons/logo.svg"
       p wubc
     .menu-button
-      .menu-button-lines  
-    a.login-field href="#"
-      p Логін
-      = inline_svg "icons/lock.svg"
+      .menu-button-lines
+    .login-field href="#" class=("logged" if current_user)
+      - if current_user
+        .user-icon
+          - user_image = current_user.avatar.exists? ? current_user.avatar.url : nil
+          - if user_image
+            img src=user_image
+          - else
+            = embedded_svg_from_assets("icons/user_no_avatar.svg")
+        .user-info-panel
+          .user-name
+            = current_user.full_name_or_email(false)
+          .logout-link href=destroy_user_session_path data-method="delete"
+            |Sign out
+      - else
+        a href=new_user_session_path
+          p Логін
+          = inline_svg "icons/lock.svg"

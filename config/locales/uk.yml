@@ -1,4 +1,13 @@
 uk:
+  menu:
+    home: "Головна"
+    about_us: "Про клуб"
+    events: "Події"
+    articles: "Статті"
+    members: "Члени клубу"
+    partners: "Партнери"
+    contacts: "Контакти"
+
   articles:
     -
       title: text

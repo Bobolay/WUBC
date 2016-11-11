@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    = seo_tags
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    = stylesheet_link_tag    "application", media: 'all', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    = render "header"
+    = content_for?(:cabinet_layout) ?  content_for(:cabinet_layout) : yield
+    = render "footer"
+    = javascript_include_tag "application", 'data-turbolinks-track' => true

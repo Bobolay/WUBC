@@ -24,3 +24,5 @@
 #= require button
 
 #= require form
+
+#= require user
