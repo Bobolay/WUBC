@@ -1,0 +1,39 @@
+- u = current_user || User.new
+p.title особистий кабінет
+- if !current_user
+  = simple_form_for User.new, as: :user,  url: new_user_session_path, authenticity_token: false, enforce_utf8: false do |f|
+    .input
+      input type="text" name="user[email]"
+        span.bar
+      label Логін
+    .input
+      input type="password" name="user[password]"
+        span.bar
+      label Пароль
+    button type="submit" Вхід
+    p або
+    a href=new_user_registration_path
+      |Стати учасником
+- else
+  - show_icon = !u.avatar.exists?
+  .user-block.menu-user-block
+    .user-avatar  class=("icon" if show_icon)
+      - if show_icon
+        = embedded_svg_from_assets "icons/user_no_avatar.svg"
+      - else
+        img src=u.avatar.url
+    .user-details
+      .user-name
+        = u.full_name_or_email(true, false)
+
+      .user-events
+        | 2 майбуні зустрічі
+      .user-links
+        a.green href=edit_user_registration_path
+          |Мій акаунт
+        |
+        a.grey class="logout-link" data-method="delete" href=destroy_user_session_path
+          |Вихід
+
+
+

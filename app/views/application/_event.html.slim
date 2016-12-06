@@ -5,14 +5,16 @@
 
     .img-container
       .img-background style="background-image: url(#{asset_path('photo/event1.jpg')})" class=("blur" if !current_user)
-      - if event.premium? && !current_user
+      - if !event.past? && event.premium? && !current_user
         .text
           = inline_svg "icons/lock.svg"
           p Тільки для учасників
-          a.login-button href="#" Увійти
+          .login-link href="#" Увійти
       - else
         .hover-text
           p Детальніше
 
     p.description Конструктивна зустріч клубу з Юрий Романенко.
+
+/////////////// home premium
 

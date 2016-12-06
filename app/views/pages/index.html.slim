@@ -18,77 +18,26 @@
   p.section-header wubc
   p.regular Західно український бізнес Клуб - проводить від 12 зустрічей на рік. Гостями WUBC є провідні бізнесмени країни, політики, члени інших клубів, професійні бізнес тренери, консультанти та аналітики.
   p.regular Місія WUBC створений для підвищення якості та рентабельності своїх підприємств за рахунок обміну досвідом та особистісного росту. Клуб дає чудову можливість зустрітись з однодумцями для обміну ідеями, а також знайти нових друзів.
-.margin-block.calendar-container
-  p.section-header календар подій клубу
-  p.future-events Майбутні події
-  .row
-    .large-4.medium-12.columns
-      a.event-container href="event_one_path"
-        p.date
-          | 28 
-          span жовтня 2016
-        .img-container
-          .img-background style="background-image: url(#{asset_path('photo/event1.jpg')})"
-          .hover-text
-            p Детальніше
-        p.description Конструктивна зустріч клубу з Юрий Романенко.
-    .large-4.medium-12.columns
-      a.event-container href="event_one_path"
-        p.date
-          | 10 
-          span жовтня 2016
-        .img-container
-          .img-background style="background-image: url(#{asset_path('photo/event2.jpg')})"
-          .hover-text
-            p Детальніше
-        p.description Цінна інформація про цифровий захист на кожен день.
-    .large-4.medium-12.columns
-      .event-container
-        p.date
-          | 17 
-          span серпня 2016
-        .img-container
-          .img-background.blur style="background-image: url(#{asset_path('photo/event3.jpg')})"
-          .text
-            = inline_svg "icons/lock.svg"
-            p Тільки для учасників
-            a.login-button href="#" Увійти
-        p.description Зустріч з Оксаною Марусич на тему: "Включи свої можливості". Як завжди, емоційно
-  p.past-events Минулі події
-  .row
-    .large-4.medium-12.columns
-      a.event-container.past-event href="event_one_path"
-        p.date
-          | 15 
-          span квітня 2016
-        .img-container
-          .img-background style="background-image: url(#{asset_path('photo/event4.jpg')})"
-          .hover-text
-            p Детальніше
-        p.description Конструктивна зустріч клубу з Юрий Романенко.
-    .large-4.medium-12.columns
-      a.event-container.past-event href="event_one_path"
-        p.date
-          | 07 
-          span лютого 2016
-        .img-container
-          .img-background style="background-image: url(#{asset_path('photo/event5.jpg')})"
-          .hover-text
-            p Детальніше
-        p.description Цінна інформація про цифровий захист на кожен день.
-    .large-4.medium-12.columns
-      a.event-container.past-event href="event_one_path"
-        p.date
-          | 23 
-          span січня 2016
-        .img-container
-          .img-background style="background-image: url(#{asset_path('photo/event6.jpg')})"
-          .hover-text
-            p Детальніше
-        p.description Зустріч з Оксаною Марусич на тему: "Включи свої можливості". Як завжди, емоційно
-  .btn-container
-    a.btn.light href=events_path
-      span Переглянути всі
+- if @future_events.try(:any?) || @past_events.try(:any?)
+  .margin-block.calendar-container
+    p.section-header календар подій клубу
+    - if @future_events.try(:any?)
+      p.future-events Майбутні події
+
+      .row
+        - @future_events.each do |event|
+          = render "event", event: event
+
+    - if @past_events.try(:any?)
+      p.past-events Минулі події
+      .row
+        - @past_events.each do |event|
+          = render "event", event: event
+
+
+    .btn-container
+      a.btn.light href=events_path
+        span Переглянути всі
 .margin-block.meeting-container.slider-container
   p Перша зустріч WUBC
   .slider-prev

@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   include Cms::Helpers::MetaDataHelper
   include Cms::Helpers::NavigationHelper
   include Cms::Helpers::ActionView::UrlHelper
-  include Cms::Helpers::TranslationHelper
+  #include Cms::Helpers::TranslationHelper
   include ApplicationHelper
 
   #include CanCan::ControllerAdditions
@@ -22,7 +22,11 @@ class ApplicationController < ActionController::Base
 
   reload_rails_admin_config
 
-  #before_action :set_locale, unless: :admin_panel?
+  before_action :set_locale, unless: :admin_panel?
+
+  def set_locale
+    I18n.locale = I18n.default_locale
+  end
 
   def render_not_found
     render template: "errors/not_found.html.slim", status: 404, layout: false, locals: { status: 404, title: "Page not found" }

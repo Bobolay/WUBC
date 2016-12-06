@@ -1,0 +1,8 @@
+uk:
+  activerecord:
+    models:
+      event:
+        one: "Подія"
+        other: "події"
+    attributes:
+      premium: "Тільки для членів клубу"

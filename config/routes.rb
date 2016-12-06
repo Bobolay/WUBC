@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   root as: "root_without_locale", to: "alias#root_without_locale"
   get "admin(/*admin_path)", to: redirect{|params| "/#{ I18n.default_locale}/admin/#{params[:admin_path]}"}
 
+  resources :locales do
+    resources :translations, constraints: { :id => /[^\/]+/ }
+  end
+
   scope "(:locale)", locale: /#{I18n.available_locales.map(&:to_s).join("|")}/ do
     scope "cabinet", controller: "cabinet" do
       root action: "index", as: :cabinet
@@ -13,12 +17,17 @@ Rails.application.routes.draw do
 
     mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
     mount Ckeditor::Engine => '/ckeditor'
-    devise_for :users, path: "", path_names: {
+    post "sign_up", to: "users/registrations#create", as: "sign_up"
+    devise_for :users, path: "", module: "users", path_names: {
         sign_in: "login",
         sign_out: 'logout',
-        registration: "register",
-        edit: 'profile'
-    }
+        edit: 'profile',
+        #sign_up: "sign_up"
+
+        #user_registration
+    } do
+
+    end
     root to: "pages#index"
 
     resources :events, only: [:index, :show]

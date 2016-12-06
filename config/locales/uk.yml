@@ -8,6 +8,13 @@ uk:
     partners: "Партнери"
     contacts: "Контакти"
 
+  users:
+    registrations:
+      new:
+        main-info: "Основна інформація"
+        company-info: "Інформація про компанію"
+        registration-confirmation: "Підтвердження реєсьтрації"
+
   articles:
     -
       title: text

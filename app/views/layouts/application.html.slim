@@ -3,10 +3,27 @@ html
   head
     = seo_tags
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    = stylesheet_link_tag    "application", media: 'all', 'data-turbolinks-track' => true
+    sass:
+      body
+        margin: 0
+        padding: 0
+        box-sizing: border-box
+      #preloader
+        background: rgba(#00E575, 1)
+        position: fixed
+        top: 0
+        left: 0
+        height: 100%
+        width: 100%
+        z-index: 9999
+
     = csrf_meta_tags
   body
+    #preloader
+
+
     = render "header"
     = content_for?(:cabinet_layout) ?  content_for(:cabinet_layout) : yield
     = render "footer"
+    = stylesheet_link_tag    "application", media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag "application", 'data-turbolinks-track' => true

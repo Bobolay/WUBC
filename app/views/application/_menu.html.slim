@@ -36,17 +36,4 @@
             a = inline_svg "icons/social-fb.svg"
             a = inline_svg "icons/social-google.svg"
     .large-4.medium-5.columns
-      p.title особистий кабінет
-      form
-        .group
-          input type="text"
-            span.bar
-          label Логін
-        .group
-          input type="password"
-            span.bar
-          label Пароль
-        button type="submit" Вхід
-        p або
-        a href=new_user_registration_path
-          |Стати учасником
+      = render "login_form"

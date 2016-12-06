@@ -1,6 +1,8 @@
 #= require jquery
 #= require jquery_ujs
 
+#= require jquery.jcrop
+#= require papercrop
 #= require plugins/jquery.appear
 #= require appear-initialize
 #= require plugins/jquery-easing

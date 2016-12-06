@@ -89,6 +89,25 @@ module RailsAdminDynamicConfig
 
         config.include_models Cms::SitemapElement, Cms::MetaTags
 
+        config.model Cms::MetaTags do
+          field :translations, :globalize_tabs
+        end
+
+        config.model_translation Cms::MetaTags do
+          visible false
+
+          field :locale, :hidden
+          field :title
+          field :keywords
+          field :description
+        end
+
+        config.model Cms::SitemapElement do
+          field :display_on_sitemap
+          field :changefreq
+          field :priority
+        end
+
         config.include_models User, Administrator, Member
         config.model User do
           visible false
