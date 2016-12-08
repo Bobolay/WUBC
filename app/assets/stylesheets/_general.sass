@@ -26,8 +26,19 @@ $main: #00E575
 $green: #00C752
 $dirt-white: #F4F4F4
 $light-grey: #BCBCBC
-$dark-grey: #414141
 $grey: #606060
+$dark-grey: #414141
+
+.regular-grey
+  color: $grey
+
+.main-title
+  font-family: VremenaBook
+  text-transform: uppercase
+  text-align: center
+  color: $dark-grey
+  font-size: 2em
+  line-height: 1.125em
 
 a
   display: block
@@ -42,6 +53,11 @@ a
 
 .margin-block
   margin: 15px
+  
+.grey-block
+  position: relative
+  padding: 50px 0
+  background-color: $dirt-white
 
 .img
   position: relative
@@ -51,16 +67,10 @@ a
   position: absolute
   width: 100%
   height: 100%
+  top: 0
+  left: 0
   background-position: center
   background-size: cover
-
-.bx-wrapper, .bx-viewport
-  height: 100%
-  width: 100%
-  li
-    height: 100%
-ul
-  list-style: none
 
 .section-header
   font-size: 2.5rem
@@ -86,52 +96,22 @@ ul
   height: 80px
   width: 1px
   left: 50%
-  top: -40px
+  bottom: -40px
 
-.slider-container
-  .slider-prev, .slider-next
-    position: absolute
-    cursor: pointer
-    z-index: 1
-    width: 40px
-    height: 40px
-    border: 1px solid #fff
-    top: 50%
-    +translate(0,-50%)
-    +transition(0.25s)
-    @media #{$medium-up}
-      width: 60px
-      height: 60px
-    svg
-      position: absolute
-      top: 50%
-      left: 50%
-      +translate(-50%,-50%)
-      fill: #fff
-      stroke: #fff
-      width: 20px
-      +transition(0.25s)
-      @media #{$medium-up}
-        width: 30px
-    &:hover
-      border: 1px solid $green
-      svg
-        fill: $green
-        stroke: $green
-  .slider-prev
-    left: 10px
-    @media #{$medium-only}
-      left: 30px
-    @media #{$large-up}
-      left: 100px
-  .slider-next
-    right: 10px
-    @media #{$medium-only}
-      right: 30px
-    @media #{$large-up}
-      right: 100px
-  .slider-1
-    height: 100%
+.square
+  width: 100%
+  position: relative
+  &:before
+    content: ''
+    padding-bottom: 100%
+    display: block
+
+.absolute
+  position: absolute
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
 
 .go-left
   @media #{$large-up}
@@ -139,3 +119,20 @@ ul
 .go-right
   @media #{$large-up}
     float: right !important
+
+.white-banner
+  position: relative
+  height: 400px
+  text-align: center
+  z-index: 1
+  p
+    font-family: Vremena
+    font-size: 3.75em
+    color: $dark-grey
+    text-transform: uppercase
+    position: relative
+    top: 50%
+  @media #{$small-only}
+    height: 300px
+  .line
+    background: $green

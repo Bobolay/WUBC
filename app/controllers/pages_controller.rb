@@ -7,6 +7,10 @@ class PagesController < ApplicationController
   #   set_page_metadata(:home)
   end
 
+  def about_us
+
+  end
+
   def events
 
   end

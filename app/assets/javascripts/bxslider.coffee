@@ -1,4 +1,5 @@
 $(document).ready ->
+
   slider = $('.slider-1').bxSlider
     controls: false
     pager: false
@@ -15,7 +16,8 @@ $(document).ready ->
     current = slider.getCurrentSlide()
     slider.goToNextSlide(current) + 1
 
-$(document).ready ->
+
+
   width = $(".members-container").width()
   console.log(width)
   slider2 = $('.slider-2').bxSlider
@@ -42,7 +44,7 @@ $(document).ready ->
     slider2.goToNextSlide(current) + 1
 
 
-$(document).ready ->
+
   $blockWidth = $('.companies .company-block').width()
   slider3 = $('.slider-3').bxSlider
     pager: false
@@ -57,3 +59,19 @@ $(document).ready ->
   $('.carousel-slider-next').click ->
     current = slider3.getCurrentSlide()
     slider3.goToNextSlide(current) + 1
+
+
+
+  # slider4 = $('.slider-4').bxSlider
+  #   pager: false
+  #   controls: false
+  #   auto: true
+  #   pause: 8000
+  # $('.slider-prev').click ->
+  #   alert('qwe')
+  #   current = slider4.getCurrentSlide()
+  #   slider4.goToPrevSlide(current) - 1
+  # $('.slider-next').click ->
+  #   alert('qwe')
+  #   current = slider4.getCurrentSlide()
+  #   slider4.goToNextSlide(current) + 1

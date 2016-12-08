@@ -8,8 +8,6 @@
 
 #= require global
 
-#= require blurfix
-
 #= require main
 
 #= require scroll-banner

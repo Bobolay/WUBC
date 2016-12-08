@@ -1,0 +1,65 @@
+.about-us-wrapper
+
+  .about-us-text
+    .regular-grey
+      margin: 20px 0
+
+  .collage
+    padding: 50px 0
+
+    .square-half
+      &:before
+        padding-bottom: 50%
+
+  .member-values-container
+    padding: 50px 0
+    .member-value
+      text-align: center
+      min-height: 220px
+      width: 90%
+      margin: 0 auto
+      @media #{$small-only}
+        min-height: initial
+        height: auto
+        width: 100%
+        margin: 30px 0
+      .title
+        text-transform: uppercase
+        color: $green
+        font-size: 1.25rem
+        font-family: Vremena
+        font-weight: bold
+      .line-separator
+        width: 50px
+        height: 1px
+        background: $light-grey
+        margin: 20px auto
+
+  .activity-slider-container
+    width: 100%
+    height: 500px
+    position: relative
+    .fade-block
+      position: absolute
+      left: 0
+      top: 0
+      width: 50%
+      height: 100%
+      background: $dark-grey
+      opacity: 0.6
+      z-index: 1
+      @media #{$small-only}
+        width: 100%
+        height: 30%
+      .slider-controls
+        position: absolute
+        left: 20%
+        top: 50%
+      .slider-prev, .slider-next
+        display: inline-block
+        svg
+          width: 30px
+          fill: white
+          stroke: white
+    .slider-4
+      height: 100%

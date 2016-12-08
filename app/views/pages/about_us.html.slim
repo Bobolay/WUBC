@@ -1,0 +1,85 @@
+.about-us-wrapper
+
+  .white-banner.news-banner
+    p про нас
+    .line
+  .margin-block.grey-block
+    .row
+      .columns.large-5.medium-6.large-push-1.about-us-text
+        p.regular-grey
+          | West Ukrainian Business Club - це закритий клуб для власників та перших осіб бізнесу західної України. Спільнота, яка характеризується високим  ступенем поваги, довіри, відповідальності, взаємодії та підтримки серед його членів.
+        p.regular-grey
+          | WUBC cтворений з метою об'єднання бізнес-лідерів за для особистісного розвитку, розвитку своїх компаній та зв'язків.
+      .columns.large-5.medium-6.large-push-1.end.about-us-text
+        p.regular-grey
+          | Клуб проводить більше 12 зустрічей на рік у різних форматах: бізнес   сніданки, бізнес вечері, виїздні заходи, зустрічі з іншими спільнотами, сімейні зустрічі та таке інше. Гостями клубу є провідні бізнесмени країни, політики, члени інших спільнот, консультанти та аналітики.
+        p.regular-grey
+          | Головне, що нас об’єднує, це бажання розвиватись, рухатись вперед, швидко, правильно і екологічно
+
+    .row.collapse.collage
+      .columns.medium-6
+        .square
+          .img-background style="background-image: url(#{asset_path('photo/speaker-1.jpg')})"
+      .columns.medium-6
+        .square
+          .row.collapse.absolute
+            .columns
+              .square.square-half
+                .img-background style="background-image: url(#{asset_path('photo/speaker-4.jpg')})"
+            .columns.small-6
+              .square
+                .img-background style="background-image: url(#{asset_path('photo/speaker-2.jpg')})"
+            .columns.small-6
+              .square
+                .img-background style="background-image: url(#{asset_path('photo/speaker-3.jpg')})"
+    
+    p.main-title цінності членів клубу
+
+    .row.member-values-container
+      .columns.medium-6.large-4
+        .member-value
+          p.title професіоналізм
+          .line-separator
+          p.regular-grey Члени клубу є професіоналами своєї справи, орієнтуються на найвищі стандарти, що дозволяє їм успішно вести і розвивати свій бізнес.
+      .columns.medium-6.large-4
+        .member-value
+          p.title прагнення до розвитку
+          .line-separator
+          p.regular-grey Члени клубу постійно прагнуть до нових знань, нового досвіду, не зупиняючись на досягнутому.
+      .columns.medium-6.large-4
+        .member-value
+          p.title лідерство
+          .line-separator
+          p.regular-grey Члени клубу є лідерами, як у своїй компанії, так і по життю. Вони готові брати відповідальність, висловлювати свою думку і відстоювати її.
+      .columns.medium-6.large-4
+        .member-value
+          p.title ділова репутація
+          .line-separator
+          p.regular-grey Члени клубу є порядними людьми, з позитивними моральними цінностями.
+      .columns.medium-6.large-4
+        .member-value
+          p.title відкритість
+          .line-separator
+          p.regular-grey Члени клубу готові ділитися своїм досвідом, переймати досвід інших, співпрацювати.
+      .columns.medium-6.large-4
+        .member-value
+          p.title надійність і відповідальність
+          .line-separator
+          p.regular-grey Члени клубу готові виконувати свої зобов'язання перед клубом, його членами, є господарями свого слова.
+
+    p.main-title сфери бізнес діяльності членів wubc
+
+    .activity-slider-container
+      .fade-block
+        .slider-controls
+          .slider-prev
+            = inline_svg "icons/arrow-left.svg"
+          .slider-next
+            = inline_svg "icons/arrow-right.svg"
+      .slider-4
+        li
+          .img-background style="background-image: url(#{asset_path('photo/new-1.jpg')})"
+        li
+          .img-background style="background-image: url(#{asset_path('photo/new-2.jpg')})"
+        li
+          .img-background style="background-image: url(#{asset_path('photo/new-3.jpg')})"
