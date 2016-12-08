@@ -1,10 +1,10 @@
 class PagesController < ApplicationController
   before_action :set_page_instance, except: [:index]
 
-  self.layout "home"
-
-  def main
-  #   set_page_metadata(:home)
+  def index
+    set_page_metadata(:home)
+    @future_events = Event.home_future
+    @past_events = Event.home_past
   end
 
   def about_us
@@ -15,15 +15,11 @@ class PagesController < ApplicationController
 
   end
 
-  def event_one
+  def partners
 
   end
 
-  def news
-    @articles = t("articles")
-  end
-
-  def new_one
+  def contacts
 
   end
 

@@ -1,0 +1,39 @@
+.menu-wrapper
+  .row.top
+    .columns.large-12.locales-bar
+      - Cms.config.provided_locales.each do |locale|
+        a href=url_for(locale: locale) class=("active" if locale.to_s == I18n.locale.to_s)
+          = locale
+    .large-4.medium-3.columns
+      p.title розділи
+      .pages
+        .row
+          /h1
+              = main_menu.in_groups(2).first.keys
+          - main_menu.in_groups(2).each do |group|
+            .large-6.medium-12.small-6.columns
+              - group.each do |menu_item_key, menu_item_definition|
+                a href=menu_item_definition[:url]
+                  = menu_item_definition[:name]
+                br
+
+
+    .large-4.medium-4.columns.contacts-field
+      p.title контакти
+      .contacts
+        .row
+          .large-12.medium-12.small-6.columns
+            span тел.
+            p +38 (067) 341 39 49
+            span e-mail
+            p
+              | office
+              span @
+              | wubc.club
+          .large-12.medium-12.small-6.columns
+            span соц.
+            br
+            a = inline_svg "icons/social-fb.svg"
+            a = inline_svg "icons/social-google.svg"
+    .large-4.medium-5.columns
+      = render "login_form"

@@ -49,7 +49,7 @@ gem 'slim-rails'
 
 gem 'bower-rails'
 
-gem "protected_attributes"
+gem 'protected_attributes'
 
 gem 'rails_admin'
 gem 'rails_admin_nestable'
@@ -78,17 +78,49 @@ gem 'quiet_assets'
 
 gem 'kaminari'
 
-gem "htmlcompressor"
+gem 'htmlcompressor'
 gem 'rack-page_caching'
 
 #gem 'paperclip-optimizer'
 
 #gem 'attachable', github: "VoroninNick/attachable"
 #gem 'attachable', path:"/media/data/pasha/gems/attachable"
-#gem 'cms', path: "/media/data/pasha/gems/cms"
 
-# gem 'cms', github: "pkorenev/cms"
+if File.exists?("/media/data/gems/cms")
+  gem 'cms', path: "/media/data/gems/cms"
+else
+  gem 'cms', github: 'pkorenev/cms'
+end
+
 
 gem 'require_reloader'
 
-gem 'thin'
+gem 'puma'
+
+gem 'globalize'
+gem 'rails_admin_globalize_field'
+gem 'russian'
+
+gem 'figaro'
+
+gem 'pg'
+
+gem "cancancan"
+
+gem 'papercrop'
+gem 'yaml_db'
+gem 'db-backuper', github: "pkorenev/db-backuper"
+
+gem "devise-i18n"
+
+gem "html2slim"
+
+gem 'i18n-active_record',
+    github: 'svenfuchs/i18n-active_record',
+    require: 'i18n/active_record'
+
+gem 'rails-i18n'
+
+gem 'simple_form'
+
+gem 'sshkit'

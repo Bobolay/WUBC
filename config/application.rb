@@ -19,10 +19,12 @@ module Arazzinni
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     
-    config.i18n.available_locales =  [:uk, :en]
+    config.i18n.available_locales =  [:uk, :en, :ru]
     config.i18n.default_locale = :uk
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    Rails.application.config.action_mailer.default_url_options = {host: ENV["#{Rails.env}.host"]}
   end
 end

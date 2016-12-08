@@ -33,43 +33,7 @@
       +transition(1s)
       @media #{$small-only}
         display: none
-  .login-field
-    float: right
-    padding: 10px 20px
-    border-right: 1px solid $grey
-    overflow: hidden
-    position: relative
-    &:after
-      content: ''
-      position: absolute
-      width: 1px
-      height: 100%
-      +translate(0,-100%)
-      background-color: $main
-      top: 0
-      right: 0
-      +transition(0.25s)
-    p
-      color: $light-grey
-      font-size: 15px
-      display: inline-block
-      text-transform: uppercase
-      position: relative
-      top: -5px
-      margin-right: 5px
-      +transition(0.25s)
-    svg
-      width: 30px
-      height: 30px
-      fill: $light-grey
-      +transition(0.25s)
-    &:hover
-      &:after
-        +translate(0,0)
-      p
-        color: $main
-      svg
-        fill: $main
+
   &.scrolled, &.visible
     +translate(0,0)
     position: fixed

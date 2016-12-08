@@ -1,4 +1,20 @@
 uk:
+  menu:
+    home: "Головна"
+    about_us: "Про клуб"
+    events: "Події"
+    articles: "Статті"
+    members: "Члени клубу"
+    partners: "Партнери"
+    contacts: "Контакти"
+
+  users:
+    registrations:
+      new:
+        main-info: "Основна інформація"
+        company-info: "Інформація про компанію"
+        registration-confirmation: "Підтвердження реєсьтрації"
+
   articles:
     -
       title: text

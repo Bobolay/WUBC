@@ -1,4 +1,5 @@
 .header-container
+
   .menu-wrapper
     .row.top
       .large-4.medium-3.columns
@@ -51,12 +52,27 @@
           button type="submit" Вхід
           p або
           a href="#" Стати учасником
+
   .navigation
     a.logo href=root_path
       = inline_svg "icons/logo.svg"
       p wubc
     .menu-button
-      .menu-button-lines  
-    a.login-field href="#"
-      p Логін
-      = inline_svg "icons/lock.svg"
+      .menu-button-lines
+    .login-field href="#" class=("logged" if current_user)
+      - if current_user
+        .user-icon
+          - user_image = current_user.avatar.exists? ? current_user.avatar.url : nil
+          - if user_image
+            img src=user_image
+          - else
+            = embedded_svg_from_assets("icons/user_no_avatar.svg")
+        .user-info-panel
+          .user-name
+            = current_user.full_name_or_email(false)
+          a.logout-link href=destroy_user_session_path data-method="delete"
+            |Sign out
+      - else
+        a href=new_user_session_path
+          p Логін
+          = inline_svg "icons/lock.svg"

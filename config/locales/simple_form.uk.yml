@@ -1,0 +1,12 @@
+uk:
+  simple_form:
+    required:
+      text: 'required'
+      mark: '*'
+
+    error_notification:
+      default_message: "Please review the problems below:"
+
+    placeholders:
+      user:
+        first_name

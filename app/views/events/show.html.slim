@@ -1,0 +1,68 @@
+.event-one-wrapper
+  .event-one-banner
+  .row.main-info
+    .columns
+      .title-field
+        p.date
+          = formatted_date(@event.date)
+        p.event-name
+          = @event.name
+      .slider-container.event-photo
+        p Попередня зустріч з Оксаною
+        .slider-prev
+          = inline_svg "icons/arrow-left.svg"
+        .slider-next
+          = inline_svg "icons/arrow-right.svg"
+        ul.slider-1
+          li
+            .img-background style="background-image: url(#{asset_path('photo/slider1.jpg')})"
+          li
+            .img-background style="background-image: url(#{asset_path('photo/slider2.jpg')})"
+          li
+            .img-background style="background-image: url(#{asset_path('photo/slider3.jpg')})"
+      .main-text
+        .row.event-info-container
+          .large-3.medium-6.small-6.columns
+            .event-info
+              p.title Спікери
+              p.regular Роман Камінечний
+              p.regular Паша Корнєєв
+          .large-3.medium-6.small-6.columns
+            .event-info
+              p.title Час проведення
+              p.regular
+                = day_name(@event.date)
+              p.regular
+                = formatted_time_range(@event.start_time, @event.end_time)
+          .large-3.medium-6.small-6.columns
+            .event-info
+              p.title Поділитись
+              a = inline_svg "icons/social-fb.svg"
+              a = inline_svg "icons/social-google.svg"
+          .large-3.medium-6.small-6.columns
+            a.link Відвідати зустріч
+        .article-content
+          = raw @event.content
+        .link-container
+          a.link Відвідати зустріч
+        .navigation-container
+          p наступні зустрічі
+          .left-nav-container
+            p.date
+              | 28
+              span жовтня 2016
+            .main
+              .img style="background-image: url(#{asset_path('photo/slider2.jpg')})"
+              p Конструктивна зустріч клубу з Юрій Романенко
+            = inline_svg "icons/arrow-left.svg"
+            span попередня зустріч
+          .right-nav-container
+            p.date
+              | 10 
+              span жовтня 2016
+            .main
+              .img style="background-image: url(#{asset_path('photo/slider2.jpg')})"
+              p Цінна інформація про цифровий захист
+            p
+            span наступна зустріч
+            = inline_svg "icons/arrow-right.svg"
