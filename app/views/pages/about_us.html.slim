@@ -68,14 +68,30 @@
           p.regular-grey Члени клубу готові виконувати свої зобов'язання перед клубом, його членами, є господарями свого слова.
 
     p.main-title сфери бізнес діяльності членів wubc
+    
+    .row.activity-slider-pager
+      .columns#bx-pager-about-us
+        a.pager data-slide-index="0" Рітейл
+        a.pager data-slide-index="1" Будівництво
+        a.pager data-slide-index="2" Готелі
+        a.pager data-slide-index="3" Ресторани
+        a.pager data-slide-index="4" Виробництво
+        a.pager data-slide-index="5" Сільське господарство
+        a.pager data-slide-index="6" Імпорт та експорт
+        a.pager data-slide-index="7" E commerce
 
     .activity-slider-container
+      
       .fade-block
+        .activity Рітейл
         .slider-controls
           .slider-prev
             = inline_svg "icons/arrow-left.svg"
           .slider-next
             = inline_svg "icons/arrow-right.svg"
+
+        p.smaller * Для членів клубу діє максимальна знижка у всіх компаніях учасників WUBC
+      
       .slider-4
         li
           .img-background style="background-image: url(#{asset_path('photo/new-1.jpg')})"
@@ -83,3 +99,13 @@
           .img-background style="background-image: url(#{asset_path('photo/new-2.jpg')})"
         li
           .img-background style="background-image: url(#{asset_path('photo/new-3.jpg')})"
+        li
+          .img-background style="background-image: url(#{asset_path('photo/new-4.jpg')})"
+        li
+          .img-background style="background-image: url(#{asset_path('photo/new-5.jpg')})"
+        li
+          .img-background style="background-image: url(#{asset_path('photo/new-6.jpg')})"
+        li
+          .img-background style="background-image: url(#{asset_path('photo/new-3.jpg')})"
+        li
+          .img-background style="background-image: url(#{asset_path('photo/new-2.jpg')})"

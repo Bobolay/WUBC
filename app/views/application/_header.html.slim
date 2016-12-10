@@ -1,58 +1,5 @@
 .header-container
 
-  .menu-wrapper
-    .row.top
-      .large-4.medium-3.columns
-        p.title розділи
-        .pages
-          .row
-            .large-6.medium-12.small-6.columns
-              a href=root_path Головна
-              br
-              a href=about_us_path Про клуб
-              br
-              a href=events_path Події
-              br
-              a href=news_path Блог та новини
-              br
-            .large-6.medium-12.small-6.columns
-              a href="#" Учасники
-              br
-              a href="#" Партнери
-              br
-              a href="#" Контакти
-      .large-4.medium-4.columns.contacts-field
-        p.title контакти
-        .contacts
-          .row
-            .large-12.medium-12.small-6.columns
-              span тел.
-              p +38 (067) 341 39 49
-              span e-mail
-              p
-                | office
-                span @
-                | wubc.club
-            .large-12.medium-12.small-6.columns
-              span соц.
-              br
-              a = inline_svg "icons/social-fb.svg"
-              a = inline_svg "icons/social-google.svg"
-      .large-4.medium-5.columns
-        p.title особистий кабінет
-        form
-          .group
-            input type="text"
-              span.bar
-            label Логін
-          .group
-            input type="password"
-              span.bar
-            label Пароль
-          button type="submit" Вхід
-          p або
-          a href="#" Стати учасником
-
   = render "menu"
   .navigation
     a.logo href=root_path

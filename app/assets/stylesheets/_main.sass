@@ -101,7 +101,7 @@
     max-width: 550px
 
 .calendar-container
-  background-color: $dark-white
+  background-color: $smoke
   padding: 70px 0
   svg
     @media #{$small-only}
@@ -324,20 +324,13 @@
       width: 30px
       fill: $light-grey
       stroke: $light-grey
-      +transition(0.1s)
     .slider-prev, .slider-next, .current-slide
-      display: inline-block
-    .slider-prev, .slider-next
-      position: relative
-      cursor: pointer
-      &:hover
-        svg
-          fill: $main
-          stroke: $main
+      vertical-align: middle
     .current-slide
       position: relative
       margin: 0 30px
       width: 70px
+      display: inline-block
       .number
         font-size: 2.125em
         color: $main
@@ -377,7 +370,7 @@
       font-family: 'Lora', serif
 
 .club-speakers-container
-  background-color: $dark-white
+  background-color: $smoke
   padding: 70px 1em
   .section-header
     font-family: Vremena

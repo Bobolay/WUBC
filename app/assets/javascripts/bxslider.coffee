@@ -1,5 +1,7 @@
 $(document).ready ->
 
+  #     F I R S T     M E E T I N G
+
   slider = $('.slider-1').bxSlider
     controls: false
     pager: false
@@ -9,23 +11,22 @@ $(document).ready ->
     pause: 7000
     auto: true
     infiniteLoop: true
-  $('.slider-prev').click ->
+  $('.meeting-container .slider-prev').click ->
     current = slider.getCurrentSlide()
     slider.goToPrevSlide(current) - 1
-  $('.slider-next').click ->
+  $('.meeting-container .slider-next').click ->
     current = slider.getCurrentSlide()
     slider.goToNextSlide(current) + 1
 
+  #     M E M B E R S
 
-
-  width = $(".members-container").width()
-  console.log(width)
+  # width = $(".members-container").width()
+  # console.log(width)
   slider2 = $('.slider-2').bxSlider
     controls: false
     pager: false
     pause: 8000
     infiniteLoop: false
-    # auto: true
 
     onSlideBefore: ($slideElement, oldIndex, newIndex)->
       $('.current-slide .number').text((slider2.getCurrentSlide()+1))
@@ -36,14 +37,14 @@ $(document).ready ->
       $('.slide').removeClass('active-slide')
       $($slideElement).addClass('active-slide')
 
-  $('.slider-prev').click ->
+  $('.members-container .slider-prev').click ->
     current = slider2.getCurrentSlide()
     slider2.goToPrevSlide(current) - 1
-  $('.slider-next').click ->
+  $('.members-container .slider-next').click ->
     current = slider2.getCurrentSlide()
     slider2.goToNextSlide(current) + 1
 
-
+  #     C O M P A N I E S
 
   $blockWidth = $('.companies .company-block').width()
   slider3 = $('.slider-3').bxSlider
@@ -60,18 +61,30 @@ $(document).ready ->
     current = slider3.getCurrentSlide()
     slider3.goToNextSlide(current) + 1
 
+  #     A B O U T     U S     S L I D E R
+
+  
+  $pager_list = []
+  $('#bx-pager-about-us .pager').each(->
+    $pager_list.push($(this).text())
+    )
+  console.log($pager_list)
+
+  slider4 = $('.slider-4').bxSlider
+    pagerCustom: '#bx-pager-about-us'
+    controls: false
+    auto: true
+    pause: 8000
+    onSlideBefore: ($slideElement, oldIndex, newIndex)->
+
+      $index = (slider4.getCurrentSlide())
+
+      $('.activity').text($pager_list[$index])
 
 
-  # slider4 = $('.slider-4').bxSlider
-  #   pager: false
-  #   controls: false
-  #   auto: true
-  #   pause: 8000
-  # $('.slider-prev').click ->
-  #   alert('qwe')
-  #   current = slider4.getCurrentSlide()
-  #   slider4.goToPrevSlide(current) - 1
-  # $('.slider-next').click ->
-  #   alert('qwe')
-  #   current = slider4.getCurrentSlide()
-  #   slider4.goToNextSlide(current) + 1
+  $('.activity-slider-container .slider-prev').click ->
+    current = slider4.getCurrentSlide()
+    slider4.goToPrevSlide(current) - 1
+  $('.activity-slider-container .slider-next').click ->
+    current = slider4.getCurrentSlide()
+    slider4.goToNextSlide(current) + 1

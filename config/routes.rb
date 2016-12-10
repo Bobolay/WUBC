@@ -26,14 +26,8 @@ Rails.application.routes.draw do
         #sign_up: "sign_up"
 
         #user_registration
-    } do
-
-=======
-
-        #user_registration
-    } do
-
-    end
+    }
+    
     root to: "pages#index"
 
     resources :events, only: [:index, :show]
@@ -42,7 +36,6 @@ Rails.application.routes.draw do
 
     controller :pages do
       get "about_us", action: "about_us", as: :about_us
-      get "about-club", action: "about_us", as: :about_us
       get "partners", action: "partners", as: :partners
       get "contacts", action: "contacts", as: :contacts
     end

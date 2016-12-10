@@ -6,13 +6,30 @@
 ul
   list-style: none
 
+.slider-prev, .slider-next
+  position: relative
+  display: inline-block
+  width: 40px
+  height: 40px
+  cursor: pointer
+  svg
+    fill: white
+    stroke: white
+    position: absolute
+    width: 30px
+    top: 50%
+    left: 50%
+    +translate(-50%,-50%)
+    +transition(0.2s)
+  &:hover
+    svg
+      fill: $main !important
+      stroke: $main !important
+
 .slider-container
   .slider-prev, .slider-next
     position: absolute
-    cursor: pointer
     z-index: 1
-    width: 40px
-    height: 40px
     border: 1px solid #fff
     top: 50%
     +translate(0,-50%)
@@ -21,10 +38,6 @@ ul
       width: 60px
       height: 60px
     svg
-      position: absolute
-      top: 50%
-      left: 50%
-      +translate(-50%,-50%)
       fill: #fff
       stroke: #fff
       width: 20px
