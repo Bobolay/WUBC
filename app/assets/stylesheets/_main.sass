@@ -356,18 +356,6 @@
     line-height: 2.25rem
     @media #{$small-only}
       font-family: 'Lora', serif
-  a
-    font-family: Vremena
-    font-size: 1.125em
-    display: inline-block
-    margin-top: 30px
-    font-style: italic
-    color: #fff
-    padding: 15px 30px
-    text-align: center
-    background-color: $green
-    @media #{$small-only}
-      font-family: 'Lora', serif
 
 .club-speakers-container
   background-color: $smoke
@@ -391,11 +379,18 @@
     width: 100%
     overflow: hidden
     margin-bottom: 25px
+    cursor: pointer
     @media #{$small-only}
       height: 250px
     &.hide
       @media #{$small-only}
         display: none
+    .img-background
+      +transition(0.25s)
+      +grayscale(70%)
+      &:before
+        +transition(0.25s)
+        +overlay
     .title
       font-family: Vremena
       position: absolute
@@ -404,8 +399,8 @@
       left: 20px
       color: #fff
       text-transform: uppercase
-      font-size: 1.375rem
-      line-height: 1.5rem
+      font-size: 1.375em
+      line-height: 1.2em
       @media #{$small-only}
         font-family: 'Lora', serif
     .hover-block
@@ -437,6 +432,10 @@
         +translate(-200%,0)
         +transition(0.25s)
     &:hover
+      .img-background
+        +grayscale(0%)
+        &:before
+          +overlay(0)
       .hover-block
         +translate(0,0)
         opacity: 1

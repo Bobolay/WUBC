@@ -11,16 +11,26 @@ body
   -o-filter: $filter-type+unquote('(#{$filter-amount})')
   filter: $filter-type+unquote('(#{$filter-amount})')
 
-=grayscale
+=grayscale($percent: 100%)
   filter: url("data:image/svg+xml;utf8,&lt;svg xmlns=\'http://www.w3.org/2000/svg\'&gt;&lt;filter id=\'grayscale\'&gt;&lt;feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/&gt;&lt;/filter&gt;&lt;/svg&gt;#grayscale") // Firefox 10+, Firefox on Android
   filter: gray // IE6-9
-  -webkit-filter: grayscale(100%) // Chrome 19+, Safari 6+, Safari 6+ iOS
-  filter: grayscale(100%)
+  -webkit-filter: grayscale($percent) // Chrome 19+, Safari 6+, Safari 6+ iOS
+  filter: grayscale($percent)
 
 =disable-grayscale
   filter: url("data:image/svg+xml;utf8,&lt;svg xmlns=\'http://www.w3.org/2000/svg\'&gt;&lt;filter id=\'grayscale\'&gt;&lt;feColorMatrix type=\'matrix\' values=\'1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0\'/&gt;&lt;/filter&gt;&lt;/svg&gt;#grayscale")
   -webkit-filter: grayscale(0%)
   filter: grayscale(0%)
+
+=overlay($opacity: 0.2)
+  content: ""
+  position: absolute
+  display: block
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  background: rgba(0,0,0,$opacity)
 
 $main: #00E575
 $green: #00C752
@@ -32,13 +42,17 @@ $dark-grey: #414141
 .regular-grey
   color: $grey
 
+.larger
+  font-size: 18px
+
 .main-title
   font-family: VremenaBook
   text-transform: uppercase
-  text-align: center
   color: $dark-grey
   font-size: 2em
   line-height: 1.125em
+.center
+  text-align: center
 
 a
   display: block
@@ -136,7 +150,9 @@ a
     position: relative
     top: 50%
   @media #{$small-only}
-    height: 300px
+    height: 250px
+    p
+      font-size: 2.5em
   .line
     background: $green
 

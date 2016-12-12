@@ -15,6 +15,10 @@ class PagesController < ApplicationController
 
   end
 
+  def members
+
+  end
+
   def partners
 
   end

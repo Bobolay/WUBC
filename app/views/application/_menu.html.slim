@@ -8,8 +8,6 @@
       p.title розділи
       .pages
         .row
-          /h1
-              = main_menu.in_groups(2).first.keys
           - main_menu.in_groups(2).each do |group|
             .large-6.medium-12.small-6.columns
               - group.each do |menu_item_key, menu_item_definition|
