@@ -1,0 +1,24 @@
+.large-4.columns.article
+  a.news-block href=article.url
+    .img-container
+      .img-background style="background-image: url(#{article.avatar.url(:list)})"
+
+      - if article.premium? && !current_user
+        .text.premium-text
+          = inline_svg "icons/lock.svg"
+          p Тільки для учасників
+          .login-link href="#" Увійти
+      - else
+        .hover-text
+          p Детальніше
+      p.type
+        = t("enumerize.article_type.#{article.article_type}")
+    .bottom-text
+      .date
+        p.day
+          = article.release_date.day
+        p.month
+          = "#{article.release_date.month}.#{article.release_date.year}"
+      .text
+        p
+          | Конструктивна зустріч клубу з Юрий Романенко на тему: "Положення України в 2016р. ризики,сценарії і ...

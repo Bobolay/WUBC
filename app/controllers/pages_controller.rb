@@ -5,6 +5,7 @@ class PagesController < ApplicationController
     set_page_metadata(:home)
     @future_events = Event.home_future
     @past_events = Event.home_past
+    @articles = Article.featured
   end
 
   def about_us

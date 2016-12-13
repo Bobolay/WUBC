@@ -5,5 +5,5 @@
         = @page_banner[:title]
   - elsif @page_banner[:image].present?
     .new-one-banner
-      .img-background style="background-image: url('#{asset_path(@page_banner[:image])}')"
+      .img-background style="background-image: url('#{@page_banner[:image]}')"
       .overlay
