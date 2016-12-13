@@ -170,47 +170,11 @@
   .subheader блог та новини
   .news-container
     .row
-      .large-4.columns
-        a.news-block href="new_one_path"
-          .img-container
-            .img-background style="background-image: url(#{asset_path('photo/new-1.jpg')})"
-            .hover-text
-              p Детальніше
-          .bottom-text
-            .date
-              p.day 28
-              p.month 10.2016
-            .text 
-              p
-                | Конструктивна зустріч клубу з Юрий Романенко на тему: "Положення України в 2016р. ризики,сценарії і ...
-      .large-4.columns
-        a.news-block href="new_one_path"
-          .img-container
-            .img-background style="background-image: url(#{asset_path('photo/new-2.jpg')})"
-            .hover-text
-              p Детальніше
-          .bottom-text
-            .date
-              p.day 08
-              p.month 04.2016
-            .text 
-              p
-                | Зустріч з Оксаною Марусич на тему: "Включи свої можливості".
-      .large-4.columns
-        a.news-block href="new_one_path"
-          .img-container
-            .img-background style="background-image: url(#{asset_path('photo/new-3.jpg')})"
-            .hover-text
-              p Детальніше
-          .bottom-text
-            .date
-              p.day 15
-              p.month 03.2016
-            .text 
-              p
-                | Семінар - "Як втілювати успішні бізнес-практики в сім'ї" від сімейного психолога - Тетяни Богашевої.
+      - @articles.each do |article|
+        = render "article", article: article
+
   .btn-container
-    a.btn.light href="news_path"
+    a.btn.light href=articles_path
       span Всі новини
 .companies
   p.subheader компанії учасники клубу

@@ -13,6 +13,7 @@ class Article < ActiveRecord::Base
 
   boolean_scope :published
   scope :order_by_release_date, -> { order("release_date desc") }
+  scope :featured, -> { published.order_by_release_date.limit(3) }
 
   has_cache
   def url(locale = I18n.locale)

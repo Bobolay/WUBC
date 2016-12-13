@@ -20,7 +20,10 @@
         .large-12.medium-4.small-12.columns
           .new-one-info
             p.title Теги
-            p.regular Бізнес, Економіка, Блог, Доповідь, Зустріч
+            p.regular
+              = @article.tags.each do |tag|
+                a.tag href="#"
+                  = tag.name
         .large-12.medium-4.small-12.columns
           .new-one-info
             p.title Поділитись
