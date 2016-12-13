@@ -28,3 +28,5 @@
 #= require user
 
 #= require select
+
+#= require google-map

@@ -26,4 +26,5 @@ html
     = content_for?(:cabinet_layout) ?  content_for(:cabinet_layout) : yield
     = render "footer"
     = stylesheet_link_tag    "application", media: 'all', 'data-turbolinks-track' => true
+    script src="http://maps.googleapis.com/maps/api/js"
     = javascript_include_tag "application", 'data-turbolinks-track' => true
