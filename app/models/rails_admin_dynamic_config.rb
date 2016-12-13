@@ -90,12 +90,11 @@ module RailsAdminDynamicConfig
         config.include_models Cms::SitemapElement, Cms::MetaTags
 
         config.model Cms::MetaTags do
+          visible false
           field :translations, :globalize_tabs
         end
 
         config.model_translation Cms::MetaTags do
-          visible false
-
           field :locale, :hidden
           field :title
           field :keywords
@@ -103,6 +102,8 @@ module RailsAdminDynamicConfig
         end
 
         config.model Cms::SitemapElement do
+          #visible false
+
           field :display_on_sitemap
           field :changefreq
           field :priority
@@ -111,21 +112,26 @@ module RailsAdminDynamicConfig
         config.include_models User, Administrator, Member
         config.model User do
           visible false
+
         end
 
         config.model_translation User do
           field :locale, :hidden
           field :first_name
-          field :last_name
           field :middle_name
+          field :last_name
         end
 
         config.model Administrator do
           navigation_label "Users"
+          object_label_method do
+            :full_name
+          end
 
           field :email
           field :password
           field :password_confirmation
+          field :translations, :globalize_tabs
         end
 
         config.model Member do
@@ -159,6 +165,45 @@ module RailsAdminDynamicConfig
         end
 
         config.model_translation Event do
+          field :locale, :hidden
+          field :name
+          field :url_fragment
+          field :content, :ck_editor
+        end
+
+        config.include_models Article, Cms::Tag, Cms::Tagging
+
+        config.model Cms::Tag do
+          field :translations, :globalize_tabs
+          field :articles
+        end
+
+        config.model_translation Cms::Tag do
+          field :locale, :hidden
+          field :name
+          field :url_fragment
+        end
+
+        config.model Cms::Tagging do
+          visible false
+        end
+
+        config.model Article do
+          field :published
+          field :premium
+          field :translations, :globalize_tabs
+          field :avatar
+          field :banner
+          field :release_date do
+            date_format do
+              :default
+            end
+          end
+          field :author
+          field :tags
+        end
+
+        config.model_translation Article do
           field :locale, :hidden
           field :name
           field :url_fragment

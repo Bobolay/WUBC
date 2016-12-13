@@ -4,5 +4,11 @@ uk:
       event:
         one: "Подія"
         other: "події"
+      administrator:
+        one: "Адміністратор"
+        other: "Адміністратори"
+      member:
+        one: "Член"
+        other: "Члени"
     attributes:
       premium: "Тільки для членів клубу"

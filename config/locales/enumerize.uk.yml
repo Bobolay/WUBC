@@ -1,0 +1,5 @@
+uk:
+  enumerize:
+    article_type:
+      blog: "Блог"
+      news: "Новина"
