@@ -1,53 +1,75 @@
 .white-banner.news-banner
   p учасники клубу
   .line
-.margin-block.grey-block
-  .members-grid
-    .square
-      .img-background style="background-image: url(#{asset_path('photo/speaker-1.jpg')})"
-      p.title
-        span микола
-        br
-        | воронін
-      .hover-block
-        a href="#" = inline_svg "icons/arrow-right.svg"
-    .square
-      .img-background style="background-image: url(#{asset_path('photo/speaker-2.jpg')})"
-      p.title
-        span роман
-        br
-        | камінечний
-      .hover-block
-        a href="#" = inline_svg "icons/arrow-right.svg"
-    .square
-      .img-background style="background-image: url(#{asset_path('photo/speaker-3.jpg')})"
-      p.title
-        span антон
-        br
-        | курбан
-      .hover-block
-        a href="#" = inline_svg "icons/arrow-right.svg"
-    .square
-      .img-background style="background-image: url(#{asset_path('photo/speaker-1.jpg')})"
-      p.title
-        span микола
-        br
-        | воронін
-      .hover-block
-        a href="#" = inline_svg "icons/arrow-right.svg"
-    .square
-      .img-background style="background-image: url(#{asset_path('photo/speaker-4.jpg')})"
-      p.title
-        span роман
-        br
-        | камінечний
-      .hover-block
-        a href="#" = inline_svg "icons/arrow-right.svg"
-    .square
-      .img-background style="background-image: url(#{asset_path('photo/speaker-5.jpg')})"
-      p.title
-        span антон
-        br
-        | курбан
-      .hover-block
-        a href="#" = inline_svg "icons/arrow-right.svg"
+.margin-block.grey-block.club-members-container
+  .row.collapse
+    .members-grid
+      .input
+        input
+        label Ваш e-mail
+        span.bar
+      .input
+        select#select
+          option value="Будівництво" Будівництво
+          option value="Торгівля" Торгівля
+          option value="Послуги" Послуги
+        span.bar
+      .input
+        input
+        label Місце діяльності
+        span.bar
+      .input
+        input
+        label Назва компанії
+        span.bar
+  .row.collapse
+    .columns
+      .members-grid
+        .square
+          .img-background style="background-image: url(#{asset_path('photo/speaker-1.jpg')})"
+          p.title
+            span микола
+            br
+            | воронін
+          .hover-block
+            a href="#" = inline_svg "icons/arrow-right.svg"
+        .square
+          .img-background style="background-image: url(#{asset_path('photo/speaker-2.jpg')})"
+          p.title
+            span роман
+            br
+            | камінечний
+          .hover-block
+            a href="#" = inline_svg "icons/arrow-right.svg"
+        .square
+          .img-background style="background-image: url(#{asset_path('photo/speaker-3.jpg')})"
+          p.title
+            span антон
+            br
+            | пантон
+          .hover-block
+            a href="#" = inline_svg "icons/arrow-right.svg"
+        .square
+          .img-background style="background-image: url(#{asset_path('photo/speaker-1.jpg')})"
+          p.title
+            span наталія
+            br
+            | іщук
+          .hover-block
+            a href="#" = inline_svg "icons/arrow-right.svg"
+        .square
+          .img-background style="background-image: url(#{asset_path('photo/speaker-4.jpg')})"
+          p.title
+            span яна
+            br
+            | деуліна
+          .hover-block
+            a href="#" = inline_svg "icons/arrow-right.svg"
+        .square
+          .img-background style="background-image: url(#{asset_path('photo/speaker-5.jpg')})"
+          p.title
+            span олена
+            br
+            | веляник
+          .hover-block
+            a href="#" = inline_svg "icons/arrow-right.svg"

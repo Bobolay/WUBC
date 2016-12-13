@@ -1,48 +1,4 @@
 form
-  .input
-    position: relative
-    margin-bottom: 10px
-    max-width: 250px
-  input, textarea
-    font-size: 1em
-    padding: 10px 0
-    display: block
-    color: $light-grey
-    width: 100%
-    border: none
-    outline: none
-    background-color: $dark-grey
-    border-bottom: 1px solid $grey
-    &:focus
-      outline: none
-  label
-    color: $light-grey
-    font-size: 1em
-    position: absolute
-    pointer-events: none
-    top: 8px
-    transition: all 0.2s ease
-  input:focus ~ label, input.used ~ label, textarea:focus ~ label, textarea.used ~ label
-    top: -10px
-    font-size: 0.75em
-    color: $dark-grey
-  .bar
-    position: relative
-    display: block
-    width: 100%
-    &:before, &:after
-      content: ''
-      height: 1px
-      width: 0
-      bottom: 1px
-      position: absolute
-      background: $light-grey
-      transition: all 0.2s ease
-    &:before
-      left: 0
-  input:focus ~ .bar, textarea:focus ~ .bar
-    &:before, &:after
-      width: 100%
   button, p, a
     display: inline-block
   button
@@ -55,5 +11,148 @@ form
   a
     color: $light-grey
 
+.input
+  position: relative
+  input, textarea
+    padding: 10px 0
+    display: block
+    width: 100%
+    border: none
+    outline: none
+    background: transparent
+    &:focus
+      outline: none
+  label
+    position: absolute
+    pointer-events: none
+    top: 8px
+    transition: all 0.2s ease
+  input:focus ~ label, input.used ~ label, textarea:focus ~ label, textarea.used ~ label
+    top: -10px
+    font-size: 0.75em
+  .bar
+    position: relative
+    display: block
+    width: 100%
+    &:before
+      content: ''
+      height: 1px
+      width: 0
+      bottom: 0
+      position: absolute
+      transition: all 0.2s ease
+    &:before
+      left: 0
+  input:focus ~ .bar, textarea:focus ~ .bar
+    &:before, &:after
+      width: 100%
 
-  &.form-theme-classic
+.simple_form .input
+  margin-bottom: 10px
+  max-width: 250px
+  input, textarea
+    font-size: 1em
+    padding: 10px 0
+    color: $light-grey
+    background-color: $dark-grey
+    border-bottom: 1px solid $grey
+  label
+    color: $light-grey
+    font-size: 1em
+    top: 8px
+  input:focus ~ label, input.used ~ label, textarea:focus ~ label, textarea.used ~ label
+    top: -10px
+    font-size: 0.75em
+    color: $dark-grey
+  .bar
+    &:before
+      background: $light-grey
+
+.club-members-container .input
+  input, textarea
+    font-size: 1.125em
+    font-style: italic
+    padding: 10px 0
+    color: $green
+    border-bottom: 1px solid $light-grey
+  label
+    color: $light-grey
+    font-size: 1em
+    top: 8px
+  input:focus ~ label, input.used ~ label, textarea:focus ~ label, textarea.used ~ label
+    top: -10px
+    font-size: 0.75em
+    color: $grey
+  .bar
+    &:before
+      background: $green
+
+$select-color: $grey
+$select-background: white
+$select-width: 100%
+$select-height: 40px
+
+.select-hidden
+  display: none
+  visibility: hidden
+  padding-right: 10px
+.select
+  cursor: pointer
+  display: inline-block
+  position: relative
+  font-size: 1.125em
+  color: $green
+  width: $select-width
+  height: $select-height
+  border-bottom: 1px solid $light-grey
+
+.select-styled
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  // background: $select-background
+  background: transparent
+  padding: 10px 0
+  +transition(0.25s)
+  &:after
+    content: ''
+    width: 0
+    height: 0
+    border: 7px solid transparent
+    border-color: $green transparent transparent transparent
+    position: absolute
+    top: 16px
+    right: 20px
+  &:hover
+    // background: darken($select-background, 2)
+  &:active, &.active
+    // background: darken($select-background, 5)
+    &:after
+      top: 10px
+      border-color: transparent transparent $green transparent
+
+.select-options
+  display: none
+  position: absolute
+  top: 100%
+  right: 0
+  left: 0
+  z-index: 999
+  color: $grey
+  margin: 0
+  padding: 0
+  list-style: none
+  background-color: darken($select-background, 1)
+  li
+    margin: 0
+    padding: 12px 0
+    text-indent: 15px
+    border-top: 1px solid darken($select-background, 10)
+    +transition(0.15s)
+    &:hover
+      color: $select-background
+      background: $select-color
+    &[rel="hide"]
+      display: none

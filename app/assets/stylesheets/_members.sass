@@ -30,8 +30,9 @@
       font-size: 1.375em
       line-height: 1.2em
       span
-        font-size: 1.125em
+        font-size: 0.875em
         font-style: italic
+        text-transform: capitalize
       @media #{$small-only}
         font-size: 1.125em
         font-family: 'Lora', serif
@@ -70,3 +71,14 @@
           +translate(0,0)
           transition: 0.4s ease-in-out
           transition-delay: 0.35s
+
+.club-members-container .input
+  margin: 10px
+  // width: 50%
+  @media #{$small-only}
+    width: calc(100% - 20px)
+  @media #{$medium-only}
+    width:  calc(50% - 10px)
+  @media #{$large-up}
+    float: left
+    width: calc(25% - 20px)

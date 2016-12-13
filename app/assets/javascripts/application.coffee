@@ -26,3 +26,5 @@
 #= require form
 
 #= require user
+
+#= require select
