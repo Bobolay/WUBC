@@ -1,4 +1,10 @@
-.dark-white-bg
+/ = render "registration_top_part.html"
+
+.white-banner.news-banner
+  p форма реєстрації
+  .line
+
+.margin-block.grey-block.registration-container
   .row
     .columns.large-12
       .wizard.devise-form
@@ -9,30 +15,35 @@
                 = i + 1
               .step-name
                 = t(".#{step_key}")
-
-
+              hr.dash
+        
         .step
           = simple_form_for resource, as: resource_name,  url: new_user_registration_path, authenticity_token: false, enforce_utf8: false, html: {class: "form-theme-classic"} do |f|
             = devise_error_messages!
-            .inputs
+            .row.inputs
               .columns.large-6
+                p.inputs-name-title
+                  | основна інформація
+                p.static-input-label Ім'я:
                 = f.input :first_name
+                p.static-input-label Прізвище:
                 = f.input :last_name
+                p.static-input-label По батькові:
                 = f.input :middle_name
-                /= f.input :birth_date
+                / label Дата народження
+                / = f.input :birth_date
               .columns.large-6
-                = f.input :email
+                p.inputs-name-title
+                  | інформація про компанію
+                p.static-input-label Телефон:
                 = f.input :phone
+                p.static-input-label Логін e-mail:
                 = f.input :email
+                p.static-input-label Пароль:
                 = f.input :password
+                p.static-input-label Підтвердження паролю:
                 = f.input :password_confirmation
-              /.input
-                = f.label :email
-                = f.email_field :email, autofocus: true
-              /.input
-                = f.label :password
-                = f.password_field :password, autocomplete: "off"
-              /.input
-                = f.label :password_confirmation
-                = f.password_field :password_confirmation, autocomplete: "off"
-
+      
+      a.step-button
+        | Наступний крок
+        = inline_svg "icons/arrow-right.svg"

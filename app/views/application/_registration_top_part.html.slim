@@ -1,0 +1,16 @@
+.white-banner.news-banner
+  p форма реєстрації
+  .line
+
+.margin-block.grey-block.registration-container
+  .row
+    .columns.large-12
+      .wizard.devise-form
+        .step-headers
+          - ["main-info", "company-info", "registration-confirmation"].each_with_index do |step_key, i|
+            .step-header
+              span.number
+                = i + 1
+              .step-name
+                = t(".#{step_key}")
+              hr.dash

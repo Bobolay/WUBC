@@ -1,4 +1,18 @@
-- content_for :cabinet_layout do
+/- content_for :cabinet_layout do
+.cabinet-header
   h1
     |Особистий кабінет
+.tabs
+  .tab-headers
+    .tab-header.active Events
+    .tab-header Companies
+    .tab-header Profile
+  .tab-contents
+    .tab-content.active
+      = render partial: "cabinet/events"
+    .tab-content
+      = render "cabinet/companies"
+    .tab-content
+      = render "cabinet/profile"
+
 = render template: "layouts/application.html"

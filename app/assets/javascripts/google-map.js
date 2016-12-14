@@ -34,7 +34,7 @@ function initialize() {
         zoom: 16,
         center: new google.maps.LatLng(yCordinate, xCordinate),
         panControl:false,
-        zoomControl:false,
+        zoomControl:true,
         mapTypeControl:false,
         scaleControl:false,
         streetViewControl:false,
@@ -51,7 +51,7 @@ function initialize() {
     var image = '/assets/icons/map-marker.svg'
     var marker = new google.maps.Marker({
         map: map,
-        draggable: true,
+        draggable: false,
         position: new google.maps.LatLng(yCordinate, xCordinate),
         icon: image
     });

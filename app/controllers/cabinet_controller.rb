@@ -1,8 +1,9 @@
 class CabinetController < ApplicationController
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
 
   def index
-    redirect_to cabinet_events_path
+    #redirect_to cabinet_events_path
+    render "layouts/cabinet", layout: false
   end
 
   def events

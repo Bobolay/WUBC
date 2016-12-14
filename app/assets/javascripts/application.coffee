@@ -1,4 +1,5 @@
 #= require jquery
+#= require jquery-ui
 #= require jquery_ujs
 
 #= require jquery.jcrop
@@ -15,6 +16,7 @@
 #= require scroll-banner
 
 #= require plugins/jquery.bxslider
+
 #= require plugins/jquery.featureCarousel.min
 
 #= require bxslider
@@ -30,3 +32,5 @@
 #= require select
 
 #= require google-map
+
+#= require datepick
