@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -124,3 +124,7 @@ gem 'rails-i18n'
 gem 'simple_form'
 
 gem 'sshkit'
+
+#gem "bcrypt",  platforms: [:x64_mingw]
+
+#Administrator.create(email: "support@voroninstudio.eu", password: "casper12345", password_confirmation: "casper12345", confirmed_at: DateTime.now)

@@ -1,2 +1,85 @@
-h1
-  |companies
+p.company-name компанія фортуна
+.line-separator-big
+
+.row.inputs-container
+  .columns.medium-6
+
+    .register-input
+      p.input-label Сфера здійснення діяльності:
+      input type="text" value="Розваги"
+    
+    p.input-label Опис діяльності:
+    textarea type="text" value="Зустріч клубу з Наталею Березовскьою"
+    
+    .register-input
+      p.input-label Місце здійснення діяльності:
+      input type="text" value="Львів"
+    
+    .register-input
+      p.input-label Назва компанії:
+      input type="text" value="Фортуна"
+    
+    .register-input
+      p.input-label Посада:
+      input type="text" value="Директор"
+    
+    .register-input
+      p.input-label Кількість працівників:
+      input type="text" value="24"
+
+  .columns.medium-6
+    
+    .register-input
+      p.input-label Сайт компанії:
+      input type="text" value="www.fortuna.com"
+    
+    .new-info-block
+
+      .register-input
+        p.input-label Місто:
+        input type="text" value="Львів"
+      .register-input
+        p.input-label Адреса:
+        input type="text" value="м. Львів, вул. Наукова, 24"
+      .register-input
+        p.input-label Телефон:
+        input type="text" value="+38 093 548 79 78"
+        .register-edit-button
+          = inline_svg "icons/plus.svg"
+    
+    p.make-changes-button Зберегти
+    
+    p.make-changes-button Додати ще офіс
+
+    .register-input
+      p.input-label Сайт компанії:
+      .filled-info
+        p
+          span Місто:
+          | Львів
+        p
+          span Адреса:
+          | вул. Грардійська, 44
+        p
+          span Телефон:
+          | +38 050 574 98 45
+          br
+          | +38 050 574 98 45
+      .register-edit-button
+        = inline_svg "icons/mode_edit.svg"
+
+    .register-input
+      p.input-label Соц. мережі компаній:
+      .social-input
+        input type="text" value="https://www.facebook.com/fortuna"
+        = inline_svg "icons/social-fb.svg"
+      .social-input
+        input type="text" value="https://www.google.com/fortuna"
+        = inline_svg "icons/social-google.svg"
+    
+    p.make-changes-button Додати соц мережі
+
+  .columns.add-company-block
+    .add-company-button
+      = inline_svg "icons/plus.svg"
+    p Додати нову компанію

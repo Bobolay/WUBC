@@ -34,3 +34,5 @@
 #= require google-map
 
 #= require datepick
+
+#= require cabinet-tabs
