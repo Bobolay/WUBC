@@ -45,6 +45,9 @@
       color: $light-grey
       text-transform: uppercase
       +transition(0.25s)
+      @media #{$small-only}
+        font-size: 0.875em
+        line-height: 1.2
     svg
       position: relative
       top: 3px
@@ -82,10 +85,11 @@
         left: 0
   .tab-contents
     padding: 50px 0
-  .tab-content
-    display: none
-    &.active
-      display: block
+    
+.tab-content
+  display: none
+  &.active
+    display: block
 
 .company-name
   font-size: 1.5em
@@ -101,6 +105,16 @@
 
 .inputs-container
   padding: 30px 0
+  textarea
+    color: $grey-grey
+    resize: vertical
+    width: 100%
+    background: transparent
+    padding: 10px 20px
+    outline: none
+    appearence: none
+    &:focus
+      outline: none
 
 .register-input
   position: relative
@@ -127,8 +141,6 @@
   .input-label
     color: $grey-grey
     font-size: 0.875em
-  input
-    margin: 5px 0 10px
 
 .register-edit-button
   position: absolute
@@ -136,7 +148,7 @@
   width: 30px
   height: 30px
   right: 15px
-  bottom: -5px
+  bottom: -15px
   display: -webkit-flex
   display: -moz-flex
   display: -ms-flex
@@ -159,8 +171,18 @@
     left: 0
     color: $grey
     position: absolute
-  & + .register-edit-button
-    bottom: -15px
+
+.textarea-corner
+  position: absolute
+  width: 0
+  height: 0
+  border-right: 5px solid $green
+  border-bottom: 5px solid $green
+  border-left: 5px solid transparent
+  border-top: 5px solid transparent
+  right: 2px
+  bottom: 2px
+  pointer-events: none
 
 .social-input
   position: relative
@@ -199,3 +221,9 @@
     fill: white
     width: 20px
     height: 20px
+.email-confirmed
+  position: absolute
+  right: 0
+  color: $light-grey
+  font-size: 0.875em
+  font-style: italic

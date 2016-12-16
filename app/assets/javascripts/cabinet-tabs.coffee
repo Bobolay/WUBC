@@ -2,7 +2,7 @@ $(document).on "ready", ->
 
   $('.tab-header').on 'click', ->
 
-    $(".tabs").children().removeClass("active")
+    $(".tab-headers").children().removeClass("active")
     $(this).addClass("active")
 
     $index = $(this).index()

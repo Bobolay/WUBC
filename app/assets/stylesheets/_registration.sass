@@ -13,16 +13,13 @@
       border: 1px solid $light-grey
       color: $light-grey
       text-align: center
-      &.active
-        bottom: 1px solid $green
-        background: $green
-        color: white
     .step-name
       display: inline-block
       padding-left: 20px
+      color: $light-grey
     .dash
       bottom: 0 none
-      border-top: 2px dashed $green
+      border-top: 2px dashed $light-grey
       background: none
       height: 0
       display: inline-block
@@ -30,6 +27,15 @@
       width: 100%
       top: 20px
       margin-left: 20px
+    &.active
+      .number
+        border: 1px solid $green
+        background: $green
+        color: white
+      .step-name
+        color: black
+      .dash
+        border-top: 2px dashed $green
     &:last-child
       .dash
         display: none

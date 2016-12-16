@@ -8,19 +8,21 @@
   .row
     .columns.large-12
       .wizard.devise-form
-        .step-headers
+        .step-headers.tab-headers
           - ["main-info", "company-info", "registration-confirmation"].each_with_index do |step_key, i|
-            .step-header
+            .step-header.tab-header
               span.number
                 = i + 1
               .step-name
                 = t(".#{step_key}")
               hr.dash
         
-        .step
+        
+        .tab-content
           = simple_form_for resource, as: resource_name,  url: new_user_registration_path, authenticity_token: false, enforce_utf8: false, html: {class: "form-theme-classic"} do |f|
             = devise_error_messages!
             .row.inputs
+
               .columns.large-6
                 p.inputs-name-title
                   | основна інформація
@@ -32,6 +34,7 @@
                 = f.input :middle_name
                 / label Дата народження
                 / = f.input :birth_date
+                
               .columns.large-6
                 p.inputs-name-title
                   | інформація про компанію

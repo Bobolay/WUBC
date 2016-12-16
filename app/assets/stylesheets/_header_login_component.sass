@@ -4,6 +4,15 @@
   border-right: 1px solid $grey
   overflow: hidden
   position: relative
+  &:before
+    content: ''
+    position: absolute
+    width: 1px
+    height: 100%
+    background-color: $main
+    top: 0
+    right: -1px
+    +transition(0.25s) 
   &:after
     content: ''
     position: absolute
@@ -12,7 +21,7 @@
     +translate(0,-100%)
     background-color: $main
     top: 0
-    right: 0
+    right: -1px
     +transition(0.25s)
   p
     color: $light-grey

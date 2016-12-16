@@ -1,2 +1,62 @@
-h1
-  |profile
+p.company-name компанія фортуна
+.line-separator-big
+
+.row.inputs-container
+  .columns.medium-6
+
+    .register-input
+      p.input-label Ім'я:
+      input type="text" value="Петро"
+      
+    .register-input
+      p.input-label Прізвище:
+      input type="text" value="Петрович"
+    
+    .register-input
+      p.input-label По батькові:
+      input type="text" value="Петренко"
+    
+    .register-input
+      p.input-label Дата народження:
+      input type="text" value="12.09.1982"
+    
+    .register-input
+      p.input-label Кількість працівників:
+      input type="text" value="24"
+
+    .register-input
+      p.input-label Опис діяльності:
+      textarea type="text" rows="7" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit pariatur, delectus ex maxime quae tempora voluptas vero, assumenda quibusdam architecto, maiores dolorum, praesentium cum. Repudiandae mollitia iste odit inventore ipsum.
+      .textarea-corner
+
+  .columns.medium-6
+
+    .register-input
+      p.input-label Телефон:
+      input type="text" value="+38 093 548 79 78"
+      .register-edit-button
+        = inline_svg "icons/plus.svg"
+    
+    .register-input
+      p.input-label Логін e-mail:
+      input type="text" value="petro-petrovych@gmail.com"
+      p.email-confirmed підтверджена
+
+    .register-input
+      p.input-label Логін e-mail:
+      input type="password" value="11111111"
+
+    .register-input
+      p.input-label Логін e-mail:
+      input type="password" value="11111111"
+      .register-edit-button
+        = inline_svg "icons/save_black.svg"
+
+    .register-input
+      p.input-label Соц. мережі компаній:
+      .social-input
+        input type="text" value="https://www.facebook.com/fortuna"
+        = inline_svg "icons/social-fb.svg"
+      .social-input
+        input type="text" value="https://www.google.com/fortuna"
+        = inline_svg "icons/social-google.svg"
