@@ -1,2 +1,3 @@
-/ .row
-  = render "event"
+.row.events-row
+  - @events.each do |event|
+    = render "event", event: event

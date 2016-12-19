@@ -12,3 +12,11 @@ uk:
         other: "Члени"
     attributes:
       premium: "Тільки для членів клубу"
+      first_name: "Ім'я"
+      last_name: "Прізвище"
+      middle_name: "По батькові"
+      birth_date: "Дата народження"
+      phone: "Телефон"
+      email: "Логін e-maill"
+      password: "Пароль"
+      password_confirmation: "Підтвердження паролю"

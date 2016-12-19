@@ -21,3 +21,4 @@ db/schema.rb
 vendor/assets/bower_components
 .idea
 tmp
+Gemfile.lock

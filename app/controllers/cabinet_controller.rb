@@ -3,11 +3,11 @@ class CabinetController < ApplicationController
 
   def index
     #redirect_to cabinet_events_path
+    @events = Event.published
     render "layouts/cabinet", layout: false
   end
 
   def events
-
   end
 
   def profile

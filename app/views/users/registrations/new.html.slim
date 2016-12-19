@@ -6,7 +6,7 @@
 
 .margin-block.grey-block.registration-container
   .row
-    .columns.large-12
+    .columns.large-10.large-centered
       .wizard.devise-form
         .step-headers.tab-headers
           - ["main-info", "company-info", "registration-confirmation"].each_with_index do |step_key, i|
@@ -17,15 +17,37 @@
                 = t(".#{step_key}")
               hr.dash
         
+        .tab-content.active
+          = simple_form_for resource, as: resource_name,  url: new_user_registration_path, authenticity_token: false, enforce_utf8: false, html: {class: "form-theme-classic"} do |f|
+            = devise_error_messages!
+            .row.inputs
+
+              .columns.large-6
         
+                = f.input :first_name
+
+                = f.input :last_name
+
+                = f.input :middle_name
+
+                / = f.input :birth_date
+                
+              .columns.large-6
+                
+                = f.input :phone
+
+                = f.input :email
+
+                = f.input :password
+
+                = f.input :password_confirmation
+
         .tab-content
           = simple_form_for resource, as: resource_name,  url: new_user_registration_path, authenticity_token: false, enforce_utf8: false, html: {class: "form-theme-classic"} do |f|
             = devise_error_messages!
             .row.inputs
 
               .columns.large-6
-                p.inputs-name-title
-                  | основна інформація
                 p.static-input-label Ім'я:
                 = f.input :first_name
                 p.static-input-label Прізвище:
@@ -36,8 +58,6 @@
                 / = f.input :birth_date
                 
               .columns.large-6
-                p.inputs-name-title
-                  | інформація про компанію
                 p.static-input-label Телефон:
                 = f.input :phone
                 p.static-input-label Логін e-mail:
