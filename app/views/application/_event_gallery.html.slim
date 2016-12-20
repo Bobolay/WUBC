@@ -1,17 +1,5 @@
-#animated-thumbnails
-  a.square href=asset_path('photo/new-1.jpg')
-    img src=asset_path('photo/new-1.jpg')
-  a.square href=asset_path('photo/new-2.jpg')
-    img src=asset_path('photo/new-2.jpg')
-  a.square href=asset_path('photo/new-3.jpg')
-    img src=asset_path('photo/new-3.jpg')
-  a.square href=asset_path('photo/new-4.jpg')
-    img src=asset_path('photo/new-4.jpg')
-  a.square href=asset_path('photo/new-5.jpg')
-    img src=asset_path('photo/new-5.jpg')
-  a.square href=asset_path('photo/new-6.jpg')
-    img src=asset_path('photo/new-6.jpg')
-  a.square href=asset_path('photo/new-3.jpg')
-    img src=asset_path('photo/new-3.jpg')
-  a.square href=asset_path('photo/new-4.jpg')
-    img src=asset_path('photo/new-4.jpg')
+- if images.any?
+  #animated-thumbnails.gallery-images
+    - images.each do |gallery_image|
+      a.square href=gallery_image.url
+        img src=gallery_image.url(:small)

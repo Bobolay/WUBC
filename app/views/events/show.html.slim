@@ -41,23 +41,30 @@
               a = inline_svg "icons/social-google.svg"
           - if @event.future?
             .large-3.medium-6.small-6.columns
-            - if !current_user.subscribed_on_event?(@event)
+            - if !current_user
+              a.link href=subscribe_on_event_path(id: @event.url_fragment)
+                = "Зареєструватися або увійти та Відвідати зустріч"
+            - elsif @event.premium? && !current_user.subscribed_on_event?(@event)
               a.link href=subscribe_on_event_path(id: @event.url_fragment)
                 = "Відвідати зустріч"
-            - else
+            - elsif curent_user && @event.premium?
               a.link href=unsubscribe_from_event_path(id: @event.url_fragment)
                 = "Відписатися"
+
         .article-content
           = raw @event.content
-        - if @event.gallery_images.any?
-          .gallery-images
-            - @event.gallery_images.each do |gallery_image|
-              .img
-                img src=gallery_image.url(:small)
-        - if @event.future? && !current_user.subscribed_on_event?(@event)
-          .link-container
-            a.link href=subscribe_on_event_path(id: @event.url_fragment)
-              = "Відвідати зустріч"
+
+        = render "event_gallery", images: @event.gallery_images
+
+        - if @event.future?
+          - if !current_user
+            .link-container
+              a.link href=subscribe_on_event_path(id: @event.url_fragment)
+                = "Зареєструватися або увійти та Відвідати зустріч"
+          - elsif !current_user.subscribed_on_event?(@event)
+            .link-container
+              a.link href=subscribe_on_event_path(id: @event.url_fragment)
+                = "Відвідати зустріч"
 
         .navigation-container
           p наступні зустрічі

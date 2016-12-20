@@ -1,4 +1,5 @@
 $(function() {
+  //return;
   $(".datepicker").datepicker({
       dateFormat: "dd.mm.yy",
       monthNames: [ "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень" ],
@@ -12,4 +13,6 @@ $(function() {
       $input_wrap.addClass("not-empty")
     }
   });
+
+
 });

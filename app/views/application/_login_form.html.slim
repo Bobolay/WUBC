@@ -27,7 +27,10 @@ p.title особистий кабінет
         = u.full_name_or_email(true, false)
 
       .user-events
-        | 2 майбуні зустрічі
+        - if current_user.events_i_am_subscribed_on.count > 0
+          | #{current_user.events_i_am_subscribed_on.count} майбуні зустрічі
+        - else
+          | Жодної зустрічі
       .user-links
         a.green href=cabinet_path
           |Мій акаунт

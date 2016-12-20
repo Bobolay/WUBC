@@ -22,5 +22,11 @@ class Article < ActiveRecord::Base
 
   has_tags
 
+  before_save :initialize_release_date
+
+  def initialize_release_date
+    self.release_date = Date.today if self.release_date.blank?
+  end
+
 
 end

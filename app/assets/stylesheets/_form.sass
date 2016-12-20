@@ -23,13 +23,25 @@ form
     &:focus
       outline: none
   label
-    position: absolute
+    //position: absolute
     pointer-events: none
     top: 8px
     transition: all 0.2s ease
   input:focus ~ label, input.used ~ label, textarea:focus ~ label, textarea.used ~ label
     top: -10px
     font-size: 0.75em
+
+  label.icon
+    position: absolute
+    right: 5px
+    top: 35px !important
+    opacity: 0.6
+
+    svg
+      width: 21px
+      height: 21px
+
+
   .bar
     position: relative
     display: block
@@ -47,7 +59,7 @@ form
     &:before, &:after
       width: 100%
 
-.simple_form
+//.simple_form
   & > .input
     margin-bottom: 10px
     max-width: 250px

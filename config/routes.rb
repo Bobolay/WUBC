@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.map(&:to_s).join("|")}/ do
     scope "cabinet", controller: "cabinet" do
       root action: "index", as: :cabinet
+
       get "events", action: "events", as: "cabinet_events"
-      get "profile", action: "profile", as: "cabinet_profile"
+      match "profile", action: "profile", as: "cabinet_profile", via: [:get, :post]
       get "companies", action: "companies", as: "cabinet_companies"
 
     end
@@ -26,7 +27,7 @@ Rails.application.routes.draw do
         #sign_up: "sign_up"
 
         #user_registration
-    }
+    }, controllers: { registrations: "registrations" }
     
     root to: "pages#index"
 
