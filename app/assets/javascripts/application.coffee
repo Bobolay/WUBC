@@ -8,6 +8,10 @@
 #= require appear-initialize
 #= require plugins/jquery-easing
 #= require plugins/jquery.scrolldelta
+#= require plugins/lightgallery.min
+#= require plugins/lg-thumbnail.min
+
+#= require lightgallery
 
 #= require global
 
