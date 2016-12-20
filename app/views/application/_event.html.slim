@@ -1,10 +1,10 @@
-.large-4.medium-12.columns
+.large-4.medium-12.columns.event
   a.event-container href=event_path(event) class=("past-event" if event.past?)
     p.date
       = formatted_date(event.date)
 
     .img-container
-      .img-background style="background-image: url(#{asset_path('photo/event1.jpg')})" class=("blur" if !current_user)
+      .img-background style="background-image: url(#{event.avatar.exists?(:list) ? event.avatar.url(:list) : asset_path('photo/event1.jpg')})" class=("blur" if !current_user)
       - if !event.past? && event.premium? && !current_user
         .text.premium-text
           = inline_svg "icons/lock.svg"
@@ -14,5 +14,6 @@
         .hover-text
           p Детальніше
 
-    p.description Конструктивна зустріч клубу з Юрий Романенко.
+    p.description
+      = event.name
 

@@ -30,7 +30,14 @@ Rails.application.routes.draw do
     
     root to: "pages#index"
 
-    resources :events, only: [:index, :show]
+    scope :events, controller: "events" do
+      root to: "events#index", as: :events, action: :index
+      get ":id", as: :event, action: :show
+      get ":id/subscribe", as: :subscribe_on_event, action: :subscribe
+      get ":id/unsubscribe", as: :unsubscribe_from_event, action: :unsubscribe
+    end
+
+
     resources :articles, only: [:index, :show]
     resources :members, only: [:index, :show]
 

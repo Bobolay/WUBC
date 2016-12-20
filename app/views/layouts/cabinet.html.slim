@@ -3,9 +3,12 @@
   .person-general-info
     h3.cabinet-header
       |Особистий кабінет
-    .avatar-photo.no-photo
-      = inline_svg "icons/user_no_avatar.svg"
-      .img-background style="background-image: url(#{asset_path('photo/speaker-1.jpg')})"
+    - if !current_user.avatar.exists?(:small)
+      .avatar-photo.no-photo
+        = inline_svg "icons/user_no_avatar.svg"
+    - else
+      .avatar-photo
+        .img-background style="background-image: url(#{current_user.avatar.url(:small)})"
     p.person-name Петро Іванович
 
 .margin-block.cabinet-container

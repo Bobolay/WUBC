@@ -99,7 +99,10 @@
     color: $grey
     margin: 30px auto
     max-width: 550px
-
+.event-container
+  overflow: hidden
+  .img-background
+    max-width: 500px
 .calendar-container
   background-color: $smoke
   padding: 70px 0
@@ -119,93 +122,96 @@
     color: $grey
     text-align: center
     margin: 0 0 50px 0
-  .event-container
-    position: relative
-    border-left: 1px solid $main
-    max-width: 500px
-    margin: 0 auto 50px
-    cursor: pointer
-    &.past-event
-      +transition(0.25s)
-      +grayscale
-    .date
-      font-size: 2.5rem
-      color: $main
-      margin-left: 20px
-      span
-        font-style: italic
-        font-size: 0.875rem
-        color: $grey
-    .img-container
-      height: 250px
-      left: -1px
-      position: relative
-      overflow: hidden
-      .img-background
-        +transition(0.25s)
-      .hover-text
-        position: absolute
-        left: 50%
-        top: 50%
-        +translate(-50%,-50%)
-        padding: 5px 10px
-        opacity: 0
-        +transition(0.25s)
-        p
-          font-style: italic
-          color: #fff
-          position: relative
-          z-index: 1
-        &:before
-          content: ''
-          position: absolute
-          width: 100%
-          height: 100%
-          left: 0
-          top: 0
-          background-color: #000
-          opacity: 0.5
-      .blur
-        -webkit-filter: blur(3px)
-      .text
-        position: absolute
-        top: 50%
-        left: 50%
-        width: 90%
-        +translate(-50%,-50%)
-        text-align: center
-        svg
-          fill: #fff
-          width: 40px
-        p
-          font-size: 15px
-          color: #fff
-          margin: 20px 0
-        .login-link
-          font-size: 14px
-          color: #fff
-          border-bottom: 1px solid #fff
-          display: inline-block
-          line-height: 22px
-          +transition(0.25s)
-          &:hover
-            color: $main
-            border-bottom: 1px solid $main
-    .description
-      color: $grey
-      padding: 20px
-      +transition(0.25s)
-    &:hover
-      .img-background
-        +scale(1.1)
-      .description
-        color: $green
-      .hover-text
-        opacity: 1
-      &.past-event
-        +disable-grayscale
+
   .btn-container
     text-align: center
+.event-container
+  position: relative
+  border-left: 1px solid $main
+  max-width: 500px
+  margin: 0 auto 50px
+  cursor: pointer
+
+  &.past-event
+    +transition(0.25s)
+    +grayscale
+  .date
+    font-size: 2.5rem
+    color: $main
+    margin-left: 20px
+    span
+      font-style: italic
+      font-size: 0.875rem
+      color: $grey
+  .img-container
+    height: 250px
+    left: -1px
+    position: relative
+    overflow: hidden
+    .img-background
+      +transition(0.25s)
+    .hover-text
+      position: absolute
+      left: 50%
+      top: 50%
+      +translate(-50%,-50%)
+      padding: 5px 10px
+      opacity: 0
+      +transition(0.25s)
+      p
+        font-style: italic
+        color: #fff
+        position: relative
+        z-index: 1
+      &:before
+        content: ''
+        position: absolute
+        width: 100%
+        height: 100%
+        left: 0
+        top: 0
+        background-color: #000
+        opacity: 0.5
+    .blur
+      -webkit-filter: blur(3px)
+    .text
+      position: absolute
+      top: 50%
+      left: 50%
+      width: 90%
+      +translate(-50%,-50%)
+      text-align: center
+      svg
+        fill: #fff
+        width: 40px
+      p
+        font-size: 15px
+        color: #fff
+        margin: 20px 0
+      .login-link
+        font-size: 14px
+        color: #fff
+        border-bottom: 1px solid #fff
+        display: inline-block
+        line-height: 22px
+        +transition(0.25s)
+        &:hover
+          color: $main
+          border-bottom: 1px solid $main
+  .description
+    color: $grey
+    padding: 20px
+    +transition(0.25s)
+  &:hover
+    .img-background
+      +scale(1.1)
+    .description
+      color: $green
+    .hover-text
+      opacity: 1
+    &.past-event
+      +disable-grayscale
+
 
 .meeting-container
   height: 600px

@@ -4,21 +4,26 @@ class Event < ActiveRecord::Base
   globalize :name, :content, :url_fragment
 
   has_seo_tags
-  has_sitemap_record\
-  
-  #images :gallery_images, styles: { large: "500x500#", small: "300x300#" }
+  has_sitemap_record
+
+  image :avatar, styles: {list: "380x250#", thumb: "152x100#"}
+
+  has_images :gallery_images, styles: { large: "500x500#", small: "200x200#", thumb: "100x100#" }
 
   boolean_scope :published
   scope :past, -> { date = Date.today; time = Time.now;  where("date < ? OR (date = ? AND end_time < ?)", date, date, time) }
   scope :future, -> { date = Date.today; time = Time.now; where("date > ? OR (date = ? AND start_time > ?)", date, date, time) }
   scope :active, -> { date = Date.today; time = Time.now; where("date = ? AND start_time >= ? AND end_time <= ?", date, time, time) }
   scope :past_and_active, -> { date = Date.today; time = Time.now; where("date < ? OR (date = ? AND end_time <= ?)", date, date, time) }
-  scope :subscribed_by_user, ->(user) { current_scope }
+  scope :subscribed_by_user, ->(user) { return current_scope if user.nil?; current_scope.joins(:subscribed_users).where(event_subscriptions: { user_id: user.id }) }
   scope :visited_by_user, ->(user) { past_and_active.subscribed_by_user(user) }
   scope :home_future, -> { published.future.limit(3) }
   scope :home_past, -> { published.past.limit(3) }
 
   validates :date, :start_time, :end_time, presence: true, if: :published?
+
+  has_and_belongs_to_many :subscribed_users, class_name: User, join_table: "event_subscriptions"
+  attr_accessible :subscribed_users, :subscribed_user_ids
 
   def to_param
     url_fragment
