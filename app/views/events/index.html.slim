@@ -10,7 +10,7 @@
       p.date 28
       p.month жовтня 2016
       p.title Зустріч з Іваном Герасимовичем на тему: "Включи свої можливості".
-      a.btn href="#"
+      a.btn.event-only-for-members href="#"
         span Переглянути
   .calendar-container
     .line
@@ -24,3 +24,5 @@
     .row.events-row
       - @events.each do |event|
         = render "event", event: event
+
+= render "event_popup"

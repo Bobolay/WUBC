@@ -2,6 +2,7 @@
 #= require jquery-ui
 #= require jquery_ujs
 
+#= require global
 #= require jquery.jcrop
 #= require papercrop
 #= require plugins/jquery.appear
@@ -10,10 +11,9 @@
 #= require plugins/jquery.scrolldelta
 #= require plugins/lightgallery.min
 #= require plugins/lg-thumbnail.min
+#= require plugins/clickout
 
 #= require lightgallery
-
-#= require global
 
 #= require main
 
@@ -40,3 +40,5 @@
 #= require datepick
 
 #= require cabinet-tabs
+
+#= require event-popup
