@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   image :avatar, styles: { small: "72x72#" }
   crop_attached_file :avatar
 
-  has_and_belongs_to_many :events_i_am_subscribed_on, class_name: Event
+  has_and_belongs_to_many :events_i_am_subscribed_on, class_name: Event, join_table: "event_subscriptions"
   attr_accessible :events_i_am_subscribed_on, :events_i_am_subscribed_on_ids
 
   def admin?
