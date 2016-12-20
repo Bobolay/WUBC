@@ -4,7 +4,9 @@ class Event < ActiveRecord::Base
   globalize :name, :content, :url_fragment
 
   has_seo_tags
-  has_sitemap_record
+  has_sitemap_record\
+  
+  #images :gallery_images, styles: { large: "500x500#", small: "300x300#" }
 
   boolean_scope :published
   scope :past, -> { date = Date.today; time = Time.now;  where("date < ? OR (date = ? AND end_time < ?)", date, date, time) }
