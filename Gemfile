@@ -83,7 +83,7 @@ gem 'rack-page_caching'
 
 #gem 'paperclip-optimizer'
 
-#gem 'attachable', github: "VoroninNick/attachable"
+gem 'attachable', github: "VoroninNick/attachable"
 #gem 'attachable', path:"/media/data/pasha/gems/attachable"
 
 if File.exists?("/media/data/gems/cms")

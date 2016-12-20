@@ -10,7 +10,7 @@
     .login-field href="#" class=("logged" if current_user)
       - if current_user
         .user-icon
-          - user_image = current_user.avatar.exists? ? current_user.avatar.url : nil
+          - user_image = current_user.avatar.exists?(:small) ? current_user.avatar.url(:small) : nil
           - if user_image
             img src=user_image
           - else

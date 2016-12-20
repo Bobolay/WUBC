@@ -109,6 +109,18 @@ module RailsAdminDynamicConfig
           field :priority
         end
 
+        config.include_models Attachable::Asset
+
+        config.model Attachable::Asset do
+          field :data
+          field :translations, :globalize_tabs
+        end
+
+        config.model_translation Attachable::Asset do
+          field :locale, :hidden
+          field :data_alt
+        end
+
         config.include_models User, Administrator, Member
         config.model User do
           visible false
@@ -160,6 +172,8 @@ module RailsAdminDynamicConfig
           end
           field :start_time
           field :end_time
+          field :avatar
+          field :gallery_images
           field :seo_tags
           field :sitemap_record
         end

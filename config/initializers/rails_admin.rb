@@ -1,7 +1,5 @@
 require_relative 'require_lib'
 
-RailsAdminDynamicConfig.configure_rails_admin
-
 def js_field(name)
   field name, :code_mirror do
     theme = "night" # night
@@ -35,3 +33,5 @@ def associated_collection_scope_except_current
     end
   end
 end
+
+RailsAdminDynamicConfig.configure_rails_admin

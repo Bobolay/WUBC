@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   image :avatar, styles: { small: "72x72#" }
   crop_attached_file :avatar
 
+  has_and_belongs_to_many :events_i_am_subscribed_on, class_name: Event
+  attr_accessible :events_i_am_subscribed_on, :events_i_am_subscribed_on_ids
+
   def admin?
     role == "administrator" || role == "admin"
   end
@@ -39,6 +42,24 @@ class User < ActiveRecord::Base
     str = email if str.blank?
 
     str
+  end
+
+  def subscribed_on_event?(event)
+    !EventSubscription.where(event_id: event.id, user_id: self.id).first.nil?
+  end
+
+  def subscribe_on_event(event)
+    if !subscribed_on_event?(event)
+      es = EventSubscription.new(event_id: event.id, user_id: self.id)
+      es.save
+    end
+  end
+
+  def unsubscribe_from_event(event)
+    if subscribed_on_event?(event)
+      es = EventSubscription.where(event_id: event.id, user_id: self.id)
+      es.delete_all
+    end
   end
 end
 

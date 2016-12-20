@@ -4,9 +4,11 @@ class Event < ActiveRecord::Base
   globalize :name, :content, :url_fragment
 
   has_seo_tags
-  has_sitemap_record\
-  
-  #images :gallery_images, styles: { large: "500x500#", small: "300x300#" }
+  has_sitemap_record
+
+  image :avatar, styles: {list: "380x250#", thumb: "152x100#"}
+
+  has_images :gallery_images, styles: { large: "500x500#", small: "200x200#", thumb: "100x100#" }
 
   boolean_scope :published
   scope :past, -> { date = Date.today; time = Time.now;  where("date < ? OR (date = ? AND end_time < ?)", date, date, time) }
@@ -19,6 +21,9 @@ class Event < ActiveRecord::Base
   scope :home_past, -> { published.past.limit(3) }
 
   validates :date, :start_time, :end_time, presence: true, if: :published?
+
+  has_and_belongs_to_many :subscribed_users, class_name: User
+  attr_accessible :subscribed_users, :subscribed_user_ids
 
   def to_param
     url_fragment
