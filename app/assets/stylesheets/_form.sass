@@ -59,24 +59,25 @@ form
     &:before, &:after
       width: 100%
 
-//.simple_form
-  & > .input
+.material_form
+  .input
     margin-bottom: 10px
     max-width: 250px
     input, textarea
       font-size: 1em
       padding: 10px 0
       color: $light-grey
-      background-color: $dark-grey
+      //background-color: $dark-grey
       border-bottom: 1px solid $grey
     label
+      position: absolute
       color: $light-grey
       font-size: 1em
       top: 8px
     input:focus ~ label, input.used ~ label, textarea:focus ~ label, textarea.used ~ label
       top: -10px
       font-size: 0.75em
-      color: $dark-grey
+      //color: $dark-grey
     .bar
       &:before
         background: $light-grey

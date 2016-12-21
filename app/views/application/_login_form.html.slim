@@ -1,7 +1,7 @@
 - u = current_user || User.new
 p.title особистий кабінет
 - if !current_user
-  = simple_form_for User.new, as: :user,  url: new_user_session_path, authenticity_token: false, enforce_utf8: false do |f|
+  = simple_form_for User.new, as: :user,  url: new_user_session_path, authenticity_token: false, enforce_utf8: false, html: {class: "material_form"} do |f|
     .input
       input type="text" name="user[email]"
         span.bar
