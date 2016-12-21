@@ -23,6 +23,7 @@
       @media #{$small-only}
         top: 10px
         left: 20px
+        position: initial
     p
       color: #fff
       font-size: 18px
@@ -36,6 +37,8 @@
   .locales-bar
     float: left
     margin-left: 40px
+    @media #{$small-only}
+      margin-left: 20px
     a
       font-size: 0.875em
       display: inline-block
@@ -83,6 +86,8 @@
         .menu-button-lines
           &::before, &::after
             background-color: #fff
+    @media #{$small-only}
+      margin: 5px
   .menu-wrapper
     background-color: $dark-grey
     position: relative
