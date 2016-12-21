@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
     mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
     mount Ckeditor::Engine => '/ckeditor'
-    post "sign_up", to: "users/registrations#create", as: "sign_up"
+    post "sign_up", to: "registrations#create", as: "sign_up"
     devise_for :users, path: "", module: "users", path_names: {
         sign_in: "login",
         sign_out: 'logout',

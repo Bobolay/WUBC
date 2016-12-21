@@ -16,3 +16,5 @@ uk:
         email: "user@server.com"
         password: "12345678"
         password_confirmation: "12345678"
+      company:
+        name: "Назва компанії"

@@ -16,11 +16,9 @@
               .step-name
                 = t(".#{step_key}")
               hr.dash
-
         .step-contents.tab-contents
           .step-content.tab-content.active
-            #registration-user
-            /= simple_form_for resource, as: resource_name,  url: new_user_registration_path, authenticity_token: false, enforce_utf8: false, html: {class: "form-theme-classic"} do |f|
+            = simple_form_for resource, as: resource_name,  url: new_user_registration_path, authenticity_token: false, enforce_utf8: false, html: {class: "form-theme-classic"} do |f|
               = devise_error_messages!
               .row.inputs
 
@@ -35,7 +33,6 @@
                   = f.input :birth_date, as: :datepicker, placeholder: t("simple_form.placeholders.user.birth_date")
 
                 .columns.large-6
-
                   = f.input :phone
 
                   = f.input :email
@@ -44,26 +41,26 @@
 
                   = f.input :password_confirmation, as: "password"
 
-            .columns.actions
-              a.next-step-button.step-navigation-button
-                | Наступний крок
-                = inline_svg "icons/arrow-right.svg"
+                .columns.actions
+                  a.next-step-button.step-navigation-button
+                    | Наступний крок
+                    = inline_svg "icons/arrow-right.svg"
 
 
 
 
           .step-content.tab-content
-            /= simple_form_for resource, as: resource_name,  url: new_user_registration_path, authenticity_token: false, enforce_utf8: false, html: {class: "form-theme-classic"} do |f|
+            = simple_form_for resource, as: resource_name,  url: new_user_registration_path, authenticity_token: false, enforce_utf8: false, html: {class: "form-theme-classic"} do |f|
               = devise_error_messages!
               .row.inputs
 
-                .columns.large-12
+                .columns.large-6
                   = f.simple_fields_for :companies do |cf|
                     .row
                       .columns
-                        = cf.input :name, label: false, placeholder: t("simple_form.placeholders.company.name"), input_html: {class: "material-input"}
+                        = cf.input :name
                       .columns.large-6
-                        = cf.input :industry, as: :editable_select
+                        = cf.input :industry
                         = cf.input :description
                         = cf.input :region
                         = cf.input :position
@@ -73,25 +70,18 @@
                       .columns.large-6
                         = cf.input :company_site
                         = cf.simple_fields_for :offices do |cfo|
-                          = cfo.input :city
-                          = cfo.input :address
-                          = cfo.input :phones
-                        = cf.input :social_networks
+                          = cfo.
 
-                .columns.large-6
-
-            /= render "company_form", resource: resource
-            #registration-company
-            .columns.actions
-              .btn.prev-step-button.step-navigation-button
-                span
-                  = "Попередній крок"
-              a.next-step-button.step-navigation-button
-                | Наступний крок
-                = inline_svg "icons/arrow-right.svg"
+      
+                .columns.actions
+                  .btn.prev-step-button.step-navigation-button
+                    span
+                      = "Попередній крок"
+                  a.next-step-button.step-navigation-button
+                    | Наступний крок
+                    = inline_svg "icons/arrow-right.svg"
 
           .step-content.tab-content
-            #registration-summary
             .columns.actions
               .btn.prev-step-button.step-navigation-button
                 span

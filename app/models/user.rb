@@ -15,6 +15,11 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :events_i_am_subscribed_on, class_name: Event, join_table: "event_subscriptions"
   attr_accessible :events_i_am_subscribed_on, :events_i_am_subscribed_on_ids
 
+  has_many :company_memberships
+  has_many :companies, through: :company_memberships
+
+  scope :confirmed, -> { where("confirmed_at is not null") }
+
   def admin?
     role == "administrator" || role == "admin"
   end

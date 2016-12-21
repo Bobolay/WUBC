@@ -2,6 +2,10 @@
 #= require jquery-ui
 #= require jquery_ujs
 
+#= require images.js.erb
+#= require functions
+#= require js_functions
+
 #= require plugins/jquery.validate.min
 #= require validate-initialize
 
@@ -10,6 +14,8 @@
 #= require papercrop
 #= require plugins/jquery.appear
 #= require appear-initialize
+#= require plugins/jquery_change_classes
+#= require plugins/delay
 #= require plugins/jquery-easing
 #= require plugins/jquery.scrolldelta
 #= require plugins/lightgallery.min
