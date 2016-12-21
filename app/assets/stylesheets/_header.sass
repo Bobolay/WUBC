@@ -33,6 +33,20 @@
       +transition(1s)
       @media #{$small-only}
         display: none
+  .locales-bar
+    float: left
+    margin-left: 40px
+    a
+      font-size: 0.875em
+      display: inline-block
+      padding: 17px 5px
+      color: $light-grey
+      text-transform: uppercase
+      +transition(0.1s)
+      &:hover
+        color: $green
+      &.active
+        color: $green
 
   &.scrolled, &.visible
     +translate(0,0)
