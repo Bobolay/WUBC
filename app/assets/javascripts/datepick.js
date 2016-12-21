@@ -8,6 +8,8 @@ $(function() {
       dayNamesShort: [ "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд" ],
       prevText: 'Попередній',
       nextText: 'Наступний',
+      changeMonth: true,
+      changeYear: true,
     onSelect: function(){
       $input_wrap = $(this).closest(".input"),
       $input_wrap.addClass("not-empty")

@@ -1,0 +1,40 @@
+.tab-headers
+  +clearfix
+.tab-header
+  cursor: pointer
+  float: left
+  width: calc(1 / 3 * 100%)
+  height: 40px
+  cursor: pointer
+  position: relative
+  text-align: center
+  p
+    color: $light-grey
+    text-transform: uppercase
+    +transition(0.25s)
+    @media #{$small-only}
+      font-size: 0.875em
+      line-height: 1.2
+  svg
+    position: relative
+    top: 3px
+    fill: $light-grey
+    width: 20px
+    height: 20px
+    +transition(0.25s)
+  &.active
+    p
+      color: $green
+    svg
+      fill: $green
+
+
+.tab-contents
+  .actions
+    text-align: center
+
+    .btn, .step-navigation-button
+      display: inline-block
+
+    .step-navigation-button
+      margin: 0 25px

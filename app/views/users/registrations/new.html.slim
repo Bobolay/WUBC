@@ -10,63 +10,68 @@
       .wizard.devise-form
         .step-headers.tab-headers
           - ["main-info", "company-info", "registration-confirmation"].each_with_index do |step_key, i|
-            .step-header.tab-header
+            .step-header.tab-header class=("active" if i == 0)
               span.number
                 = i + 1
               .step-name
                 = t(".#{step_key}")
               hr.dash
-        
-        .tab-content.active
-          = simple_form_for resource, as: resource_name,  url: new_user_registration_path, authenticity_token: false, enforce_utf8: false, html: {class: "form-theme-classic"} do |f|
-            = devise_error_messages!
-            .row.inputs
+        .step-contents.tab-contents
+          .step-content.tab-content.active
+            = simple_form_for resource, as: resource_name,  url: new_user_registration_path, authenticity_token: false, enforce_utf8: false, html: {class: "form-theme-classic"} do |f|
+              = devise_error_messages!
+              .row.inputs
 
-              .columns.large-6
-        
-                = f.input :first_name
+                .columns.large-6
 
-                = f.input :last_name
+                  = f.input :first_name
 
-                = f.input :middle_name
+                  = f.input :middle_name
 
-                = f.input :birth_date, as: :datepicker
-                
-              .columns.large-6
-                
-                = f.input :phone
+                  = f.input :last_name
 
-                = f.input :email
+                  = f.input :birth_date, as: :datepicker, placeholder: t("simple_form.placeholders.user.birth_date")
 
-                = f.input :password
+                .columns.large-6
+                  = f.input :phone
 
-                = f.input :password_confirmation
+                  = f.input :email
 
-        .tab-content
-          = simple_form_for resource, as: resource_name,  url: new_user_registration_path, authenticity_token: false, enforce_utf8: false, html: {class: "form-theme-classic"} do |f|
-            = devise_error_messages!
-            .row.inputs
+                  = f.input :password, as: "password"
 
-              .columns.large-6
-                p.static-input-label Ім'я:
-                = f.input :first_name
-                p.static-input-label Прізвище:
-                = f.input :last_name
-                p.static-input-label По батькові:
-                = f.input :middle_name
-                / label Дата народження
-                / = f.input :birth_date
-                
-              .columns.large-6
-                p.static-input-label Телефон:
-                = f.input :phone
-                p.static-input-label Логін e-mail:
-                = f.input :email
-                p.static-input-label Пароль:
-                = f.input :password
-                p.static-input-label Підтвердження паролю:
-                = f.input :password_confirmation
+                  = f.input :password_confirmation, as: "password"
+
+                .columns.actions
+                  a.next-step-button.step-navigation-button
+                    | Наступний крок
+                    = inline_svg "icons/arrow-right.svg"
+
+
+
+
+          .step-content.tab-content
+            = simple_form_for resource, as: resource_name,  url: new_user_registration_path, authenticity_token: false, enforce_utf8: false, html: {class: "form-theme-classic"} do |f|
+              = devise_error_messages!
+              .row.inputs
+
+                .columns.large-6
+                  = simple_fields_for resource.companies.new
+
+                .columns.large-6
+
       
-      a.step-button
-        | Наступний крок
-        = inline_svg "icons/arrow-right.svg"
+                .columns.actions
+                  .btn.prev-step-button.step-navigation-button
+                    span
+                      = "Попередній крок"
+                  a.next-step-button.step-navigation-button
+                    | Наступний крок
+                    = inline_svg "icons/arrow-right.svg"
+
+          .step-content.tab-content
+            .columns.actions
+              .btn.prev-step-button.step-navigation-button
+                span
+                  = "Попередній крок"
+              a.next-step-button.step-navigation-button
+                | Подати заявку

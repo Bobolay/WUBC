@@ -9,4 +9,10 @@ uk:
 
     placeholders:
       user:
-        first_name
+        first_name: "Петро"
+        middle_name: "Петрович"
+        last_name: "Петренко"
+        birth_date: "01.12.1991"
+        email: "user@server.com"
+        password: "12345678"
+        password_confirmation: "12345678"

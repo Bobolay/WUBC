@@ -42,3 +42,5 @@
 #= require cabinet-tabs
 
 #= require event-popup
+
+#= require registration
