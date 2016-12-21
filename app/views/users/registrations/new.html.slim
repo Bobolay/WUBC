@@ -16,6 +16,7 @@
               .step-name
                 = t(".#{step_key}")
               hr.dash
+
         .step-contents.tab-contents
           .step-content.tab-content.active
             = simple_form_for resource, as: resource_name,  url: new_user_registration_path, authenticity_token: false, enforce_utf8: false, html: {class: "form-theme-classic"} do |f|
@@ -33,6 +34,7 @@
                   = f.input :birth_date, as: :datepicker, placeholder: t("simple_form.placeholders.user.birth_date")
 
                 .columns.large-6
+                
                   = f.input :phone
 
                   = f.input :email
@@ -55,7 +57,7 @@
               .row.inputs
 
                 .columns.large-6
-                  = simple_fields_for resource.companies.new
+                  / = simple_fields_for resource.companies.new
 
                 .columns.large-6
 

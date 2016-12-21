@@ -1,9 +1,27 @@
 .menu-user-block
+  +clearfix
   .user-avatar
     float: left
+    width: 72px
+    height: 72px
+    margin-right: 20px
     svg, img
       width: 72px
       height: 72px
 
   .user-details
     float: left
+    .user-name
+      color: white
+      margin-bottom: 10px
+    .user-events
+      font-size: 0.875em
+      margin-bottom: 10px
+      font-style: italic
+    .user-links
+      a
+        display: inline-block
+      span
+        color: $light-grey
+        margin: 0 10px
+        font-size: 1.25em
