@@ -4,6 +4,8 @@
   border-right: 1px solid $grey
   overflow: hidden
   position: relative
+  @media #{$small-only}
+    padding: 10px 12px
   &:before
     content: ''
     position: absolute
@@ -32,11 +34,16 @@
     top: -5px
     margin-right: 5px
     +transition(0.25s)
+    @media #{$small-only}
+      display: none
   svg
     width: 30px
     height: 30px
     fill: $light-grey
     +transition(0.25s)
+    @media #{$small-only}
+      width: 25px
+      height: 25px
   &:hover
     &:after
       +translate(0,0)

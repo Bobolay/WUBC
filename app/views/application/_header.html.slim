@@ -5,6 +5,10 @@
     a.logo href=root_path
       = inline_svg "icons/logo.svg"
       p wubc
+    .locales-bar
+      - Cms.config.provided_locales.each do |locale|
+        a href=url_for(locale: locale) class=("active" if locale.to_s == I18n.locale.to_s)
+          = locale
     .menu-button
       .menu-button-lines
     .login-field href="#" class=("logged" if current_user)
