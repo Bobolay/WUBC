@@ -3,6 +3,8 @@
   margin: 0 auto
   box-shadow: 0px 0px 15px rgba(0,0,0,0.5)
   padding-top: 50px
+  background: white
+  z-index: 10
   @media #{$small-only}
     padding-top: 20px
 
@@ -10,7 +12,7 @@
     color: $green
     text-align: center
   .material_form
-    padding: 0 50px
+    padding: 0 50px 50px
     .input
       max-width: initial
       input
@@ -52,6 +54,13 @@
       top: -2px
       font-size: 1em
 
+  .forgot_password_link
+    text-align: right
+    font-size: 0.875em
+    color: $light-grey
+    &:hover
+      color: $green
+
 .login-form-wrapper.form-page
   width: 500px
   margin: 10% auto 30px
@@ -70,9 +79,12 @@
   display: -ms-flex
   display: -o-flex
   display: flex
+  +transition(0.1s)
   svg
     margin: auto
     width: 16px
     height: 16px
     *
       fill: $green
+  &:hover
+    border: 1px solid $green

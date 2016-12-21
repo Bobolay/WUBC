@@ -25,6 +25,6 @@
           a.logout-link href=destroy_user_session_path data-method="delete"
             |Sign out
       - else
-        a href=new_user_session_path
+        a.open-login-popup
           p Логін
           = inline_svg "icons/lock.svg"

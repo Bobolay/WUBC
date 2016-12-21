@@ -23,4 +23,22 @@ module ApplicationHelper
   def formatted_time_range(time1, time2)
     "#{time1.strftime("%H:%M")} по #{time2.strftime("%H:%M")}"
   end
+
+  def resource
+    current_user || User.new
+  end
+
+  def resource_name
+    :user
+  end
+
+  def devise_mapping
+    Devise.mappings[:user]
+  end
+
+
+  def resource_class
+    devise_mapping.to
+  end
+
 end

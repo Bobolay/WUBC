@@ -47,3 +47,5 @@
 #= require event-popup
 
 #= require registration
+
+#= require sign-in-popup-wrapper
