@@ -8,8 +8,9 @@
         p.main-header business club
         hr
         p.regular Спільнота для комунікації і розвитку власників та перших осіб бізнесу.
-        a.btn.open-login-popup href=new_user_session_path
-          span Долучитись до клубу
+        - if !current_user
+          a.btn href=new_user_registration_path
+            span Долучитись до клубу
         .bottom
           = inline_svg "icons/arrow-down.svg"
           span Детальніше
