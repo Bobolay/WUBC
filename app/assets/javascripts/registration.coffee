@@ -313,6 +313,11 @@ column("medium-6", {
     type: "offices"
   }
   #social_networks: {}
+  social_twitter: {}
+  social_google_plus: {}
+  social_facebook: {}
+  social_linkedin: {}
+  social_vk: {}
 })
 
 $("#registration-user").html(user_form)
@@ -479,7 +484,7 @@ $document.on "click", ".step-navigation-button.send-form", ()->
   )
 
   # alert("вам на пошту надіслано лист з підтвердженням")
-  #$('.success-popup-wrapper').fadeIn('200')
+  $('.success-popup-wrapper').fadeIn('200')
 
 
 $document.on "keyup", ".input[validation]", ()->
