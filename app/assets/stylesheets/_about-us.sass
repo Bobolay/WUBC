@@ -11,6 +11,17 @@
       &:before
         padding-bottom: 50%
 
+    .img-background
+      &:before
+        content: ''
+        display: block
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 0
+        left: 0
+        background: rgba(255,255,255,0.2)
+
   .member-values-container
     padding: 50px 0
     .member-value
@@ -28,7 +39,6 @@
         color: $green
         font-size: 1.25rem
         font-family: Vremena
-        font-weight: bold
 
   .activity-slider-pager
     margin-top: 100px
@@ -125,10 +135,15 @@
       margin-bottom: 30px
       @media #{$small-only}
         margin-top: 30px
+    .regular-grey
+      width: 80%
+      line-height: 1.75
+      @media #{$small-only}
+        width: 100%
     ul
       counter-reset: rowNumber
       color: $grey
-      font-size: 1.25em
+      font-size: 1.125em
       line-height: 1.25em
       li
         position: relative
@@ -136,7 +151,7 @@
         padding-left: 30px
         margin-bottom: 20px
         &:before
-          content: counter(rowNumber)
+          content: counter(rowNumber) "."
           color: $green
           position: absolute
           left: 0

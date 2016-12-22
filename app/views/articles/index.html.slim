@@ -9,10 +9,9 @@
             | Фільтрація по тегах:
             = inline_svg "icons/tag.svg"
           - @tags.each do |tag|
-            .tag
+            .tag data-tag-id=tag.id
               p
                 = tag.name
-              span.close = inline_svg "icons/close-cross.svg"
 
     .row
       - @articles.each do |article|

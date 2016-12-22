@@ -20,8 +20,6 @@ $(document).ready ->
 
   #     M E M B E R S
 
-  # width = $(".members-container").width()
-  # console.log(width)
   slider2 = $('.slider-2').bxSlider
     controls: false
     pager: false
