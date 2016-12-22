@@ -37,6 +37,9 @@ form
     margin: 0 10px
   .join-us-link
     color: $light-grey
+    +transition(0.15s)
+    &:hover
+      color: $green
 
 .input
   position: relative
@@ -128,6 +131,7 @@ form
     color: $green
     border-bottom: 1px solid $light-grey
   label
+    position: absolute
     color: $light-grey
     font-size: 1em
     top: 8px

@@ -25,14 +25,14 @@
   .row.collapse
     .columns
       .members-grid
-        .square
+        a.square href=member_path(1)
           .img-background style="background-image: url(#{asset_path('photo/speaker-1.jpg')})"
           p.title
             span микола
             br
             | воронін
           .hover-block
-            a href=member_path(1) = inline_svg "icons/arrow-right.svg"
+            = inline_svg "icons/arrow-right.svg"
         .square
           .img-background style="background-image: url(#{asset_path('photo/speaker-2.jpg')})"
           p.title

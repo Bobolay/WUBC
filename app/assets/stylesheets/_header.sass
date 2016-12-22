@@ -25,6 +25,7 @@
         left: 20px
         position: initial
     p
+      font-weight: bold
       color: #fff
       font-size: 18px
       display: inline-block
@@ -105,3 +106,51 @@
     .top
       @media #{$small-only}
         padding: 30px 0
+
+body
+  &.pages__about_us, &.articles__index, &.members__index, &.pages__partners, &.pages__contacts
+    .logo
+      p
+        color: $grey
+    .login-field
+      p
+        color: $grey
+      svg
+        fill: $grey
+      &:hover
+        p
+          color: $green
+        svg
+          fill: $green
+    .menu-button
+      .menu-button-lines
+        +burger(25px, 2px, 5px, $main, 1px)
+      &:hover
+        .menu-button-lines
+          &, &::before, &::after
+            background-color: $main
+      &.opened
+        .menu-button-lines
+          +burger-to-cross
+          &::before, &::after
+            background-color: $green
+        &:hover
+          .menu-button-lines
+            &::before, &::after
+              background-color: $main
+
+body.events__index
+  .locales-bar
+    a
+      color: white
+  .login-field
+    border-right: 1px solid white
+    p
+      color: white
+    svg
+      fill: white
+    &:hover
+      p
+        color: $main
+      svg
+        fill: $main

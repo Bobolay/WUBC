@@ -1,10 +1,13 @@
-.login-form-wrapper
+.login-form-wrapper, .success-message-wrapper
+  width: 500px
+  margin: 30px auto
   position: relative
   margin: 0 auto
   box-shadow: 0px 0px 15px rgba(0,0,0,0.5)
   padding-top: 50px
   background: white
-  z-index: 10
+  max-width: 90%
+  z-index: 5
   @media #{$small-only}
     padding-top: 20px
 
@@ -62,11 +65,7 @@
       color: $green
 
 .login-form-wrapper.form-page
-  width: 500px
-  margin: 10% auto 30px
-  max-width: 90%
-  @media #{$small-only}
-    margin: 30% auto 30px
+  // margin: 10% auto
 
 .close-popup-circle
   cursor: pointer
@@ -75,7 +74,7 @@
   height: 50px
   border-radius: 50%
   border: 1px solid white
-  margin: 0 auto
+  margin: 10% auto 30px
   display: -webkit-flex
   display: -moz-flex
   display: -ms-flex
@@ -90,3 +89,17 @@
       fill: $green
   &:hover
     border: 1px solid $green
+
+.success-message-wrapper
+  padding-top: 0
+  padding-bottom: 50px
+  text-align: center
+  .green-header
+    line-height: 70px
+    background: $green
+    text-transform: uppercase
+    font-size: 1.5em
+    color: white
+  .regular-grey
+    padding: 30px 50px
+    text-align: initial
