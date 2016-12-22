@@ -1,8 +1,8 @@
 class RegistrationsController < Users::RegistrationsController
-
-
+  skip_all_before_action_callbacks
   def create
     user = Member.create(sign_up_user_params)
+    render json: {}
   end
 
   def sign_up_user_params

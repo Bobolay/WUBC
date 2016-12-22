@@ -1,3 +1,26 @@
+.material-input
+  border: none !important
+  border-bottom: 1px solid #BCBCBC !important
+
+
+.textarea-corner
+  position: absolute
+  width: 0
+  height: 0
+  border-right: 5px solid $green
+  border-bottom: 5px solid $green
+  border-left: 5px solid transparent
+  border-top: 5px solid transparent
+  right: 2px
+  bottom: 2px
+  pointer-events: none
+
+.input
+  &.invalid
+    input
+      border-color: red
+
+
 form
   .sign-in-button, .or-separator, .join-us-link
     display: inline-block
@@ -81,6 +104,20 @@ form
     .bar
       &:before
         background: $light-grey
+
+.input
+  textarea
+    color: $grey-grey
+    resize: vertical
+    width: 100%
+    background: transparent
+    padding: 10px 20px
+    outline: none
+    appearence: none
+    border: 1px solid #747474
+    &:focus
+      outline: none
+
 
 .club-members-container .input
   input, textarea

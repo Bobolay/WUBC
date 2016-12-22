@@ -11,7 +11,7 @@ $(function() {
       changeMonth: true,
       changeYear: true,
     onSelect: function(){
-      $input_wrap = $(this).closest(".input"),
+      $input_wrap = $(this).closest(".input")
       $input_wrap.addClass("not-empty")
     }
   });

@@ -72,7 +72,7 @@ $document.on "click", (e)->
     #if satisfy_conditions(s)
     $elems = resolve_elems(s)
     $untargeted_excepted_elements = except_elements(e.target, s)
-    console.log "s: ", s, "e: ", e, "$elems:", $elems
+    #console.log "s: ", s, "e: ", e, "$elems:", $elems
 
     $untargeted_elems = $elems.filter(
       (index, item)->

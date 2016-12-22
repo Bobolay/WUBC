@@ -18,8 +18,8 @@ html
         z-index: 9999
 
     = csrf_meta_tags
-    
-  body
+
+  body class="#{controller_name}__#{action_name}"
     #preloader
 
 
