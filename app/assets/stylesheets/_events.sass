@@ -5,10 +5,15 @@
   .events-banner
     position: relative
     height: 500px
+    .img-background
+      +grayscale
+    &:after
+      +overlay(0.7)
     .text
       position: relative
       text-align: center
       top: 50%
+      z-index: 1
       +translate(0,-50%)
       .future-event
         color: #fff
