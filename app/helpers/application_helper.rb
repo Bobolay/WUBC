@@ -15,6 +15,10 @@ module ApplicationHelper
     ("#{d}<span>#{m} #{y}</span>").html_safe
   end
 
+  def formatted_phone(phone)
+    "+38 097 784 65 78"
+  end
+
   def day_name(date)
     day_number = date.strftime("%u")
     Cms.t("day-names.#{day_number}")

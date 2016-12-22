@@ -149,15 +149,61 @@ module RailsAdminDynamicConfig
         config.model Member do
           navigation_label "Users"
 
+          list do
+            field :confirmed_at do
+              date_format do
+                :default
+              end
+            end
+            field :approved_at do
+              date_format do
+                :default
+              end
+            end
+            field :email
+            field :full_name
+            field :avatar
+          end
+
           edit do
+            field :confirmed_at, :date do
+              date_format do
+                :default
+              end
+            end
+            field :approved, :boolean do
+
+            end
             field :email
             field :password
             field :password_confirmation
             field :translations, :globalize_tabs
-            field :birth_date
+            field :birth_date do
+              date_format do
+                :default
+              end
+            end
             field :phone
             field :avatar
+            field :companies
           end
+        end
+
+        config.include_models Company
+        config.model Company do
+          field :name
+          field :industry
+          field :employees_count
+          field :company_site
+          #:social_networks
+          field :offices
+        end
+
+        config.model_translation Company do
+          field :name
+          field :description
+          field :region
+          field :position
         end
 
         config.include_models Event

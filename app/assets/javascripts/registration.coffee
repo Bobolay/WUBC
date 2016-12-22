@@ -479,7 +479,7 @@ $document.on "click", ".step-navigation-button.send-form", ()->
   )
 
   # alert("вам на пошту надіслано лист з підтвердженням")
-  $('.success-popup-wrapper').fadeIn('200')
+  #$('.success-popup-wrapper').fadeIn('200')
 
 
 $document.on "keyup", ".input[validation]", ()->

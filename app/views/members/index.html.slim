@@ -25,51 +25,15 @@
   .row.collapse
     .columns
       .members-grid
-        a.square href=member_path(1)
-          .img-background style="background-image: url(#{asset_path('photo/speaker-1.jpg')})"
-          p.title
-            span микола
-            br
-            | воронін
-          .hover-block
-            = inline_svg "icons/arrow-right.svg"
-        .square
-          .img-background style="background-image: url(#{asset_path('photo/speaker-2.jpg')})"
-          p.title
-            span роман
-            br
-            | камінечний
-          .hover-block
-            a href="#" = inline_svg "icons/arrow-right.svg"
-        .square
-          .img-background style="background-image: url(#{asset_path('photo/speaker-3.jpg')})"
-          p.title
-            span антон
-            br
-            | пантон
-          .hover-block
-            a href="#" = inline_svg "icons/arrow-right.svg"
-        .square
-          .img-background style="background-image: url(#{asset_path('photo/speaker-1.jpg')})"
-          p.title
-            span наталія
-            br
-            | іщук
-          .hover-block
-            a href="#" = inline_svg "icons/arrow-right.svg"
-        .square
-          .img-background style="background-image: url(#{asset_path('photo/speaker-4.jpg')})"
-          p.title
-            span яна
-            br
-            | деуліна
-          .hover-block
-            a href="#" = inline_svg "icons/arrow-right.svg"
-        .square
-          .img-background style="background-image: url(#{asset_path('photo/speaker-5.jpg')})"
-          p.title
-            span олена
-            br
-            | веляник
-          .hover-block
-            a href="#" = inline_svg "icons/arrow-right.svg"
+        - @members.each do |member|
+          - avatar_url = member.avatar.exists?(:member) ? member.avatar.url(:member) : asset_path('photo/speaker-1.jpg')
+          a.square href=member_path(member.id)
+
+            .img-background style="background-image: url(#{avatar_url})"
+            p.title
+              span
+                = member.first_name
+              br
+              = member.last_name
+            .hover-block
+              = inline_svg "icons/arrow-right.svg"
