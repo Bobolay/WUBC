@@ -6,9 +6,6 @@
 #= require functions
 #= require js_functions
 
-#= require plugins/jquery.validate.min
-#= require validate-initialize
-
 #= require global
 #= require jquery.jcrop
 #= require papercrop
