@@ -25,6 +25,7 @@
 
                 .columns.large-6
 
+                  
                   = f.input :first_name
 
                   = f.input :middle_name
@@ -35,13 +36,21 @@
 
                 .columns.large-6
 
-                  = f.input :phone
+                  .input-block
+                    = f.input :phone
+                    .register-edit-button.add-phone
+                      = inline_svg "icons/plus.svg"
 
-                  = f.input :email
+                  .input-block
+                    = f.input :email
 
-                  = f.input :password, as: "password"
+                  .input-block
+                    = f.input :password, as: "password"
 
-                  = f.input :password_confirmation, as: "password"
+                  .input-block
+                    = f.input :password_confirmation, as: "password"
+                    .register-edit-button
+                      = inline_svg "icons/save_black.svg"
 
                 .columns.actions
                   a.next-step-button.step-navigation-button
