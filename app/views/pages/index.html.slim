@@ -40,6 +40,7 @@
       a.btn.light href=events_path
         span Переглянути всі
 .margin-block.meeting-container.slider-container
+  .slider-top-shadow
   p Перша зустріч WUBC
   .slider-prev
     = inline_svg "icons/arrow-left.svg"
@@ -92,13 +93,16 @@
       = inline_svg "icons/arrow-left.svg"
     .current-slide
       span.number
-       | 1
-      span &#47;3
+        | 1
+      span.slash
+        | &#47; 
+      span 
+        | 3
     .slider-next
       = inline_svg "icons/arrow-right.svg"
 .join-us-container
   .line
-  p.title Бажаєте приєднатись до нашого клубу
+  p.title Бажаєте приєднатись до нашого клубу?
   a.green-button href="#" Cтати учасником
 .margin-block.club-speakers-container
   p.section-header спікери клубу
