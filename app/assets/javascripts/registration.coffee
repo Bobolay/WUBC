@@ -1,5 +1,7 @@
 locales = {
   uk: {
+    add_office: "Додати ще офіс"
+    save_office: "Зберегти"
     attributes: {
       premium: "Тільки для членів клубу"
       first_name: "Ім'я"
@@ -20,6 +22,10 @@ locales = {
       offices: "Контакти офісів"
       social_networks: "Соц. мережі компанії"
       description: "Опис діяльності"
+
+      city: "Місто"
+      address: "Адреса"
+
     }
     placeholders: {
       first_name: "Петро"
@@ -36,6 +42,10 @@ locales = {
       position: "директор"
       employees_count: "24"
       company_site: "site.com"
+
+      city: "Львів"
+      address: "вул. Наукова, 21"
+
 
     }
   }
@@ -100,9 +110,34 @@ window.inputs = {
 
   }
 
+  email: {
+    input: (name, options)->
+      options = $.extend({}, options)
+      placeholder = inputs.base.placeholder(name)
+      "<input type='email' placeholder='#{placeholder}' class='#{options.class}' />"
+
+    render: (name, options)->
+      wrap_attributes = inputs.base.wrap_attributes(name, options)
+      label = inputs.base.label(name, options)
+      input_str = inputs.email.input(name, options)
+      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}</div>"
+
+  }
+
+  password: {
+    input: (name, options)->
+      options = $.extend({}, options)
+      placeholder = inputs.base.placeholder(name)
+      "<input type='password' placeholder='#{placeholder}' class='#{options.class}' />"
+    render: (name, options)->
+      wrap_attributes = inputs.base.wrap_attributes(name, options)
+      label = inputs.base.label(name, options)
+      input_str = inputs.password.input(name, options)
+      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}</div>"
+  }
+
   text: {
     input: (name, options)->
-
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
       "<textarea placeholder='#{placeholder}' class='#{options.class}' ></textarea>"
@@ -146,11 +181,81 @@ window.inputs = {
 
       })
   }
+
+  inputs_collection: {
+    inputs_collection_controls: ()->
+      "<div class='inputs-collection-controls'><div class='inputs-collection-control inputs-collection-control-add'>#{svg_images.plus}</div><div class='inputs-collection-control inputs-collection-control-remove'>#{svg_images.plus}</div></div>"
+
+  }
+
+  phones: {
+    render: (name, options)->
+      options = $.extend({label: false}, options)
+      phone_inputs_str = ""
+      label = inputs.base.label(name, options)
+      phone_options = options.phone_options || {}
+
+      phone_inputs_str += inputs.phone.render("phone", phone_options)
+      phone_inputs_str = "<div class='inputs-collection-inputs'>#{phone_inputs_str}</div>"
+      inputs_collection_controls = inputs.inputs_collection.inputs_collection_controls()
+      "<div class='inputs-collection phones inputs-collection-single-input'>#{label}#{phone_inputs_str}#{inputs_collection_controls}</div>"
+  }
+
+  phone: {
+    input: (name, options)->
+      options = $.extend({}, options)
+      placeholder = inputs.base.placeholder(name)
+      "<input type='tel' placeholder='#{placeholder}' class='#{options.class}' />"
+
+    render: (name, options)->
+      wrap_attributes = inputs.base.wrap_attributes(name, options)
+      label = inputs.base.label(name, options)
+      input_str = inputs.email.input(name, options)
+      "<div #{wrap_attributes} class='input register-input input-phone' data-key='#{name}'>#{label}#{input_str}</div>"
+
+  }
+
+  offices: {
+    render: (name, options)->
+      office_inputs_str = ""
+      label = inputs.base.label(name, options)
+      office_options = options.office_options || {}
+      office_inputs_str += inputs.office.render("office", office_options)
+      office_inputs_str = "<div class='inputs-collection-inputs'>#{office_inputs_str}</div>"
+      #inputs_collection_controls = "<div class='inputs-collection-controls'><div class='inputs-collection-control inputs-collection-control-add'>#{svg_images.plus}</div><div class='inputs-collection-control inputs-collection-control-remove'>#{svg_images.plus}</div></div>"
+      inputs_collection_controls = ""
+      "<div class='inputs-collection offices inputs-collection-single-input'>#{label}#{office_inputs_str}#{inputs_collection_controls}</div>"
+  }
+
+  office: {
+    input: (name, options)->
+      options = $.extend({}, options)
+      placeholder = inputs.base.placeholder(name)
+      "<input type='tel' placeholder='#{placeholder}' class='#{options.class}' />"
+
+    render: (name, options)->
+      options = $.extend({label: false}, options)
+      wrap_attributes = inputs.base.wrap_attributes(name, options)
+      label = inputs.base.label(name, options)
+      input_str = inputs.email.input(name, options)
+      office_inputs_str = ""
+      office_inputs_str += inputs.string.render("city", {})
+      office_inputs_str += inputs.string.render("address", {})
+      office_inputs_str += inputs.phones.render("phones", {})
+      office_inputs_wrap = "<div class='office-inputs'>#{office_inputs_str}</div>"
+      office_controls_str = "<div class='office-controls'><div class='office-control office-control-add'>#{t("add_office")}</div><div class='office-control office-control-save'>#{t("save_office")}</div><div class='office-control office-control-edit'>#{svg_images.edit}</div><div class='office-control office-control-remove'>#{svg_images.plus}</div></div>"
+      "<div #{wrap_attributes} class='input register-input input-office' data-key='#{name}'>#{label}#{office_inputs_wrap}#{office_controls_str}</div>"
+
+  }
 }
 render_inputs_to_string = (props)->
   res = ""
   for k, v of props
     type = v.type || "string"
+    types_by_column_name = {password: "password", password_confirmation: "password", email: "email", phones: "phones"}
+    type_by_column_name = types_by_column_name[k]
+    type = type_by_column_name if !v.type && type_by_column_name
+    console.log "type: ", type
     res += inputs[type].render(k, v)
 
   res
@@ -204,10 +309,10 @@ column("medium-6", {
 }) +
 column("medium-6", {
   company_site: {}
-  #offices: {
-  #  type: "offices"
-  #}
-  social_networks: {}
+  offices: {
+    type: "offices"
+  }
+  #social_networks: {}
 })
 
 $("#registration-user").html(user_form)
@@ -277,14 +382,67 @@ validate_input = (update_dom = false)->
 
 
     if update_dom
-
+      empty = !value || !value.length
+      add_presence_class = if empty then "empty" else "not-empty"
+      remove_presence_class = if empty then "not-empty" else "empty"
       if valid
-        $input_wrap.changeClasses(["valid"], ["invalid"])
+        $input_wrap.changeClasses(["valid", add_presence_class], ["invalid", remove_presence_class])
       else
-        $input_wrap.changeClasses(["invalid"], ["valid"])
+        $input_wrap.changeClasses(["invalid", add_presence_class], ["valid", remove_presence_class])
     return valid
   else
     return true
+
+
+summary_field_types = {
+  string: {
+    render: (name, value)->
+      if !value || !value.length
+        return ""
+      field_name = t("attributes.#{name}") || name
+      field_value = value
+      "<div class='field'><div class='field-name'>#{field_name}</div><div class='field-value'>#{field_value}</div></div>"
+  }
+}
+
+render_summary = (data)->
+  user_info = {
+    first_name: {}
+    middle_name: {}
+    last_name: {}
+    birth_date: {}
+    phone: {}
+    email: {}
+  }
+
+  company_info = {
+    name: {}
+    industry: {}
+    description: {}
+    region: {}
+    position: {}
+    employees_count: {}
+    company_site: {}
+    offices: {}
+    social_networks: {}
+  }
+
+  user_info_str = ""
+  company_info_str = ""
+  for k, field_definition of user_info
+    v = data.user[k]
+    user_info_str += summary_field_types.string.render(k, v)
+
+  for k, field_definition of company_info
+    v = data.company[k]
+    company_info_str += summary_field_types.string.render(k, v)
+
+  s = "<div class='columns large-6'><div class='summary-header'>Основна інформація</div>#{user_info_str}</div><div class='columns large-6'><div class='summary-header'>Інформація про компанію</div>#{company_info_str}</div>"
+
+  $("#registration-summary").html(s)
+
+
+
 
 
 $document.on "click", ".prev-step-button, .next-step-button", (e)->
@@ -297,7 +455,9 @@ $document.on "click", ".prev-step-button, .next-step-button", (e)->
   direction = if $button.hasClass("prev-step-button") then 'prev' else 'next'
   if direction == 'next'
     valid_step = validate_inputs.call($active_step_content.find(".input[validation]"), true)
-
+    if $active_step_content.index() == 1
+      window.steps_json = steps_to_json()
+      render_summary(steps_json)
   if !valid_step
     return
   $step_headers = $(".step-headers")
@@ -323,3 +483,22 @@ $document.on "click", ".step-navigation-button.send-form", ()->
 
 $document.on "keyup", ".input[validation]", ()->
   validate_input.call(this, true)
+
+$document.on "click", ".phones .inputs-collection-control", ()->
+  $button = $(this)
+  action = if $button.hasClass("inputs-collection-control-add") then 'add' else 'remove'
+  $inputs_collection = $button.closest(".inputs-collection")
+  $inputs_collection_inputs = $inputs_collection.find(".inputs-collection-inputs")
+  $inputs_collection_inputs_children = $inputs_collection_inputs.children()
+
+  if action == "add"
+    input_str = inputs.phone.render("phone", {})
+    $inputs_collection_inputs.append(input_str)
+  else
+    $inputs_collection_inputs_children.last().remove()
+
+
+  if $inputs_collection_inputs.children().length > 1
+    $inputs_collection.removeClass("inputs-collection-single-input")
+  else
+    $inputs_collection.addClass("inputs-collection-single-input")
