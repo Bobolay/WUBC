@@ -318,7 +318,8 @@ $document.on "click", ".step-navigation-button.send-form", ()->
     data: json
   )
 
-  alert("вам на пошту надіслано лист з підтвердженням")
+  # alert("вам на пошту надіслано лист з підтвердженням")
+  $('.success-popup-wrapper').fadeIn('200')
 
 
 $document.on "keyup", ".input[validation]", ()->
