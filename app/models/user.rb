@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
     super && approved?
   end
 
-  after_save :send_admin_mail
+  # after_save :send_admin_mail
   def send_admin_mail
     if self.confirmed_at && self.confirmed_at_changed?
       AdminMailer.new_user_waiting_approval(self).deliver
