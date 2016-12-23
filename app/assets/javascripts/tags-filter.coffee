@@ -1,16 +1,22 @@
-$(document).on 'ready', ->
+$document.on 'click', '.tags-container .tag', ()->
 
-  $tag = $('.tags-container .tag')
+  $(this).toggleClass("active")
+  tag_ids = $(this).closest(".tags-container").map(
+    $(this).attr("data-tag-id")
+  ).toArray()
+  console.log("tag_id:", tag_id)
 
-  $tag.on 'click', ->
+  $articles = $('article')
+  $articles_to_show = $articles.filter(
+    ()->
+      $(this).attr("data-tag-ids").split(',').indexOf(tag_id)
+  )
 
-    $(this).toggleClass("active")
-    $tag_id = $(this).attr("data-tag-id")
+
+  $articles.addClass('hide')
+
+  $articles_to_show.removeClass('hide')
 
 
-    $('.article').css('display', 'none')
+    
 
-  #     show   all   articles
-
-  if !$tag.hasClass('active')
-    $('.article').css('display', 'block')
