@@ -8,7 +8,7 @@ class PagesController < ApplicationController
     @articles = Article.featured
     @slider_images = @page_instance.slider_images
     @testimonials = Testimonial.published.sort_by_sorting_position
-    @speakers = User.confirmed.approved.speakers
+    @speakers = Speaker.published
   end
 
   def about_us
