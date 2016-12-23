@@ -1,4 +1,4 @@
-#asset 'foundation-sites'
+asset 'foundation-sites', '6.2.3'
 
 #asset "sass-css3-mixins"
 
@@ -7,3 +7,5 @@
 #asset "sass-burger"
 
 asset "jquery.maskedinput"
+
+asset "microplugin"
