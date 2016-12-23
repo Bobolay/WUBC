@@ -49,7 +49,7 @@
   ul.slider-1
     - @slider_images.each do |slide|
       li
-        .description
+        p.description
           = slide.data_alt
         .img-background style="background-image: url(#{slide.data.url(:large)})"
 
