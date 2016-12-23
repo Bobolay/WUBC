@@ -1,5 +1,10 @@
 .event
   float: left !important
+  &.hide
+    display: none
+.past-event
+  &.hide
+    display: none
 .events-wrapper
 
   .events-banner
@@ -59,7 +64,8 @@
         width: 26px
         height: 26px
         +transition(0.25s)
-        &.rotate
+      &.active
+        svg
           +rotate(180deg)
     .expand-field
       margin: -20px 0 30px
@@ -73,6 +79,9 @@
         font-size: 14px
         color: $green
         font-style: italic
+        cursor: pointer
+        width: 120px
+        margin: 5px auto
         +transition(0.25s)
         &.show-it
           opacity: 1
