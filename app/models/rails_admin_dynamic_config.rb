@@ -306,7 +306,7 @@ module RailsAdminDynamicConfig
 
         config.model_translation Speaker do
           field :locale, :hidden
-          field :name, :description
+          field :name
           field :description
         end
 
