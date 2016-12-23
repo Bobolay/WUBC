@@ -1,7 +1,9 @@
 / = render "registration_top_part.html"
 
 .white-banner.news-banner
-  p форма реєстрації
+  p
+    | форма реєстрації
+    span Інформація доступна тільки для адміністрації клубу та не передається третів особам
   .line
 
 .margin-block.grey-block.registration-container
@@ -54,7 +56,7 @@
                       = inline_svg "icons/save_black.svg"
 
             .columns.actions
-              a.next-step-button.step-navigation-button
+              a.next-step-button.step-navigation-button.registration-user-next-step-button
                 | Наступний крок
                 = inline_svg "icons/arrow-right.svg"
 
