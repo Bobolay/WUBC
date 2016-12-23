@@ -1,0 +1,100 @@
+@import "reset"
+
+@import "sass-css3-mixins/css3-mixins.scss"
+@import "detailed_css3_mixins"
+
+@import "foundation-sites/scss/foundation"
+@import "application_foundation_settings"
++foundation-grid
+
+@import "fonts"
+@import "general"
+
+@import "button"
+
+.error-wrapper
+  position: relative
+  margin: 20px
+  height: calc(100vh - 40px)
+  background: $dark-grey
+  +vremena
+
+  .logo
+    display: inline-block
+    margin: 20px
+    svg
+      top: 30px
+      left: 30px
+      fill: $green
+    p
+      position: relative
+      left: 10px
+      top: -20px
+      color: #fff
+      font-size: 18px
+      display: inline-block
+      text-transform: uppercase
+      +transition(1s)
+
+  .text-row
+    margin-top: 5%
+    @media #{$small-only}
+      margin-top: 0
+
+    .main-text
+      margin-top: 35%
+      padding-left: 30px
+      @media #{$small-only}
+        margin-top: 5%
+        padding-left: initial
+        text-align: center
+
+    h1
+      position: relative
+      font-size: 280px
+      color: white
+      line-height: 1
+      text-align: right
+      @media #{$small-only}
+        font-size: 80px
+        text-align: center
+      @media #{$medium-only}
+        font-size: 200px
+        text-align: right
+      @media #{$medium-up}
+        &:after
+          content: ''
+          position: absolute
+          width: 1px
+          height: 400px
+          background: $grey
+          top: 30px
+          right: -25px
+      @media #{$large-only}
+        font-size: 250px
+      @media #{$xxlarge-up}
+        &:after
+          top: 44px
+    h2
+      color: $green
+      text-transform: uppercase
+      line-height: 1
+      font-weight: 100
+      font-size: 32px
+      max-width: 250px
+      @media #{$small-only}
+        max-width: 90%
+        margin: 0 auto
+    .description
+      color: $light-grey
+      width: 350px
+      max-width: 80%
+      font-size: 18px
+      margin-top: 30px
+      @media #{$small-only}
+        max-width: 90%
+        margin: 30px auto
+    .btn
+      margin-top: 80px
+      @media #{$small-only}
+        margin-top: 0

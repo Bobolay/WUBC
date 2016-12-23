@@ -1,5 +1,23 @@
-h1
-  = status
-h2
-  = title
+.error-wrapper
+  
+  a.logo title="Повернутись на головну сторінку" href=root_path
+    = inline_svg "icons/logo.svg"
+    p wubc
 
+  .row.text-row
+
+    .small-12.medium-6.large-5.xxlarge-4.columns
+      h1
+        = status
+    .small-12.medium-6.large-7.xxlarge-8.columns
+      
+      .main-text
+
+        h2
+          = title
+
+        .description 
+          = description
+
+        a.btn title="Повернутись на головну сторінку" href=root_path
+          span На головну
