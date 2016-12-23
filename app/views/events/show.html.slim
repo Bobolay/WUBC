@@ -14,6 +14,7 @@
         .slider-next
           = inline_svg "icons/arrow-right.svg"
         ul.slider-1
+
           li
             .img-background style="background-image: url(#{asset_path('photo/slider1.jpg')})"
           li
@@ -47,7 +48,7 @@
             - elsif @event.premium? && !current_user.subscribed_on_event?(@event)
               a.link href=subscribe_on_event_path(id: @event.url_fragment)
                 = "Відвідати зустріч"
-            - elsif curent_user && @event.premium?
+            - elsif current_user && @event.premium?
               a.link href=unsubscribe_from_event_path(id: @event.url_fragment)
                 = "Відписатися"
 
