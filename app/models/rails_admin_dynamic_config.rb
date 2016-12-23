@@ -186,7 +186,7 @@ module RailsAdminDynamicConfig
                 :default
               end
             end
-            field :phone
+            field :phones
             field :avatar
             field :companies
           end

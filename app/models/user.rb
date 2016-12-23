@@ -1,5 +1,7 @@
+
 class User < ActiveRecord::Base
   #set_inheritance_column :role
+  include RecursiveParams
 
   attr_accessible *attribute_names
   attr_accessible :approved, :company_ids
@@ -12,7 +14,7 @@ class User < ActiveRecord::Base
 
   globalize :first_name, :last_name, :middle_name, :description, :hobby
 
-  image :avatar, styles: { small: "72x72#", member: "620x620#", cabinet: "240x240#", thumb: "100x100#", wide: "670x300#" }
+  image :avatar, styles: { small: "72x72#", member: "620x620#", cabinet: "240x240#", thumb: "100x100#" }
   crop_attached_file :avatar
 
   has_and_belongs_to_many :events_i_am_subscribed_on, class_name: Event, join_table: "event_subscriptions"
@@ -117,13 +119,48 @@ class User < ActiveRecord::Base
     if self.confirmed_at && self.confirmed_at_changed?
       AdminMailer.new_user_waiting_approval(self).deliver
     end
+
+    true
   end
 
   def user_data
-    user_columns = [:first_name, :middle_name, :last_name, :birth_date, :hobby, :phone, :email]
-    Hash[user_columns.map{|k|
+    user_columns = [:first_name, :middle_name, :last_name, :hobby, :phones, :email]
+    h = Hash[user_columns.map{|k|
       [k, self.send(k)]
     }]
+
+
+
+    h[:birth_date] = birth_date.present? ? birth_date.strftime("%d.%m.%Y") : nil
+
+    h
   end
+
+  def phones=(val)
+    puts "phones: #{val}"
+    if val.is_a?(Array)
+      val = val.join("\r\n")
+    end
+
+    puts "phones: formatted: #{val}"
+
+    self['phones'] = val
+
+    true
+  end
+
+  def phones(parse = true)
+    val = self['phones']
+    if parse
+      if val.blank?
+        return []
+      end
+      return self['phones'].split("\r\n")
+    else
+      return self['phones']
+    end
+  end
+
+
 end
 

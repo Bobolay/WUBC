@@ -1,3 +1,4 @@
+is_cabinet = $("body").hasClass("cabinet__index")
 locales = {
   uk: {
     add_office: "Додати ще офіс"
@@ -103,33 +104,33 @@ window.inputs = {
   }
   string: {
 
-    input: (name, options)->
+    input: (name, options, data = '')->
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' />"
+      "<input name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
 
-    render: (name, options)->
+    render: (name, options, data)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
       key = options.key || name
-      input_str = inputs.string.input(name, options)
+      input_str = inputs.string.input(name, options, data)
       "<div #{wrap_attributes} class='input register-input' data-key='#{key}'>#{label}#{input_str}</div>"
 
   }
 
   social: {
 
-    input: (name, options)->
+    input: (name, options, data = '')->
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' />"
+      "<input name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
 
-    render: (name, options)->
+    render: (name, options, data)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
-      input_str = inputs.string.input(name, options)
+      input_str = inputs.string.input(name, options, data)
       "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}</div>"
 
   }
@@ -148,41 +149,41 @@ window.inputs = {
   }
 
   email: {
-    input: (name, options)->
+    input: (name, options, data = '')->
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input name='#{html_name}' type='email' placeholder='#{placeholder}' class='#{options.class}' />"
+      "<input name='#{html_name}' type='email' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
 
-    render: (name, options)->
+    render: (name, options, data = '')->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
-      input_str = inputs.email.input(name, options)
+      input_str = inputs.email.input(name, options, data)
       "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}</div>"
 
   }
 
   password: {
-    input: (name, options)->
+    input: (name, options, data = '')->
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input name='#{html_name}' type='password' placeholder='#{placeholder}' class='#{options.class}' />"
-    render: (name, options)->
+      "<input name='#{html_name}' type='password' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
+    render: (name, options, data = '')->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
-      input_str = inputs.password.input(name, options)
+      input_str = inputs.password.input(name, options, data)
       "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}</div>"
   }
 
   text: {
-    input: (name, options)->
+    input: (name, options, data = '')->
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<textarea name='#{html_name}' placeholder='#{placeholder}' class='#{options.class}' ></textarea>"
-    render: (name, options)->
-      wrap_attributes = inputs.base.wrap_attributes(name, options)
+      "<textarea name='#{html_name}' placeholder='#{placeholder}' class='#{options.class}'>#{data}</textarea>"
+    render: (name, options, data)->
+      wrap_attributes = inputs.base.wrap_attributes(name, options, data)
       label = inputs.base.label(name, options)
       input_str = inputs.text.input(name, options)
       textarea_corner = "<div class='textarea-corner'></div>"
@@ -190,27 +191,28 @@ window.inputs = {
   }
 
   integer: {
-    input: (name, options)->
+    input: (name, options, data = '')->
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input name='#{html_name}' type='number' placeholder='#{placeholder}' class='#{options.class}' />"
+      "<input name='#{html_name}' type='number' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
 
-    render: (name, options)->
+    render: (name, options, data)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
-      input_str = inputs.integer.input(name, options)
+      input_str = inputs.integer.input(name, options, data)
       "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}</div>"
   }
   date: {
-    render: (name, options)->
+    render: (name, options, data)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       options = $.extend({class: "datepicker"}, options)
       icon_source = svg_images.calendar
       label = inputs.base.label(name, options)
-      input_str = inputs.string.input(name, options)
+      input_str = inputs.string.input(name, options, data)
       icon_label = "<label class='icon icon-calendar'>#{icon_source}</label>"
-      "<div #{wrap_attributes} class='input register-input input-date'>#{label}#{input_str}#{icon_label}</div>"
+      key = options.key || name
+      "<div #{wrap_attributes} class='input register-input input-date' data-key='#{key}'>#{label}#{input_str}#{icon_label}</div>"
 
 
     initialize: ()->
@@ -228,10 +230,12 @@ window.inputs = {
         onSelect: ()->
           $input_wrap = $(this).closest(".input")
           $input_wrap.addClass("not-empty")
+          if is_cabinet
+            put_profile()
 
       })
 
-      $("")
+
   }
 
   inputs_collection: {
@@ -243,7 +247,7 @@ window.inputs = {
   }
 
   phones: {
-    render: (name, options)->
+    render: (name, options, data)->
       options = $.extend({label: false}, options)
 
       phone_inputs_str = ""
@@ -253,7 +257,11 @@ window.inputs = {
       key = options.key || name
       phone_options = $.extend({key: "#{key}[]"}, phone_options)
 
-      phone_inputs_str += inputs.phone.render("phone", phone_options)
+      if data && Array.isArray(data) && data.length > 0
+        for phone in data
+          phone_inputs_str += inputs.phone.render("phone", phone_options, phone)
+      else
+        phone_inputs_str += inputs.phone.render("phone", phone_options)
       phone_inputs_str = "<div class='inputs-collection-inputs'>#{phone_inputs_str}</div>"
       inputs_collection_controls = inputs.inputs_collection.inputs_collection_controls()
 
@@ -261,18 +269,18 @@ window.inputs = {
   }
 
   phone: {
-    input: (name, options)->
+    input: (name, options, data = '')->
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input name='#{html_name}' type='tel' placeholder='#{placeholder}' class='#{options.class}' />"
+      "<input name='#{html_name}' type='tel' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
 
-    render: (name, options)->
+    render: (name, options, data)->
       console.log "phone: options: ", options
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       key = options.key || name
       label = inputs.base.label(name, options)
-      input_str = inputs.phone.input(name, options)
+      input_str = inputs.phone.input(name, options, data)
       "<div #{wrap_attributes} class='input register-input input-phone' data-key='#{key}'>#{label}#{input_str}</div>"
 
     initialize: ()->
@@ -325,7 +333,7 @@ window.inputs = {
 
   }
 }
-render_inputs_to_string = (props)->
+render_inputs_to_string = (props, data = {})->
   res = ""
   for k, v of props
     type = v.type || "string"
@@ -333,12 +341,13 @@ render_inputs_to_string = (props)->
     type_by_column_name = types_by_column_name[k]
     type = type_by_column_name if !v.type && type_by_column_name
     console.log "type: ", type
-    res += inputs[type].render(k, v)
+    prop_data = data[k]
+    res += inputs[type].render(k, v, prop_data)
 
   res
 
-column = (html_class, props)->
-  s = render_inputs_to_string(props)
+column = (html_class, props, data)->
+  s = render_inputs_to_string(props, data)
   "<div class='columns #{html_class}'>#{s}</div>"
 
 window.registration_user_form = column("medium-6", {
@@ -364,6 +373,8 @@ column( "medium-6", {
   }
 })
 
+user_data = JSON.parse($(".cabinet-container").attr("data-user"))
+
 window.cabinet_user_form = column("medium-6", {
     first_name: {required: true}
     middle_name: {required: true}
@@ -375,20 +386,18 @@ window.cabinet_user_form = column("medium-6", {
     hobby: {
       type: "text"
     }
-  }) +
+  }, user_data) +
     column( "medium-6", {
       phones: { required: true, min: 1 }
       email: {
         required: true
       }
       password: {
-        required: true
       }
       password_confirmation: {
-        required: true
         must_equal: "password"
       }
-    })
+    }, user_data)
 
 
 
@@ -426,10 +435,7 @@ column("medium-6", {
   social_vk: { type: "social", icon: "facebook" }
 })
 
-$("#registration-user").html(registration_user_form)
-$("#registration-company").html(company_form)
 
-$("#cabinet-profile-form").html(cabinet_user_form)
 
 
 
@@ -437,6 +443,23 @@ initialize_inputs = ()->
   inputs.date.initialize()
   inputs.phone.initialize()
 
+put_profile = ()->
+  data = {user: form_to_json.call($("#cabinet-profile-form"))}
+  $.ajax(
+    data: data
+    dataType: "json"
+    url: "/cabinet/profile"
+    type: "post"
+  )
+
+
+$("#registration-user").html(registration_user_form)
+$("#registration-company").html(company_form)
+
+$("#cabinet-profile-form").html(cabinet_user_form)
+
+$document.on "keyup change", "#cabinet-profile-form", ()->
+  delay("put_profile", put_profile, 2000)
 
 initialize_profile = ()->
 

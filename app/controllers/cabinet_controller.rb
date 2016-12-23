@@ -16,18 +16,9 @@ class CabinetController < ApplicationController
 
     #return render inline: "OK"
     if request.post?
-      params_user = user_params
-      #puts "request.post?: #{request.post?.inspect}"
-      #puts "phone: #{params_user["phone"]}"
+      #params_user = user_params
+      u.update_params(params[:user])
 
-      #u.phone = params_user["phone"]
-      #u.update_attributes(params_user)
-      #u.phone = params_user["phone"]
-      #u.save
-      u.update_attributes(params_user)
-      t = u.translations_by_locale[I18n.locale]
-      t ||= u.translations.new(locale: I18n.locale)
-      t.update_attributes(user_translation_params)
       return render json: {status: "OK"}, status: 200
     end
 
