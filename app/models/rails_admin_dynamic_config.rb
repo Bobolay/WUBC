@@ -309,6 +309,8 @@ module RailsAdminDynamicConfig
           field :name, :description
           field :description
         end
+
+
       end
     end
   end
