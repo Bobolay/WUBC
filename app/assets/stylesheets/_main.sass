@@ -244,7 +244,7 @@
     height: 60px
     z-index: 1
     background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0))
-  p
+  .description
     color: #fff
     font-style: italic
     position: absolute
@@ -252,6 +252,8 @@
     left: 50%
     top: 20px
     +translate(-50%,0)
+  @media #{$xxlarge-up}
+    height: 700px
 
 .members-container
   position: relative

@@ -11,10 +11,10 @@ $(document).ready ->
     pause: 7000
     auto: true
     infiniteLoop: true
-  $('.meeting-container .slider-prev').click ->
+  $('.meeting-container .slider-prev, .event-one-wrapper .slider-prev').click ->
     current = slider.getCurrentSlide()
     slider.goToPrevSlide(current) - 1
-  $('.meeting-container .slider-next').click ->
+  $('.meeting-container .slider-next, .event-one-wrapper .slider-next').click ->
     current = slider.getCurrentSlide()
     slider.goToNextSlide(current) + 1
 
