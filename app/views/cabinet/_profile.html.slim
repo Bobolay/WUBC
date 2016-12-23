@@ -1,7 +1,10 @@
-p.company-name компанія фортуна
-.line-separator-big
+#cabinet-profile-tab-content
+  p.company-name компанія фортуна
+  .line-separator-big
 
-= simple_form_for(current_user, url: cabinet_profile_path, wrapper_html: { class: "register-input" }, method: "post") do |f|
+  #cabinet-profile-form
+
+/= simple_form_for(current_user, url: cabinet_profile_path, wrapper_html: { class: "register-input" }, method: "post") do |f|
   .row.inputs-container
     .columns.medium-6
       = f.input(:first_name)

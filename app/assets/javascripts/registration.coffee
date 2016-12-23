@@ -2,6 +2,8 @@ locales = {
   uk: {
     add_office: "Додати ще офіс"
     save_office: "Зберегти"
+    add_phone: "Додати ще телефон"
+    remove_phone: "Видалити телефон"
     attributes: {
       premium: "Тільки для членів клубу"
       first_name: "Ім'я"
@@ -226,7 +228,9 @@ window.inputs = {
 
   inputs_collection: {
     inputs_collection_controls: ()->
-      "<div class='inputs-collection-controls'><div class='inputs-collection-control inputs-collection-control-add'>#{svg_images.plus}</div><div class='inputs-collection-control inputs-collection-control-remove'>#{svg_images.plus}</div></div>"
+      add_title = t("add_phone")
+      remove_title = t("remove_phone")
+      "<div class='inputs-collection-controls'><div class='inputs-collection-control inputs-collection-control-add' title='#{add_title}'>#{svg_images.plus}</div><div class='inputs-collection-control inputs-collection-control-remove' title='#{remove_title}'>#{svg_images.plus}</div></div>"
 
   }
 

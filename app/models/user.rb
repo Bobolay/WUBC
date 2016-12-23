@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :companies, through: :company_memberships
 
   has_many :event_speaker_bindings
-  has_many :events_with_me_as_speaker, through: :event_speaker_bindings, source: :event
+  has_many :events_with_me_as_speaker, through: :event_speaker_bindings, source: :event, foreign_key: :speaker_idm, class_name: Event
 
   scope :confirmed, -> { where("confirmed_at is not null") }
   scope :approved, -> { where("approved_at is not null") }

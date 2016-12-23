@@ -27,7 +27,7 @@ class Event < ActiveRecord::Base
   attr_accessible :subscribed_users, :subscribed_user_ids
 
   has_many :event_speaker_bindings
-  has_many :speakers, through: :event_speaker_bindings
+  has_many :speakers, through: :event_speaker_bindings, class_name: User, foreign_key: :user_id
   attr_accessible :speaker_ids
 
   def to_param

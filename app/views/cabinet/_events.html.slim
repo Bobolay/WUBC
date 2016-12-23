@@ -1,3 +1,7 @@
-.row.events-row
-  - @events.each do |event|
-    = render "event", event: event
+- if @events.try(:any?)
+  .row.events-row
+    - @events.each do |event|
+      = render "event", event: event
+- else
+  .no-subscribed-events
+    |Нема жодної події
