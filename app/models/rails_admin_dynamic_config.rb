@@ -203,6 +203,7 @@ module RailsAdminDynamicConfig
         end
 
         config.model_translation Company do
+          field :locale, :hidden
           field :name
           field :description
           field :region
