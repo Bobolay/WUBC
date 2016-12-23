@@ -4,14 +4,13 @@ $document.on 'click', '.tags-container .tag', ()->
   tag_ids = $(this).closest(".tags-container").map(
     $(this).attr("data-tag-id")
   ).toArray()
-  console.log("tag_id:", tag_id)
+  console.log("tag_id:", tag_ids)
 
   $articles = $('.article')
   $articles_to_show = $articles.filter(
     ()->
-      $(this).attr("data-tag-ids").split(',').indexOf(tag_id)
+      $(this).attr("data-tag-ids").split(',').indexOf(tag_ids)
   )
-
 
   $articles.addClass('hide')
 
