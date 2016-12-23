@@ -132,6 +132,7 @@ module RailsAdminDynamicConfig
           field :first_name
           field :middle_name
           field :last_name
+          field :description
         end
 
         config.model Administrator do
@@ -144,6 +145,7 @@ module RailsAdminDynamicConfig
           field :password
           field :password_confirmation
           field :translations, :globalize_tabs
+          field :events_with_me_as_speaker
         end
 
         config.model Member do
@@ -160,6 +162,7 @@ module RailsAdminDynamicConfig
                 :default
               end
             end
+            field :is_speaker
             field :email
             field :full_name
             field :avatar
@@ -171,9 +174,8 @@ module RailsAdminDynamicConfig
                 :default
               end
             end
-            field :approved, :boolean do
-
-            end
+            field :approved, :boolean
+            field :is_speaker
             field :email
             field :password
             field :password_confirmation
@@ -219,7 +221,9 @@ module RailsAdminDynamicConfig
           field :start_time
           field :end_time
           field :avatar
+          field :slider_images
           field :gallery_images
+          field :speakers
           field :seo_tags
           field :sitemap_record
         end
@@ -229,6 +233,7 @@ module RailsAdminDynamicConfig
           field :name
           field :url_fragment
           field :content, :ck_editor
+          field :text_speakers
         end
 
         config.include_models Article, Cms::Tag, Cms::Tagging
@@ -268,6 +273,26 @@ module RailsAdminDynamicConfig
           field :name
           field :url_fragment
           field :content, :ck_editor
+        end
+
+        config.include_models Testimonial
+        config.model Testimonial do
+          field :published
+          field :translations, :globalize_tabs
+          field :image
+        end
+
+        config.model_translation Testimonial do
+          field :locale, :hidden
+          field :name
+          field :position
+          field :description
+        end
+
+        config.include_models Pages::Home
+        config.model Pages::Home do
+          field :slider_images
+          field :seo_tags
         end
       end
     end

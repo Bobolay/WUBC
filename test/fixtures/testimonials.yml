@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  published: false
+  sorting_position: 1
+  name: MyString
+  position: MyString
+  description: MyString
+  image: MyString
+
+two:
+  published: false
+  sorting_position: 1
+  name: MyString
+  position: MyString
+  description: MyString
+  image: MyString

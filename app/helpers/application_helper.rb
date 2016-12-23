@@ -8,7 +8,7 @@ module ApplicationHelper
       return ""
     end
     month_number = date.month
-    month_name = Cms.t("genitive_month_names.#{month_number}")
+    month_name = Cms.t("genitive_month_names.month-#{month_number}")
     d = date.day
     m = month_name
     y = date.year

@@ -10,9 +10,9 @@ class User < ActiveRecord::Base
 
   attr_accessible :password, :password_confirmation
 
-  globalize :first_name, :last_name, :middle_name
+  globalize :first_name, :last_name, :middle_name, :description
 
-  image :avatar, styles: { small: "72x72#", member: "325x325#", thumb: "100x100#" }
+  image :avatar, styles: { small: "72x72#", member: "620x620#", cabinet: "240x240#", thumb: "100x100#", wide: "670x300#" }
   crop_attached_file :avatar
 
   has_and_belongs_to_many :events_i_am_subscribed_on, class_name: Event, join_table: "event_subscriptions"
@@ -21,8 +21,12 @@ class User < ActiveRecord::Base
   has_many :company_memberships
   has_many :companies, through: :company_memberships
 
+  has_many :event_speaker_bindings
+  has_many :events_with_me_as_speaker, through: :event_speaker_bindings, source: :event
+
   scope :confirmed, -> { where("confirmed_at is not null") }
   scope :approved, -> { where("approved_at is not null") }
+  scope :speakers, -> { where(is_speaker: 't') }
 
   def admin?
     type == "Administrator"

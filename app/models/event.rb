@@ -1,14 +1,15 @@
 class Event < ActiveRecord::Base
   attr_accessible *attribute_names
 
-  globalize :name, :content, :url_fragment
+  globalize :name, :content, :url_fragment, :text_speakers
 
   has_seo_tags
   has_sitemap_record
 
-  image :avatar, styles: {list: "380x250#", thumb: "152x100#"}
+  image :avatar, styles: {list: "500x275#", thumb: "152x100#"}
 
-  has_images :gallery_images, styles: { large: "500x500#", small: "200x200#", thumb: "100x100#" }
+  has_images :slider_images, styles: {large: "1370x600#", thumb: "274x120#"}
+  has_images :gallery_images, styles: { large: "1400x740#", small: "200x200#", thumb: "100x100#" }
 
   boolean_scope :published
   scope :past, -> { date = Date.today; time = Time.now;  where("date < ? OR (date = ? AND end_time < ?)", date, date, time) }
@@ -24,6 +25,10 @@ class Event < ActiveRecord::Base
 
   has_and_belongs_to_many :subscribed_users, class_name: User, join_table: "event_subscriptions"
   attr_accessible :subscribed_users, :subscribed_user_ids
+
+  has_many :event_speaker_bindings
+  has_many :speakers, through: :event_speaker_bindings
+  attr_accessible :speaker_ids
 
   def to_param
     url_fragment
@@ -45,6 +50,10 @@ class Event < ActiveRecord::Base
     date = Date.today;
     time = Time.now;
     self.date == date && start_time >= time && end_time <= time
+  end
+
+  def text_speakers_array
+    (text_speakers || "").split("\r\n")
   end
 
 
