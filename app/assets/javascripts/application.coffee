@@ -25,8 +25,6 @@
 
 #= require lightgallery
 
-#= require main
-
 #= require scroll-banner
 
 #= require plugins/jquery.bxslider
@@ -57,7 +55,9 @@
 
 #= require sign-in-popup-wrapper
 
-#= require tags-filter
+#= require filter-tags
+
+#= require filter-event
 
 #= require detect-scroll
 
