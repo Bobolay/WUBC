@@ -41,65 +41,48 @@
         span Переглянути всі
 .margin-block.meeting-container.slider-container
   .slider-top-shadow
-  p Перша зустріч WUBC
+
   .slider-prev
     = inline_svg "icons/arrow-left.svg"
   .slider-next
     = inline_svg "icons/arrow-right.svg"
   ul.slider-1
-    li
-      .img-background style="background-image: url(#{asset_path('photo/slider1.jpg')})"
-    li
-      .img-background style="background-image: url(#{asset_path('photo/slider2.jpg')})"
-    li
-      .img-background style="background-image: url(#{asset_path('photo/slider3.jpg')})"
-.margin-block.members-container
-  .line
-  p.section-header учасники клубу
-  p.under-header Відомі люди, які є учасниками нашого клубу
-  ul.slider-2
-    li.slide.active-slide
-      .img-background style="background-image: url(#{asset_path('photo/slider-member-1.jpg')})"
-      .overlay
-      .text
-        p.title
-          | віктор
-          br
-          | кобзар
-        p.subtitle Бізнес аналітик
-        p.comment Провів вечір в компанії хлопців з Західно-українського бізнес клубу. Я виступив з доповіддю, а потім послухав їх бачення щодо ситуації і дав низку порад як розвивати регіон.
-    li.slide
-      .img-background style="background-image: url(#{asset_path('photo/slider-member-2.jpg')})"
-      .overlay
-      .text
-        p.title
-          | віктор
-          br
-          | кобзар
-        p.subtitle Бізнес аналітик
-        p.comment Провів вечір в компанії хлопців з Західно-українського бізнес клубу. Я виступив з доповіддю, а потім послухав їх бачення щодо ситуації і дав низку порад як розвивати регіон.
-    li.slide
-      .img-background style="background-image: url(#{asset_path('photo/slider-member-3.jpg')})"
-      .overlay
-      .text
-        p.title
-          | віктор
-          br
-          | кобзар
-        p.subtitle Бізнес аналітик
-        p.comment Провів вечір в компанії хлопців з Західно-українського бізнес клубу. Я виступив з доповіддю, а потім послухав їх бачення щодо ситуації і дав низку порад як розвивати регіон.
-  .slider-selectors
-    .slider-prev
-      = inline_svg "icons/arrow-left.svg"
-    .current-slide
-      span.number
-        | 1
-      span.slash
-        | &#47; 
-      span 
-        | 3
-    .slider-next
-      = inline_svg "icons/arrow-right.svg"
+    - @slider_images.each do |slide|
+      li
+        .description
+          = slide.data_alt
+        .img-background style="background-image: url(#{slide.data.url(:large)})"
+
+- if @testimonials.try(:any?)
+  .margin-block.members-container
+    .line
+    p.section-header учасники клубу
+    p.under-header Відомі люди, які є учасниками нашого клубу
+    ul.slider-2
+      - @testimonials.each do |testimonial|
+        li.slide.active-slide
+          .img-background style="background-image: url(#{testimonial.image.url(:large)})"
+          .overlay
+          .text
+            p.title
+              = raw testimonial.name
+            p.subtitle
+              = testimonial.position
+            p.comment
+              = testimonial.description
+
+    .slider-selectors
+      .slider-prev
+        = inline_svg "icons/arrow-left.svg"
+      .current-slide
+        span.number
+          | 1
+        span.slash
+          | &#47;
+        span
+          | 3
+      .slider-next
+        = inline_svg "icons/arrow-right.svg"
 .join-us-container
   .line
   p.title Бажаєте приєднатись до нашого клубу?
@@ -109,66 +92,24 @@
   p.under-header Люди, які виступали з доповідями у нашому клубі
   .block-wrapper
     .row
-      .large-6.medium-12.columns
-        .block-container
-          .img-background style="background-image: url(#{asset_path('photo/speaker-1.jpg')})"
-          .title
-            | микола
-            br
-            | воронін
-          .hover-block
-            p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
-            a href="#" = inline_svg "icons/arrow-right.svg"
-      .large-3.medium-6.columns
-        .block-container
-          .img-background style="background-image: url(#{asset_path('photo/speaker-2.jpg')})"
-          .title
-            | назарій
-            br
-            | папіж
-          .hover-block
-            p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
-            a href="#" = inline_svg "icons/arrow-right.svg"
-      .large-3.medium-6.columns
-        .block-container
-          .img-background style="background-image: url(#{asset_path('photo/speaker-3.jpg')})"
-          .title
-            | павло
-            br
-            | коренєв
-          .hover-block
-            p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
-            a href="#" = inline_svg "icons/arrow-right.svg"
-      .large-3.medium-12.columns
-        .block-container.hide
-          .img-background style="background-image: url(#{asset_path('photo/speaker-4.jpg')})"
-          .title
-            | антон
-            br
-            | курбан
-          .hover-block
-            p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
-            a href="#" = inline_svg "icons/arrow-right.svg"
-      .large-6.medium-6.columns
-        .block-container.hide
-          .img-background style="background-image: url(#{asset_path('photo/speaker-5.jpg')})"
-          .title
-            | петро
-            br
-            | василь
-          .hover-block
-            p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
-            a href="#" = inline_svg "icons/arrow-right.svg"
-      .large-3.medium-6.columns
-        .block-container.hide
-          .img-background style="background-image: url(#{asset_path('photo/speaker-6.jpg')})"
-          .title
-            | богдан
-            br
-            | огірко
-          .hover-block
-            p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
-            a href="#" = inline_svg "icons/arrow-right.svg"
+      - @speakers.each_with_index do |speaker, i|
+        - large_width = "3"
+        - large_width = "6" if i == 0 || i % 6 == 0 || i % 6 == 4
+        .large-6.medium-12.columns
+          .block-container
+            .img-background style="background-image: url(#{speaker.avatar.url(:wide)})"
+            .title
+              = speaker.first_name
+              br
+              = speaker.last_name
+            .hover-block
+              - if speaker.description.present?
+                p.hover-text
+                  = speaker.description
+              a href=member_path(speaker.id) = inline_svg "icons/arrow-right.svg"
+
+
+
   .btn-container
     a.btn.light href="#"
       span Переглянути всіх

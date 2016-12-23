@@ -6,6 +6,9 @@ class PagesController < ApplicationController
     @future_events = Event.home_future
     @past_events = Event.home_past
     @articles = Article.featured
+    @slider_images = @page_instance.slider_images
+    @testimonials = Testimonial.published.sort_by_sorting_position
+    @speakers = User.confirmed.approved.speakers
   end
 
   def about_us

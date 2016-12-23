@@ -19,7 +19,7 @@ html
 
     = csrf_meta_tags
 
-  body class="#{controller_name}__#{action_name}"
+  body class="#{controller_name}__#{action_name}" class=("event-locked" if @event && !current_user && @event.premium?)
     #preloader
 
 
@@ -34,3 +34,6 @@ html
     = stylesheet_link_tag    "application", media: 'all', 'data-turbolinks-track' => true
     script src="http://maps.googleapis.com/maps/api/js"
     = javascript_include_tag "application", 'data-turbolinks-track' => true
+
+
+    = render "event_popup"

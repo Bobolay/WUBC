@@ -1,11 +1,21 @@
 .large-4.medium-12.columns.event
-  a.event-container href=event_path(event) class=("past-event" if event.past?)
+  - has_link = event.past? || !event.premium? || current_user
+  - wrap_tag = has_link ? "a" : "div"
+  - wrap_attributes = {}
+  - wrap_attributes["href"] = event_path(event) if has_link
+  - wrap_attributes["class"] = "event-container"
+  - wrap_attributes["class"] +=  " past-event" if event.past?
+  - wrap_attributes["class"] += " open-login-popup" if !has_link
+
+  /a.event-container href=event_path(event) class=("past-event" if event.past?)
+  = content_tag(wrap_tag, wrap_attributes ) do
+
     p.date
       = formatted_date(event.date)
 
     .img-container
       .img-background style="background-image: url(#{event.avatar.exists?(:list) ? event.avatar.url(:list) : asset_path('photo/event1.jpg')})" class=("blur" if !current_user)
-      - if !event.past? && event.premium? && !current_user
+      - if !has_link
         .text.premium-text
           = inline_svg "icons/lock.svg"
           p Тільки для учасників
@@ -17,3 +27,16 @@
     p.description
       = event.name
 
+
+/.large-4.medium-12.columns.event
+  a.past-event href="/uk/events/stattya-1"
+    p.date
+      | 15
+      span грудня 2016
+    .img-container
+      .img-background style=("background-image: url(/system/events/avatars/000/000/001/list/1.jpg?1482480212)")
+      .hover-text
+        p
+          | Детальніше
+    p.description
+      | стаття 1

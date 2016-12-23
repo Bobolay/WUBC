@@ -8,26 +8,29 @@
         p.event-name
           = @event.name
       .slider-container.event-photo
-        p Попередня зустріч з Оксаною
         .slider-prev
           = inline_svg "icons/arrow-left.svg"
         .slider-next
           = inline_svg "icons/arrow-right.svg"
         ul.slider-1
+          - @event.slider_images.each do |slide|
+            li
+              .description
+                = slide.data_alt
+              .img-background style="background-image: url(#{slide.data.url(:large)})"
 
-          li
-            .img-background style="background-image: url(#{asset_path('photo/slider1.jpg')})"
-          li
-            .img-background style="background-image: url(#{asset_path('photo/slider2.jpg')})"
-          li
-            .img-background style="background-image: url(#{asset_path('photo/slider3.jpg')})"
       .main-text
         .row.event-info-container
           .large-3.medium-6.small-6.columns
             .event-info
               p.title Спікери
-              p.regular Роман Камінечний
-              p.regular Паша Корнєєв
+              - @event.speakers.each do |speaker|
+                p.regular
+                  a href=member_path(speaker.id)
+                    = speaker.full_name_or_email(false)
+              - @event.text_speakers_array.each do |text_speaker|
+                p.regular
+                  = text_speaker
           .large-3.medium-6.small-6.columns
             .event-info
               p.title Час проведення
@@ -40,7 +43,7 @@
               p.title Поділитись
               a = inline_svg "icons/social-fb.svg"
               a = inline_svg "icons/social-google.svg"
-          - if @event.future?
+          /- if @event.future?
             .large-3.medium-6.small-6.columns
             - if !current_user
               a.link href=subscribe_on_event_path(id: @event.url_fragment)
@@ -51,21 +54,15 @@
             - elsif current_user && @event.premium?
               a.link href=unsubscribe_from_event_path(id: @event.url_fragment)
                 = "Відписатися"
+          .large-3.medium-6.small-6.columns
+            = render "event_subscription_button", event: @event
 
         .article-content
           = raw @event.content
 
         = render "event_gallery", images: @event.gallery_images
-
-        - if @event.future?
-          - if !current_user
-            .link-container
-              a.link href=subscribe_on_event_path(id: @event.url_fragment)
-                = "Зареєструватися або увійти та Відвідати зустріч"
-          - elsif !current_user.subscribed_on_event?(@event)
-            .link-container
-              a.link href=subscribe_on_event_path(id: @event.url_fragment)
-                = "Відвідати зустріч"
+        .link-container
+          = render "event_subscription_button", event: @event
 
         .navigation-container
           p наступні зустрічі
@@ -88,3 +85,4 @@
             p
             span наступна зустріч
             = inline_svg "icons/arrow-right.svg"
+
