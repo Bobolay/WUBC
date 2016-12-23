@@ -636,6 +636,7 @@ $document.on "click", ".prev-step-button, .next-step-button", (e)->
 
   $button = $(this)
   direction = if $button.hasClass("prev-step-button") then 'prev' else 'next'
+  valid_step = true
   if direction == 'next'
     valid_step = validate_inputs.call($active_step_content.find(".input[validation]"), true)
     if $active_step_content.index() == 1
