@@ -18,8 +18,8 @@ class Event < ActiveRecord::Base
   scope :past_and_active, -> { date = Date.today; time = Time.now; where("date < ? OR (date = ? AND end_time <= ?)", date, date, time) }
   scope :subscribed_by_user, ->(user) { return current_scope if user.nil?; current_scope.joins(:subscribed_users).where(event_subscriptions: { user_id: user.id }) }
   scope :visited_by_user, ->(user) { past_and_active.subscribed_by_user(user) }
-  scope :home_future, -> { published.future.limit(3) }
-  scope :home_past, -> { published.past.limit(3) }
+  scope :home_future, -> { published.future.limit(3).order("date desc") }
+  scope :home_past, -> { published.past.limit(3).order("date desc") }
 
   validates :date, :start_time, :end_time, presence: true, if: :published?
 

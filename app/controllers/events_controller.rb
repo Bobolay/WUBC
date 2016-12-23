@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :subscribe, :unsubscribe]
 
   def index
-    @events = Event.published
+    @events = Event.published.order("date desc")
     set_page_metadata(:events)
   end
 
