@@ -4,4 +4,6 @@ class Speaker < ActiveRecord::Base
   globalize :name, :description
 
   image :image, styles: { wide: "670x300#" }
+
+  boolean_scope :published
 end
