@@ -8,9 +8,9 @@
         p.main-header business club
         hr
         p.regular Спільнота для комунікації і розвитку власників та перших осіб бізнесу.
-        - if !current_user
-          a.btn title="Заповнити анкетні дані та створити свій власний профіль клубу" href=new_user_registration_path
-            span Долучитись до клубу
+
+        a.btn.registration-link title="Заповнити анкетні дані та створити свій власний профіль клубу" href=new_user_registration_path
+          span Долучитись до клубу
         .bottom title="прогорнути сторінку вниз"
           = inline_svg "icons/arrow-down.svg"
           span Детальніше
@@ -86,7 +86,7 @@
 .join-us-container
   .line
   p.title Бажаєте приєднатись до нашого клубу?
-  a.green-button href="#" title="Заповнити анкетні дані та створити свій власний профіль клубу" Cтати учасником
+  a.green-button href=new_user_registration_path title="Заповнити анкетні дані та створити свій власний профіль клубу" Cтати учасником
 .margin-block.club-speakers-container
   p.section-header спікери клубу
   p.under-header Люди, які виступали з доповідями у нашому клубі
@@ -119,15 +119,16 @@
   /.btn-container
     a.btn.light href="#" title="Переглянути всіх спікерів клубу"
       span Переглянути всіх
-  .subheader блог та новини
-  .news-container
-    .row
-      - @articles.each do |article|
-        = render "article", article: article
+  - if @articles.try(:any?)
+    .subheader блог та новини
+    .news-container
+      .row
+        - @articles.each do |article|
+          = render "article", article: article
 
-  .btn-container
-    a.btn.light href=articles_path title="Переглянути всі новини клубу"
-      span Всі новини
+    .btn-container
+      a.btn.light href=articles_path title="Переглянути всі новини клубу"
+        span Всі новини
 .companies
   p.subheader компанії учасники клубу
   .row

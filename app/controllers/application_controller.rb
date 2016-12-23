@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options
-    {locale: I18n.locale}
+    {}
   end
 
   def admin_panel?

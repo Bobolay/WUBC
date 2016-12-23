@@ -132,7 +132,8 @@ module RailsAdminDynamicConfig
           field :first_name
           field :middle_name
           field :last_name
-          field :description
+          #field :description
+          field :hobby
         end
 
         config.model Administrator do

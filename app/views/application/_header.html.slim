@@ -5,10 +5,11 @@
     a.logo title="Повернутись на головну сторінку" href=root_path
       = inline_svg "icons/logo.svg"
       p wubc
-    .locales-bar
-      - Cms.config.provided_locales.each do |locale|
-        a title="Змінити мову на сайті" href=url_for(locale: locale) class=("active" if locale.to_s == I18n.locale.to_s)
-          = locale
+    - if Cms.config.provided_locales.count > 1
+      .locales-bar
+        - Cms.config.provided_locales.each do |locale|
+          a title="Змінити мову на сайті" href=url_for(locale: locale) class=("active" if locale.to_s == I18n.locale.to_s)
+            = locale
     .menu-button data-title-open="Відкрити меню" data-title-close="закрити меню"
       .menu-button-lines
     .login-field class=("logged" if current_user)
