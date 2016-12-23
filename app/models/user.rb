@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
+  #set_inheritance_column :role
+
   attr_accessible *attribute_names
+  attr_accessible :approved, :company_ids
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -9,7 +12,7 @@ class User < ActiveRecord::Base
 
   globalize :first_name, :last_name, :middle_name
 
-  image :avatar, styles: { small: "72x72#" }
+  image :avatar, styles: { small: "72x72#", member: "325x325#", thumb: "100x100#" }
   crop_attached_file :avatar
 
   has_and_belongs_to_many :events_i_am_subscribed_on, class_name: Event, join_table: "event_subscriptions"
@@ -19,15 +22,16 @@ class User < ActiveRecord::Base
   has_many :companies, through: :company_memberships
 
   scope :confirmed, -> { where("confirmed_at is not null") }
+  scope :approved, -> { where("approved_at is not null") }
 
   def admin?
-    role == "administrator" || role == "admin"
+    type == "Administrator"
   end
 
   alias :administrator? :admin?
 
   def member?
-    role == "member"
+    type == "Member"
   end
 
   def full_name(include_middle_name = true, include_last_name = true)
@@ -65,6 +69,26 @@ class User < ActiveRecord::Base
       es = EventSubscription.where(event_id: event.id, user_id: self.id)
       es.delete_all
     end
+  end
+
+  def ages
+    return nil if birth_date.blank?
+    Date.today.year - birth_date.year
+  end
+
+  def phones
+    [phone]
+  end
+
+  def approved
+    approved_at.present?
+  end
+
+  def approved=(value)
+    ok = value == "1"
+    puts "value: #{ok.inspect}"
+    self.approved_at = ok ? DateTime.now : nil
+
   end
 end
 
