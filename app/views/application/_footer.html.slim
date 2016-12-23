@@ -7,18 +7,18 @@
           .pages
             .row
               .large-12.medium-12.small-6.columns
-                a href=about_us_path Про клуб
+                a href=about_us_path title="Перейти на сторінку даного розділу" Про клуб
                 br
-                a href=events_path Події
+                a href=events_path title="Перейти на сторінку даного розділу" Події
                 br
-                a href=articles_path Блог та новини
+                a href=articles_path title="Перейти на сторінку даного розділу" Блог та новини
                 br
               .large-12.medium-12.small-6.columns
-                a href="#" Учасники
+                a href="#" title="Перейти на сторінку даного розділу" Учасники
                 br
-                a href="#" Партнери
+                a href="#" title="Перейти на сторінку даного розділу" Партнери
                 br
-                a href="#" Контакти
+                a href="#" title="Перейти на сторінку даного розділу" Контакти
         .large-4.medium-4.columns
           p.title контакти
           .contacts
@@ -34,8 +34,8 @@
               .large-12.medium-12.small-6.columns
                 span соц.
                 br
-                a = inline_svg "icons/social-fb.svg"
-                a = inline_svg "icons/social-google.svg"
+                a title="Перейти на сторінку клубу в соціальній мережі" = inline_svg "icons/social-fb.svg"
+                a title="Перейти на сторінку клубу в соціальній мережі" = inline_svg "icons/social-google.svg"
         .large-5.medium-5.columns
           = render "login_form"
     .large-5.medium-12.columns.go-left
@@ -43,11 +43,11 @@
         = inline_svg "icons/logo2.svg"
         p.title wubc
         p.regular Спільнота для комунікації і розвитку власників та перших осіб бізнесу.
-        a.btn.dark.open-login-popup
+        a.btn.dark.open-login-popup title="Заповнити анкетні дані та створити свій власний профіль клубу"
           span Долучитись до клубу
   .row.bottom.collapse
     .large-6.medium-5.small-12.columns
-      a href="#"
+      a href="#" title="Відвідати сайт студії-розробника"
         = inline_svg "icons/voronin-logo.svg"
         | Розроблено в студії М. Вороніна в 2016 році
     .large-6.medium-7.small-12.columns

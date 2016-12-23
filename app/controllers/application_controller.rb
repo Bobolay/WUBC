@@ -29,11 +29,11 @@ class ApplicationController < ActionController::Base
   end
 
   def render_not_found
-    render template: "errors/not_found.html.slim", status: 404, layout: false, locals: { status: 404, title: "Page not found" }
+    render template: "errors/not_found.html.slim", status: 404, layout: "error", locals: { status: 404, title: "Сторінку не знайдено", description: "На жаль вказану сторінку не знайдено, будь ласка поверніться на головну сторінку сайту." }
   end
 
   def render_not_authorized
-    render template: "errors/not_found.html.slim", status: 401, layout: false, locals: { status: 401, title: "You don't have permissions" }
+    render template: "errors/not_found.html.slim", status: 401, layout: "error", locals: { status: 401, title: "You don't have permissions", description: "На жаль ви не маєте доступу. Будь ласка поверніться на головну сторінку сайту." }
   end
 
   def default_url_options

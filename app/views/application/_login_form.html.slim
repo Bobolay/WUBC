@@ -10,9 +10,9 @@ p.title особистий кабінет
       input type="password" name="user[password]"
         span.bar
       label Пароль
-    button.sign-in-button type="submit" Вхід
+    button.sign-in-button title="Увійти в особистий кабінет" type="submit" Вхід
     p.or-separator або
-    a.join-us-link href=new_user_registration_path
+    a.join-us-link title="Заповнити анкетні дані та створити свій власний профіль клубу" href=new_user_registration_path
       |Стати учасником
 - else
   - show_icon = !u.avatar.exists?

@@ -88,7 +88,7 @@
     &:hover
       .menu-button-lines
         &, &::before, &::after
-          background-color: #fff
+          // background-color: #fff
       &:before
         content: attr(data-title-open)
     &.opened
@@ -96,12 +96,12 @@
         +burger-to-cross
         &::before, &::after
           background-color: $green
-      &:after
-        content: attr(data-title-close)
       &:hover
         .menu-button-lines
           &::before, &::after
-            background-color: #fff
+            // background-color: #fff
+        &:after
+          content: attr(data-title-close)
     @media #{$small-only}
       margin: 5px
   .menu-wrapper
