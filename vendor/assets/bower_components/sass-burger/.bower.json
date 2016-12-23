@@ -1,6 +1,6 @@
 {
   "name": "sass-burger",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "homepage": "http://joren.co/sass-burger/",
   "authors": [
     "Joren Van Hee"
@@ -19,13 +19,13 @@
     "mixin",
     "sass"
   ],
-  "_release": "1.3.0",
+  "_release": "1.3.1",
   "_resolution": {
     "type": "version",
-    "tag": "1.3.0",
-    "commit": "4e449f79cd53a13a7990ff626ee6347fcf3d1e39"
+    "tag": "1.3.1",
+    "commit": "5de6098504feaa58a40c671305f1918e7c30f004"
   },
-  "_source": "git://github.com/jorenvanhee/sass-burger.git",
+  "_source": "https://github.com/jorenvanhee/sass-burger.git",
   "_target": "*",
   "_originalSource": "sass-burger"
 }

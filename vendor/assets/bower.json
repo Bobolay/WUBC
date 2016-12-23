@@ -1,9 +1,8 @@
 {
   "name": "dsl-generated dependencies",
   "dependencies": {
-    "foundation-sites": "latest",
-    "sass-css3-mixins": "latest",
-    "jquery-ui": "latest",
-    "sass-burger": "latest"
+    "foundation-sites": "6.2.3",
+    "jquery.maskedinput": "latest",
+    "microplugin": "latest"
   }
 }
