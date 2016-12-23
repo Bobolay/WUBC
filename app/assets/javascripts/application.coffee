@@ -19,6 +19,9 @@
 #= require plugins/lg-thumbnail.min
 #= require plugins/clickout
 #= require jquery.maskedinput/dist/jquery.maskedinput.min
+#= require plugins/selectize.min
+
+#= require selectize-initialize
 
 #= require lightgallery
 
@@ -55,3 +58,7 @@
 #= require sign-in-popup-wrapper
 
 #= require tags-filter
+
+#= require detect-scroll
+
+#= require registration-scroll
