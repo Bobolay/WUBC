@@ -3,5 +3,5 @@ class Speaker < ActiveRecord::Base
 
   globalize :name, :description
 
-  image :avatar, styles: { wide: "670x300#" }
+  image :image, styles: { wide: "670x300#" }
 end
