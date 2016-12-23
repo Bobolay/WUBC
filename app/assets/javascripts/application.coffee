@@ -53,3 +53,5 @@
 #= require registration
 
 #= require sign-in-popup-wrapper
+
+#= require tags-filter
