@@ -18,6 +18,7 @@
 #= require plugins/lightgallery.min
 #= require plugins/lg-thumbnail.min
 #= require plugins/clickout
+#= require jquery.maskedinput/dist/jquery.maskedinput.min
 
 #= require lightgallery
 

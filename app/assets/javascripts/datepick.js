@@ -10,6 +10,7 @@ $(function() {
       nextText: 'Наступний',
       changeMonth: true,
       changeYear: true,
+      //yearRange: '1900:2010',
     onSelect: function(){
       $input_wrap = $(this).closest(".input")
       $input_wrap.addClass("not-empty")

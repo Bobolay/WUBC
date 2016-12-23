@@ -69,6 +69,7 @@ window.t = (key)->
 
 window.inputs = {
   base: {
+
     label: (name, options)->
       if options.label == false
         return ""
@@ -76,7 +77,8 @@ window.inputs = {
         s = options.label
       else
         s = t("attributes.#{name}") || name
-      "<label class='input-label'>#{s}</label>"
+      required_mark_str = if options.required then "<span class='required-mark'>*</span>" else ""
+      "<label class='input-label'>#{s}: #{required_mark_str}</label>"
     placeholder: (name)->
       t("placeholders.#{name}") || name
     wrap_attributes: (name, options)->
@@ -105,9 +107,38 @@ window.inputs = {
     render: (name, options)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
+      key = options.key || name
+      input_str = inputs.string.input(name, options)
+      "<div #{wrap_attributes} class='input register-input' data-key='#{key}'>#{label}#{input_str}</div>"
+
+  }
+
+  social: {
+
+    input: (name, options)->
+      options = $.extend({}, options)
+      placeholder = inputs.base.placeholder(name)
+      "<input type='text' placeholder='#{placeholder}' class='#{options.class}' />"
+
+    render: (name, options)->
+      wrap_attributes = inputs.base.wrap_attributes(name, options)
+      label = inputs.base.label(name, options)
       input_str = inputs.string.input(name, options)
       "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}</div>"
 
+  }
+
+  social_networks: {
+    render: (name, options)->
+      options = $.extend({label: false}, options)
+      phone_inputs_str = ""
+      label = inputs.base.label(name, options)
+      phone_options = options.phone_options || {}
+
+      phone_inputs_str += inputs.phone.render("phone", phone_options)
+      phone_inputs_str = "<div class='inputs-collection-inputs'>#{phone_inputs_str}</div>"
+      inputs_collection_controls = inputs.inputs_collection.inputs_collection_controls()
+      "<div class='inputs-collection phones inputs-collection-single-input'>#{label}#{phone_inputs_str}#{inputs_collection_controls}</div>"
   }
 
   email: {
@@ -150,8 +181,16 @@ window.inputs = {
   }
 
   integer: {
-    render: ()->
-      inputs.string.render.apply(this, arguments)
+    input: (name, options)->
+      options = $.extend({}, options)
+      placeholder = inputs.base.placeholder(name)
+      "<input type='number' placeholder='#{placeholder}' class='#{options.class}' />"
+
+    render: (name, options)->
+      wrap_attributes = inputs.base.wrap_attributes(name, options)
+      label = inputs.base.label(name, options)
+      input_str = inputs.integer.input(name, options)
+      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}</div>"
   }
   date: {
     render: (name, options)->
@@ -175,11 +214,14 @@ window.inputs = {
         nextText: 'Наступний',
         changeMonth: true,
         changeYear: true,
+        yearRange: '1930:2010',
         onSelect: ()->
           $input_wrap = $(this).closest(".input")
           $input_wrap.addClass("not-empty")
 
       })
+
+      $("")
   }
 
   inputs_collection: {
@@ -191,13 +233,18 @@ window.inputs = {
   phones: {
     render: (name, options)->
       options = $.extend({label: false}, options)
+
       phone_inputs_str = ""
       label = inputs.base.label(name, options)
       phone_options = options.phone_options || {}
+      phone_options.required = true if options.min && options.min >= 1
+      key = options.key || name
+      phone_options = $.extend({key: "#{key}[]"}, phone_options)
 
       phone_inputs_str += inputs.phone.render("phone", phone_options)
       phone_inputs_str = "<div class='inputs-collection-inputs'>#{phone_inputs_str}</div>"
       inputs_collection_controls = inputs.inputs_collection.inputs_collection_controls()
+
       "<div class='inputs-collection phones inputs-collection-single-input'>#{label}#{phone_inputs_str}#{inputs_collection_controls}</div>"
   }
 
@@ -208,10 +255,17 @@ window.inputs = {
       "<input type='tel' placeholder='#{placeholder}' class='#{options.class}' />"
 
     render: (name, options)->
+      console.log "phone: options: ", options
       wrap_attributes = inputs.base.wrap_attributes(name, options)
+      key = options.key || name
       label = inputs.base.label(name, options)
-      input_str = inputs.email.input(name, options)
-      "<div #{wrap_attributes} class='input register-input input-phone' data-key='#{name}'>#{label}#{input_str}</div>"
+      input_str = inputs.phone.input(name, options)
+      "<div #{wrap_attributes} class='input register-input input-phone' data-key='#{key}'>#{label}#{input_str}</div>"
+
+    initialize: ()->
+      $inputs = $(".input-phone:not(.mask-initialized)")
+      $inputs.find("input").mask("+99 (099) 999 99 99")
+      $inputs.addClass("mask-initialized")
 
   }
 
@@ -220,11 +274,13 @@ window.inputs = {
       office_inputs_str = ""
       label = inputs.base.label(name, options)
       office_options = options.office_options || {}
+      key = options.key || name
+      office_options.key = "#{key}[]"
       office_inputs_str += inputs.office.render("office", office_options)
       office_inputs_str = "<div class='inputs-collection-inputs'>#{office_inputs_str}</div>"
       #inputs_collection_controls = "<div class='inputs-collection-controls'><div class='inputs-collection-control inputs-collection-control-add'>#{svg_images.plus}</div><div class='inputs-collection-control inputs-collection-control-remove'>#{svg_images.plus}</div></div>"
       inputs_collection_controls = ""
-      "<div class='inputs-collection offices inputs-collection-single-input'>#{label}#{office_inputs_str}#{inputs_collection_controls}</div>"
+      "<div class='inputs-collection offices inputs-collection-single-input' data-key='#{key}'>#{label}#{office_inputs_str}#{inputs_collection_controls}</div>"
   }
 
   office: {
@@ -238,13 +294,21 @@ window.inputs = {
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
       input_str = inputs.email.input(name, options)
+      key = options.key || name
       office_inputs_str = ""
-      office_inputs_str += inputs.string.render("city", {})
-      office_inputs_str += inputs.string.render("address", {})
-      office_inputs_str += inputs.phones.render("phones", {})
+      office_inputs_str += inputs.string.render("city", {key: "#{key}.city"})
+      office_inputs_str += inputs.string.render("address", {key: "#{key}.address"})
+      office_inputs_str += inputs.phones.render("phones", {key: "#{key}.phones"})
       office_inputs_wrap = "<div class='office-inputs'>#{office_inputs_str}</div>"
       office_controls_str = "<div class='office-controls'><div class='office-control office-control-add'>#{t("add_office")}</div><div class='office-control office-control-save'>#{t("save_office")}</div><div class='office-control office-control-edit'>#{svg_images.edit}</div><div class='office-control office-control-remove'>#{svg_images.plus}</div></div>"
-      "<div #{wrap_attributes} class='input register-input input-office' data-key='#{name}'>#{label}#{office_inputs_wrap}#{office_controls_str}</div>"
+      "<div #{wrap_attributes} class='input register-input input-office' data-key='#{key}'>#{label}#{office_inputs_wrap}#{office_controls_str}</div>"
+
+
+    render_locked: (obj)->
+      city_str = "<p><span>#{t('city')}:</span>#{obj.city}</p>"
+      address_str = "<p><span>#{t('address')}:</span>#{obj.address}</p>"
+      phones_str = "<p><span>#{t('address')}:</span>#{obj.phones.join("<br/>")}</p>"
+      "<div class='filled-info'>#{city_str}#{address_str}#{phones_str}</div>"
 
   }
 }
@@ -265,15 +329,16 @@ column = (html_class, props)->
   "<div class='columns #{html_class}'>#{s}</div>"
 
 window.user_form = column("medium-6", {
-  first_name: {}
-  middle_name: {}
-  last_name: {},
+  first_name: {required: true}
+  middle_name: {required: true}
+  last_name: {required: true},
   birth_date: {
+    required: true
     type: "date"
   }
 }) +
 column( "medium-6", {
-  phones: {}
+  phones: { required: true, min: 1 }
   email: {
     required: true
   }
@@ -290,21 +355,23 @@ column( "medium-6", {
 
 window.company_form = column("medium-12"
   name: {
+    required: true
     class: "material-input"
     label: false
   }
 ) +
 column("medium-6", {
   industry: {
-
+    required: true
   }
   description: {
     type: "text"
   }
-  region: {}
-  position: {}
+  region: {required: true}
+  position: {required: true}
   employees_count: {
     type: "integer"
+    required: true
   }
 }) +
 column("medium-6", {
@@ -313,11 +380,11 @@ column("medium-6", {
     type: "offices"
   }
   #social_networks: {}
-  social_twitter: {}
-  social_google_plus: {}
-  social_facebook: {}
-  social_linkedin: {}
-  social_vk: {}
+  social_twitter: { type: "social", icon: "facebook" }
+  social_google_plus: { type: "social", icon: "google_plus" }
+  social_facebook: { type: "social", icon: "facebook" }
+  social_linkedin: { type: "social", icon: "facebook" }
+  social_vk: { type: "social", icon: "facebook" }
 })
 
 $("#registration-user").html(user_form)
@@ -325,6 +392,7 @@ $("#registration-company").html(company_form)
 
 initialize_inputs = ()->
   inputs.date.initialize()
+  inputs.phone.initialize()
 
 initialize_inputs()
 
@@ -336,11 +404,31 @@ window.form_to_json = ()->
   $(this).find(".input").map(
     ()->
       $input = $(this)
+      ###
+      $parent_inputs_collection = $input.closest(".inputs-collection")
+      if $parent_inputs_collection.length > 0
+        if $parent_inputs_collection.hasClass("phones")
+          val = $parent_inputs_collection.find(".input-phone input").map(
+            ()->
+              $(this).val()
+          ).toArray()
+
+        return
+      ###
+
       k = $input.attr("data-key")
       if k == undefined
         return
+
       val = $input.find("input, textarea").val()
-      obj[k] = val
+
+      if k.endsWith("[]")
+        k = k.substr(0, k.length - 2)
+        obj[k] = [] if !obj[k]
+        target = obj[k]
+        target.push(val)
+      else
+        obj[k] = val
 
   )
 
@@ -408,6 +496,12 @@ summary_field_types = {
       field_value = value
       "<div class='field'><div class='field-name'>#{field_name}</div><div class='field-value'>#{field_value}</div></div>"
   }
+
+  phones: {
+    render: (name, value)->
+      str = value.join("<br/>")
+      summary_field_types.string.render(name, str)
+  }
 }
 
 render_summary = (data)->
@@ -416,7 +510,7 @@ render_summary = (data)->
     middle_name: {}
     last_name: {}
     birth_date: {}
-    phone: {}
+    phones: {}
     email: {}
   }
 
@@ -436,7 +530,9 @@ render_summary = (data)->
   company_info_str = ""
   for k, field_definition of user_info
     v = data.user[k]
-    user_info_str += summary_field_types.string.render(k, v)
+    type = "string"
+    type = k if summary_field_types[k] && summary_field_types[k].render
+    user_info_str += summary_field_types[type].render(k, v)
 
   for k, field_definition of company_info
     v = data.company[k]
@@ -498,8 +594,9 @@ $document.on "click", ".phones .inputs-collection-control", ()->
   $inputs_collection_inputs_children = $inputs_collection_inputs.children()
 
   if action == "add"
-    input_str = inputs.phone.render("phone", {})
+    input_str = inputs.phone.render("phone", {key: "phones[]"})
     $inputs_collection_inputs.append(input_str)
+    inputs.phone.initialize()
   else
     $inputs_collection_inputs_children.last().remove()
 
@@ -508,3 +605,23 @@ $document.on "click", ".phones .inputs-collection-control", ()->
     $inputs_collection.removeClass("inputs-collection-single-input")
   else
     $inputs_collection.addClass("inputs-collection-single-input")
+
+
+
+
+$document.on "click", ".office-control-save", ()->
+  $office = $(this).closest(".input-office")
+  office_index = $office.index()
+  window.steps_json = steps_to_json()
+  data = steps_json.company.offices[office_index]
+  str = inputs.office.render_locked(data)
+  $office_preview = $office.find(".office-preview")
+
+  if $office_preview.length > 0
+    $office_preview.html(str)
+  else
+    $office_preview = $("<div class='office-preview'>#{str}</div>")
+    $office.prepend($office_preview)
+
+
+
