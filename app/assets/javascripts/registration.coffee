@@ -373,7 +373,13 @@ column( "medium-6", {
   }
 })
 
-user_data = JSON.parse($(".cabinet-container").attr("data-user"))
+try
+  user_data = JSON.parse($(".cabinet-container").attr("data-user"))
+
+catch
+  user_data = undefined
+
+
 
 window.cabinet_user_form = column("medium-6", {
     first_name: {required: true}
