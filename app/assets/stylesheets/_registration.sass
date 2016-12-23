@@ -1,5 +1,7 @@
 .step-headers
-  padding: 100px 0
+  padding: 50px 0
+  @media #{$large-up}
+    padding: 100px 0
   .step-header
     position: relative
     overflow: hidden
@@ -73,3 +75,8 @@
     stroke: white
   @media #{$small-only}
     font-family: 'Lora', serif
+
+.registration-user-next-step-button
+  +translate(58%,0)
+  @media #{$small-only}
+    +translate(0,0)

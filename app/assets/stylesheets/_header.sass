@@ -74,15 +74,30 @@
     .menu-button-lines
       +burger(25px, 2px, 5px, $main, 1px)
       position: absolute
+    &:before, &:after
+      position: absolute
+      color: black
+      background: white
+      font-size: 12px
+      font-family: sans-serif
+      padding: 2px 6px
+      min-width: 100px
+      right: 15px
+      bottom: -30px
+      border-radius: 3px
     &:hover
       .menu-button-lines
         &, &::before, &::after
           background-color: #fff
+      &:before
+        content: attr(data-title-open)
     &.opened
       .menu-button-lines
         +burger-to-cross
         &::before, &::after
           background-color: $green
+      &:after
+        content: attr(data-title-close)
       &:hover
         .menu-button-lines
           &::before, &::after
@@ -119,7 +134,7 @@
         left: -10px
 
 body
-  &.pages__about_us, &.articles__index, &.members__index, &.pages__partners, &.pages__contacts
+  &.pages__about_us, &.articles__index, &.members__index, &.pages__partners, &.pages__contacts, &.registrations__new, &.sessions__new
     .logo
       p
         color: $grey

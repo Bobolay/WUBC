@@ -9,9 +9,9 @@
         hr
         p.regular Спільнота для комунікації і розвитку власників та перших осіб бізнесу.
         - if !current_user
-          a.btn href=new_user_registration_path
+          a.btn title="Заповнити анкетні дані та створити свій власний профіль клубу" href=new_user_registration_path
             span Долучитись до клубу
-        .bottom
+        .bottom title="прогорнути сторінку вниз"
           = inline_svg "icons/arrow-down.svg"
           span Детальніше
 .about-us-container
@@ -37,7 +37,7 @@
 
 
     .btn-container
-      a.btn.light href=events_path
+      a.btn.light title="Переглянути всі події клубу (майбутні та минулі)" href=events_path
         span Переглянути всі
 .margin-block.meeting-container.slider-container
   .slider-top-shadow
@@ -103,14 +103,14 @@
 .join-us-container
   .line
   p.title Бажаєте приєднатись до нашого клубу?
-  a.green-button href="#" Cтати учасником
+  a.green-button href="#" title="Заповнити анкетні дані та створити свій власний профіль клубу" Cтати учасником
 .margin-block.club-speakers-container
   p.section-header спікери клубу
   p.under-header Люди, які виступали з доповідями у нашому клубі
   .block-wrapper
     .row
       .large-6.medium-12.columns
-        .block-container
+        .block-container title="Відвідати профіль члена клубу"
           .img-background style="background-image: url(#{asset_path('photo/speaker-1.jpg')})"
           .title
             | микола
@@ -120,7 +120,7 @@
             p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
             a href="#" = inline_svg "icons/arrow-right.svg"
       .large-3.medium-6.columns
-        .block-container
+        .block-container title="Відвідати профіль члена клубу"
           .img-background style="background-image: url(#{asset_path('photo/speaker-2.jpg')})"
           .title
             | назарій
@@ -130,7 +130,7 @@
             p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
             a href="#" = inline_svg "icons/arrow-right.svg"
       .large-3.medium-6.columns
-        .block-container
+        .block-container title="Відвідати профіль члена клубу"
           .img-background style="background-image: url(#{asset_path('photo/speaker-3.jpg')})"
           .title
             | павло
@@ -140,7 +140,7 @@
             p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
             a href="#" = inline_svg "icons/arrow-right.svg"
       .large-3.medium-12.columns
-        .block-container.hide
+        .block-container.hide title="Відвідати профіль члена клубу"
           .img-background style="background-image: url(#{asset_path('photo/speaker-4.jpg')})"
           .title
             | антон
@@ -150,7 +150,7 @@
             p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
             a href="#" = inline_svg "icons/arrow-right.svg"
       .large-6.medium-6.columns
-        .block-container.hide
+        .block-container.hide title="Відвідати профіль члена клубу"
           .img-background style="background-image: url(#{asset_path('photo/speaker-5.jpg')})"
           .title
             | петро
@@ -160,7 +160,7 @@
             p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
             a href="#" = inline_svg "icons/arrow-right.svg"
       .large-3.medium-6.columns
-        .block-container.hide
+        .block-container.hide title="Відвідати профіль члена клубу"
           .img-background style="background-image: url(#{asset_path('photo/speaker-6.jpg')})"
           .title
             | богдан
@@ -170,7 +170,7 @@
             p.hover-text Заслужений меценат та доцент науково дослідницької кафедри економічного розвитку середнього бізнесу.
             a href="#" = inline_svg "icons/arrow-right.svg"
   .btn-container
-    a.btn.light href="#"
+    a.btn.light href="#" title="Переглянути всіх спікерів клубу"
       span Переглянути всіх
   .subheader блог та новини
   .news-container

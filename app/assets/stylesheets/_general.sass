@@ -152,6 +152,16 @@ a
     text-transform: uppercase
     position: relative
     top: 50%
+    span
+      display: block
+      font-size: 16px
+      font-style: italic
+      font-family: Lora
+      text-transform: none
+      width: 400px
+      max-width: 80%
+      margin: 0 auto
+      color: $grey
   @media #{$small-only}
     height: 250px
     p
@@ -178,3 +188,7 @@ a
   background: $light-grey
   width: 100%
   margin: 10px 0
+
+body.sessions__new
+  .login-form-wrapper
+    margin: 10% auto
