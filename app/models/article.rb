@@ -17,7 +17,7 @@ class Article < ActiveRecord::Base
 
   has_cache
   def url(locale = I18n.locale)
-    "/#{locale}/articles/#{translations_by_locale[locale].url_fragment}"
+    "/articles/#{translations_by_locale[locale].url_fragment}"
   end
 
   has_tags

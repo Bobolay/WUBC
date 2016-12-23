@@ -11,7 +11,7 @@
         .img-background style="background-image: url(#{current_user.avatar.url(:small)})"
     p.person-name Петро Іванович
 
-.margin-block.cabinet-container
+.margin-block.cabinet-container data-user=current_user.user_data.to_json
   .row
     .columns.large-10.large-centered
       .tabs

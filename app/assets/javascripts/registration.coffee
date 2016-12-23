@@ -27,6 +27,7 @@ locales = {
 
       city: "Місто"
       address: "Адреса"
+      hobby: "Хоббі"
 
     }
     placeholders: {
@@ -47,7 +48,7 @@ locales = {
 
       city: "Львів"
       address: "вул. Наукова, 21"
-
+      hobby: "Читаю книжки, слухаю музику, ходжу в театр"
 
     }
   }
@@ -209,7 +210,7 @@ window.inputs = {
       label = inputs.base.label(name, options)
       input_str = inputs.string.input(name, options)
       icon_label = "<label class='icon icon-calendar'>#{icon_source}</label>"
-      "<div #{wrap_attributes} class='input register-input'>#{label}#{input_str}#{icon_label}</div>"
+      "<div #{wrap_attributes} class='input register-input input-date'>#{label}#{input_str}#{icon_label}</div>"
 
 
     initialize: ()->
@@ -340,7 +341,7 @@ column = (html_class, props)->
   s = render_inputs_to_string(props)
   "<div class='columns #{html_class}'>#{s}</div>"
 
-window.user_form = column("medium-6", {
+window.registration_user_form = column("medium-6", {
   first_name: {required: true}
   middle_name: {required: true}
   last_name: {required: true},
@@ -362,6 +363,32 @@ column( "medium-6", {
     must_equal: "password"
   }
 })
+
+window.cabinet_user_form = column("medium-6", {
+    first_name: {required: true}
+    middle_name: {required: true}
+    last_name: {required: true},
+    birth_date: {
+      required: true
+      type: "date"
+    }
+    hobby: {
+      type: "text"
+    }
+  }) +
+    column( "medium-6", {
+      phones: { required: true, min: 1 }
+      email: {
+        required: true
+      }
+      password: {
+        required: true
+      }
+      password_confirmation: {
+        required: true
+        must_equal: "password"
+      }
+    })
 
 
 
@@ -399,14 +426,28 @@ column("medium-6", {
   social_vk: { type: "social", icon: "facebook" }
 })
 
-$("#registration-user").html(user_form)
+$("#registration-user").html(registration_user_form)
 $("#registration-company").html(company_form)
+
+$("#cabinet-profile-form").html(cabinet_user_form)
+
+
 
 initialize_inputs = ()->
   inputs.date.initialize()
   inputs.phone.initialize()
 
+
+initialize_profile = ()->
+
+initialize_cabinet = ()->
+  initialize_profile()
+
+
 initialize_inputs()
+initialize_cabinet()
+
+
 
 
 

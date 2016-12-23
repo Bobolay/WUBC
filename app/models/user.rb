@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :password, :password_confirmation
 
-  globalize :first_name, :last_name, :middle_name, :description
+  globalize :first_name, :last_name, :middle_name, :description, :hobby
 
   image :avatar, styles: { small: "72x72#", member: "620x620#", cabinet: "240x240#", thumb: "100x100#", wide: "670x300#" }
   crop_attached_file :avatar
@@ -117,6 +117,13 @@ class User < ActiveRecord::Base
     if self.confirmed_at && self.confirmed_at_changed?
       AdminMailer.new_user_waiting_approval(self).deliver
     end
+  end
+
+  def user_data
+    user_columns = [:first_name, :middle_name, :last_name, :birth_date, :hobby, :phone, :email]
+    Hash[user_columns.map{|k|
+      [k, self.send(k)]
+    }]
   end
 end
 

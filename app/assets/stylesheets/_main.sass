@@ -1,3 +1,17 @@
+.home-speaker-column
+  float: left !important
+
+  .social-links
+    position: absolute
+    top: 260px
+    right: 0
+
+    a
+      display: inline-block
+      margin: 0 10px
+
+      svg
+        position: relative !important
 .home-banner
   position: relative
   height: 100vh
@@ -541,3 +555,8 @@
   .description
     font-size: 0.875em
     color: $grey
+
+
+body.logged-in
+  .join-us-container, .registration-link
+    display: none !important
