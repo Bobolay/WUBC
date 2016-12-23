@@ -6,7 +6,7 @@ $document.on 'click', '.tags-container .tag', ()->
   ).toArray()
   console.log("tag_id:", tag_id)
 
-  $articles = $('article')
+  $articles = $('.article')
   $articles_to_show = $articles.filter(
     ()->
       $(this).attr("data-tag-ids").split(',').indexOf(tag_id)
