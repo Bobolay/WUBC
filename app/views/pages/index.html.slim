@@ -100,7 +100,7 @@
           .block-container
             .img-background style="background-image: url(#{speaker.image.url(:wide)})"
             .title
-              = speaker.name
+              = raw speaker.name
             .hover-block
               - if speaker.description.present?
                 p.hover-text
