@@ -3,16 +3,17 @@ html
   head
     = seo_tags
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    sass:
+    /sass:
       body
         margin: 0
         padding: 0
         box-sizing: border-box
 
     = csrf_meta_tags
+    = stylesheet_link_tag "error", media: 'all', 'data-turbolinks-track' => true
 
   body class="#{controller_name}__#{action_name}" class=("event-locked" if @event && !current_user && @event.premium?)
 
     = yield
 
-    = stylesheet_link_tag "error", media: 'all', 'data-turbolinks-track' => true
+    

@@ -3,7 +3,7 @@ html
   head
     = seo_tags
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    sass:
+    /sass:
       body
         margin: 0
         padding: 0
@@ -16,6 +16,8 @@ html
         //height: 100%
         //width: 100%
         //z-index: 9999
+
+    = stylesheet_link_tag    "application", media: 'all', 'data-turbolinks-track' => true
 
     = csrf_meta_tags
 
@@ -31,7 +33,7 @@ html
 
     = render "registration_success_popup"
 
-    = stylesheet_link_tag    "application", media: 'all', 'data-turbolinks-track' => true
+
     script src="http://maps.googleapis.com/maps/api/js"
     = javascript_include_tag "application", 'data-turbolinks-track' => true
 

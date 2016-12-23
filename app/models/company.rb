@@ -15,6 +15,8 @@ class Company < ActiveRecord::Base
   end
 
   def industry_name
+    return nil if !industry
+
     industry.name
   end
 

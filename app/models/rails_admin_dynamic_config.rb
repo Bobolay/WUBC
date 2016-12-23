@@ -194,9 +194,9 @@ module RailsAdminDynamicConfig
 
         config.include_models Company
         config.model Company do
-          field :name
           field :industry
           field :employees_count
+          field :translations, :globalize_tabs
           field :company_site
           #:social_networks
           field :offices
