@@ -294,6 +294,21 @@ module RailsAdminDynamicConfig
           field :slider_images
           field :seo_tags
         end
+
+        config.include_models Speaker
+        config.model Speaker do
+          field :published
+          field :translations, :globalize_tabs
+          field :image
+          field :social_facebook
+          field :social_google_plus
+        end
+
+        config.model_translation Speaker do
+          field :locale, :hidden
+          field :name, :description
+          field :description
+        end
       end
     end
   end
