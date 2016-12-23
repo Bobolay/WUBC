@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
   before_action :set_user, only: [:show]
   def index
-    @members = Member.confirmed.approved.order("approved_at desc")
+    @members = Member.confirmed.approved.not_speakers.order("approved_at desc")
   end
 
   def show
@@ -15,5 +15,4 @@ class MembersController < ApplicationController
       return render_not_found
     end
   end
-  
 end

@@ -42,13 +42,14 @@ class RegistrationsController < Users::RegistrationsController
 
   def company_params
     company = params[:company]
-    company.permit(:industry, :company_site, :offices, :employees_count)
+    company_params = company.permit(:industry, :company_site, :offices, :employees_count)
+
+    company_params
   end
 
   def company_translation_params
     company = params[:company]
     translation_params = company.permit(:name, :description, :region, :position)
-    translation_params[:locale] ||= I18n.locale
 
     translation_params
   end

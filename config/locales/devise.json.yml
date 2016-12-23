@@ -1,0 +1,7 @@
+json:
+  devise:
+    registrations:
+      user:
+        signed_up_but_not_approved: 'json.devise.registrations.user.signed_up_but_not_approved'
+    failure:
+      not_approved: 'json.devise.failure.not_approved'

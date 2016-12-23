@@ -71,7 +71,8 @@ window.t = (key)->
 
 window.inputs = {
   base: {
-
+    html_name: (name, options)->
+      options.name || name
     label: (name, options)->
       if options.label == false
         return ""
@@ -102,9 +103,10 @@ window.inputs = {
   string: {
 
     input: (name, options)->
+      html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input type='text' placeholder='#{placeholder}' class='#{options.class}' />"
+      "<input name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' />"
 
     render: (name, options)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
@@ -118,9 +120,10 @@ window.inputs = {
   social: {
 
     input: (name, options)->
+      html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input type='text' placeholder='#{placeholder}' class='#{options.class}' />"
+      "<input name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' />"
 
     render: (name, options)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
@@ -145,9 +148,10 @@ window.inputs = {
 
   email: {
     input: (name, options)->
+      html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input type='email' placeholder='#{placeholder}' class='#{options.class}' />"
+      "<input name='#{html_name}' type='email' placeholder='#{placeholder}' class='#{options.class}' />"
 
     render: (name, options)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
@@ -159,9 +163,10 @@ window.inputs = {
 
   password: {
     input: (name, options)->
+      html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input type='password' placeholder='#{placeholder}' class='#{options.class}' />"
+      "<input name='#{html_name}' type='password' placeholder='#{placeholder}' class='#{options.class}' />"
     render: (name, options)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
@@ -171,9 +176,10 @@ window.inputs = {
 
   text: {
     input: (name, options)->
+      html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<textarea placeholder='#{placeholder}' class='#{options.class}' ></textarea>"
+      "<textarea name='#{html_name}' placeholder='#{placeholder}' class='#{options.class}' ></textarea>"
     render: (name, options)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
@@ -184,9 +190,10 @@ window.inputs = {
 
   integer: {
     input: (name, options)->
+      html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input type='number' placeholder='#{placeholder}' class='#{options.class}' />"
+      "<input name='#{html_name}' type='number' placeholder='#{placeholder}' class='#{options.class}' />"
 
     render: (name, options)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
@@ -254,9 +261,10 @@ window.inputs = {
 
   phone: {
     input: (name, options)->
+      html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input type='tel' placeholder='#{placeholder}' class='#{options.class}' />"
+      "<input name='#{html_name}' type='tel' placeholder='#{placeholder}' class='#{options.class}' />"
 
     render: (name, options)->
       console.log "phone: options: ", options
@@ -268,7 +276,7 @@ window.inputs = {
 
     initialize: ()->
       $inputs = $(".input-phone:not(.mask-initialized)")
-      $inputs.find("input").mask("+99 (099) 999 99 99")
+      $inputs.find("input").mask("+99 (999) 999 99 99")
       $inputs.addClass("mask-initialized")
 
   }

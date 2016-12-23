@@ -26,7 +26,8 @@ class User < ActiveRecord::Base
 
   scope :confirmed, -> { where("confirmed_at is not null") }
   scope :approved, -> { where("approved_at is not null") }
-  scope :speakers, -> { where(is_speaker: 't') }
+
+  boolean_scope :is_speaker, :speakers, :not_speakers
 
   def admin?
     type == "Administrator"
@@ -88,11 +89,34 @@ class User < ActiveRecord::Base
     approved_at.present?
   end
 
+  def approved?
+    approved
+  end
+
   def approved=(value)
     ok = value == "1"
     puts "value: #{ok.inspect}"
     self.approved_at = ok ? DateTime.now : nil
 
+  end
+
+  def inactive_message
+    if !approved?
+      :not_approved
+    else
+      super # Use whatever other message
+    end
+  end
+
+  def active_for_authentication?
+    super && approved?
+  end
+
+  after_save :send_admin_mail
+  def send_admin_mail
+    if self.confirmed_at && self.confirmed_at_changed?
+      AdminMailer.new_user_waiting_approval(self).deliver
+    end
   end
 end
 
