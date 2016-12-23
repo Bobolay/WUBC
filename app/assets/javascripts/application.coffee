@@ -53,4 +53,4 @@
 
 #= require sign-in-popup-wrapper
 
-#= require cabinet-fields.coffee
+#= require tags-filter
