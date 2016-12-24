@@ -6,7 +6,7 @@
       h3.cabinet-header
         |Особистий кабінет
       label.cabinet-avatar-wrap for="user_photo"
-        - if !current_user.avatar.exists?(:small)
+        - if !current_user.avatar.exists?(:cabinet)
           .cabinet-avatar.avatar-photo.no-photo
             label.change-photo.change-photo-link for="user_photo"
               |Змінити фото

@@ -15,13 +15,13 @@ p.title особистий кабінет
     a.join-us-link title="Заповнити анкетні дані та створити свій власний профіль клубу" href=new_user_registration_path
       |Стати учасником
 - else
-  - show_icon = !u.avatar.exists?
+  - show_icon = !u.avatar.exists?(:small)
   .user-block.menu-user-block
     .user-avatar  class=("icon" if show_icon)
       - if show_icon
         = embedded_svg_from_assets "icons/user_no_avatar.svg"
       - else
-        img src=u.avatar.url
+        img src=u.avatar.url(:small)
     .user-details
       .user-name
         = u.full_name_or_email(true, false)
