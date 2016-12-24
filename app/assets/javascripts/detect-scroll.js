@@ -1,4 +1,4 @@
-$(document).on("ready", function(){
+//$(document).on("ready", function(){
 
     //     A L L     B R O W S E R S     D E T E C T
 

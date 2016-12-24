@@ -60,6 +60,6 @@
 
 #= require filter-event
 
-#= require detect-scroll
+# require detect-scroll
 
 #= require registration-scroll
