@@ -15,6 +15,8 @@ class Article < ActiveRecord::Base
   scope :order_by_release_date, -> { order("release_date desc") }
   scope :featured, -> { published.order_by_release_date.limit(3) }
 
+  has_seo_tags
+  has_sitemap_record
   has_cache
   def url(locale = I18n.locale)
     "/articles/#{translations_by_locale[locale].url_fragment}"

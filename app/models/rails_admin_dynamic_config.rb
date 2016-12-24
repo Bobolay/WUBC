@@ -268,6 +268,7 @@ module RailsAdminDynamicConfig
           end
           field :author
           field :tags
+          field :seo_tags
         end
 
         config.model_translation Article do
