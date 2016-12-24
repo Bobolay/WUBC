@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
   end
 
   def user_data
-    user_columns = [:first_name, :middle_name, :last_name, :hobby, :phones, :email]
+    user_columns = [:first_name, :middle_name, :last_name, :hobby, :phones, :email, :hobby]
     h = Hash[user_columns.map{|k|
       [k, self.send(k)]
     }]
@@ -134,6 +134,12 @@ class User < ActiveRecord::Base
     h[:birth_date] = birth_date.present? ? birth_date.strftime("%d.%m.%Y") : nil
 
     h
+  end
+
+  def companies_data
+    companies.map do |company|
+      {name: company.name, description: company.description, region: company.region, industry: company.industry_name, company_site: company.company_site }
+    end
   end
 
   def phones=(val)

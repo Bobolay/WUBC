@@ -181,11 +181,12 @@ window.inputs = {
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
+      options.class ?= ""
       "<textarea name='#{html_name}' placeholder='#{placeholder}' class='#{options.class}'>#{data}</textarea>"
     render: (name, options, data)->
       wrap_attributes = inputs.base.wrap_attributes(name, options, data)
       label = inputs.base.label(name, options)
-      input_str = inputs.text.input(name, options)
+      input_str = inputs.text.input(name, options, data)
       textarea_corner = "<div class='textarea-corner'></div>"
       "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{textarea_corner}</div>"
   }
@@ -257,7 +258,10 @@ window.inputs = {
       key = options.key || name
       phone_options = $.extend({key: "#{key}[]"}, phone_options)
 
-      if data && Array.isArray(data) && data.length > 0
+      phones_count = (data && Array.isArray(data) && data.length > 0) || 0
+
+
+      if phones_count
         for phone in data
           phone_inputs_str += inputs.phone.render("phone", phone_options, phone)
       else
@@ -265,7 +269,9 @@ window.inputs = {
       phone_inputs_str = "<div class='inputs-collection-inputs'>#{phone_inputs_str}</div>"
       inputs_collection_controls = inputs.inputs_collection.inputs_collection_controls()
 
-      "<div class='inputs-collection phones inputs-collection-single-input'>#{label}#{phone_inputs_str}#{inputs_collection_controls}</div>"
+      html_class = "inputs-collection phones"
+      html_class += " inputs-collection-single-input" if phones_count > 1
+      "<div class='#{html_class}'>#{label}#{phone_inputs_str}#{inputs_collection_controls}</div>"
   }
 
   phone: {
@@ -373,15 +379,13 @@ column( "medium-6", {
   }
 })
 
-try
-  user_data = JSON.parse($(".cabinet-container").attr("data-user"))
-
-catch
-  user_data = undefined
 
 
 
-window.cabinet_user_form = column("medium-6", {
+
+
+render_cabinet_user_form = (data)->
+  column("medium-6", {
     first_name: {required: true}
     middle_name: {required: true}
     last_name: {required: true},
@@ -392,57 +396,67 @@ window.cabinet_user_form = column("medium-6", {
     hobby: {
       type: "text"
     }
-  }, user_data) +
-    column( "medium-6", {
-      phones: { required: true, min: 1 }
-      email: {
-        required: true
-      }
-      password: {
-      }
-      password_confirmation: {
-        must_equal: "password"
-      }
-    }, user_data)
+  }, data) +
+  column( "medium-6", {
+    phones: { required: true, min: 1 }
+    email: {
+      required: true
+    }
+    password: {
+    }
+    password_confirmation: {
+      must_equal: "password"
+    }
+  }, data)
 
 
 
-window.company_form = column("medium-12"
-  name: {
-    required: true
-    class: "material-input"
-    label: false
-  }
-) +
-column("medium-6", {
-  industry: {
-    required: true
-  }
-  description: {
-    type: "text"
-  }
-  region: {required: true}
-  position: {required: true}
-  employees_count: {
-    type: "integer"
-    required: true
-  }
-}) +
-column("medium-6", {
-  company_site: {}
-  offices: {
-    type: "offices"
-  }
-  #social_networks: {}
-  social_twitter: { type: "social", icon: "facebook" }
-  social_google_plus: { type: "social", icon: "google_plus" }
-  social_facebook: { type: "social", icon: "facebook" }
-  social_linkedin: { type: "social", icon: "facebook" }
-  social_vk: { type: "social", icon: "facebook" }
-})
+render_company_form = (data)->
+  column("medium-12"
+  #  name: {
+  #    type: "label"
+  #    required: true
+  #    class: "material-input"
+  #    label: false
+  #  }
+  ) +
+  column("medium-6", {
+    industry: {
+      required: true
+    }
+    description: {
+      type: "text"
+    }
+    region: {required: true}
+    name: { required: true }
+    position: {required: true}
+    employees_count: {
+      type: "integer"
+      required: true
+    }
+  }) +
+
+  column("medium-6", {
+    company_site: {}
+    #offices: {
+    #  type: "offices"
+    #}
+    #social_networks: {}
+    #social_twitter: { type: "social", icon: "facebook" }
+    #social_google_plus: { type: "social", icon: "google_plus" }
+    #social_facebook: { type: "social", icon: "facebook" }
+    #social_linkedin: { type: "social", icon: "facebook" }
+    #social_vk: { type: "social", icon: "facebook" }
+  })
+
+render_companies = (data)->
+  s = ""
+  if data && Array.isArray(data) && data.length
+    for c in data
+      s += render_company_form(c)
 
 
-
+  s
 
 
 initialize_inputs = ()->
@@ -458,19 +472,39 @@ put_profile = ()->
     type: "post"
   )
 
+initialize_registration_forms = ()->
+  if $("#registration-user").length
+    $("#registration-user").html(registration_user_form)
+  if $("#registration-company").length
+    $("#registration-company").html(render_company_form())
 
-$("#registration-user").html(registration_user_form)
-$("#registration-company").html(company_form)
 
-$("#cabinet-profile-form").html(cabinet_user_form)
 
-$document.on "keyup change", "#cabinet-profile-form", ()->
-  delay("put_profile", put_profile, 2000)
-
-initialize_profile = ()->
 
 initialize_cabinet = ()->
-  initialize_profile()
+  if is_cabinet
+
+    try
+      user_data = JSON.parse($(".cabinet-container").attr("data-user"))
+    catch
+      user_data = undefined
+
+    try
+      companies_data = JSON.parse($(".cabinet-container").attr("data-companies"))
+    catch
+      companies_data = undefined
+
+    $("#cabinet-profile-form").html(render_cabinet_user_form(user_data))
+
+    $("#cabinet-companies").html(render_companies(companies_data))
+
+initialize_registration_forms()
+initialize_cabinet()
+
+$document.on "keyup change", "#cabinet-profile-form", ()->
+  delay("put_profile", put_profile, 1000)
+
+
 
 
 initialize_inputs()
@@ -688,6 +722,8 @@ $document.on "click", ".phones .inputs-collection-control", ()->
     $inputs_collection.removeClass("inputs-collection-single-input")
   else
     $inputs_collection.addClass("inputs-collection-single-input")
+
+  put_profile() if is_cabinet
 
 
 
