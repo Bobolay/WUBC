@@ -46,6 +46,10 @@ class ApplicationController < ActionController::Base
     return admin
   end
 
+  def confirmed
+    render "users/confirmations/show"
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     #redirect_to main_app.root_path, :alert => exception.message
     render_not_authorized
