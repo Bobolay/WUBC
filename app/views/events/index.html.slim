@@ -1,16 +1,21 @@
 .events-wrapper
-  .events-banner
-    .img-background style="background-image: url(#{asset_path('photo/banner-events.jpg')})"
-    .text
-      p.future-event
-        | майбутня
-        br
-        | подія
-      p.date 28
-      p.month жовтня 2016
-      p.title Зустріч з Іваном Герасимовичем на тему: "Включи свої можливості".
-      a.btn.event-only-for-members href="#"
-        span Переглянути
+  - if @featured_event
+    .events-banner
+      .img-background style="background-image: url(#{asset_path('photo/banner-events.jpg')})"
+      .text
+        p class=("#{@featured_event.future? ? 'future' : @featured_event.past? ? 'past' : 'active'}-event event-time-type" )
+          | #{@featured_event.future? ? "Майбутня" : @featured_event.past? ? "Минула" : "Активна"}
+          br
+          | подія
+        p.date
+          = @featured_event.date.day > 10 ? @featured_event.date.day : "0#{@featured_event.date.day}"
+        p.month
+          |#{t "genitive_month_names.month-#{@featured_event.date.month >= 10 ? @featured_event.date.month : "0#{@featured_event.date.month}" }"} #{@featured_event.date.year}
+        p.title
+          = @featured_event.name
+
+        a.btn class=("event-only-for-members" if @featured_event.premium?) href=event_path(id: @featured_event.url_fragment)
+          span Переглянути
   .calendar-container
     .line
     p.section-header календар подій клубу
