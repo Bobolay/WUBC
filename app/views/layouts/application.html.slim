@@ -21,7 +21,7 @@ html
 
     = csrf_meta_tags
 
-  body class="#{controller_name}__#{action_name}" class=("event-locked" if @event && !current_user && @event.premium?) class="logged-in"
+  body class="#{controller_name}__#{action_name}" class=("event-locked" if @event && !current_user && @event.premium?) class=("logged-in" if current_user)
     #preloader
 
 
