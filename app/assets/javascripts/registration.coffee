@@ -29,6 +29,7 @@ locales = {
       city: "Місто"
       address: "Адреса"
       hobby: "Хоббі"
+      name: "Назва компанії"
 
     }
     placeholders: {
@@ -50,6 +51,7 @@ locales = {
       city: "Львів"
       address: "вул. Наукова, 21"
       hobby: "Читаю книжки, слухаю музику, ходжу в театр"
+      name: "Моя компанія"
 
     }
   }
@@ -472,6 +474,15 @@ put_profile = ()->
     type: "post"
   )
 
+put_companies = ()->
+  data = {companies: form_to_json.call($("#cabinet-companies"))}
+  $.ajax(
+    data: data
+    dataType: "json"
+    url: "/cabinet/profile"
+    type: "post"
+  )
+
 initialize_registration_forms = ()->
   if $("#registration-user").length
     $("#registration-user").html(registration_user_form)
@@ -503,6 +514,10 @@ initialize_cabinet()
 
 $document.on "keyup change", "#cabinet-profile-form", ()->
   delay("put_profile", put_profile, 1000)
+
+
+$document.on "keyup change", "#cabinet-companies", ()->
+  delay("put_companies", put_companies, 1000)
 
 
 

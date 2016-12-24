@@ -163,7 +163,7 @@ module RailsAdminDynamicConfig
                 :default
               end
             end
-            field :is_speaker
+            #field :is_speaker
             field :email
             field :full_name
             field :avatar
@@ -176,7 +176,7 @@ module RailsAdminDynamicConfig
               end
             end
             field :approved, :boolean
-            field :is_speaker
+            #field :is_speaker
             field :email
             field :password
             field :password_confirmation
@@ -312,6 +312,15 @@ module RailsAdminDynamicConfig
           field :description
         end
 
+        form_configs = [FormConfigs::NewUserWaitingApproval, FormConfigs::UserSubscribedToEvent]
+
+        config.include_models *form_configs
+        form_configs.each do |m|
+          config.model m do
+            navigation_label "Налаштуваня"
+            field :email_receivers, :text
+          end
+        end
 
       end
     end
