@@ -13,6 +13,9 @@ class ArticlesController < ApplicationController
     if @article.nil?
       return render_not_found
     end
+
+    set_page_metadata(@article)
+
     @page_banner = {
         image: @article.banner.url(:large)
     }
