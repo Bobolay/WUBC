@@ -759,3 +759,21 @@ $document.on "click", ".office-control-save", ()->
 
 
 
+$document.on "change", "#user_photo", ()->
+  $(".image-loading-in-progress").addClass("show")
+  $(this).closest("form").ajaxSubmit({
+    #target: 'myResultsDiv'
+    success: (data)->
+      #console.log "RESULT: ", arguments
+      #window.location.reload()
+      $(".cabinet-avatar .img-background").css(
+        "background-image", "url('#{data.cabinet_avatar_url}')"
+      )
+
+      $(".login-field .user-icon img, .menu-user-block .user-avatar img").attr(
+        "src", data.small_avatar_url
+      )
+
+      $(".image-loading-in-progress").removeClass("show")
+
+  })

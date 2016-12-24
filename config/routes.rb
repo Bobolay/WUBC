@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   scope "cabinet", controller: "cabinet" do
     root action: "index", as: :cabinet
+    post "avatar", action: "set_avatar"
 
     get "events", action: "events", as: "cabinet_events"
     match "profile", action: "profile", as: "cabinet_profile", via: [:get, :post]

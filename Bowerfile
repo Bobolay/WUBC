@@ -9,3 +9,5 @@ asset 'foundation-sites', '6.2.3'
 asset "jquery.maskedinput"
 
 asset "microplugin"
+
+asset "jquery-form"

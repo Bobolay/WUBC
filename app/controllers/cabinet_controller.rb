@@ -36,4 +36,12 @@ class CabinetController < ApplicationController
   def user_translation_params
     params[:user].permit(:first_name, :last_name, :middle_name)
   end
+
+  def set_avatar
+    u = current_user
+    avatar_params = params.permit(:avatar)
+    u.update(avatar_params)
+
+    render json: { cabinet_avatar_url: u.avatar.url(:cabinet), small_avatar_url: u.avatar.url(:small) }
+  end
 end
