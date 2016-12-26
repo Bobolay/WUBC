@@ -1,0 +1,4 @@
+smtp_gmail_domain: "voroninstudio.eu"
+smtp_gmail_password: "VS-support#201604"
+smtp_gmail_user_name: "support@voroninstudio.eu"
+development.host: "localhost:3000"
