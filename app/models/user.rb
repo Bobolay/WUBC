@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   attr_accessible :events_i_am_subscribed_on, :events_i_am_subscribed_on_ids
 
   has_many :company_memberships
-  has_many :companies, through: :company_memberships
+  has_many :companies, through: :company_memberships, autosave: true
 
   has_many :event_speaker_bindings
   has_many :events_with_me_as_speaker, through: :event_speaker_bindings, source: :event, foreign_key: :speaker_idm, class_name: Event
@@ -173,6 +173,7 @@ class User < ActiveRecord::Base
       return self['phones']
     end
   end
+
 
 
 end

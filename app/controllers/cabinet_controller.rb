@@ -26,7 +26,13 @@ class CabinetController < ApplicationController
   end
 
   def companies
+    company_params = params[:companies]["0"]
+    company_params[:industry_name] ||= company_params.delete(:industry)
+    company = current_user.companies.first
+    company.update_params(company_params)
 
+
+    render json: {}
   end
 
   def user_params
@@ -44,4 +50,6 @@ class CabinetController < ApplicationController
 
     render json: { cabinet_avatar_url: u.avatar.url(:cabinet), small_avatar_url: u.avatar.url(:small) }
   end
+
+
 end

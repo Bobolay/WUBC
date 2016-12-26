@@ -13,7 +13,7 @@ uk:
       new:
         main-info: "Основна інформація"
         company-info: "Інформація про компанію"
-        registration-confirmation: "Підтвердження реєсьтрації"
+        registration-confirmation: "Підтвердження реєстрації"
 
   genitive_month_names:
     month-1: "січня"
