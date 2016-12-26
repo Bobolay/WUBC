@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
   end
 
   def active_for_authentication?
-    super && approved?
+    super && (admin? || approved?)
   end
 
   after_save :send_admin_mail
