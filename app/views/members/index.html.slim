@@ -6,29 +6,29 @@
     .members-grid
       .input
         label for="#selectize-field-1" Пошук ПІБ:
-        select#selectize-field-1 data-placeholder=""
-          option value="" Не вибрано
-          option value="1" Петро Іванович
-          option value="2" Іван Петрович
-          option value="3" Роман Ігорович
+        select#selectize-field-1 data-placeholder="Не вибрано"
+          option value="all" Не вибрано
+          option value="1" Петро
+          option value="2" Іван
+          option value="3" Роман
       .input
         label for="selectize-field-2" Сфера діяльності:
         select#selectize-field-2 data-placeholder=""
-          option value="" Не вибрано
+          option value="all" Не вибрано
           option value="1" Будівництво
           option value="2" Торгівля
           option value="3" Послуги
       .input
         label for="selectize-field-3" Місце діяльності:
         select#selectize-field-3 data-placeholder=""
-          option value="" Не вибрано
+          option value="all" Не вибрано
           option value="1" Львів
           option value="2" Івано-Франківськ
           option value="3" Тернопіль
       .input
         label for="selectize-field-4" Назва компанії:
         select#selectize-field-4 data-placeholder=""
-          option value="" Не вибрано
+          option value="all" Не вибрано
           option value="1" СуперБуд
           option value="2" Плиточка
           option value="3" Транстрамвай
@@ -38,7 +38,7 @@
       .members-grid
         - @members.each do |member|
           - avatar_url = member.avatar.exists?(:member) ? member.avatar.url(:member) : asset_path('photo/speaker-1.jpg')
-          a.square href=member_path(member.id)
+          a.square data-name="1" date-industries="1,2" date-regions="1,2" data-companies="1,2" href=member_path(member.id)
 
             .img-background style="background-image: url(#{avatar_url})"
             p.title
