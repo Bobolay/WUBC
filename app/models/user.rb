@@ -111,16 +111,23 @@ class User < ActiveRecord::Base
   end
 
   def active_for_authentication?
-    super && approved?
+    super && (admin? || approved?)
   end
 
-  # after_save :send_admin_mail
+  after_save :send_admin_mail
   def send_admin_mail
-    if self.confirmed_at && self.confirmed_at_changed?
+    if (self.confirmed_at && self.confirmed_at_changed?) && !self.approved?
       AdminMailer.new_user_waiting_approval(self).deliver
     end
 
     true
+  end
+
+  after_save :send_approval_congratulations
+  def send_approval_congratulations
+    if self.confirmed_at && self.approved_at_changed? && self.approved?
+      MemberMailer.admin_approved_your_account(self).deliver
+    end
   end
 
   def user_data

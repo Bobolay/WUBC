@@ -21,7 +21,7 @@ html
 
     = csrf_meta_tags
 
-  body class="#{controller_name}__#{action_name}" class=("event-locked" if @event && !current_user && @event.premium?) class=("logged-in" if current_user)
+  body class="#{controller_name}__#{action_name}" class=("event-locked" if @event && !current_user && @event.premium? && @event.future?) class=("logged-in" if current_user)
     #preloader
 
 
@@ -34,7 +34,7 @@ html
     = render "registration_success_popup"
 
 
-    script src="http://maps.googleapis.com/maps/api/js"
+    script src="//maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_API_KEY']}"
     = javascript_include_tag "application", 'data-turbolinks-track' => true
 
 

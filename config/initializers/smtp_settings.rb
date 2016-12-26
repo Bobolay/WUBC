@@ -1,3 +1,5 @@
+ActionMailer::Base.config.default_url_options = {host: ENV["#{Rails.env}.host"]}
+
 ActionMailer::Base.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 25, # 587

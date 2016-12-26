@@ -1,6 +1,12 @@
 uk:
   activerecord:
     models:
+      company:
+        one: "Компанія"
+        other: "Компанії"
+      speaker:
+        one: "Спікер"
+        other: "Спікери"
       event:
         one: "Подія"
         other: "події"

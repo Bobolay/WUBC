@@ -1,0 +1,16 @@
+h3
+  |WUBC
+p
+  |Член клубу &nbsp;
+  a href=member_url(id: @member.id)
+    = @member.full_name_or_email
+  | &nbsp; Підписався на подію &nbsp;
+  a href=event_url(id: @event.url_fragment)
+
+p
+  a href="#{@admin_root}/member/#{@member.id}"
+    = "перейти в адмін-панель на цього члена клубу"
+
+p
+  a href="#{@admin_root}/event/#{@event.id}"
+    = "перейти в адмін-панель на цю подію"

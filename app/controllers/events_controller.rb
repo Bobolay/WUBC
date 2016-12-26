@@ -4,6 +4,7 @@ class EventsController < ApplicationController
   def index
     @events = Event.published.order("date desc")
     set_page_metadata(:events)
+    @featured_event = Event.first
   end
 
   def show

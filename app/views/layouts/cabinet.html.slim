@@ -1,41 +1,52 @@
-/- content_for :cabinet_layout do
-.cabinet-header-container
-  .person-general-info
-    h3.cabinet-header
-      |Особистий кабінет
-    - if !current_user.avatar.exists?(:small)
-      .avatar-photo.no-photo
-        = inline_svg "icons/user_no_avatar.svg"
-    - else
-      .avatar-photo
-        .img-background style="background-image: url(#{current_user.avatar.url(:small)})"
-    p.person-name Петро Іванович
+- content_for :cabinet_layout do
+  form.photo-form action="/cabinet/avatar" method="post"
+    input type="file" id="user_photo" name="avatar"
+  .cabinet-header-container
+    .person-general-info
+      h3.cabinet-header
+        |Особистий кабінет
+      label.cabinet-avatar-wrap for="user_photo"
+        - if !current_user.avatar.exists?(:cabinet)
+          .cabinet-avatar.avatar-photo.no-photo
+            label.change-photo.change-photo-link for="user_photo"
+              |Змінити фото
+            .image-loading-in-progress
+              |Завантажується...
+            = inline_svg "icons/user_no_avatar.svg"
+        - else
+          .cabinet-avatar.avatar-photo
+            .change-photo.change-photo-link
+              |Змінити фото
+            .image-loading-in-progress
+              |Завантажується...
+            .img-background style="background-image: url(#{current_user.avatar.url(:cabinet)})"
+      p.person-name Петро Іванович
 
-.margin-block.cabinet-container data-user=current_user.user_data.to_json data-companies=current_user.companies_data.to_json
-  .row
-    .columns.large-10.large-centered
-      .tabs
-        .tab-headers
-          .tab-header.active
-            p
-              span = inline_svg "icons/calendar.svg"
-              | події
-          .tab-header
-            p
-              span = inline_svg "icons/account_balance.svg"
-              | мій бізнес
-          .tab-header
-            p
-              span = inline_svg "icons/person_black.svg"
-              | особисті дані
-        .line-container
-          .line.active-line-position
-        .tab-contents
-          .tab-content.active
-            = render "cabinet/events"
-          .tab-content
-            = render "cabinet/companies"
-          .tab-content
-            = render "cabinet/profile"
+  .margin-block.cabinet-container data-user=current_user.user_data.to_json data-companies=current_user.companies_data.to_json
+    .row
+      .columns.large-10.large-centered
+        .tabs
+          .tab-headers
+            .tab-header.active
+              p
+                span = inline_svg "icons/calendar.svg"
+                | події
+            .tab-header
+              p
+                span = inline_svg "icons/account_balance.svg"
+                | мій бізнес
+            .tab-header
+              p
+                span = inline_svg "icons/person_black.svg"
+                | особисті дані
+          .line-container
+            .line.active-line-position
+          .tab-contents
+            .tab-content.active
+              = render "cabinet/events"
+            .tab-content
+              = render "cabinet/companies"
+            .tab-content
+              = render "cabinet/profile"
 
 = render template: "layouts/application.html"

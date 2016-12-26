@@ -6,9 +6,14 @@ class AdminMailer < ApplicationMailer
   #   en.admin_mailer.new_user_waiting_approval.subject
   #
   def new_user_waiting_approval(user)
-    @greeting = "Hi"
-    @admin_root = ENV["#{Rails.env}.host"] + "/#{I18n.locale}/admin"
+    @admin_root = ENV["#{Rails.env}.host"] + "/admin"
     @user = user
-    mail to: "to@example.org"
+    mail to: receivers("new_user_waiting_approval")
+  end
+
+  def user_subscribed_to_event(member, event)
+    @member = member
+    @event = event
+    mail to: receivers("user_subscribed_to_event")
   end
 end

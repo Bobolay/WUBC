@@ -11,6 +11,7 @@
 #= require papercrop
 #= require plugins/jquery.appear
 #= require appear-initialize
+#= require jquery-form/jquery.form
 #= require plugins/jquery_change_classes
 #= require plugins/delay
 #= require plugins/jquery-easing
@@ -59,6 +60,6 @@
 
 #= require filter-event
 
-#= require detect-scroll
+# require detect-scroll
 
 #= require registration-scroll

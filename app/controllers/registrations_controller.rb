@@ -1,10 +1,10 @@
 class RegistrationsController < Users::RegistrationsController
   skip_all_before_action_callbacks
   def create
-    user = Member.new(sign_up_user_params)
-    user.translations << user.translations.new(sign_up_user_translation_params)
+    user = Member.create(sign_up_user_params)
+    user.update_params(params[:user])
 
-    company = user.companies.new(company_params)
+    company = user.companies.create(company_params)
     company_industry_name = company_params[:industry]
     is_company_id = company_industry_name == company_industry_name.to_i.to_s
 
