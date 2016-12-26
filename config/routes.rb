@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :translations, constraints: { :id => /[^\/]+/ }
   end
 
-
+  get "confirmed", to: "application#confirmed"
 
   scope "cabinet", controller: "cabinet" do
     root action: "index", as: :cabinet
