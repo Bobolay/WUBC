@@ -24,18 +24,17 @@
           .contacts
             .row
               .large-12.medium-12.small-6.columns
-                span тел.
-                p +38 (067) 341 39 49
-                span e-mail
-                p
+                p.smaller тел.
+                a.contact-link href="tel:+380673413949" +38 (067) 341 39 49
+                p.smaller e-mail
+                a.contact-link href="mailto:office@wubc.club"
                   | office
                   span @
                   | wubc.club
               .large-12.medium-12.small-6.columns
-                span соц.
-                br
-                a title="Перейти на сторінку клубу в соціальній мережі" = inline_svg "icons/social-fb.svg"
-                a title="Перейти на сторінку клубу в соціальній мережі" = inline_svg "icons/social-google.svg"
+                p.smaller соц.
+                a.contact-link href="https://www.facebook.com/westukrainianbusinessclub/?fref=ts" title="Перейти на сторінку клубу в соціальній мережі" = inline_svg "icons/social-fb.svg"
+                / a title="Перейти на сторінку клубу в соціальній мережі" = inline_svg "icons/social-google.svg"
         .large-5.medium-5.columns
           = render "login_form"
     .large-5.medium-12.columns.go-left

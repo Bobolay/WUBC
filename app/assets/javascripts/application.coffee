@@ -24,6 +24,8 @@
 
 #= require selectize-initialize
 
+#= require fullpage-banner-height
+
 #= require lightgallery
 
 #= require scroll-banner

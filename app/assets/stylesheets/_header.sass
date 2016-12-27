@@ -90,7 +90,8 @@
         &, &::before, &::after
           // background-color: #fff
       &:before
-        content: attr(data-title-open)
+        @media #{$xlarge-up}
+          content: attr(data-title-open)
     &.opened
       .menu-button-lines
         +burger-to-cross
@@ -101,7 +102,8 @@
           &::before, &::after
             // background-color: #fff
         &:after
-          content: attr(data-title-close)
+          @media #{$xlarge-up}
+            content: attr(data-title-close)
     @media #{$small-only}
       margin: 5px
   .menu-wrapper
