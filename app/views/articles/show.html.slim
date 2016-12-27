@@ -12,18 +12,20 @@
           = raw @article.content
     .large-3.medium-12.columns.go-left
       .row.new-one-info-container
-        .large-12.medium-4.small-12.columns
-          .new-one-info
-            p.title Автор
-            p.regular
-              = @article.author.full_name(false)
-        .large-12.medium-4.small-12.columns
-          .new-one-info
-            p.title Теги
-            p.regular
-              - @article.tags.each do |tag|
-                a.tag href="#"
-                  = tag.name
+        - if @article.author
+          .large-12.medium-4.small-12.columns
+            .new-one-info
+              p.title Автор
+              p.regular
+                = @article.author.full_name(false)
+        - if @article.tags.any?
+          .large-12.medium-4.small-12.columns
+            .new-one-info
+              p.title Теги
+              p.regular
+                - @article.tags.each do |tag|
+                  a.tag href="#"
+                    = tag.name
         .large-12.medium-4.small-12.columns
           .new-one-info
             p.title Поділитись
