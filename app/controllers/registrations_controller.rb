@@ -3,26 +3,11 @@ class RegistrationsController < Users::RegistrationsController
   def create
     user = Member.create(sign_up_user_params)
     user.update_params(params[:user])
+    user.save
 
     company = user.companies.create(company_params)
-    company_industry_name = company_params[:industry]
-    is_company_id = company_industry_name == company_industry_name.to_i.to_s
-
-    if !is_company_id
-      industry = Industry.new
-      industry.translations << industry.translations.new(name: company_industry_name, locale: I18n.locale)
-      industry.save
-      company.industry_id = industry.id
-    else
-      company.industry_id = company_industry_name
-    end
-
-
-
-
-    company.translations << company.translations.new(company_translation_params)
-
-    user.save
+    company.update_params(params[:company])
+    company.save
 
     # offices, industry
 
@@ -42,7 +27,8 @@ class RegistrationsController < Users::RegistrationsController
 
   def company_params
     company = params[:company]
-    company_params = company.permit(:industry, :company_site, :offices, :employees_count)
+    company[:industry_name] ||= company.delete(:industry)
+    company_params = company.permit(:industry_name, :company_site, :offices, :employees_count)
 
     company_params
   end

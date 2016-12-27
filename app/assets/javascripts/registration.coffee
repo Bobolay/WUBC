@@ -272,7 +272,7 @@ window.inputs = {
       inputs_collection_controls = inputs.inputs_collection.inputs_collection_controls()
 
       html_class = "inputs-collection phones"
-      html_class += " inputs-collection-single-input" if phones_count > 1
+      html_class += " inputs-collection-single-input" if phones_count == 0 || phones_count == 1
       "<div class='#{html_class}'>#{label}#{phone_inputs_str}#{inputs_collection_controls}</div>"
   }
 
@@ -436,7 +436,7 @@ render_company_form = (data)->
       type: "integer"
       required: true
     }
-  }) +
+  }, data) +
 
   column("medium-6", {
     company_site: {}
@@ -449,7 +449,7 @@ render_company_form = (data)->
     #social_facebook: { type: "social", icon: "facebook" }
     #social_linkedin: { type: "social", icon: "facebook" }
     #social_vk: { type: "social", icon: "facebook" }
-  })
+  }, data)
 
 render_companies = (data)->
   s = ""
@@ -475,11 +475,11 @@ put_profile = ()->
   )
 
 put_companies = ()->
-  data = {companies: form_to_json.call($("#cabinet-companies"))}
+  data = {companies: [form_to_json.call($("#cabinet-companies"))]}
   $.ajax(
     data: data
     dataType: "json"
-    url: "/cabinet/profile"
+    url: "/cabinet/companies"
     type: "post"
   )
 
@@ -507,6 +507,7 @@ initialize_cabinet = ()->
 
     $("#cabinet-profile-form").html(render_cabinet_user_form(user_data))
 
+    console.log "companies_data: ", companies_data
     $("#cabinet-companies").html(render_companies(companies_data))
 
 initialize_registration_forms()
@@ -702,6 +703,13 @@ $document.on "click", ".prev-step-button, .next-step-button", (e)->
   $active_step_content.removeClass("active")
   $active_step_content[direction]().addClass("active")
 
+ajaxit = (iframe_id, form_id)->
+  iFrameWindow = document.getElementById(iframe_id).contentWindow
+  iFrameWindow.document.body.appendChild document.getElementById(form_id).cloneNode(true)
+  frameForm = iFrameWindow.document.getElementById(form_id)
+  frameForm.onsubmit = null
+  frameForm.submit()
+  false
 
 $document.on "click", ".step-navigation-button.send-form", ()->
   json = steps_to_json()
@@ -713,6 +721,9 @@ $document.on "click", ".step-navigation-button.send-form", ()->
 
   # alert("вам на пошту надіслано лист з підтвердженням")
   $('.success-popup-wrapper').fadeIn('200')
+
+
+
 
 
 $document.on "keyup", ".input[validation]", ()->
@@ -798,3 +809,4 @@ $document.on "change", "#user_photo", ()->
       $(".image-loading-in-progress").removeClass("show")
 
   })
+

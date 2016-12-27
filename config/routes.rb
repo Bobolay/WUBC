@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
     get "events", action: "events", as: "cabinet_events"
     match "profile", action: "profile", as: "cabinet_profile", via: [:get, :post]
-    get "companies", action: "companies", as: "cabinet_companies"
+    match "companies", action: "companies", as: "cabinet_companies", via: [:get, :post]
 
   end
 
