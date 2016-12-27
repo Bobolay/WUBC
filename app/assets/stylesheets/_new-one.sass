@@ -2,6 +2,26 @@
   float: left !important
 .new-one-wrapper
 
+  h1, h2, h3, h4, h5, h6
+    color: $grey
+    +vremena
+    line-height: 1.25em
+    max-width: 70%
+    font-weight: 400
+    text-transform: uppercase
+  h1, h2, h3
+    margin: 20px 0
+  h4, h5, h6
+    margin: 10px 0
+    text-transform: none
+  h2
+    font-size: 1.5em
+  h3, h4, h5, h6
+    font-size: 1.20em
+
+  p
+    margin: 20px 0
+
   .new-one-banner
     position: relative
     height: 400px
@@ -104,6 +124,7 @@
         position: relative
         padding-left: 40px
         margin: 10px 0
+        font-style: italic
         @media #{$small-only}
           padding-left: 25px
         &:before
@@ -116,8 +137,41 @@
           background-color: $green
           @media #{$small-only}
             left: 5px
-        p
-          font-style: italic
+
+    ol
+      position: relative
+      list-style: none
+      counter-reset: rowNumber
+      li
+        position: relative
+        counter-increment: rowNumber
+        padding-left: 40px
+        margin: 10px 0
+        font-style: italic
+        &:before
+          content: counter(rowNumber) "."
+          color: $green
+          position: absolute
+          left: 20px
+          top: 0
+        @media #{$small-only}
+          padding-left: 25px
+
+    blockquote
+      font-style: italic
+      position: relative
+      display: inline-block
+      padding: 0 10px
+      margin: 20px 30px
+      width: 70%
+      &:before, &:after
+        position: absolute
+        color: $green
+        font-size: 2.5rem
+        line-height: 1
+        content: '\201C'
+        left: -10px
+        top: -10px
           
   .news-container
     border-top: 1px solid $light-grey
