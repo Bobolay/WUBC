@@ -10,7 +10,7 @@
         - Cms.config.provided_locales.each do |locale|
           a title="Змінити мову на сайті" href=url_for(locale: locale) class=("active" if locale.to_s == I18n.locale.to_s)
             = locale
-    .menu-button data-title-open="Відкрити меню" data-title-close="закрити меню"
+    .menu-button title="Відкрити/закрити меню"
       .menu-button-lines
     .login-field class=("logged" if current_user)
       - if current_user

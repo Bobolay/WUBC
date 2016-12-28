@@ -1,7 +1,11 @@
 .contacts-container
-  padding: 100px 0 200px
+  padding: 50px 0
+  @media #{$xxlarge-up}
+    padding: 100px 0 200px
   .contact-block
     float: left !important
+    @media #{$small-only}
+      margin-bottom: 20px
     svg
       width: 18px
       height: 18px
@@ -20,9 +24,15 @@
       padding-top: 10px
       padding-left: 30px
       line-height: 1.2
+      span
+        display: inline-block
 
 #googleMap
   border: 1px solid rgba($light-grey, 0.5)
-  height: 500px
+  height: 400px
   position: relative
-  top: -100px
+  @media #{$small-only}
+    height: 300px
+  @media #{$xxlarge-up}
+    top: -100px
+    height: 500px

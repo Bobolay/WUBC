@@ -21,7 +21,7 @@ module ApplicationHelper
 
   def day_name(date)
     day_number = date.strftime("%u")
-    Cms.t("day-names.#{day_number}")
+    Cms.t("day-names.day-#{day_number}")
   end
 
   def formatted_time_range(time1, time2)

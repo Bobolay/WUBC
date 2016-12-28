@@ -40,8 +40,6 @@
       a.btn.light title="Переглянути всі події клубу (майбутні та минулі)" href=events_path
         span Переглянути всі
 .margin-block.meeting-container.slider-container
-  .slider-top-shadow
-
   .slider-prev
     = inline_svg "icons/arrow-left.svg"
   .slider-next
@@ -49,6 +47,7 @@
   ul.slider-1
     - @slider_images.each do |slide|
       li
+        .slider-top-shadow
         p.description
           = slide.data_alt
         .img-background style="background-image: url(#{slide.data.url(:large)})"
