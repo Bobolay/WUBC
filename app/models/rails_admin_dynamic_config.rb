@@ -280,6 +280,7 @@ module RailsAdminDynamicConfig
 
         config.include_models Testimonial
         config.model Testimonial do
+          nestable_list(position_field: :sorting_position)
           field :published
           field :translations, :globalize_tabs
           field :image
@@ -300,6 +301,8 @@ module RailsAdminDynamicConfig
 
         config.include_models Speaker
         config.model Speaker do
+          nestable_list(position_field: :sorting_position)
+
           field :published
           field :translations, :globalize_tabs
           field :image
@@ -323,6 +326,19 @@ module RailsAdminDynamicConfig
           end
         end
 
+        config.include_models HomeClubCompany
+        config.model HomeClubCompany do
+          nestable_list(position_field: :sorting_position)
+          field :published
+          field :translations, :globalize_tabs
+          field :image
+        end
+
+        config.model_translation HomeClubCompany do
+          field :locale, :hidden
+          field :name
+          field :description
+        end
       end
     end
   end
