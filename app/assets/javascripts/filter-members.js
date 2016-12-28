@@ -1,15 +1,27 @@
-$('#selectize-field-1, #selectize-field-2, #selectize-field-3, #selectize-field-4').change(function() {
+$('#selectize-field-1').change(function() {
   var filter = $(this).val()
   filterList_1(filter);
+});
+
+$('#selectize-field-2').change(function() {
+  var filter = $(this).val()
   filterList_2(filter);
+});
+
+$('#selectize-field-3').change(function() {
+  var filter = $(this).val()
   filterList_3(filter);
+});
+
+$('#selectize-field-4').change(function() {
+  var filter = $(this).val()
   filterList_4(filter);
 });
 
 function filterList_1(value) {
   var list = $(".members-grid .square");
   $(list).addClass("hide");
-  if (value == "all") {
+  if (value == "all" || value == "" ) {
     $(".members-grid").find(".square").each(function (i) {
       $(this).removeClass("hide");
     });
