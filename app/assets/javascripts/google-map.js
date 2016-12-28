@@ -27,12 +27,14 @@ function initialize() {
     
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
-    var xCordinate=23.5012912
-    var yCordinate=49.2785263
+    //var xCordinate=23.5012912
+    //var yCordinate=49.2785263
+    var xCordinate = 49.278505
+    var yCordinate = 23.503619
 
     var mapOptions = {
-        zoom: 16,
-        center: new google.maps.LatLng(yCordinate, xCordinate),
+        zoom: 18,
+        center: new google.maps.LatLng(xCordinate, yCordinate),
         panControl:false,
         zoomControl:true,
         mapTypeControl:false,
@@ -52,7 +54,7 @@ function initialize() {
     var marker = new google.maps.Marker({
         map: map,
         draggable: false,
-        position: new google.maps.LatLng(yCordinate, xCordinate),
+        position: new google.maps.LatLng(xCordinate, yCordinate),
         icon: image
     });
     map.mapTypes.set('map_style', styledMap);

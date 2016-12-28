@@ -45,4 +45,12 @@ module ApplicationHelper
     devise_mapping.to
   end
 
+  def formatted_site_phone
+    "+38 (067) 866 71 13"
+  end
+
+  def site_phone_link
+    "tel:+380678667113"
+  end
+
 end
