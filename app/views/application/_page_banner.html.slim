@@ -1,8 +1,9 @@
 - if @page_banner.present?
   - if @page_banner[:title].present?
-    .news-banner
+    .white-banner
       p
         = @page_banner[:title]
+      .line
   - elsif @page_banner[:image].present?
     .new-one-banner
       .img-background style="background-image: url('#{@page_banner[:image]}')"
