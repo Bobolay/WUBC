@@ -3,7 +3,7 @@ class Company < ActiveRecord::Base
 
   include RecursiveParams
 
-  has_many :company_offices
+  has_many :company_offices, autosave: true
   belongs_to :industry
 
 

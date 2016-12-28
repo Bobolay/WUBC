@@ -5,11 +5,10 @@ module RecursiveParams
     if params.blank?
       return false
     end
-    puts "params: #{params.inspect}"
 
     if translation_param_names.any?
       translation_params = params.select{|k,v| k.to_s.in?(translation_param_names) }
-      puts "translation_params: #{translation_params.inspect}"
+      translation_params[:locale] ||= I18n.locale
 
       t = self.translations_by_locale[I18n.locale]
 
@@ -28,7 +27,6 @@ module RecursiveParams
       params.delete(:password_confirmation)
     end
 
-    puts "params: #{params.inspect}"
 
     params.each do |k, v|
       self.send("#{k}=", v) if self.respond_to?("#{k}=")
@@ -38,7 +36,11 @@ module RecursiveParams
 
 
     if invoke_save
-      self.save
+      save_result = self.save
+
+      if !save_result
+        puts "#{self.class.name}##{self.id || 'new'}: errors: #{self.errors.inspect}"
+      end
     end
 
   end
