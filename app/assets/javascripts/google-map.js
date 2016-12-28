@@ -50,7 +50,7 @@ function initialize() {
     };
     var map = new google.maps.Map(document.getElementById('googleMap'),
         mapOptions);
-    var image = '/assets/icons/map-marker.svg'
+    var image = image_urls.marker
     var marker = new google.maps.Marker({
         map: map,
         draggable: false,

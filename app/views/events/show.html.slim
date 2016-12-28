@@ -8,7 +8,6 @@
         p.event-name
           = @event.name
       .slider-container.event-photo
-        .slider-bottom-shadow
         .slider-prev
           = inline_svg "icons/arrow-left.svg"
         .slider-next
@@ -16,6 +15,7 @@
         ul.slider-1
           - @event.slider_images.each do |slide|
             li
+              .slider-bottom-shadow
               p.description
                 = slide.data_alt
               .img-background style="background-image: url(#{slide.data.url(:large)})"

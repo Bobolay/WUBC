@@ -17,20 +17,20 @@ p.title особистий кабінет
 - else
   - show_icon = !u.avatar.exists?(:small)
   .user-block.menu-user-block
-    .user-avatar  class=("icon" if show_icon)
+    a.user-avatar href=cabinet_path class=("icon" if show_icon)
       - if show_icon
         = embedded_svg_from_assets "icons/user_no_avatar.svg"
       - else
         img src=u.avatar.url(:small)
     .user-details
-      .user-name
+      a.user-name href=cabinet_path
         = u.full_name_or_email(true, false)
 
-      .user-events
-        - if current_user.events_i_am_subscribed_on.count > 0
-          | #{current_user.events_i_am_subscribed_on.count} майбуні зустрічі
-        - else
-          | Жодної зустрічі
+      / .user-events
+      /   - if current_user.events_i_am_subscribed_on.count > 0
+      /     | #{current_user.events_i_am_subscribed_on.count} майбуні зустрічі
+      /   - else
+      /     | Жодної зустрічі
       .user-links
         a.green href=cabinet_path
           |Мій акаунт

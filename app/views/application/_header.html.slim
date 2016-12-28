@@ -10,21 +10,21 @@
         - Cms.config.provided_locales.each do |locale|
           a title="Змінити мову на сайті" href=url_for(locale: locale) class=("active" if locale.to_s == I18n.locale.to_s)
             = locale
-    .menu-button data-title-open="Відкрити меню" data-title-close="закрити меню"
+    .menu-button title="Відкрити/закрити меню"
       .menu-button-lines
     .login-field class=("logged" if current_user)
       - if current_user
-        .user-icon
+        a.user-icon href=cabinet_path
           - user_image = current_user.avatar.exists?(:small) ? current_user.avatar.url(:small) : nil
           - if user_image
             img src=user_image
           - else
             = embedded_svg_from_assets("icons/user_no_avatar.svg")
         .user-info-panel
-          .user-name
+          a.user-name href=cabinet_path
             = current_user.full_name_or_email(false)
           a.logout-link title="Вийти з особистого кабінету" href=destroy_user_session_path data-method="delete"
-            |Sign out
+            |Вихід
       - else
         a.open-login-popup title="Увійти в свій особистий кабінет"
           p Логін
