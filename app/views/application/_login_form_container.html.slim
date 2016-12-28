@@ -4,6 +4,9 @@
     | Увійти
 
   = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "material_form"}) do |f|
+    - if alert.present?
+      .form-errors
+        = alert
     .input
       = f.label :email
       br
