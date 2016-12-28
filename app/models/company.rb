@@ -68,4 +68,8 @@ class Company < ActiveRecord::Base
   end
 
   attr_accessible :industry_name
+
+  def social_links
+    Hash[[:facebook, :google_plus].map{|k| [k, send("social_#{k}") ]  }.select{|item| item[1].present? }]
+  end
 end

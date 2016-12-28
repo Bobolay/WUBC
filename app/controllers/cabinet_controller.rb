@@ -52,6 +52,8 @@ class CabinetController < ApplicationController
     render json: {}
   end
 
+
+
   def user_params
     params[:user].permit(:phone, :birth_date)
   end

@@ -13,9 +13,11 @@
     .info-block
       p.regular Вік:
       p.regular-grey 37 років
-    .info-block
-      p.regular Хоббі:
-      p.regular-grey Рафтинг, спортивний волейбол, бігова ходьба
+    - if @user.hobby.present?
+      .info-block
+        p.regular Хоббі:
+        p.regular-grey
+          = @user.hobby
 
     .info-block
       p.regular Контакти:
@@ -24,13 +26,17 @@
           = phone
       p.regular-grey
         = @user.email
-    a.social-link = inline_svg "icons/social-fb.svg"
-    a.social-link = inline_svg "icons/social-google.svg"
+    - if @user.social_links.present?
+      - @user.social_links.each do |k, url|
+        a.social-link href=url
+          = inline_svg "icons/social-#{k}.svg"
+
 
   .columns.large-9.personal-info-extended
 
-    - @user.companies.each do |company|
-      p.large директор компанії фортуни
+    - @user.valid_companies.each do |company|
+      p.large
+        | Директор компанії &laquo;#{company.name}&raquo;
 
       .row.grey-block
         .columns.medium-6
@@ -46,10 +52,13 @@
             p.regular Сайт компанії:
             p.regular-grey
               = company.company_site
-          .info-block
-            p.regular Соціальні мережі компанії:
-            a.social-link = inline_svg "icons/social-fb.svg"
-            a.social-link = inline_svg "icons/social-google.svg"
+          - if company.social_links.present?
+            .info-block
+              p.regular Соціальні мережі компанії:
+              - company.social_links.each do |k, url|
+                a.social-link href=url
+                  = inline_svg "icons/social-#{k}.svg"
+
         - if company.offices.any?
           .columns.medium-6
             - company.offices.each_with_index do |office, index|

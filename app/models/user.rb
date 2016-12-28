@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  attr_accessible :password, :password_confirmation
+  attr_accessible :password, :password_confirmation, :remember_me
 
   globalize :first_name, :last_name, :middle_name, :description, :hobby
 
@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
   end
 
   def user_data
-    user_columns = [:first_name, :middle_name, :last_name, :hobby, :phones, :email, :hobby]
+    user_columns = [:first_name, :middle_name, :last_name, :hobby, :phones, :email, :hobby, :social_facebook, :social_google_plus]
     h = Hash[user_columns.map{|k|
       [k, self.send(k)]
     }]
@@ -154,9 +154,26 @@ class User < ActiveRecord::Base
        employees_count: company.employees_count,
        offices: company.company_offices.map do |office|
          { city: office.city, address: office.address, phones: office.phones }
-       end
+       end,
+       social_facebook: company.social_facebook,
+       social_google_plus: company.social_google_plus
       }
     end
+  end
+
+  def valid_companies
+    required_fields = [:name, :industry, :region, :position, :employees_count]
+    companies.to_a.select{|c|
+      valid = true
+      required_fields.each do |f|
+        if c.send(f).blank?
+          valid = false
+          break
+        end
+      end
+
+      valid
+    }
   end
 
   def phones=(val)
@@ -184,7 +201,9 @@ class User < ActiveRecord::Base
     end
   end
 
-
+  def social_links
+    Hash[[:facebook, :google_plus].map{|k| [k, send("social_#{k}") ]  }.select{|item| item[1].present? }]
+  end
 
 end
 

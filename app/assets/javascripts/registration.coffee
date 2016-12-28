@@ -419,6 +419,8 @@ render_cabinet_user_form = (data)->
     password_confirmation: {
       must_equal: "password"
     }
+    social_facebook: {}
+    social_google_plus: {}
   }, data)
 
 
@@ -452,11 +454,10 @@ render_company_form = (data, render_controls = false)->
       type: "offices"
     }
     #social_networks: {}
-    #social_twitter: { type: "social", icon: "facebook" }
-    #social_google_plus: { type: "social", icon: "google_plus" }
-    #social_facebook: { type: "social", icon: "facebook" }
-    #social_linkedin: { type: "social", icon: "facebook" }
-    #social_vk: { type: "social", icon: "facebook" }
+    social_facebook: { type: "social", icon: "facebook" }
+    social_google_plus: { type: "social", icon: "google_plus" }
+
+
   }, data)
 
 
