@@ -477,8 +477,9 @@ render_companies = (data)->
 
   if data && Array.isArray(data) && data.length
     for c in data
-
       s += render_company_form(c, true)
+  else
+    s = render_company_form({}, true)
 
   s
 
@@ -536,8 +537,9 @@ initialize_cabinet = ()->
 
     $("#cabinet-profile-form").html(render_cabinet_user_form(user_data))
 
-    console.log "companies_data: ", companies_data
-    $("#cabinet-companies").html(render_companies(companies_data))
+    #console.log "companies_data: ", companies_data
+    companies_str = render_companies(companies_data)
+    $("#cabinet-companies").html(companies_str)
 
 initialize_registration_forms()
 initialize_cabinet()
