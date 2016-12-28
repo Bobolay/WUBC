@@ -5,9 +5,13 @@
     width: 72px
     height: 72px
     margin-right: 20px
+    border-radius: 50%
+    overflow: hidden
     svg, img
-      width: 72px
-      height: 72px
+      width: 100%
+      height: 100%
+      left: 0
+      top: 0
 
   .user-details
     float: left
@@ -21,6 +25,10 @@
     .user-links
       a
         display: inline-block
+      .grey
+        font-size: 0.875em
+        &:hover
+          color: $green
       span
         color: $light-grey
         margin: 0 10px

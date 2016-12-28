@@ -177,7 +177,7 @@
   /*border-radius: 3px 3px 0 0;*/
 }
 .selectize-input > * {
-  vertical-align: baseline;
+  vertical-align: middle;
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
@@ -298,6 +298,18 @@
 .selectize-control.single .selectize-input,
 .selectize-control.single .selectize-input input {
   cursor: pointer;
+}
+.selectize-input input::-webkit-input-placeholder {
+  font-style: normal;
+  font-size: 0.75em;
+}
+.selectize-input input::-moz-placeholder {
+  font-style: normal;
+  font-size: 0.75em;
+}
+.selectize-input input::-ms-input-placeholder {
+  font-style: normal;
+  font-size: 0.75em;
 }
 .selectize-control.single .selectize-input.input-active,
 .selectize-control.single .selectize-input.input-active input {
