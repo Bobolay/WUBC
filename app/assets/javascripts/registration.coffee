@@ -5,6 +5,8 @@ locales = {
     save_office: "Зберегти"
     add_phone: "Додати ще телефон"
     remove_phone: "Видалити телефон"
+    add_company: "Додати нову компанію"
+    remove_company: "Видалити компанію"
     attributes: {
       premium: "Тільки для членів клубу"
       first_name: "Ім'я"
@@ -38,8 +40,8 @@ locales = {
       last_name: "Петренко"
       birth_date: "01.12.1991"
       email: "user@server.com"
-      password: "12345678"
-      password_confirmation: "12345678"
+      password: "Пароль"
+      password_confirmation: "Повторіть пароль"
 
       name: "Назва компанії"
       industry: "Розваги"
@@ -52,6 +54,7 @@ locales = {
       address: "вул. Наукова, 21"
       hobby: "Читаю книжки, слухаю музику, ходжу в театр"
       name: "Моя компанія"
+      phone: "Телефон"
 
     }
   }
@@ -299,13 +302,18 @@ window.inputs = {
   }
 
   offices: {
-    render: (name, options)->
+    render: (name, options, data)->
+      #console.log "offices: data: ", data
       office_inputs_str = ""
       label = inputs.base.label(name, options)
       office_options = options.office_options || {}
       key = options.key || name
       office_options.key = "#{key}[]"
-      office_inputs_str += inputs.office.render("office", office_options)
+      if data && data.length
+        for office_data in data
+          office_inputs_str += inputs.office.render("office", office_options, office_data)
+      else
+        office_inputs_str += inputs.office.render("office", office_options)
       office_inputs_str = "<div class='inputs-collection-inputs'>#{office_inputs_str}</div>"
       #inputs_collection_controls = "<div class='inputs-collection-controls'><div class='inputs-collection-control inputs-collection-control-add'>#{svg_images.plus}</div><div class='inputs-collection-control inputs-collection-control-remove'>#{svg_images.plus}</div></div>"
       inputs_collection_controls = ""
@@ -318,16 +326,19 @@ window.inputs = {
       placeholder = inputs.base.placeholder(name)
       "<input type='tel' placeholder='#{placeholder}' class='#{options.class}' />"
 
-    render: (name, options)->
+    render: (name, options, data)->
+      console.log "OFFICE: data: ", data
+      data ?= {}
       options = $.extend({label: false}, options)
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
       input_str = inputs.email.input(name, options)
       key = options.key || name
       office_inputs_str = ""
-      office_inputs_str += inputs.string.render("city", {key: "#{key}.city"})
-      office_inputs_str += inputs.string.render("address", {key: "#{key}.address"})
-      office_inputs_str += inputs.phones.render("phones", {key: "#{key}.phones"})
+
+      office_inputs_str += inputs.string.render("city", {key: "#{key}.city"}, data.city)
+      office_inputs_str += inputs.string.render("address", {key: "#{key}.address"}, data.address)
+      office_inputs_str += inputs.phones.render("phones", {key: "#{key}.phones"}, data.phones)
       office_inputs_wrap = "<div class='office-inputs'>#{office_inputs_str}</div>"
       office_controls_str = "<div class='office-controls'><div class='office-control office-control-add'>#{t("add_office")}</div><div class='office-control office-control-save'>#{t("save_office")}</div><div class='office-control office-control-edit'>#{svg_images.edit}</div><div class='office-control office-control-remove'>#{svg_images.plus}</div></div>"
       "<div #{wrap_attributes} class='input register-input input-office' data-key='#{key}'>#{label}#{office_inputs_wrap}#{office_controls_str}</div>"
@@ -413,8 +424,8 @@ render_cabinet_user_form = (data)->
 
 
 
-render_company_form = (data)->
-  column("medium-12"
+render_company_form = (data, render_controls = false)->
+  form_str = column("medium-12"
   #  name: {
   #    type: "label"
   #    required: true
@@ -440,9 +451,9 @@ render_company_form = (data)->
 
   column("medium-6", {
     company_site: {}
-    #offices: {
-    #  type: "offices"
-    #}
+    offices: {
+      type: "offices"
+    }
     #social_networks: {}
     #social_twitter: { type: "social", icon: "facebook" }
     #social_google_plus: { type: "social", icon: "google_plus" }
@@ -451,12 +462,23 @@ render_company_form = (data)->
     #social_vk: { type: "social", icon: "facebook" }
   }, data)
 
+
+  add_title = t("add_company")
+  remove_title = t("remove_company")
+  if render_controls
+    company_controls_str = "<div class='company-controls'><div class='company-control company-control-add' title='#{add_title}'><div class='company-control-icon'>#{svg_images.plus}</div><label class='company-control-label'>#{add_title}</label></label></div><div class='company-control company-control-remove' title='#{remove_title}'><div class='company-control-icon'>#{svg_images.plus}</div><label class='company-control-label'>#{remove_title}</label></div></div>"
+  else
+    company_controls_str = ""
+  "<div class='company'><div class='row'>#{form_str}</div>#{company_controls_str}</div>"
+
 render_companies = (data)->
   s = ""
+
+
   if data && Array.isArray(data) && data.length
     for c in data
-      s += render_company_form(c)
 
+      s += render_company_form(c, true)
 
   s
 
@@ -475,7 +497,14 @@ put_profile = ()->
   )
 
 put_companies = ()->
-  data = {companies: [form_to_json.call($("#cabinet-companies"))]}
+  data = {companies: []}
+  $("#cabinet-companies .company").each(
+    ()->
+      $company = $(this)
+      json = form_to_json.call($company)
+      data.companies.push(json)
+  )
+
   $.ajax(
     data: data
     dataType: "json"
@@ -529,11 +558,44 @@ initialize_cabinet()
 
 
 
+window.set_value_to_object_key = (obj, key, val, except_keys)->
+  original_obj = obj
+
+  target = obj
+  key_parts = key.split(".")
+  i = 0
+  last_key = key_parts[key_parts.length - 1]
+  is_array = last_key.endsWith("[]")
+
+
+
+  for key_part in key_parts
+    if i < key_parts.length - 1
+      key_part_name = key_part
+      if key_part_name.endsWith("[]")
+        key_part_name = key_part_name.substr(0, key_part_name.length - 2)
+        if !target[key_part_name]
+          target[key_part_name] = []
+          target = target[key_part_name]
+      else
+        target = target[key_part_name]
+
+    i++
+
+  if Array.isArray(target)
+    target.push(val)
+  else
+    target[last_key] = val
+
+
+  obj
 
 
 window.form_to_json = ()->
   obj = {}
-  $(this).find(".input").map(
+  except_keys = ["offices[]"]
+  $form = $(this)
+  $form.find(".input").map(
     ()->
       $input = $(this)
       ###
@@ -552,17 +614,72 @@ window.form_to_json = ()->
       if k == undefined
         return
 
+      if except_keys.includes(k)
+        return null
+      for except_key in except_keys
+        if k.startsWith(except_key + ".")
+          return null
+
+
+
       val = $input.find("input, textarea").val()
+
+
+#      k = k.split("[]").map(
+#        (s, i, w)->
+#          #console.log "map: this: ", this, "; args: ", arguments
+#          is_array = s.endsWith("[]")
+#          res = ""
+#          if s.startsWith(".")
+#            if !s.startsWith("[") && !s.endsWith("]")
+#              res = "[#{s.substr(1, s.length)}]"
+#            else
+#              res = s.substr(1, s.length)
+#          else if s == "[]"
+#            res = ""
+#          else if !(s.startsWith("[") || s.startsWith(".[") ) && !s.endsWith("]")
+#            res = "[#{s.substr(0, s.length)}]"
+#            res = s
+#          else
+#            res = s
+#
+#          res = "#{res}[]" if is_array
+#
+#          s
+#      ).join("[]")
+
+      #k = k.substr(0, k.length - 2) if k.endsWith("[][]")
+
+
+      console.log "k: ", k
 
       if k.endsWith("[]")
         k = k.substr(0, k.length - 2)
         obj[k] = [] if !obj[k]
+        key_parts = k.split(".")
+        #set_value_to_object_key(obj, k, val)
         target = obj[k]
         target.push(val)
       else
         obj[k] = val
 
   )
+
+  offices = []
+  $form.find(".office-inputs").map(
+    ()->
+      office = {}
+      $office = $(this)
+      office["city"] = $office.find(".input input[name='city']").val()
+      office["address"] = $office.find(".input input[name='address']").val()
+      office["phones"] = $office.find(".input input[name='phone']").map(
+        ()->
+          $(this).val()
+      ).toArray()
+
+      offices.push(office)
+  )
+  obj['offices'] = offices
 
   obj
 
@@ -759,6 +876,7 @@ $document.on "click", ".office-control-save", ()->
   office_index = $office.index()
   window.steps_json = steps_to_json()
   data = steps_json.company.offices[office_index]
+
   str = inputs.office.render_locked(data)
   $office_preview = $office.find(".office-preview")
 
@@ -803,10 +921,29 @@ $document.on "change", "#user_photo", ()->
       )
 
 
-
-
-
       $(".image-loading-in-progress").removeClass("show")
 
   })
 
+$document.on "click", ".company-control-add", ()->
+  $button = $(this)
+  $company = $button.closest(".company")
+  company_str = render_company_form({}, true)
+  $new_company = $(company_str)
+  $new_company.insertAfter($company)
+
+$document.on "click", ".company-control-remove", ()->
+  $button = $(this)
+  $company = $button.closest(".company")
+  $company.remove()
+  put_companies()
+
+
+$document.on "keyup",
+  "#cabinet-profile-form [data-key=first_name], #cabinet-profile-form [data-key=middle_name]",
+  ()->
+    $profile_form = $(this).closest("#cabinet-profile-form")
+    first_name = $profile_form.find("[data-key=first_name] input").val()
+    middle_name = $profile_form.find("[data-key=middle_name] input").val()
+    name = "#{first_name} #{middle_name}"
+    $("#cabinet-person-name").text(name)

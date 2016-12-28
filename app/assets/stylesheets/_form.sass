@@ -269,6 +269,7 @@ $select-height: 43px
   font-size: 14px
   font-style: italic
   vertical-align: middle
+  cursor: pointer
 
 .office-control-edit
   svg
@@ -282,3 +283,39 @@ $select-height: 43px
 .required-mark
   color: $green
 
+.company-controls
+  text-align: center
+.company-control
+  display: inline-block
+  cursor: pointer
+  color: $grey
+  font-size: 14px
+  margin: 0 30px
+.company-control-icon
+  width: 45px
+  height: 45px
+  background: $green
+  display: inline-block
+
+  svg
+
+    width: 22px
+    height: 22px
+    position: relative
+    top: 11px
+    left: 0
+
+.company-control-label
+  display: block
+
+
+.company-control-remove
+  .company-control-icon
+    background-color: $grey
+    svg
+      +transform(rotate(45deg))
+      left: 0
+
+
+.office-controls
+  display: none !important

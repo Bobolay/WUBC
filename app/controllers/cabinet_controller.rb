@@ -26,10 +26,27 @@ class CabinetController < ApplicationController
   end
 
   def companies
-    company_params = params[:companies]["0"]
-    company_params[:industry_name] ||= company_params.delete(:industry)
-    company = current_user.companies.first
-    company.update_params(company_params)
+    params_companies_count = params[:companies].count
+    params_companies_max_index = params_companies_count - 1
+    current_user.companies.each_with_index do |c, i|
+      c.delete if i > params_companies_max_index
+    end
+
+    params[:companies].each do |company_index, company_params|
+      company_index = company_index.to_i
+      puts "company_index: #{company_index}"
+      company_params[:industry_name] ||= company_params.delete(:industry)
+      company = current_user.companies[company_index]
+      if !company
+        company = Company.create
+        CompanyMembership.create(company_id: company.id, user_id: current_user.id)
+      end
+
+
+      company.set_offices(company_params[:offices])
+
+      company.update_params(company_params)
+    end
 
 
     render json: {}

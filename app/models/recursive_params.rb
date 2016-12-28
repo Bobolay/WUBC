@@ -23,7 +23,7 @@ module RecursiveParams
     end
 
     params = params.keep_if{|k, v| next false if k.to_s == "locale";  !translation_param_names.include?(k.to_s) }
-    if params[:password].blank? && params[:password_confirmation].blank?
+    if ((params[:password].blank? && params[:password_confirmation].blank?) rescue false)
       params.delete(:password)
       params.delete(:password_confirmation)
     end
@@ -31,7 +31,6 @@ module RecursiveParams
     puts "params: #{params.inspect}"
 
     params.each do |k, v|
-
       self.send("#{k}=", v) if self.respond_to?("#{k}=")
     end
 

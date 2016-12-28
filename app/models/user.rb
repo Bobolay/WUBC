@@ -145,7 +145,17 @@ class User < ActiveRecord::Base
 
   def companies_data
     companies.map do |company|
-      {name: company.name, description: company.description, region: company.region, industry: company.industry_name, company_site: company.company_site }
+      {name: company.name,
+       description: company.description,
+       position: company.position,
+       region: company.region,
+       industry: company.industry_name,
+       company_site: company.company_site,
+       employees_count: company.employees_count,
+       offices: company.company_offices.map do |office|
+         { city: office.city, address: office.address, phones: phones }
+       end
+      }
     end
   end
 

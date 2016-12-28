@@ -20,7 +20,8 @@
             .image-loading-in-progress
               |Завантажується...
             .img-background style="background-image: url(#{current_user.avatar.url(:cabinet)})"
-      p.person-name Петро Іванович
+      p.person-name#cabinet-person-name
+        = current_user.full_name(true, false)
 
   .margin-block.cabinet-container data-user=current_user.user_data.to_json data-companies=current_user.companies_data.to_json
     .row

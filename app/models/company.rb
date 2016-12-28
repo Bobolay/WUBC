@@ -50,5 +50,22 @@ class Company < ActiveRecord::Base
     true
   end
 
+  def set_offices(offices_params)
+    params_companies_count = offices_params.count
+    params_companies_max_index = params_companies_count - 1
+    self.company_offices.each_with_index do |c, i|
+      c.delete if i > params_companies_max_index
+    end
+
+    offices_params.each_with_index do |office_params, office_index|
+      office_params = office_params[1] if office_params.is_a?(Array)
+      office_index = office_index.to_i
+      office = self.company_offices[office_index]
+      office ||= self.company_offices.new
+      puts "office_params: #{office_params.inspect}"
+      office.update_params(office_params)
+    end
+  end
+
   attr_accessible :industry_name
 end
