@@ -153,7 +153,7 @@ class User < ActiveRecord::Base
        company_site: company.company_site,
        employees_count: company.employees_count,
        offices: company.company_offices.map do |office|
-         { city: office.city, address: office.address, phones: phones }
+         { city: office.city, address: office.address, phones: office.phones }
        end
       }
     end
