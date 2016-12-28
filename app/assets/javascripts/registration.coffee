@@ -43,7 +43,6 @@ locales = {
       password: "Пароль"
       password_confirmation: "Повторіть пароль"
 
-      name: "Назва компанії"
       industry: "Розваги"
       region: "Львів"
       position: "директор"
@@ -423,16 +422,14 @@ render_cabinet_user_form = (data)->
   }, data)
 
 
+render_company_name_block = (company_name)->
+  company_name = t("placeholders.name") if !company_name || !company_name.length
+  "<div class='columns company-name-column'><div class='company-name'>#{company_name}</div></div>"
 
 render_company_form = (data, render_controls = false)->
-  form_str = column("medium-12"
-  #  name: {
-  #    type: "label"
-  #    required: true
-  #    class: "material-input"
-  #    label: false
-  #  }
-  ) +
+  data ?= {}
+  company_name_str = render_company_name_block(data.name)
+  form_str = company_name_str +
   column("medium-6", {
     industry: {
       required: true
@@ -969,3 +966,10 @@ $document.on "keyup",
 $document.on "blur", ".input input", ()->
   $input = $(this).closest(".input")
   validate_input.call($input, true)
+
+$document.on "keyup change", "#cabinet-companies .company input[name=name]", ()->
+  $input = $(this)
+  company_name = $input.val()
+  company_name = t("placeholders.name") if !company_name || !company_name.length
+  $company = $(this).closest(".company")
+  $company.find(".company-name-column .company-name").text(company_name)
