@@ -9,6 +9,7 @@ class PagesController < ApplicationController
     @slider_images = @page_instance.slider_images
     @testimonials = Testimonial.published.sort_by_sorting_position
     @speakers = Speaker.published
+    @club_companies = HomeClubCompany.published.sort_by_sorting_position
   end
 
   def about_us
