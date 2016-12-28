@@ -263,7 +263,7 @@ window.inputs = {
       key = options.key || name
       phone_options = $.extend({key: "#{key}[]"}, phone_options)
 
-      phones_count = (data && Array.isArray(data) && data.length > 0) || 0
+      phones_count = (data && Array.isArray(data) && data.length ) || 0
 
 
       if phones_count
@@ -275,7 +275,7 @@ window.inputs = {
       inputs_collection_controls = inputs.inputs_collection.inputs_collection_controls()
 
       html_class = "inputs-collection phones"
-      html_class += " inputs-collection-single-input" if phones_count == 0 || phones_count == 1
+      html_class += " inputs-collection-single-input" if !phones_count || phones_count == 0 || phones_count == 1
       "<div class='#{html_class}'>#{label}#{phone_inputs_str}#{inputs_collection_controls}</div>"
   }
 
@@ -541,6 +541,8 @@ initialize_cabinet = ()->
     companies_str = render_companies(companies_data)
     $("#cabinet-companies").html(companies_str)
 
+    initialize_inputs()
+
 initialize_registration_forms()
 initialize_cabinet()
 
@@ -689,12 +691,13 @@ window.steps_to_json = ()->
   {user: form_to_json.call($("#registration-user")), company: form_to_json.call($("#registration-company")) }
 
 validate_inputs = (update_dom = false)->
-  return true
+
   valid = true
   all_valid = true
   $(this).each(
     ()->
-      alert("validate_inputs: #{$(this).attr('data-key')}")
+      console.log "validate"
+      #alert("validate_inputs: #{$(this).attr('data-key')}")
       if valid || update_dom
 
         valid = validate_input.call(this, update_dom)
@@ -703,6 +706,8 @@ validate_inputs = (update_dom = false)->
           all_valid = false
       #else
       #  return false
+
+      true
   )
 
   all_valid
@@ -845,6 +850,16 @@ $document.on "click", ".step-navigation-button.send-form", ()->
 
 
 
+$document.on "keyup", "input[name=first_name], input[name=middle_name], input[name=last_name]", (e)->
+  val = $(this).val()
+  capitalized = val.capitalize()
+  if capitalized != val
+    $(this).val(capitalized)
+
+    $(this).trigger("keyup", e)
+    $(this).trigger("change")
+  true
+
 $document.on "keyup", ".input[validation]", ()->
   validate_input.call(this, true)
 
@@ -949,3 +964,8 @@ $document.on "keyup",
     middle_name = $profile_form.find("[data-key=middle_name] input").val()
     name = "#{first_name} #{middle_name}"
     $("#cabinet-person-name").text(name)
+
+
+$document.on "blur", ".input input", ()->
+  $input = $(this).closest(".input")
+  validate_input.call($input, true)
