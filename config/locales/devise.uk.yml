@@ -1,0 +1,6 @@
+uk:
+  devise:
+    failure:
+      user:
+        not_approved: "Ваш аккаунт не підтверджено адміністратором"
+        not_confirmed: "Підтвердіть свою реєстрацію"

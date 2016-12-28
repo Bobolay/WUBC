@@ -103,7 +103,9 @@ class User < ActiveRecord::Base
   end
 
   def inactive_message
-    if !approved?
+    if !confirmed_at?
+      :not_confirmed
+    elsif !approved?
       :not_approved
     else
       super # Use whatever other message
