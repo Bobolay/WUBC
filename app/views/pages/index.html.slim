@@ -129,53 +129,25 @@
     .btn-container
       a.btn.light href=articles_path title="Переглянути всі новини клубу"
         span Всі новини
-.companies
-  p.subheader компанії учасники клубу
-  .row
-    .columns
-      .slider-container
-        .carousel-slider-prev
-          = inline_svg "icons/arrow-left.svg"
-        .carousel-slider-next
-          = inline_svg "icons/arrow-right.svg"
-        ul.slider-3
-          li.company-block
-            .img style="background-image: url(#{asset_path('photo/company-1.png')})"
-            p.name monotoning
-            p.description Невеликий опис про компанію
-          li.company-block
-            .img style="background-image: url(#{asset_path('photo/company-2.png')})"
-            p.name monoromb
-            p.description Невеликий опис про компанію
-          li.company-block
-            .img style="background-image: url(#{asset_path('photo/company-3.png')})"
-            p.name monoromb
-            p.description Невеликий опис про компанію
-          li.company-block
-            .img style="background-image: url(#{asset_path('photo/company-2.png')})"
-            p.name monoromb
-            p.description Невеликий опис про компанію
-          li.company-block
-            .img style="background-image: url(#{asset_path('photo/company-1.png')})"
-            p.name monoromb
-            p.description Невеликий опис про компанію
-          li.company-block
-            .img style="background-image: url(#{asset_path('photo/company-1.png')})"
-            p.name monotoning
-            p.description Невеликий опис про компанію
-          li.company-block
-            .img style="background-image: url(#{asset_path('photo/company-2.png')})"
-            p.name ventors
-            p.description Невеликий опис про компанію
-          li.company-block
-            .img style="background-image: url(#{asset_path('photo/company-3.png')})"
-            p.name monoromb
-            p.description Невеликий опис про компанію
-          li.company-block
-            .img style="background-image: url(#{asset_path('photo/company-2.png')})"
-            p.name monotoning
-            p.description Невеликий опис про компанію
-          li.company-block
-            .img style="background-image: url(#{asset_path('photo/company-1.png')})"
-            p.name ventors
-            p.description Невеликий опис про компанію
+- if @club_companies.try(:any?)
+  .companies
+    p.subheader компанії учасники клубу
+    .row
+      .columns
+        .slider-container
+          .carousel-slider-prev
+            = inline_svg "icons/arrow-left.svg"
+          .carousel-slider-next
+            = inline_svg "icons/arrow-right.svg"
+          ul.slider-3
+            - @club_companies.each do |company|
+              li.company-block
+                - if company.image_file_name.end_with?(".svg")
+                  .img-svg
+                    = embedded_svg_from_absolute_path(company.image.path)
+                - else
+                  .img style="background-image: url(#{company.image.url(:home)})"
+                p.name
+                  = company.name
+                p.description
+                  = company.description
