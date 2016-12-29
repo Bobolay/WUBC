@@ -2,15 +2,22 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :subscribe, :unsubscribe]
 
   def index
-    @events = Event.published.order("date desc")
+    events_collection
     set_page_metadata(:events)
-    @featured_event = Event.first
+    @featured_event = Event.published.future.order("date asc").limit(1).first
   end
 
   def show
     if @event
       set_page_metadata(@event)
+      @next_event = @event.next(events_collection, except_self: true)
+      @prev_event = @event.prev(events_collection, except_self: true)
     end
+
+  end
+
+  def events_collection
+    @events ||= Event.published.order("date desc")
   end
 
   def set_event

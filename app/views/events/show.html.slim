@@ -41,9 +41,7 @@
                 = formatted_time_range(@event.start_time, @event.end_time)
           .large-3.medium-6.small-6.columns
             .event-info
-              p.title Поділитись
-              a = inline_svg "icons/social-facebook.svg"
-              a = inline_svg "icons/social-google_plus.svg"
+              = render "share_block", object: @event, url: event_path(id: @event.url_fragment), title: @event.name
           /- if @event.future?
             .large-3.medium-6.small-6.columns
             - if !current_user
@@ -65,25 +63,28 @@
         .link-container
           = render "event_subscription_button", event: @event
 
-        .navigation-container
-          p наступні зустрічі
-          .left-nav-container
-            p.date
-              | 28 
-              span жовтня 2016
-            .main
-              .img style="background-image: url(#{asset_path('photo/slider2.jpg')})"
-              p Конструктивна зустріч клубу з Юрій Романенко
-            = inline_svg "icons/arrow-left.svg"
-            span попередня зустріч
-          .right-nav-container
-            p.date
-              | 10 
-              span жовтня 2016
-            .main 
-              .img style="background-image: url(#{asset_path('photo/slider2.jpg')})"
-              p Цінна інформація про цифровий захист
-            p
-            span наступна зустріч
-            = inline_svg "icons/arrow-right.svg"
+        - if @prev_event || @next_event
+          .navigation-container
+            p наступні зустрічі
+            - if @prev_event
+              a.left-nav-container href=event_path(id: @prev_event.url_fragment)
+                p.date
+                  = formatted_date(@prev_event.date)
+                .main
+                  .img style="background-image: url(#{@prev_event.avatar.url(:navigation_avatar)})"
+                  p
+                    = @prev_event.name
+                = inline_svg "icons/arrow-left.svg"
+                span попередня зустріч
+            - if @next_event
+              a.right-nav-container href=event_path(id: @next_event.url_fragment)
+                p.date
+                  = formatted_date(@next_event.date)
+                .main
+                  .img style="background-image: url(#{@next_event.avatar.url(:navigation_avatar)})"
+                  p
+                    = @next_event.name
+                p
+                span наступна зустріч
+                = inline_svg "icons/arrow-right.svg"
 

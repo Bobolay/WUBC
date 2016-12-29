@@ -24,3 +24,4 @@ tmp
 Gemfile.lock
 /vendor/assets/.bowerrc
 /vendor/assets/bower.json
+/config/application.yml
