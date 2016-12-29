@@ -65,3 +65,5 @@
 #= require filter-members
 
 #= require registration-scroll
+
+#= require _share_popup

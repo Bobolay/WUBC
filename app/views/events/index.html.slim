@@ -1,7 +1,9 @@
 .events-wrapper
   - if @featured_event
     .events-banner
-      .img-background style="background-image: url(#{asset_path('photo/banner-events.jpg')})"
+      - banner_image = @featured_event.slider_images.first.try{|b| b.url(:events_banner) }
+      - if banner_image
+        .img-background style="background-image: url('#{banner_image}')"
       .text
         p class=("#{@featured_event.future? ? 'future' : @featured_event.past? ? 'past' : 'active'}-event event-time-type" )
           | #{@featured_event.future? ? "Майбутня" : @featured_event.past? ? "Минула" : "Активна"}
