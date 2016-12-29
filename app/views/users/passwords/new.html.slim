@@ -12,5 +12,7 @@
       br
       = f.email_field :email, autofocus: true
     .actions
-      = f.submit t('.send_me_reset_password_instructions')
-      button.submit-reset-password
+      / = f.submit t('.send_me_reset_password_instructions')
+      button.btn.submit-reset-password type="submit"
+        span Відправити
+      
