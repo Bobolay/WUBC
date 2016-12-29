@@ -25,7 +25,7 @@ $(document).ready ->
     pager: false
     pause: 8000
     infiniteLoop: false
-
+    
     onSlideBefore: ($slideElement, oldIndex, newIndex)->
       $('.current-slide .number').text((slider2.getCurrentSlide()+1))
       $('.slide').removeClass('active-slide')
@@ -34,6 +34,9 @@ $(document).ready ->
     onSlideAfter: ($slideElement, oldIndex, newIndex)->
       $('.slide').removeClass('active-slide')
       $($slideElement).addClass('active-slide')
+
+  if slider2.getSlideCount
+    $('.current-slide .total-slides').text((slider2.getSlideCount()))
 
   $('.members-container .slider-prev').click ->
     current = slider2.getCurrentSlide()

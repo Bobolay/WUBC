@@ -35,4 +35,9 @@ class EventsController < ApplicationController
 
     render json: { status: "OK" }
   end
+
+  def locked
+    @white_bg = true
+  end
+
 end

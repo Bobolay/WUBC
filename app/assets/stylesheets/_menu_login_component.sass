@@ -2,8 +2,8 @@
   +clearfix
   .user-avatar
     float: left
-    width: 72px
-    height: 72px
+    width: 60px
+    height: 60px
     margin-right: 20px
     border-radius: 50%
     overflow: hidden
@@ -17,7 +17,9 @@
     float: left
     .user-name
       color: white
-      margin-bottom: 10px
+      +transition(0.15s)
+      &:hover
+        color: $green
     .user-events
       font-size: 0.875em
       margin-bottom: 10px
@@ -25,7 +27,6 @@
     .user-links
       a
         display: inline-block
-      .grey
         font-size: 0.875em
         &:hover
           color: $green

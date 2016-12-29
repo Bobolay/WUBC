@@ -129,37 +129,37 @@
         bottom: 8px
         left: -10px
 
-// body
-//   &.articles__index
-//     .logo
-//       p
-//         color: $grey
-//     .login-field
-//       p
-//         color: $grey
-//       svg
-//         fill: $grey
-//       &:hover
-//         p
-//           color: $green
-//         svg
-//           fill: $green
-//     .menu-button
-//       .menu-button-lines
-//         +burger(25px, 2px, 5px, $main, 1px)
-//       &:hover
-//         .menu-button-lines
-//           &, &::before, &::after
-//             background-color: $main
-//       &.opened
-//         .menu-button-lines
-//           +burger-to-cross
-//           &::before, &::after
-//             background-color: $green
-//         &:hover
-//           .menu-button-lines
-//             &::before, &::after
-//               background-color: $main
+body
+  &.white-bg
+    .logo
+      p
+        color: $grey
+    .login-field
+      p
+        color: $grey
+      svg
+        fill: $grey
+      &:hover
+        p
+          color: $green
+        svg
+          fill: $green
+    .menu-button
+      .menu-button-lines
+        +burger(25px, 2px, 5px, $main, 1px)
+      &:hover
+        .menu-button-lines
+          &, &::before, &::after
+            background-color: $main
+      &.opened
+        .menu-button-lines
+          +burger-to-cross
+          &::before, &::after
+            background-color: $green
+        &:hover
+          .menu-button-lines
+            &::before, &::after
+              background-color: $main
 
 body.events__index
   .locales-bar

@@ -78,7 +78,7 @@
           | 1
         span.slash
           | &#47;
-        span
+        span.total-slides
           | 3
       .slider-next
         = inline_svg "icons/arrow-right.svg"
@@ -100,11 +100,10 @@
             .img-background style="background-image: url(#{speaker.image.url(:wide)})"
             .title
               = raw speaker.name
+            - if speaker.description.present?
+              p.hover-text
+                = speaker.description
             .hover-block
-              - if speaker.description.present?
-                p.hover-text
-                  = speaker.description
-              /= inline_svg "icons/arrow-right.svg"
               - if speaker.social_facebook.present? || speaker.social_google_plus.present?
                 .social-links
                   - if speaker.social_facebook.present?
@@ -115,9 +114,6 @@
                       = inline_svg("icons/social-google_plus.svg")
 
 
-  /.btn-container
-    a.btn.light href="#" title="Переглянути всіх спікерів клубу"
-      span Переглянути всіх
   - if @articles.try(:any?)
     .subheader блог та новини
     .news-container
