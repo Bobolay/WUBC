@@ -5,3 +5,6 @@
   - elsif !current_user.subscribed_on_event?(event)
     a.link href=subscribe_on_event_path(id: event.url_fragment)
       = "Відвідати зустріч"
+  - else
+    a.link href=unsubscribe_from_event_path(id: event.url_fragment)
+      = "Відписатися"
