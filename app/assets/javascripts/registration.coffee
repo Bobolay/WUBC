@@ -951,8 +951,38 @@ $document.on "click", ".company-control-add", ()->
 $document.on "click", ".company-control-remove", ()->
   $button = $(this)
   $company = $button.closest(".company")
-  $company.remove()
-  put_companies()
+
+
+
+  show_remove_company_confirm_popup($company)
+  #$company.remove()
+  #put_companies()
+
+$document.on "click", ".remove-company-popup .btn-remove-company-ok", (e)->
+  e.preventDefault()
+  $popup = $(this).closest(".remove-company-popup")
+  removing_popup = $popup.data("data_removing_popup")
+
+  if !removing_popup
+    $popup.data("data_removing_popup", true)
+
+    console.log "remove popup"
+    $popup.fadeOut('100')
+    setTimeout(
+      ()->
+        $popup.data("data_removing_popup", false)
+      500
+    )
+
+    i = $popup.attr("data-company-index")
+    $company = $("#cabinet-companies .company").eq(i)
+    $company.remove()
+    put_companies()
+  else
+    return
+
+
+
 
 
 $document.on "keyup",

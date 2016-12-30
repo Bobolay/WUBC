@@ -23,7 +23,8 @@ class ArticlesController < ApplicationController
     set_page_metadata(@article)
 
     @page_banner = {
-        image: @article.banner.url(:large)
+        image: @article.banner.exists?(:large) ? @article.banner.url(:large) : :default,
+        default_image: "photo/article_default_banner.jpg"
     }
 
     tag_ids = @article.tags.pluck(:id)

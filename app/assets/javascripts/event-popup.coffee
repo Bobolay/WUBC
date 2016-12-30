@@ -11,5 +11,5 @@ $(document).ready ->
   $.clickOut(".popup-wrapper .popup-block",
     ()->
       $(".popup-wrapper").fadeOut('100')
-    {except: ".popup-wrapper .popup-block, .event-only-for-members"}
+    {except: ".popup-wrapper .popup-block, .event-only-for-members, .company-control-icon"}
   )

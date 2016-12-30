@@ -1,10 +1,12 @@
+- banner_image_url = @page_banner[:image] == :default ? asset_path(@page_banner[:default_image]) : @page_banner[:image]
+
 - if @page_banner.present?
   - if @page_banner[:title].present?
     .white-banner
       p
         = @page_banner[:title]
       .line
-  - elsif @page_banner[:image].present?
+  - elsif banner_image_url.present?
     .new-one-banner
-      .img-background style="background-image: url('#{@page_banner[:image]}')"
+      .img-background style="background-image: url('#{banner_image_url}')"
       .overlay

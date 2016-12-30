@@ -7,19 +7,24 @@
           = formatted_date(@event.date)
         p.event-name
           = @event.name
-      .slider-container.event-photo
-        .slider-prev
-          = inline_svg "icons/arrow-left.svg"
-        .slider-next
-          = inline_svg "icons/arrow-right.svg"
-        ul.slider-1
-          - @event.slider_images.each do |slide|
-            li
-              .slider-bottom-shadow
-              p.description
-                = slide.data_alt
-              .img-background style="background-image: url(#{slide.data.url(:large)})"
+      - if @event.slider_images.any?
+        .slider-container.event-photo
+          .slider-prev
+            = inline_svg "icons/arrow-left.svg"
+          .slider-next
+            = inline_svg "icons/arrow-right.svg"
+          ul.slider-1
+            - @event.slider_images.each do |slide|
+              li
+                .slider-bottom-shadow
+                p.description
+                  = slide.data_alt
+                .img-background style="background-image: url(#{slide.data.url(:large)})"
+      - else
+        .event-default-banner
+          .slider-bottom-shadow
 
+          .img-background style="background-image: url(#{asset_path("photo/event_default_banner.jpg")})"
       .main-text
         .row.event-info-container
           .large-3.medium-6.small-6.columns
