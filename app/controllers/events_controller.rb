@@ -14,10 +14,9 @@ class EventsController < ApplicationController
 
     if @event
       set_page_metadata(@event)
-      @next_event = @event.next(events_collection, except_self: true)
-      @prev_event = @event.prev(events_collection, except_self: true)
+      @next_event = @event.prev(events_collection, except_self: true, cycle: false)
+      @prev_event = @event.next(events_collection, except_self: true, cycle: false)
     end
-
   end
 
   def events_collection
