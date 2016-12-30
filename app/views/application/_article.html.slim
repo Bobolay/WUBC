@@ -5,9 +5,10 @@
 
       - if article.premium? && !current_user
         .text.premium-text
-          = inline_svg "icons/lock.svg"
-          p Тільки для учасників
-          .login-link href="#" Увійти
+          .text-inside
+            = inline_svg "icons/lock.svg"
+            p Тільки для учасників
+            .login-link href="" Увійти
       - else
         .hover-text
           p Детальніше
