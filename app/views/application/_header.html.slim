@@ -20,7 +20,7 @@
             img src=user_image
           - else
             /= embedded_svg_from_assets("icons/user_no_avatar.svg")
-            img src="photo/user_no_avatar-72.png"
+            img src=asset_path("photo/user_no_avatar-72.png")
         .user-info-panel
           a.user-name href=cabinet_path
             = current_user.full_name_or_email(false)
