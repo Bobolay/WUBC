@@ -38,6 +38,7 @@
   .regular
     color: $green
     font-weight: 500
+    margin-bottom: 10px
   .person-name
     padding-bottom: 20px
     .regular
@@ -59,6 +60,9 @@
       display: none
 
 .personal-info-extended
+  @media #{$xxlarge-up}
+    position: relative
+    left: 30px
   .person-name
     padding-top: 20px
     padding-bottom: 50px
