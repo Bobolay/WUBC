@@ -16,11 +16,16 @@
     +vremena
     text-transform: uppercase
     font-weight: 500
+    @media #{$small-only}
+      font-family: Lora
+      font-size: 1.5em
   .avatar-photo
     position: relative
     margin: 50px auto 20px
     width: 240px
     height: 240px
+    @media #{$small-only}
+      margin: 20px auto
     &.no-photo
       .img-background
         display: none

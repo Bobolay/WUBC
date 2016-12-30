@@ -13,3 +13,6 @@ $(document).ready ->
       $(".popup-wrapper").fadeOut('100')
     {except: ".popup-wrapper .popup-block, .event-only-for-members"}
   )
+
+  $('.close-popup').on 'click', ->
+    $('.popup-wrapper').fadeOut('100')

@@ -1,0 +1,13 @@
+.popup-wrapper.subscribe-popup
+  .popup-block
+    p.go-back
+      span = inline_svg "icons/arrow-left.svg"
+      | До всіх подій
+    p.larger
+      | Ви успішно підписались на подію.
+      br
+      | Переглянути детальніше або відписатись Ви можете в особистому кабінеті.
+
+    p.green-button.close-popup
+      | Ок
+    a.regular href=cabinet_path Особистий кабінет
