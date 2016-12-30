@@ -956,11 +956,11 @@ $document.on "click", ".company-control-remove", ()->
 
 
 $document.on "keyup",
-  "#cabinet-profile-form [data-key=first_name], #cabinet-profile-form [data-key=middle_name]",
+  "#cabinet-profile-form [data-key=first_name], #cabinet-profile-form [data-key=last_name]",
   ()->
     $profile_form = $(this).closest("#cabinet-profile-form")
     first_name = $profile_form.find("[data-key=first_name] input").val()
-    middle_name = $profile_form.find("[data-key=middle_name] input").val()
+    middle_name = $profile_form.find("[data-key=last_name] input").val()
     name = "#{first_name} #{middle_name}"
     $("#cabinet-person-name").text(name)
 

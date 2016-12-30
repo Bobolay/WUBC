@@ -65,7 +65,7 @@
 
         - if @prev_event || @next_event
           .navigation-container
-            p наступні зустрічі
+            p інші зустрічі
             - if @prev_event
               a.left-nav-container href=event_path(id: @prev_event.url_fragment)
                 p.date

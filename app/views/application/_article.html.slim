@@ -16,10 +16,11 @@
           p Детальніше
       - if article.tags.any?
         .article-tags
-          - article.tags.each do |tag|
+          /- article.tags.each do |tag|
             p.type.tag
               = tag.name
-
+          p.type.tag
+            = article.tags.first.name
     .bottom-text
       .date
         p.day

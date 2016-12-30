@@ -1,5 +1,7 @@
 .person-one-banner-container
-  .img-background style="background-image: url(#{asset_path('photo/new-5.jpg')})"
+  - banner_image_url = asset_path('photo/new-5.jpg')
+  - user_image_url = @user.avatar.exists?(:member) ? @user.avatar.url(:member) : asset_path('photo/user_no_avatar-620.png')
+  .img-background style="background-image: url('#{banner_image_url}')"
 
 .row.person-one-info-wrapper
   .columns.large-3.personal-info-short
@@ -8,7 +10,7 @@
       p.name
         = @user.full_name_or_email
     .square
-      .img-background style="background-image: url(#{asset_path('photo/speaker-3.jpg')})"
+      .img-background style="background-image: url('#{user_image_url}')"
     - if @user.ages
     .info-block
       p.regular Вік:
