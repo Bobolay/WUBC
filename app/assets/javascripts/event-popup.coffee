@@ -8,8 +8,14 @@ $(document).ready ->
   $(".popup-wrapper .go-back").on 'click', ->
     $('.popup-wrapper').fadeOut('100')
 
-  $.clickOut(".popup-wrapper .popup-block",
-    ()->
-      $(".popup-wrapper").fadeOut('100')
-    {except: ".popup-wrapper .popup-block, .event-only-for-members, .company-control-icon"}
-  )
+
+  $('.close-popup').on 'click', ->
+    $('.popup-wrapper').fadeOut('100')
+
+
+$.clickOut(".popup-wrapper .popup-block",
+ ()->
+   $(".popup-wrapper").fadeOut('100')
+ {except: ".popup-wrapper .popup-block, .event-only-for-members, .company-control-icon, .subscribe-button"}
+)
+

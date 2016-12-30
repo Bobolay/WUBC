@@ -39,6 +39,8 @@
         color: $green
         font-size: 1.25rem
         font-family: Vremena
+        @media #{$small-only}
+          font-family: Lora
 
   .activity-slider-pager
     margin-top: 100px
@@ -97,9 +99,9 @@
         left: 20%
         color: white
         font-size: 40px
-        font-weight: bold
         font-family: Vremena
         @media #{$small-only}
+          font-family: Lora
           top: 15%
           font-size: 24px
         @media #{$xxlarge-up}
