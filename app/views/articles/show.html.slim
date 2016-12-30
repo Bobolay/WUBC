@@ -23,9 +23,13 @@
             .new-one-info
               p.title Теги
               p.regular
-                - @article.tags.each do |tag|
-                  a.tag href="#"
+                = @article.tags.map(&:name).join(", ")
+                /- @article.tags.each_with_index do |tag, i|
+                  - if i > 0
+                    |,
+                  span.tag href="#"
                     = tag.name
+
         .large-12.medium-4.small-12.columns
           .new-one-info
             = render "share_block", object: @article, url: article_path(id: @article.url_fragment), title: @article.name
