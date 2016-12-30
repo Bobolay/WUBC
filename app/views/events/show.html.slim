@@ -1,4 +1,4 @@
-.event-one-wrapper
+.event-one-wrapper data-url=event_path(id: @event.url_fragment)
   .event-one-banner
   .row.main-info
     .columns
@@ -89,3 +89,4 @@
                 = inline_svg "icons/arrow-right.svg"
 
   = render "subscribe_popup"
+  = render "unsubscribe_popup"

@@ -8,11 +8,12 @@ $(document).ready ->
   $(".popup-wrapper .go-back").on 'click', ->
     $('.popup-wrapper').fadeOut('100')
 
-  $.clickOut(".popup-wrapper .popup-block",
-    ()->
-      $(".popup-wrapper").fadeOut('100')
-    {except: ".popup-wrapper .popup-block, .event-only-for-members"}
-  )
-
   $('.close-popup').on 'click', ->
     $('.popup-wrapper').fadeOut('100')
+
+
+# $.clickOut(".popup-wrapper .popup-block",
+#   ()->
+#     $(".popup-wrapper").fadeOut('100')
+#   {except: ".popup-wrapper .popup-block, .event-only-for-members, .subscribe-button"}
+# )

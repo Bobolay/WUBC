@@ -44,8 +44,6 @@
 
 #= require user
 
-#= require select
-
 #= require google-map
 
 #= require datepick
@@ -67,3 +65,7 @@
 #= require registration-scroll
 
 #= require _share_popup
+
+#= require _event_subscribe
+
+#= require subscribe_popup

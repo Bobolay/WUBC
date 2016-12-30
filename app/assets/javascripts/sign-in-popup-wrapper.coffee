@@ -2,7 +2,6 @@ $(document).ready ->
 
   $(".open-login-popup").on 'click', ->
     event.preventDefault()
-    # alert('asd')
     $('.sign-in-popup-wrapper').fadeIn('200')
 
   $(".sign-in-popup-wrapper .close-popup-circle").on 'click', ->
