@@ -28,47 +28,28 @@
                     = tag.name
         .large-12.medium-4.small-12.columns
           .new-one-info
-            p.title Поділитись
-            a = inline_svg "icons/social-facebook.svg"
-            a = inline_svg "icons/social-google_plus.svg"
-  .row
-    .columns
-      .news-container
-        .title схожі
-        .row
-          .large-4.columns
-            .news-block
-              .img-container
-                .img-background style="background-image: url(#{asset_path('photo/new-1.jpg')})"
-                p.type Новина
-              .bottom-text
-                .date
-                  p.day 28
-                  p.month 10.2016
-                .text 
-                  p
-                    | Конструктивна зустріч клубу з Юрий Романенко на тему: "Положення України в 2016р. ризики,сценарії і ...
-          .large-4.columns
-            .news-block
-              .img-container
-                .img-background style="background-image: url(#{asset_path('photo/new-2.jpg')})"
-                p.type Блог
-              .bottom-text
-                .date
-                  p.day 08
-                  p.month 04.2016
-                .text 
-                  p
-                    | Зустріч з Оксаною Марусич на тему: "Включи свої можливості".
-          .large-4.columns
-            .news-block
-              .img-container
-                .img-background style="background-image: url(#{asset_path('photo/new-3.jpg')})"
-                p.type Блог
-              .bottom-text
-                .date
-                  p.day 15
-                  p.month 03.2016
-                .text 
-                  p
-                    | Семінар - "Як втілювати успішні бізнес-практики в сім'ї" від сімейного психолога - Тетяни Богашевої.
+            = render "share_block", object: @article, url: article_path(id: @article.url_fragment), title: @article.name
+
+  - if @related_articles.try(:any?)
+    .row
+      .columns
+        .news-container
+          .title схожі
+          .row
+            - @related_articles.each do |article|
+              = render "article", article: article
+              /.large-4.columns
+                .news-block
+                  .img-container
+                    .img-background style="background-image: url(#{article.avatar.url(:list)})"
+                    p.type Новина
+                  .bottom-text
+                    .date
+                      p.day
+                        = article.release_date.day
+                      p.month
+                        = "#{article.release_date.month}.#{article.release_date.year}"
+                    .text
+                      p
+                        = article.name
+

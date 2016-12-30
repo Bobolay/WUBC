@@ -43,6 +43,7 @@ locales = {
       password: "Пароль"
       password_confirmation: "Повторіть пароль"
 
+      description: "Напишіть щось про свою компанію"
       industry: "Розваги"
       region: "Львів"
       position: "директор"

@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.published.order_by_release_date
+    articles_collection
     @page_banner = {
         title: "блог та новини"
     }
@@ -14,10 +14,31 @@ class ArticlesController < ApplicationController
       return render_not_found
     end
 
+    if !current_user && @article.premium?
+      return render_locked_article
+    end
+
+
+
     set_page_metadata(@article)
 
     @page_banner = {
         image: @article.banner.url(:large)
     }
+
+    tag_ids = @article.tags.pluck(:id)
+    articles = Article.published.order_by_release_date.where.not(id: @article.id)
+    if tag_ids.any?
+      articles = articles.joins(taggings: { tag: {} }).where(cms_tags: { id: tag_ids }).uniq
+    end
+
+    articles = articles.limit(3)
+
+    #@related_articles = @article.next(articles_collection, count: 3)
+    @related_articles = articles
+  end
+
+  def articles_collection
+    @articles ||= Article.published.order_by_release_date
   end
 end

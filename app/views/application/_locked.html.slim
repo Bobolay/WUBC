@@ -1,8 +1,9 @@
 .popup-block
-  p.go-back
+  a.go-back href=back_url
     span = inline_svg "icons/arrow-left.svg"
-    | До всіх подій
-  p.larger Перегляд даної події доступний лише для учасників клубу WUBC
+    = back_title
+  p.larger
+    = description
   
   a.become-member.green-button href=new_user_registration_path
     |Стати учасником

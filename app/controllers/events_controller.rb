@@ -9,12 +9,10 @@ class EventsController < ApplicationController
 
   def show
     if @event && !current_user && @event.premium? && @event.future?
-      @white_bg = true
-      return render "locked"
+      return render_locked_event
     end
 
     if @event
-
       set_page_metadata(@event)
       @next_event = @event.next(events_collection, except_self: true)
       @prev_event = @event.prev(events_collection, except_self: true)
@@ -47,10 +45,6 @@ class EventsController < ApplicationController
     current_user.unsubscribe_from_event(@event)
 
     render json: { status: "OK" }
-  end
-
-  def locked
-    @white_bg = true
   end
 
 end

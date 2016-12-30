@@ -5,7 +5,9 @@ class MembersController < ApplicationController
   end
 
   def show
-
+    if !current_user
+      return render_locked_member
+    end
   end
 
   private

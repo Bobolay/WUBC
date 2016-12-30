@@ -11,8 +11,12 @@
       - else
         .hover-text
           p Детальніше
-      p.type
-        = t("enumerize.article_type.#{article.article_type}")
+      - if article.tags.any?
+        .article-tags
+          - article.tags.each do |tag|
+            p.type.tag
+              = tag.name
+
     .bottom-text
       .date
         p.day

@@ -50,6 +50,23 @@ class ApplicationController < ActionController::Base
     render "users/confirmations/show"
   end
 
+  def render_locked(back_url, back_title, description)
+    @white_bg = true
+    render "_locked", locals: {back_url: back_url, back_title: back_title, description: description}
+  end
+
+  def render_locked_event
+    render_locked(events_path, "До всіх подій", "Перегляд даної події доступний лише для учасників клубу WUBC")
+  end
+
+  def render_locked_article
+    render_locked(articles_path, "До всіх статтей", "Перегляд даної статті доступний лише для учасників клубу WUBC")
+  end
+
+  def render_locked_member
+    render_locked(members_path, "До всіх членів", "Перегляд профілю членів доступний лише для учасників клубу WUBC")
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     #redirect_to main_app.root_path, :alert => exception.message
     render_not_authorized
