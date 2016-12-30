@@ -8,7 +8,13 @@ class EventsController < ApplicationController
   end
 
   def show
+    if @event && !current_user && @event.premium? && @event.future?
+      @white_bg = true
+      return render "locked"
+    end
+
     if @event
+
       set_page_metadata(@event)
       @next_event = @event.next(events_collection, except_self: true)
       @prev_event = @event.prev(events_collection, except_self: true)
