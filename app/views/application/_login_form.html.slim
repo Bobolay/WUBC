@@ -19,12 +19,13 @@ p.title особистий кабінет
   .user-block.menu-user-block
     a.user-avatar href=cabinet_path class=("icon" if show_icon)
       - if show_icon
-        = embedded_svg_from_assets "icons/user_no_avatar.svg"
+        /= embedded_svg_from_assets "icons/user_no_avatar.svg"
+        img src=asset_path("photo/user_no_avatar-72.png")
       - else
         img src=u.avatar.url(:small)
     .user-details
       a.user-name href=cabinet_path
-        = u.full_name_or_email(true, false)
+        = u.full_name_or_email(false)
 
       / .user-events
       /   - if current_user.events_i_am_subscribed_on.count > 0

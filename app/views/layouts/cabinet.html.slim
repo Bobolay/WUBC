@@ -12,7 +12,8 @@
               |Змінити фото
             .image-loading-in-progress
               |Завантажується...
-            = inline_svg "icons/user_no_avatar.svg"
+            /= inline_svg "icons/user_no_avatar.svg"
+            img src=asset_path("photo/user_no_avatar-240.png")
         - else
           .cabinet-avatar.avatar-photo
             .change-photo.change-photo-link
@@ -21,7 +22,7 @@
               |Завантажується...
             .img-background style="background-image: url(#{current_user.avatar.url(:cabinet)})"
       p.person-name#cabinet-person-name
-        = current_user.full_name(true, false)
+        = current_user.full_name(false)
 
   .margin-block.cabinet-container data-user=current_user.user_data.to_json data-companies=current_user.companies_data.to_json
     .row
