@@ -15,7 +15,7 @@ $.fn.changeClasses = function(add_classes, remove_classes){
         var new_classes = []
         var new_class_str = classes.concat(add_classes).getUnique().filter(function(c){ return !remove_classes.includes(c) }).join(" ")
 
-        console.log("new_class_str:", new_class_str, "; original_class_str:", classes_str)
+        //console.log("new_class_str:", new_class_str, "; original_class_str:", classes_str)
         var changed = new_class_str != classes_str
         if (changed){
             $(element).attr("class", new_class_str)

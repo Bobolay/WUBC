@@ -7,6 +7,10 @@ class RegistrationsController < Users::RegistrationsController
 
     company = user.companies.create(company_params)
     company.update_params(params[:company])
+    if params[:company] && params[:company][:offices]
+
+      company.set_offices(params[:company][:offices])
+    end
     company.save
 
     # offices, industry

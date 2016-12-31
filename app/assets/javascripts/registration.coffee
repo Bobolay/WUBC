@@ -57,6 +57,10 @@ locales = {
       phone: "Телефон"
 
     }
+    summary_labels: {
+      social_facebook: "Сторінка Facebook"
+      social_google_plus: "Сторінка Google+"
+    }
   }
 }
 
@@ -359,7 +363,7 @@ render_inputs_to_string = (props, data = {})->
     types_by_column_name = {password: "password", password_confirmation: "password", email: "email", phones: "phones"}
     type_by_column_name = types_by_column_name[k]
     type = type_by_column_name if !v.type && type_by_column_name
-    console.log "type: ", type
+    #console.log "type: ", type
     prop_data = data[k]
     res += inputs[type].render(k, v, prop_data)
 
@@ -414,6 +418,8 @@ render_cabinet_user_form = (data)->
     phones: { required: true, min: 1 }
     email: {
       required: true
+      readonly: true
+      help: "якщо хочете змінити email, звертайтесь до адміністратора"
     }
     password: {
     }
@@ -654,7 +660,7 @@ window.form_to_json = ()->
       #k = k.substr(0, k.length - 2) if k.endsWith("[][]")
 
 
-      console.log "k: ", k
+      #console.log "k: ", k
 
       if k.endsWith("[]")
         k = k.substr(0, k.length - 2)
@@ -695,7 +701,7 @@ validate_inputs = (update_dom = false)->
   all_valid = true
   $(this).each(
     ()->
-      console.log "validate"
+      #console.log "validate"
       #alert("validate_inputs: #{$(this).attr('data-key')}")
       if valid || update_dom
 
@@ -727,6 +733,11 @@ validate_input = (update_dom = false)->
     if validation.required
       valid = value.length > 0
 
+    if validation.must_equal
+      another_field_value = $input_wrap.parent().find("[data-key='#{validation.must_equal}'] input").val()
+      if value != another_field_value
+        valid = false
+
 
 
     if update_dom
@@ -747,7 +758,7 @@ summary_field_types = {
     render: (name, value)->
       if !value || !value.length
         return ""
-      field_name = t("attributes.#{name}") || name
+      field_name = t("summary_labels.#{name}") || t("attributes.#{name}") || name
       field_value = value
       "<div class='field'><div class='field-name'>#{field_name}</div><div class='field-value'>#{field_value}</div></div>"
   }
@@ -766,6 +777,48 @@ summary_field_types = {
       field_value = value
       formatted_value = "<a href='#{field_value}'>#{field_value}</a>"
       "<div class='field'><div class='field-name'>#{field_name}</div><div class='field-value'>#{formatted_value}</div></div>"
+  }
+
+  offices: {
+    render: (name, value)->
+      offices_collection = value
+      offices_str = ""
+      offices = offices_collection.map(
+        (office)->
+          phones_str = ""
+          phones = office.phones.filter(
+            (phone)->
+              phone && phone.length > 0
+          ).map(
+            (phone)->
+              "<span>#{phone}</span>"
+          )
+          if phones.length
+            phones_str = phones.join(", ")
+
+
+          "м. #{office.city}, #{office.address}#{if phones_str.length then '<br/>' + phones_str else '' }"
+      ).filter(
+        (office_str)->
+          office_str.length > 0
+      ).map(
+        (office_str)->
+          "<p>#{office_str}</p>"
+      )
+
+      offices_str = offices.join("")
+
+
+      summary_field_types.string.render(name, offices_str)
+  }
+  social: {
+    render: (name, value)->
+      if !value || !value.length
+        return ""
+      icon_str = svg_images[name]
+      url = value
+      social_str = "<a href='#{url}' class='social-icon popup-window-link' target='_blank'>#{icon_str}</a>"
+      summary_field_types.string.render(name, social_str)
   }
 
 }
@@ -789,20 +842,30 @@ render_summary = (data)->
     employees_count: {}
     company_site: {type: "site"}
     offices: {}
-    social_networks: {}
+    #social_networks: {}
+    social_facebook: {type: "social"}
+    social_google_plus: {type: "social"}
   }
 
   user_info_str = ""
   company_info_str = ""
   for k, field_definition of user_info
     v = data.user[k]
-    type = "string"
-    type = k if summary_field_types[k] && summary_field_types[k].render
+    if !field_definition.type
+      type = "string"
+      type = k if summary_field_types[k] && summary_field_types[k].render
+    else
+      type = field_definition.type
     user_info_str += summary_field_types[type].render(k, v)
 
   for k, field_definition of company_info
     v = data.company[k]
-    company_info_str += summary_field_types.string.render(k, v)
+    if !field_definition.type
+      type = "string"
+      type = k if summary_field_types[k] && summary_field_types[k].render
+    else
+      type = field_definition.type
+    company_info_str += summary_field_types[type].render(k, v)
 
 
   s = "<div class='columns large-6'><div class='summary-header'>Основна інформація</div>#{user_info_str}</div><div class='columns large-6'><div class='summary-header'>Інформація про компанію</div>#{company_info_str}</div>"
