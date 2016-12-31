@@ -316,7 +316,7 @@ module RailsAdminDynamicConfig
           field :description
         end
 
-        form_configs = [FormConfigs::NewUserWaitingApproval, FormConfigs::UserSubscribedToEvent]
+        form_configs = [FormConfigs::NewUserWaitingApproval, FormConfigs::UserSubscribedToEvent, FormConfigs::UserUnsubscribedFromEvent]
 
         config.include_models *form_configs
         form_configs.each do |m|

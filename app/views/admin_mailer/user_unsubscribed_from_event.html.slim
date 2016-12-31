@@ -4,7 +4,7 @@ p
   |Член клубу &nbsp;
   a href=member_url(id: @member.id)
     = @member.full_name_or_email
-  | &nbsp; підписався на подію &nbsp;
+  | &nbsp; відписався від події &nbsp;
   a href=event_url(id: @event.url_fragment)
     = @event.name
 p

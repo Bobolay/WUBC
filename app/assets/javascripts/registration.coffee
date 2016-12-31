@@ -757,6 +757,17 @@ summary_field_types = {
       str = value.join("<br/>")
       summary_field_types.string.render(name, str)
   }
+
+  site: {
+    render: (name, value)->
+      if !value || !value.length
+        return ""
+      field_name = t("attributes.#{name}") || name
+      field_value = value
+      formatted_value = "<a href='#{field_value}'>#{field_value}</a>"
+      "<div class='field'><div class='field-name'>#{field_name}</div><div class='field-value'>#{formatted_value}</div></div>"
+  }
+
 }
 
 render_summary = (data)->
@@ -776,7 +787,7 @@ render_summary = (data)->
     region: {}
     position: {}
     employees_count: {}
-    company_site: {}
+    company_site: {type: "site"}
     offices: {}
     social_networks: {}
   }
@@ -792,6 +803,7 @@ render_summary = (data)->
   for k, field_definition of company_info
     v = data.company[k]
     company_info_str += summary_field_types.string.render(k, v)
+
 
   s = "<div class='columns large-6'><div class='summary-header'>Основна інформація</div>#{user_info_str}</div><div class='columns large-6'><div class='summary-header'>Інформація про компанію</div>#{company_info_str}</div>"
 
