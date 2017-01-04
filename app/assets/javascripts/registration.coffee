@@ -61,6 +61,10 @@ locales = {
       social_facebook: "Сторінка Facebook"
       social_google_plus: "Сторінка Google+"
     }
+    help: {
+      password: "Мінімум 8 символів"
+
+    }
   }
 }
 
@@ -82,6 +86,10 @@ window.t = (key)->
 
 window.inputs = {
   base: {
+    help: (name, options)->
+      help = options.help || t("help.#{name}")
+      help_str = if help && help.length then "<label class='help'>#{help}</label>" else ""
+
     html_name: (name, options)->
       options.name || name
     label: (name, options)->
@@ -124,7 +132,8 @@ window.inputs = {
       label = inputs.base.label(name, options)
       key = options.key || name
       input_str = inputs.string.input(name, options, data)
-      "<div #{wrap_attributes} class='input register-input' data-key='#{key}'>#{label}#{input_str}</div>"
+      help = inputs.base.help(name, options)
+      "<div #{wrap_attributes} class='input register-input' data-key='#{key}'>#{label}#{input_str}#{help}</div>"
 
   }
 
@@ -140,7 +149,8 @@ window.inputs = {
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
       input_str = inputs.string.input(name, options, data)
-      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}</div>"
+      help = inputs.base.help(name, options)
+      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{help}</div>"
 
   }
 
@@ -154,7 +164,8 @@ window.inputs = {
       phone_inputs_str += inputs.phone.render("phone", phone_options)
       phone_inputs_str = "<div class='inputs-collection-inputs'>#{phone_inputs_str}</div>"
       inputs_collection_controls = inputs.inputs_collection.inputs_collection_controls()
-      "<div class='inputs-collection phones inputs-collection-single-input'>#{label}#{phone_inputs_str}#{inputs_collection_controls}</div>"
+      help = inputs.base.help(name, options)
+      "<div class='inputs-collection phones inputs-collection-single-input'>#{label}#{phone_inputs_str}#{inputs_collection_controls}#{help}</div>"
   }
 
   email: {
@@ -168,7 +179,8 @@ window.inputs = {
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
       input_str = inputs.email.input(name, options, data)
-      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}</div>"
+      help = inputs.base.help(name, options)
+      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{help}</div>"
 
   }
 
@@ -182,7 +194,8 @@ window.inputs = {
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
       input_str = inputs.password.input(name, options, data)
-      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}</div>"
+      help = inputs.base.help(name, options)
+      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{help}</div>"
   }
 
   text: {
@@ -197,7 +210,8 @@ window.inputs = {
       label = inputs.base.label(name, options)
       input_str = inputs.text.input(name, options, data)
       textarea_corner = "<div class='textarea-corner'></div>"
-      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{textarea_corner}</div>"
+      help = inputs.base.help(name, options)
+      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{textarea_corner}#{help}</div>"
   }
 
   integer: {
@@ -211,7 +225,8 @@ window.inputs = {
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
       input_str = inputs.integer.input(name, options, data)
-      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}</div>"
+      help = inputs.base.help(name, options)
+      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{help}</div>"
   }
   date: {
     render: (name, options, data)->
@@ -222,7 +237,8 @@ window.inputs = {
       input_str = inputs.string.input(name, options, data)
       icon_label = "<label class='icon icon-calendar'>#{icon_source}</label>"
       key = options.key || name
-      "<div #{wrap_attributes} class='input register-input input-date' data-key='#{key}'>#{label}#{input_str}#{icon_label}</div>"
+      help = inputs.base.help(name, options)
+      "<div #{wrap_attributes} class='input register-input input-date' data-key='#{key}'>#{label}#{input_str}#{icon_label}#{help}</div>"
 
 
     initialize: ()->
@@ -280,7 +296,8 @@ window.inputs = {
 
       html_class = "inputs-collection phones"
       html_class += " inputs-collection-single-input" if !phones_count || phones_count == 0 || phones_count == 1
-      "<div class='#{html_class}'>#{label}#{phone_inputs_str}#{inputs_collection_controls}</div>"
+      help = inputs.base.help(name, options)
+      "<div class='#{html_class}'>#{label}#{phone_inputs_str}#{inputs_collection_controls}#{help}</div>"
   }
 
   phone: {
@@ -296,7 +313,8 @@ window.inputs = {
       key = options.key || name
       label = inputs.base.label(name, options)
       input_str = inputs.phone.input(name, options, data)
-      "<div #{wrap_attributes} class='input register-input input-phone' data-key='#{key}'>#{label}#{input_str}</div>"
+      help = inputs.base.help(name, options)
+      "<div #{wrap_attributes} class='input register-input input-phone' data-key='#{key}'>#{label}#{input_str}#{help}</div>"
 
     initialize: ()->
       $inputs = $(".input-phone:not(.mask-initialized)")
@@ -321,7 +339,8 @@ window.inputs = {
       office_inputs_str = "<div class='inputs-collection-inputs'>#{office_inputs_str}</div>"
       #inputs_collection_controls = "<div class='inputs-collection-controls'><div class='inputs-collection-control inputs-collection-control-add'>#{svg_images.plus}</div><div class='inputs-collection-control inputs-collection-control-remove'>#{svg_images.plus}</div></div>"
       inputs_collection_controls = ""
-      "<div class='inputs-collection offices inputs-collection-single-input' data-key='#{key}'>#{label}#{office_inputs_str}#{inputs_collection_controls}</div>"
+      help = inputs.base.help(name, options)
+      "<div class='inputs-collection offices inputs-collection-single-input' data-key='#{key}'>#{label}#{office_inputs_str}#{inputs_collection_controls}#{help}</div>"
   }
 
   office: {
@@ -345,7 +364,8 @@ window.inputs = {
       office_inputs_str += inputs.phones.render("phones", {key: "#{key}.phones"}, data.phones)
       office_inputs_wrap = "<div class='office-inputs'>#{office_inputs_str}</div>"
       office_controls_str = "<div class='office-controls'><div class='office-control office-control-add'>#{t("add_office")}</div><div class='office-control office-control-save'>#{t("save_office")}</div><div class='office-control office-control-edit'>#{svg_images.edit}</div><div class='office-control office-control-remove'>#{svg_images.plus}</div></div>"
-      "<div #{wrap_attributes} class='input register-input input-office' data-key='#{key}'>#{label}#{office_inputs_wrap}#{office_controls_str}</div>"
+      help = inputs.base.help(name, options)
+      "<div #{wrap_attributes} class='input register-input input-office' data-key='#{key}'>#{label}#{office_inputs_wrap}#{office_controls_str}#{help}</div>"
 
 
     render_locked: (obj)->
@@ -695,7 +715,7 @@ window.form_to_json = ()->
 window.steps_to_json = ()->
   {user: form_to_json.call($("#registration-user")), company: form_to_json.call($("#registration-company")) }
 
-validate_inputs = (update_dom = false)->
+window.validate_inputs = (update_dom = false)->
 
   valid = true
   all_valid = true
@@ -755,32 +775,35 @@ validate_input = (update_dom = false)->
 
 summary_field_types = {
   string: {
-    render: (name, value)->
+    render: (name, value, options = {})->
       if !value || !value.length
         return ""
       field_name = t("summary_labels.#{name}") || t("attributes.#{name}") || name
       field_value = value
-      "<div class='field'><div class='field-name'>#{field_name}</div><div class='field-value'>#{field_value}</div></div>"
+      type = options.type || "string"
+      "<div class='field #{type} field-#{name}'><div class='field-name'>#{field_name}</div><div class='field-value'>#{field_value}</div></div>"
   }
 
   phones: {
-    render: (name, value)->
+    render: (name, value, options = {})->
+      options.type ?= "phones"
       str = value.join("<br/>")
-      summary_field_types.string.render(name, str)
+      summary_field_types.string.render(name, str, options)
   }
 
   site: {
-    render: (name, value)->
+    render: (name, value, options = {})->
+      options.type ?= "site"
       if !value || !value.length
         return ""
       field_name = t("attributes.#{name}") || name
       field_value = value
       formatted_value = "<a href='#{field_value}'>#{field_value}</a>"
-      "<div class='field'><div class='field-name'>#{field_name}</div><div class='field-value'>#{formatted_value}</div></div>"
+      "<div class='field #{options.type} field-#{name}'><div class='field-name'>#{field_name}</div><div class='field-value'>#{formatted_value}</div></div>"
   }
 
   offices: {
-    render: (name, value)->
+    render: (name, value, options = {})->
       offices_collection = value
       offices_str = ""
       offices = offices_collection.map(
@@ -808,22 +831,25 @@ summary_field_types = {
 
       offices_str = offices.join("")
 
+      options.type ?= "offices"
 
-      summary_field_types.string.render(name, offices_str)
+
+      summary_field_types.string.render(name, offices_str, options)
   }
   social: {
-    render: (name, value)->
+    render: (name, value, options = {})->
       if !value || !value.length
         return ""
+      options.type ?= "social"
       icon_str = svg_images[name]
       url = value
       social_str = "<a href='#{url}' class='social-icon popup-window-link' target='_blank'>#{icon_str}</a>"
-      summary_field_types.string.render(name, social_str)
+      summary_field_types.string.render(name, social_str, options)
   }
 
 }
 
-render_summary = (data)->
+window.render_summary = (data)->
   user_info = {
     first_name: {}
     middle_name: {}

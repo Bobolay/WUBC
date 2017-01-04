@@ -35,6 +35,26 @@ body
 =vremena
   font-family: Vremena
 
+
+=social-icon
+  display: inline-block
+  margin-right: 10px
+  margin-bottom: 10px
+  color: $light-grey
+
+=social-icon-svg
+  fill: $light-grey
+  width: 40px
+  height: 40px
+  border: 1px solid $light-grey
+  margin-top: 5px
+  cursor: pointer
+  +transition(0.25s)
+
+=social-icon-svg-hover
+  fill: $green
+  border: 1px solid $green
+
 $main: #00E575
 $green: #00C752
 $smoke: #F4F4F4
@@ -209,3 +229,18 @@ p
 body.sessions__new
   .login-form-wrapper
     margin: 10% auto
+
+.social-icon
+  +social-icon
+
+  svg
+    +social-icon-svg
+    margin-top: 0
+
+    &:hover
+      +social-icon-svg-hover
+
+
+.field.social
+  .field-name
+    padding: 8px 0 0 0
