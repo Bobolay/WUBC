@@ -12,7 +12,7 @@
         p.date
           = @featured_event.date.day > 10 ? @featured_event.date.day : "0#{@featured_event.date.day}"
         p.month
-          |#{t "genitive_month_names.month-#{@featured_event.date.month >= 10 ? @featured_event.date.month : "0#{@featured_event.date.month}" }"} #{@featured_event.date.year}
+          |#{t "genitive_month_names.month-#{@featured_event.date.month}"} #{@featured_event.date.year}
         p.title
           = @featured_event.name
 
