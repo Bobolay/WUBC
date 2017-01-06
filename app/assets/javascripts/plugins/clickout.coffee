@@ -81,6 +81,9 @@ $document.on "click", (e)->
 
     )
 
+    #console.log "$untargeted_elems", $untargeted_elems
+    #console.log "$untargeted_excepted_elements", $untargeted_excepted_elements
+
     #console.log "$elems: ", $elems
 
     if $untargeted_elems.length > 0 && $untargeted_excepted_elements.length == 0

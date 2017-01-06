@@ -3,6 +3,7 @@ locales = {
   uk: {
     add_office: "Додати ще офіс"
     save_office: "Зберегти"
+    remove_office: "Видалити"
     add_phone: "Додати ще телефон"
     remove_phone: "Видалити телефон"
     add_company: "Додати нову компанію"
@@ -357,21 +358,44 @@ window.inputs = {
       label = inputs.base.label(name, options)
       input_str = inputs.email.input(name, options)
       key = options.key || name
+
+      office_inputs_wrap = inputs.office.render_inputs(key, data)
+      has_data = data && ((data.city && data.city.length) || (data.address && data.address.length) || (data.phones && data.phones.length && data.phones[0].length) ) && true
+      preview_mode = has_data
+      preview_mode_class = if preview_mode then "preview-mode" else ""
+      save_button_disabled_class = if has_data then "" else "disabled"
+
+      office_controls_str = "<div class='office-controls'><div class='office-control office-control-save #{save_button_disabled_class}'>#{t("save_office")}</div><div class='office-control office-control-add'>#{t("add_office")}</div><div class='office-control office-control-edit'>#{svg_images.edit}</div><div class='office-control office-control-remove'>#{t("remove_office")}</div></div>"
+      help = inputs.base.help(name, options)
+      preview_str = if preview_mode then inputs.office.render_locked(data) else ""
+      preview_wrap = "<div class='office-preview'>#{preview_str}</div>"
+
+
+      "<div #{wrap_attributes} class='input register-input input-office #{preview_mode_class}' data-key='#{key}'>#{label}#{preview_wrap}#{office_inputs_wrap}#{office_controls_str}#{help}</div>"
+
+
+    render_inputs: (key, data)->
       office_inputs_str = ""
 
       office_inputs_str += inputs.string.render("city", {key: "#{key}.city"}, data.city)
       office_inputs_str += inputs.string.render("address", {key: "#{key}.address"}, data.address)
       office_inputs_str += inputs.phones.render("phones", {key: "#{key}.phones"}, data.phones)
-      office_inputs_wrap = "<div class='office-inputs'>#{office_inputs_str}</div>"
-      office_controls_str = "<div class='office-controls'><div class='office-control office-control-add'>#{t("add_office")}</div><div class='office-control office-control-save'>#{t("save_office")}</div><div class='office-control office-control-edit'>#{svg_images.edit}</div><div class='office-control office-control-remove'>#{svg_images.plus}</div></div>"
-      help = inputs.base.help(name, options)
-      "<div #{wrap_attributes} class='input register-input input-office' data-key='#{key}'>#{label}#{office_inputs_wrap}#{office_controls_str}#{help}</div>"
-
+      "<div class='office-inputs'>#{office_inputs_str}</div>"
 
     render_locked: (obj)->
-      city_str = "<p><span>#{t('city')}:</span>#{obj.city}</p>"
-      address_str = "<p><span>#{t('address')}:</span>#{obj.address}</p>"
-      phones_str = "<p><span>#{t('address')}:</span>#{obj.phones.join("<br/>")}</p>"
+      return "" if !obj
+      phones = obj.phones
+      if phones && phones.filter
+        phones = phones.filter(
+          (a)->
+            a && a.length > 0
+        )
+      console.log "DATA: city: ", obj.city, "; address: ", obj.address, "; phones: ", phones
+      return "" if (!obj.city || !obj.city.length) && (!obj.address || !obj.address.length) && (!phones || !phones.length)
+
+      city_str = if obj.city && obj.city.length > 0 then "<p><span>#{t('attributes.city')}:</span>#{obj.city}</p>" else ""
+      address_str = if obj.address && obj.address.length > 0 then "<p><span>#{t('attributes.address')}:</span>#{obj.address}</p>" else ""
+      phones_str = if phones && phones.length then "<p><span>#{t('attributes.phones')}:</span>#{phones.join("<br/>")}</p>" else ""
       "<div class='filled-info'>#{city_str}#{address_str}#{phones_str}</div>"
 
   }
@@ -989,10 +1013,15 @@ $document.on "click", ".phones .inputs-collection-control", ()->
 
 
 $document.on "click", ".office-control-save", ()->
-  $office = $(this).closest(".input-office")
+  $button = $(this)
+  return if $button.hasClass("disabled")
+
+  $office = $button.closest(".input-office")
   office_index = $office.index()
-  window.steps_json = steps_to_json()
-  data = steps_json.company.offices[office_index]
+  $company = $office.closest(".company")
+  company_json = form_to_json.call($company)
+  data = company_json.offices[office_index]
+  console.log "OFFICES: ", company_json.offices
 
   str = inputs.office.render_locked(data)
   $office_preview = $office.find(".office-preview")
@@ -1002,6 +1031,8 @@ $document.on "click", ".office-control-save", ()->
   else
     $office_preview = $("<div class='office-preview'>#{str}</div>")
     $office.prepend($office_preview)
+
+  $office.addClass("preview-mode")
 
 
 
@@ -1056,8 +1087,45 @@ $document.on "click", ".company-control-remove", ()->
 
 
   show_remove_company_confirm_popup($company)
-  #$company.remove()
-  #put_companies()
+
+$document.on "click", ".office-control-remove", ()->
+  $button = $(this)
+  $office = $button.closest(".input-office")
+
+  show_remove_office_confirm_popup($office)
+
+
+
+$document.on "click", ".office-control-edit", ()->
+  $(this).closest(".input-office").removeClass("preview-mode")
+
+$document.on "click", ".remove-office-popup .btn-remove-office-ok", (e)->
+  e.preventDefault()
+  $wrap = $(this).closest(".popup-wrapper")
+  company_index = $wrap.attr("data-company-index")
+  office_index = $wrap.attr("data-office-index")
+  $company = $(".company").eq(company_index)
+  $offices_input = $company.find(".offices")
+  $office_inpts_wrap = $offices_input.find(".inputs-collection-inputs")
+  $office = $office_inpts_wrap.children().eq(office_index)
+  $office.remove()
+  put_companies() if is_cabinet
+
+
+  if !$office_inpts_wrap.children().length
+    new_office_str = inputs.office.render("office", {key: "offices[]"}, {})
+
+    $office_inpts_wrap.append(new_office_str)
+
+  close_popup.call($wrap)
+
+
+$document.on "click", ".office-control-add", ()->
+  $office = $(this).closest(".input-office")
+  new_office_str = inputs.office.render("office", {key: "offices[]"}, {})
+  $new_office = $(new_office_str)
+  $new_office.insertAfter($office)
+  inputs.phone.initialize()
 
 $document.on "click", ".remove-company-popup .btn-remove-company-ok", (e)->
   e.preventDefault()
@@ -1106,3 +1174,21 @@ $document.on "keyup change", "#cabinet-companies .company input[name=name]", ()-
   company_name = t("placeholders.name") if !company_name || !company_name.length
   $company = $(this).closest(".company")
   $company.find(".company-name-column .company-name").text(company_name)
+
+
+$document.on "keyup blur change", ".input-office input", ()->
+  $office = $(this).closest(".input-office")
+  city = $office.find("input[name=city]").val()
+  address = $office.find("input[name=address]").val()
+  phones = $office.find("input[name=phone]").map(
+    ()->
+      $(this).val()
+  ).toArray().filter(
+    (a)->
+      a && a.length > 0 && a.indexOf("_") < 0
+  )
+  has_data = ((city && city.length) || (address && address.length) || (phones && phones.length && phones[0].length) ) && true
+
+  $save_button = $office.find(".office-control-save")
+  $save_button.removeClass("disabled") if has_data && $save_button.hasClass("disabled")
+  $save_button.addClass("disabled") if !has_data && !$save_button.hasClass("disabled")

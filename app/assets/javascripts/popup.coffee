@@ -10,7 +10,7 @@ window.show_popup = (popup_key)->
   $body.append(popup_str)
   $body.addClass("has-opened-#{popup_key}-popup")
 
-window.show_remove_company_confirm_popup = ($company)->
+window.get_company_name_or_number = ($company)->
   company_name = $company.find(".company-name").text()
   company_name_input_text = $company.find("[name=name]").val()
   is_default_name = !company_name_input_text || !company_name_input_text.length
@@ -23,11 +23,36 @@ window.show_remove_company_confirm_popup = ($company)->
   else
     company_name_str = "&laquo;" + company_name + "&raquo;"
 
+  company_name_str
+
+
+get_office_name_or_number = ($office)->
+  city = $office.find("input[name=city]").val()
+  address = $office.find("input[name=address]").val()
+  #phones = $office.find("input[name=phone]").val()
+  str = ""
+  office_number = $office.index() + 1
+  office_number_str = "(Порядковий номер: #{office_number})"
+  if city.length && address.length
+    str = "&laquo;#{city}, #{address}&raquo;"
+  else if city.length
+    str = "&laquo;#{city}&raquo; #{office_number_str}"
+  else if address.length
+    str = "&laquo;#{address}&raquo; #{office_number_str}"
+  else
+    str = office_number_str
+
+  str
+
+window.show_remove_company_confirm_popup = ($company)->
+  company_index = $company.index()
+  company_name_str = get_company_name_or_number($company)
+
   popup_description = "Ви дійсно хочете видалити назавжди компанію #{company_name_str}?"
   $remove_company_popup = $(".remove-company-popup")
 
   if !$remove_company_popup.length
-    show_popup("remove-company", "", "", popup_description, "btn-remove-company-ok", "", "OK", "btn-remove-company-cancel", "", "Відміна")
+    show_popup("remove-company", "", "", popup_description, "btn-remove-company-ok", "", "OK", "btn-cancel btn-remove-company-cancel", "", "Відміна")
     $(".remove-company-popup").attr("data-company-index", company_index)
   else
     current_remove_company_popup_index = parseInt($remove_company_popup.attr("data-company-index"))
@@ -39,3 +64,27 @@ window.show_remove_company_confirm_popup = ($company)->
   $remove_company_popup = $(".remove-company-popup")
 
 
+window.show_remove_office_confirm_popup = ($office)->
+  $company = $office.closest(".company")
+  company_index = $company.index()
+  office_index = $office.index()
+  company_name_str = get_company_name_or_number($company)
+
+  office_name_str = get_office_name_or_number($office)
+
+  popup_description = "Ви дійсно хочете видалити офіс #{office_name_str} компанії #{company_name_str}?"
+  $remove_company_popup = $(".remove-office-popup")
+
+  if !$remove_company_popup.length
+    show_popup("remove-office", "", "", popup_description, "btn-remove-office-ok", "", "OK", "btn-cancel btn-remove-office-cancel", "", "Відміна")
+    $(".remove-office-popup").attr("data-company-index", company_index)
+    $(".remove-office-popup").attr("data-office-index", office_index)
+  else
+    current_remove_company_popup_company_index = parseInt($remove_company_popup.attr("data-company-index"))
+    current_remove_company_popup_office_index = parseInt($remove_company_popup.attr("data-office-index"))
+    if current_remove_company_popup_company_index != company_index || current_remove_company_popup_office_index != office_index
+      $remove_company_popup.attr("data-office-index", company_index)
+    $("body").addClass("has-opened-remove-office-popup")
+    $remove_company_popup.find(".larger").html(popup_description)
+    $remove_company_popup.fadeIn()
+  $remove_company_popup = $(".remove-office-popup")

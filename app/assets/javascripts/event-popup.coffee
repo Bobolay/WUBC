@@ -13,9 +13,31 @@ $(document).ready ->
     $('.popup-wrapper').fadeOut('100')
 
 
-$.clickOut(".popup-wrapper .popup-block",
- ()->
-   $(".popup-wrapper").fadeOut('100')
- {except: ".popup-wrapper .popup-block, .event-only-for-members, .company-control-icon, .subscribe-button"}
+window.close_popup = (e)->
+  e.preventDefault() if e && e.preventDefault
+  $(this).closest(".popup-wrapper").fadeOut('100')
+
+$.clickOut(".remove-company-popup .popup-block",
+  close_popup
+  {except: ".company-control-icon"}
 )
 
+$.clickOut(".remove-office-popup .popup-block",
+  close_popup
+  {except: ".office-control-remove"}
+)
+
+#$.clickOut(".subscribe-popup .popup-block",
+#  ()->
+#    alert("hello")
+#  {except: ".subscribe-button, .link, .subscribe"}
+#)
+#
+#$.clickOut(".popup-wrapper.unsubscribe-popup .popup-block",
+#  close_popup
+#  {except: ".unsubscribe-button"}
+#)
+
+$document.on "click",
+  ".popup-wrapper .popup-block .btn-cancel"
+  close_popup

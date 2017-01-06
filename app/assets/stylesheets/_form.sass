@@ -225,7 +225,7 @@ $select-height: 43px
   right: 7px
   bottom: -15px
 
-.inputs-collection-control, .office-control-remove, .office-control-edit
+.inputs-collection-control, .office-control-edit
   position: relative
   cursor: pointer
   width: 30px
@@ -245,7 +245,7 @@ $select-height: 43px
 .inputs-collection-control-add, .office-control-edit
   background: $green
 
-.inputs-collection-control-remove, .office-control-remove
+.inputs-collection-control-remove
   background: $grey
 
   svg
@@ -319,8 +319,21 @@ $select-height: 43px
 
 
 .office-controls
+  //display: none !important
+
+//.office-control-save
   display: none !important
 
+.office-control
+  &.disabled
+    color: #414141
+    cursor: default
+
+.office-control-edit
+  display: none
+  position: absolute
+  right: 3px
+  bottom: 9px
 
 .form-errors
   color: red
@@ -328,3 +341,17 @@ $select-height: 43px
 .help
   font-size: 12px
   color: #555
+
+.office-preview
+  display: none
+
+.input-office
+  &.preview-mode
+    .office-inputs, .office-control-save
+      display: none !important
+
+    .office-control-edit
+      display: block
+
+    .office-preview
+      display: block
