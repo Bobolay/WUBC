@@ -17,6 +17,7 @@ locales = {
       phone: "Телефон"
       email: "Логін e-maill"
       password: "Пароль"
+      new_password: "Новий пароль"
       password_confirmation: "Підтвердження паролю"
       phones: "Телефони"
 
@@ -131,6 +132,13 @@ window.inputs = {
       else
         return ""
 
+
+    readonly: (name, options)->
+      readonly = options.readonly || options.disabled
+      if readonly
+        return "disabled='disabled'"
+      else
+        return ""
   }
   string: {
 
@@ -139,7 +147,8 @@ window.inputs = {
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
       autocomplete_str = inputs.base.autocomplete(name, options)
-      "<input #{autocomplete_str} name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
+      readonly_str = inputs.base.readonly(name, options)
+      "<input #{readonly_str} #{autocomplete_str} name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
 
     render: (name, options, data)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
@@ -204,7 +213,8 @@ window.inputs = {
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
       autocomplete_str = inputs.base.autocomplete(name, options)
-      "<input #{autocomplete_str} name='#{html_name}' type='email' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
+      readonly_str = inputs.base.readonly(name, options)
+      "<input #{readonly_str} #{autocomplete_str} name='#{html_name}' type='email' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
 
     render: (name, options, data = '')->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
@@ -504,12 +514,12 @@ render_cabinet_user_form = (data)->
   column( "medium-6", {
     phones: { required: true, min: 1 }
     email: {
-      required: true
       readonly: true
       help: "якщо хочете змінити email, звертайтесь до адміністратора"
     }
     password: {
       min_length: 8
+      label: t("attributes.new_password")
     }
     password_confirmation: {
       must_equal: "password"

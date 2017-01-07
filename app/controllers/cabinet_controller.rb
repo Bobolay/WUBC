@@ -17,7 +17,8 @@ class CabinetController < ApplicationController
     #return render inline: "OK"
     if request.post?
       #params_user = user_params
-      u.update_params(params[:user])
+      local_user_params = params[:user].keep_if{|k, v| k.to_s != "email" }
+      u.update_params(local_user_params)
 
       return render json: {status: "OK"}, status: 200
     end
