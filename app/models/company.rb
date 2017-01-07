@@ -72,4 +72,13 @@ class Company < ActiveRecord::Base
   def social_links
     Hash[[:facebook, :google_plus].map{|k| [k, send("social_#{k}") ]  }.select{|item| item[1].present? }]
   end
+
+  def company_info_attributes
+    h = {industry: industry_name, description: description, region: region, employees_count: employees_count}
+    h.keep_if{|k, v| v.present? }
+  end
+
+  def formatted_position
+    "#{position} компанії &laquo;#{name}&raquo;"
+  end
 end

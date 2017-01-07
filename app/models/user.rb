@@ -83,6 +83,22 @@ class User < ActiveRecord::Base
     Date.today.year - birth_date.year
   end
 
+  def formatted_ages
+    one = "рік"
+    many = "років"
+    few = "роки"
+    c = ages
+    res = c % 10
+    str = ""
+    if res == 1
+      "#{c} #{one}"
+    elsif res >= 2 && res <= 4
+      "#{c} #{few}"
+    else
+      "#{c} #{many}"
+    end
+  end
+
   def phones
     [phone]
   end

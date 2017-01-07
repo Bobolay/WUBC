@@ -6,15 +6,17 @@
 .row.person-one-info-wrapper
   .columns.large-3.personal-info-short
     .person-name
-      p.regular Спікер клубу
-      p.name
+      - if @user.is_speaker?
+        p.regular.member-position Спікер клубу
+      p.name.member-full-name
         = @user.full_name_or_email
     .square
       .img-background style="background-image: url('#{user_image_url}')"
     - if @user.ages
     .info-block
       p.regular Вік:
-      p.regular-grey 37 років
+      p.regular-grey
+        = @user.formatted_ages
     - if @user.hobby.present?
       .info-block
         p.regular Хоббі:
@@ -35,48 +37,62 @@
 
 
   .columns.large-9.personal-info-extended
+    .person-name
+      - if @user.is_speaker?
+        p.regular.member-position Спікер клубу
+      p.name.member-full-name
+        = @user.full_name_or_email
 
     - @user.valid_companies.each do |company|
-      p.large
-        | Директор компанії &laquo;#{company.name}&raquo;
+      .member-company
+        p.large
+          = raw company.formatted_position
 
-      .row.grey-block
-        .columns.medium-6
-          .info-block
-            p.regular Сфера здійснення діяльності:
-            p.regular-grey
-              = company.industry_name
-          .info-block
-            p.regular Кількість працівників:
-            p.regular-grey
-              = company.employees_count
-          .info-block
-            p.regular Сайт компанії:
-            p.regular-grey
-              = company.company_site
-          - if company.social_links.present?
-            .info-block
-              p.regular Соціальні мережі компанії:
-              - company.social_links.each do |k, url|
-                a.social-link href=url
-                  = inline_svg "icons/social-#{k}.svg"
-
-        - if company.offices.any?
+        .row.grey-block
           .columns.medium-6
-            - company.offices.each_with_index do |office, index|
+            - attributes = company.company_info_attributes
+            - attributes.each do |k, v|
               .info-block
-                p.regular Офіс №#{index + 1}:
-                p.address-info
-                  span Місто:
-                  = office[:city]
-                p.address-info
-                  span Адреса:
-                  = office[:address]
-                p.address-info
-                  span Телефон:
-                  - office[:phones].each do |phone|
-                    a.phone href=phone_url(phone)
-                      = formatted_phone(phone)
+                p.regular
+                  = I18n.t("attributes.#{k}") + ":"
+                p.regular-grey
+                  - if k == :company_site
+                    a href=v
+                      = v
+                  - else
+                    = v
+
+
+
+            - if company.social_links.present?
+              .info-block
+                p.regular Соціальні мережі компанії:
+                - company.social_links.each do |k, url|
+                  a.social-link href=url
+                    = inline_svg "icons/social-#{k}.svg"
+
+          - if company.company_offices.any?
+            .columns.medium-6
+              - valid_office_number = 0
+              - company.company_offices.each_with_index do |office, index|
+                - if office.city.present? || office.address.present? || office.phones.any?
+                  - valid_office_number += 1
+                  .info-block
+                    p.regular Офіс №#{valid_office_number}:
+                    - if office.city.present?
+                      p.address-info
+                        span Місто:
+                        = office.city
+                    - if office.address.present?
+                      p.address-info
+                        span Адреса:
+                        = office.address
+                    - if office.phones.any?
+                      p.address-info
+                        span Телефон:
+                        - office.phones.each do |phone|
+                          a.phone href=phone_url(phone)
+                            = formatted_phone(phone)
 
 
 
