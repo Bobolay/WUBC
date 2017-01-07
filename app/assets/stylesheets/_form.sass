@@ -355,3 +355,27 @@ $select-height: 43px
 
     .office-preview
       display: block
+
+
+.input-social-icon
+  svg
+    width: 24px
+    position: absolute
+    left: 10px
+    top: 10px
+    fill: #aaa
+
+input[name=social_facebook] + .input-social-icon
+  svg
+    left: 8px
+
+
+.input
+  &.input-social
+    input
+      padding-left: 45px
+
+    &.not-empty
+      .input-social-icon
+        svg
+          fill: $green

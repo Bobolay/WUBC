@@ -134,7 +134,7 @@ class User < ActiveRecord::Base
   end
 
   def user_data
-    user_columns = [:first_name, :middle_name, :last_name, :hobby, :phones, :email, :hobby, :social_facebook, :social_google_plus]
+    user_columns = [:first_name, :middle_name, :last_name, :hobby, :phones, :email, :hobby]
     h = Hash[user_columns.map{|k|
       [k, self.send(k)]
     }]
@@ -142,6 +142,8 @@ class User < ActiveRecord::Base
 
 
     h[:birth_date] = birth_date.present? ? birth_date.strftime("%d.%m.%Y") : nil
+    h[:social_networks] = social_links
+
 
     h
   end
@@ -158,8 +160,7 @@ class User < ActiveRecord::Base
        offices: company.company_offices.map do |office|
          { city: office.city, address: office.address, phones: office.phones }
        end,
-       social_facebook: company.social_facebook,
-       social_google_plus: company.social_google_plus
+       social_networks: company.social_links
       }
     end
   end

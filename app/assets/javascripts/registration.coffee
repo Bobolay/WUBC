@@ -27,6 +27,7 @@ locales = {
       company_site: "Сайт компанії"
       offices: "Контакти офісів"
       social_networks: "Соц. мережі компанії"
+      user_social_networks: "Особисті соц. мережі"
       description: "Опис діяльності"
 
       city: "Місто"
@@ -56,6 +57,9 @@ locales = {
       hobby: "Читаю книжки, слухаю музику, ходжу в театр"
       name: "Моя компанія"
       phone: "Телефон"
+
+      social_facebook: "https://www.facebook.com/YOUR_ACCOUNT"
+      social_google_plus: "https://plus.google.com/YOUR_ACCOUNT"
 
     }
     summary_labels: {
@@ -105,7 +109,7 @@ window.inputs = {
     placeholder: (name)->
       t("placeholders.#{name}") || name
     wrap_attributes: (name, options)->
-      validation_attributes = ["required", "must_equal"]
+      validation_attributes = ["required", "must_equal", "email", "min_length", "max_length"]
       validation = {}
       options = {} if !options
       for k, v of options
@@ -113,11 +117,19 @@ window.inputs = {
           validation[k] = v
 
       res = {validation: validation}
+
       s = ""
       for k, v of res
         s+= "#{k}='#{JSON.stringify(v)}'"
 
       s
+
+    autocomplete: (name, options = {})->
+      k = options.autocomplete
+      if k
+        return "autocomplete='#{k}'"
+      else
+        return ""
 
   }
   string: {
@@ -126,7 +138,8 @@ window.inputs = {
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
+      autocomplete_str = inputs.base.autocomplete(name, options)
+      "<input #{autocomplete_str} name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
 
     render: (name, options, data)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
@@ -144,29 +157,45 @@ window.inputs = {
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
+      autocomplete_str = inputs.base.autocomplete(name, options)
+      "<input #{autocomplete_str} name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
 
     render: (name, options, data)->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
       input_str = inputs.string.input(name, options, data)
       help = inputs.base.help(name, options)
-      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{help}</div>"
+      icon_str = "<div class='input-social-icon'>#{svg_images[options.icon]}</div>"
+      "<div #{wrap_attributes} class='input register-input input-social' data-key='#{name}'>#{label}#{input_str}#{icon_str}#{help}</div>"
 
+    initialize: ()->
+      $(".input-social").filter(
+        ()->
+          !$(this).hasClass("empty") && !$(this).hasClass("not-empty")
+      ).each(set_input_presence_classes)
   }
 
   social_networks: {
-    render: (name, options)->
-      options = $.extend({label: false}, options)
-      phone_inputs_str = ""
+    render: (name, options, data = {})->
+      #options = $.extend({label: false}, options)
+      social_inputs_str = ""
       label = inputs.base.label(name, options)
-      phone_options = options.phone_options || {}
+      social_options = $.extend({label: false}, options.social_options)
 
-      phone_inputs_str += inputs.phone.render("phone", phone_options)
-      phone_inputs_str = "<div class='inputs-collection-inputs'>#{phone_inputs_str}</div>"
-      inputs_collection_controls = inputs.inputs_collection.inputs_collection_controls()
+      social_facebook_options = $.extend({}, social_options, {icon: "social_facebook"}, social_options.facebook)
+      social_google_plus_options = $.extend({}, social_options, {icon: "social_google_plus"}, social_options.facebook)
+
+
+      #social_facebook: { type: "social", icon: "facebook" }
+      #social_google_plus: { type: "social", icon: "google_plus" }
+
+      social_inputs_str += inputs.social.render("social_facebook", social_facebook_options, data.facebook)
+      social_inputs_str += inputs.social.render("social_google_plus", social_google_plus_options, data.google_plus)
+      social_inputs_wrap_str = "<div class='inputs-collection-inputs'>#{social_inputs_str}</div>"
+      #inputs_collection_controls = inputs.inputs_collection.inputs_collection_controls()
+      inputs_collection_controls = ""
       help = inputs.base.help(name, options)
-      "<div class='inputs-collection phones inputs-collection-single-input'>#{label}#{phone_inputs_str}#{inputs_collection_controls}#{help}</div>"
+      "<div class='inputs-collection social-networks inputs-collection-single-input'>#{label}#{social_inputs_wrap_str}#{inputs_collection_controls}#{help}</div>"
   }
 
   email: {
@@ -174,7 +203,8 @@ window.inputs = {
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input name='#{html_name}' type='email' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
+      autocomplete_str = inputs.base.autocomplete(name, options)
+      "<input #{autocomplete_str} name='#{html_name}' type='email' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
 
     render: (name, options, data = '')->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
@@ -190,12 +220,14 @@ window.inputs = {
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input name='#{html_name}' type='password' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
+      autocomplete_str = inputs.base.autocomplete(name, options)
+      "<input #{autocomplete_str} name='#{html_name}' type='password' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
     render: (name, options, data = '')->
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       label = inputs.base.label(name, options)
       input_str = inputs.password.input(name, options, data)
       help = inputs.base.help(name, options)
+
       "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{help}</div>"
   }
 
@@ -254,9 +286,13 @@ window.inputs = {
         changeMonth: true,
         changeYear: true,
         yearRange: '1930:2010',
+        minDate: "01.01.1930"
+        maxDate: "31.12.2010"
+        defaultDate: "01.01.1991"
         onSelect: ()->
           $input_wrap = $(this).closest(".input")
-          $input_wrap.addClass("not-empty")
+          #$input_wrap.changeClasses(["not-empty"], ["empty"])
+          validate_input.call($input_wrap, true)
           if is_cabinet
             put_profile()
 
@@ -306,10 +342,12 @@ window.inputs = {
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
       placeholder = inputs.base.placeholder(name)
-      "<input name='#{html_name}' type='tel' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
+      autocomplete_options = $.extend({autocomplete: "tel"}, options)
+      autocomplete_str = inputs.base.autocomplete(name, autocomplete_options)
+      "<input #{autocomplete_str} name='#{html_name}' type='tel' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
 
     render: (name, options, data)->
-      console.log "phone: options: ", options
+      #console.log "phone: options: ", options
       wrap_attributes = inputs.base.wrap_attributes(name, options)
       key = options.key || name
       label = inputs.base.label(name, options)
@@ -351,7 +389,7 @@ window.inputs = {
       "<input type='tel' placeholder='#{placeholder}' class='#{options.class}' />"
 
     render: (name, options, data)->
-      console.log "OFFICE: data: ", data
+      #console.log "OFFICE: data: ", data
       data ?= {}
       options = $.extend({label: false}, options)
       wrap_attributes = inputs.base.wrap_attributes(name, options)
@@ -377,8 +415,11 @@ window.inputs = {
     render_inputs: (key, data)->
       office_inputs_str = ""
 
-      office_inputs_str += inputs.string.render("city", {key: "#{key}.city"}, data.city)
-      office_inputs_str += inputs.string.render("address", {key: "#{key}.address"}, data.address)
+      office_inputs_str += inputs.string.render("city",
+        {key: "#{key}.city", autocomplete: "address-line1"},
+        data.city)
+      office_inputs_str += inputs.string.render("address",
+        {key: "#{key}.address", autocomplete: "address-line2"}, data.address)
       office_inputs_str += inputs.phones.render("phones", {key: "#{key}.phones"}, data.phones)
       "<div class='office-inputs'>#{office_inputs_str}</div>"
 
@@ -390,7 +431,7 @@ window.inputs = {
           (a)->
             a && a.length > 0
         )
-      console.log "DATA: city: ", obj.city, "; address: ", obj.address, "; phones: ", phones
+      #console.log "DATA: city: ", obj.city, "; address: ", obj.address, "; phones: ", phones
       return "" if (!obj.city || !obj.city.length) && (!obj.address || !obj.address.length) && (!phones || !phones.length)
 
       city_str = if obj.city && obj.city.length > 0 then "<p><span>#{t('attributes.city')}:</span>#{obj.city}</p>" else ""
@@ -418,9 +459,9 @@ column = (html_class, props, data)->
   "<div class='columns #{html_class}'>#{s}</div>"
 
 window.registration_user_form = column("medium-6", {
-  first_name: {required: true}
-  middle_name: {required: true}
-  last_name: {required: true},
+  first_name: {required: true, autocomplete: "given-name"}
+  middle_name: {required: true, autocomplete: "additional-name"}
+  last_name: {required: true, autocomplete: "family-name"},
   birth_date: {
     required: true
     type: "date"
@@ -430,9 +471,11 @@ column( "medium-6", {
   phones: { required: true, min: 1 }
   email: {
     required: true
+    email: true
   }
   password: {
     required: true
+    min_length: 8
   }
   password_confirmation: {
     required: true
@@ -466,12 +509,14 @@ render_cabinet_user_form = (data)->
       help: "якщо хочете змінити email, звертайтесь до адміністратора"
     }
     password: {
+      min_length: 8
     }
     password_confirmation: {
       must_equal: "password"
     }
-    social_facebook: {}
-    social_google_plus: {}
+    social_networks: { type: "social_networks", label: t("attributes.user_social_networks") }
+    #social_facebook: {}
+    #social_google_plus: {}
   }, data)
 
 
@@ -504,9 +549,9 @@ render_company_form = (data, render_controls = false)->
     offices: {
       type: "offices"
     }
-    #social_networks: {}
-    social_facebook: { type: "social", icon: "facebook" }
-    social_google_plus: { type: "social", icon: "google_plus" }
+    social_networks: { type: "social_networks" }
+    #social_facebook: { type: "social", icon: "facebook" }
+    #social_google_plus: { type: "social", icon: "google_plus" }
 
 
   }, data)
@@ -536,6 +581,7 @@ render_companies = (data)->
 initialize_inputs = ()->
   inputs.date.initialize()
   inputs.phone.initialize()
+  inputs.social.initialize()
 
 put_profile = ()->
   data = {user: form_to_json.call($("#cabinet-profile-form"))}
@@ -591,6 +637,75 @@ initialize_cabinet = ()->
     $("#cabinet-companies").html(companies_str)
 
     initialize_inputs()
+
+
+
+set_input_presence_classes = ()->
+  $input_wrap = $(this)
+  value = $input_wrap.find("input, textarea").val()
+
+  empty = !value || !value.length
+  add_presence_class = if empty then "empty" else "not-empty"
+  remove_presence_class = if empty then "not-empty" else "empty"
+  console.log "set_input_presence_classes: add_presence_class: ", add_presence_class, "remove_presence_class: ", remove_presence_class
+  $input_wrap.changeClasses([add_presence_class], [remove_presence_class])
+
+validateEmail = (email)->
+  re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+
+
+validate_input = (update_dom = false)->
+  $input_wrap = $(this)
+  #alert($input_wrap.attr("data-key"))
+  validation = $input_wrap.attr("validation")
+  validation = validation && validation.length && JSON.parse(validation)
+
+  if validation && keys(validation).length
+    value = $input_wrap.find("input, textarea").val()
+    value = "" if $input_wrap.hasClass("input-phone") && value.indexOf("_") >= 0
+    valid = true
+    present = value && value.length && true
+    blank = !present
+    if validation.required
+      valid = value.length > 0
+
+    if present
+
+      if validation.min_length && value.length < validation.min_length
+        valid = false
+
+      if validation.max_length && value.length > validation.max_length
+        valid = false
+
+
+
+    if validation.must_equal
+      another_field_value = $input_wrap.parent().find("[data-key='#{validation.must_equal}'] input").val()
+      if value != another_field_value
+        valid = false
+
+    if validation.email
+      if !validateEmail(value)
+        valid = false
+
+
+
+    if update_dom
+      empty = !value || !value.length
+      add_presence_class = if empty then "empty" else "not-empty"
+      remove_presence_class = if empty then "not-empty" else "empty"
+      if valid
+        $input_wrap.changeClasses(["valid", add_presence_class], ["invalid", remove_presence_class])
+      else
+        $input_wrap.changeClasses(["invalid", add_presence_class], ["valid", remove_presence_class])
+    return valid
+  else
+    if update_dom
+      set_input_presence_classes.call(this)
+    return true
+
+
 
 initialize_registration_forms()
 initialize_cabinet()
@@ -760,42 +875,6 @@ window.validate_inputs = (update_dom = false)->
   )
 
   all_valid
-
-
-validate_input = (update_dom = false)->
-  $input_wrap = $(this)
-  #alert($input_wrap.attr("data-key"))
-  validation = $input_wrap.attr("validation")
-  validation = validation && validation.length && JSON.parse(validation)
-
-
-
-  if validation && keys(validation).length
-
-    value = $input_wrap.find("input, textarea").val()
-    valid = true
-    if validation.required
-      valid = value.length > 0
-
-    if validation.must_equal
-      another_field_value = $input_wrap.parent().find("[data-key='#{validation.must_equal}'] input").val()
-      if value != another_field_value
-        valid = false
-
-
-
-    if update_dom
-      empty = !value || !value.length
-      add_presence_class = if empty then "empty" else "not-empty"
-      remove_presence_class = if empty then "not-empty" else "empty"
-      if valid
-        $input_wrap.changeClasses(["valid", add_presence_class], ["invalid", remove_presence_class])
-      else
-        $input_wrap.changeClasses(["invalid", add_presence_class], ["valid", remove_presence_class])
-    return valid
-  else
-    return true
-
 
 summary_field_types = {
   string: {
@@ -984,8 +1063,12 @@ $document.on "keyup", "input[name=first_name], input[name=middle_name], input[na
     $(this).trigger("change")
   true
 
-$document.on "keyup", ".input[validation]", ()->
-  validate_input.call(this, true)
+$document.on "keyup blur change", ".input", ()->
+  $input = $(this)
+  if $input.filter("[validation]").length
+    validate_input.call($input, true)
+  else
+    set_input_presence_classes.call($input)
 
 $document.on "click", ".phones .inputs-collection-control", ()->
   $button = $(this)
@@ -1164,9 +1247,6 @@ $document.on "keyup",
     $("#cabinet-person-name").text(name)
 
 
-$document.on "blur", ".input input", ()->
-  $input = $(this).closest(".input")
-  validate_input.call($input, true)
 
 $document.on "keyup change", "#cabinet-companies .company input[name=name]", ()->
   $input = $(this)
