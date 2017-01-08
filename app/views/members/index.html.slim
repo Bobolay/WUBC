@@ -6,39 +6,42 @@
     .members-grid
       .input
         label for="#selectize-field-1" Пошук ПІБ:
-        select#selectize-field-1 data-placeholder="Вкажіть ПІБ члена клубу"
+        select#selectize-field-1.member-filter data-prop-name="data-name" data-placeholder="Вкажіть ПІБ члена клубу"
           option value="all" Не вибрано
-          option value="1" Петро 1
-          option value="2" Іван 2
-          option value="3" Роман 3
+          - @names.each do |m|
+            option value=m[:id]
+              = m[:name_or_email]
+
       .input
         label for="selectize-field-2" Сфера діяльності:
-        select#selectize-field-2 data-placeholder="Вкажіть сферу діяльності"
+        select#selectize-field-2.member-filter data-prop-name="data-industries" data-placeholder="Вкажіть сферу діяльності"
           option value="all" Не вибрано
-          option value="1" Будівництво 1
-          option value="2" Торгівля 2
-          option value="3" Послуги 3
+          - @industries.each do |industry|
+            option value=industry[:id]
+              = industry[:name]
       .input
         label for="selectize-field-3" Місце діяльності:
-        select#selectize-field-3 data-placeholder="Вкажіть місце ведення діяльності"
+        select#selectize-field-3.member-filter data-prop-name="data-regions" data-placeholder="Вкажіть місце ведення діяльності"
           option value="all" Не вибрано
-          option value="1" Львів 1
-          option value="2" Івано-Франківськ 2
-          option value="3" Тернопіль 3
+          - @regions.each do |r|
+            option value=r
+              = r
+
       .input
         label for="selectize-field-4" Назва компанії:
-        select#selectize-field-4 data-placeholder="Вкажіть назву компанії"
+        select#selectize-field-4.member-filter data-prop-name="data-companies" data-placeholder="Вкажіть назву компанії"
           option value="all" Не вибрано
-          option value="1" СуперБуд 1
-          option value="2" Плиточка 2
-          option value="3" Транстрамвай 3
+          - @companies_dropdown_options.each do |c|
+            option value=c[:id]
+              = c[:name]
+
 
   .row.collapse
     .columns
       .members-grid
         - @members.each do |member|
           - avatar_url = member.avatar.exists?(:member) ? member.avatar.url(:member) : asset_path('photo/user_no_avatar-620.png')
-          a.square data-name="1" date-industries="1,2" date-regions="1,2" data-companies="1,2" href=member_path(member.id)
+          a.square data-name=member.id data-industries=member.member_industry_ids(true) data-regions=member.member_regions(true) data-companies=member.member_company_ids(true) href=member_path(member.id)
 
             .img-background style="background-image: url(#{avatar_url})"
             p.title

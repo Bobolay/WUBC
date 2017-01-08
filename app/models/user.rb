@@ -225,5 +225,31 @@ class User < ActiveRecord::Base
     Hash[[:facebook, :google_plus].map{|k| [k, send("social_#{k}") ]  }.select{|item| item[1].present? }]
   end
 
+  def member_regions(format = false)
+    items = valid_companies.map(&:region)
+    if format
+      items.join(",")
+    else
+      items
+    end
+  end
+
+  def member_industry_ids(format = false)
+    arr = valid_companies.map{|c| c.industry.try(:id) }.select(&:present?).uniq
+    if format
+      arr.join(",")
+    else
+      arr
+    end
+  end
+
+  def member_company_ids(format = false)
+    arr = valid_companies.map(&:id)
+    if format
+      arr.join(",")
+    else
+      arr
+    end
+  end
 end
 

@@ -4,3 +4,6 @@ window.keys = (hash)->
     keys.push(k)
 
   keys
+
+window.has_keys = (hash)->
+  keys(hash).length > 0
