@@ -84,10 +84,12 @@ class User < ActiveRecord::Base
   end
 
   def formatted_ages
+    c = ages
+    return "" if !c
     one = "рік"
     many = "років"
     few = "роки"
-    c = ages
+
     res = c % 10
     str = ""
     if res == 1

@@ -13,10 +13,10 @@
     .square
       .img-background style="background-image: url('#{user_image_url}')"
     - if @user.ages
-    .info-block
-      p.regular Вік:
-      p.regular-grey
-        = @user.formatted_ages
+      .info-block
+        p.regular Вік:
+        p.regular-grey
+          = @user.formatted_ages
     - if @user.hobby.present?
       .info-block
         p.regular Хоббі:
