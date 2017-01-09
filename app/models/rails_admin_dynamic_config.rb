@@ -332,9 +332,25 @@ module RailsAdminDynamicConfig
           field :published
           field :translations, :globalize_tabs
           field :image
+          field :company_site
         end
 
         config.model_translation HomeClubCompany do
+          field :locale, :hidden
+          field :name
+          field :description
+        end
+
+        config.include_models PartnerCompany
+        config.model PartnerCompany do
+          nestable_list(position_field: :sorting_position)
+          field :published
+          field :translations, :globalize_tabs
+          field :image
+          field :company_site
+        end
+
+        config.model_translation PartnerCompany do
           field :locale, :hidden
           field :name
           field :description

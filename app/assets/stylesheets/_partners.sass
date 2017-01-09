@@ -15,6 +15,7 @@
     font-size: 1.5em
     text-transform: uppercase
     margin-bottom: 30px
+    display: block
     @media #{$small-only}
       font-family: Lora
   .smaller
@@ -22,3 +23,12 @@
   .regular-grey
     width: 80%
     margin: 0 auto
+
+  @media #{$small-only}
+    &:nth-child(3n+3)
+      clear: left
+  @media #{$medium-up}
+    &:nth-child(3n+4)
+      clear: left
+
+

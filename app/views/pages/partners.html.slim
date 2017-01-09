@@ -3,24 +3,32 @@
   .line
 .margin-block.grey-block.club-partners-container
   .row
-    .columns.small-6.medium-4.partner-block
-      img src=asset_path('photo/company-1.png')
-      p.title star
-      p.regular-grey Корпорація «ІСД» є однією з найбільших транснаціональних металургійних компаній з головним офісом в Україні
-      .line-separator
-      a.smaller href="" www.company.com
-    .columns.small-6.medium-4.partner-block
-      img src=asset_path('photo/company-2.png')
-      p.title star
-      p.regular-grey Корпорація «ІСД» є однією з найбільших транснаціональних металургійних компаній з головним офісом в Україні
-      .line-separator
-      a.smaller href="" www.company.com
-    .columns.small-6.medium-4.partner-block
-      img src=asset_path('photo/company-3.png')
-      p.title star
-      p.regular-grey Корпорація «ІСД» є однією з найбільших транснаціональних металургійних компаній з головним офісом в Україні
-      .line-separator
-      a.smaller href="" www.company.com
+    - @club_companies.each do |company|
+      - url =  company.company_site
+      - has_url =url.present?
+      - title_html_options = {class: "title"}
+      - if has_url
+        - title_html_options[:href] = url
+        - title_html_options[:rel] = "nofollow"
+
+      .columns.small-6.medium-4.partner-block
+        - if has_url
+          a.image href=url rel="nofollow"
+            img src=company.image.url(:partner)
+        - else
+          img src=company.image.url(:partner)
+
+        /a.title href=company.company_site
+        = content_tag(has_url ? :a : :span, company.name, title_html_options)
+        - if company.description.present?
+          p.regular-grey
+            = company.description
+          - if has_url
+            .line-separator
+        - if has_url
+          a.smaller href=company.company_site
+            = company.formatted_company_site
+
 
 
 .join-us-container

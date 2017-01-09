@@ -25,7 +25,7 @@ class PagesController < ApplicationController
   end
 
   def partners
-
+    @club_companies = PartnerCompany.published.sort_by_sorting_position
   end
 
   def contacts
