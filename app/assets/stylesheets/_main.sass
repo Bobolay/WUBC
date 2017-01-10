@@ -542,13 +542,18 @@
   .carousel-slider-next
     right: 0
   .bx-wrapper
+    @media #{$small-only}
+      width: 400px
+      max-width: 60% !important
     @media #{$medium-only}
-      width: 500px
+      width: 600px
   .slider-3
     margin: 0 auto
     padding: 0 70px
   .company-block
     text-align: center
+    @media #{$small-only}
+      width: 100%
     @media #{$medium-only}
       width: 33%
     @media #{$large-up}
