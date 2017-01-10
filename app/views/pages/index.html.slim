@@ -16,7 +16,7 @@
           span Детальніше
 .about-us-container
   = inline_svg "icons/logo2.svg"
-  = t("home.about-us-text")
+  = Cms.t("home.about-us-text")
 - if @future_events.try(:any?) || @past_events.try(:any?)
   .margin-block.calendar-container
     p.section-header календар подій клубу
