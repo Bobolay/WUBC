@@ -35,31 +35,32 @@
             p.regular-grey
               = item.description
 
-    p.main-title.center сфери бізнес діяльності членів wubc
-    
-    .row.activity-slider-pager
-      .columns#bx-pager-about-us
-        - @industry_slides.each_with_index do |slide, i|
-          a.pager data-slide-index=i
-            = slide.name
+    - if @industry_slides.try(:any?)
+      p.main-title.center сфери бізнес діяльності членів wubc
 
-    .activity-slider-container
-      
-      .fade-block
-        .activity
-          = @industry_slides.first.name
-        .slider-controls
-          .slider-prev
-            = inline_svg "icons/arrow-left.svg"
-          .slider-next
-            = inline_svg "icons/arrow-right.svg"
+      .row.activity-slider-pager
+        .columns#bx-pager-about-us
+          - @industry_slides.each_with_index do |slide, i|
+            a.pager data-slide-index=i
+              = slide.name
 
-        p.smaller * Для членів клубу діє максимальна знижка у всіх компаніях учасників WUBC
-      
-      .slider-4
-        - @industry_slides.each do |slide|
-          li
-            .img-background style="background-image: url(#{slide.image.url(:large)})"
+      .activity-slider-container
+
+        .fade-block
+          .activity
+            = @industry_slides.first.name
+          .slider-controls
+            .slider-prev
+              = inline_svg "icons/arrow-left.svg"
+            .slider-next
+              = inline_svg "icons/arrow-right.svg"
+
+          p.smaller * Для членів клубу діє максимальна знижка у всіх компаніях учасників WUBC
+
+        .slider-4
+          - @industry_slides.each do |slide|
+            li
+              .img-background style="background-image: url(#{slide.image.url(:large)})"
 
 
     = Cms.t("about-us.membership")
