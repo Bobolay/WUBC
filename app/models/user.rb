@@ -148,11 +148,15 @@ class User < ActiveRecord::Base
   end
 
   after_save :send_approval_congratulations
-  def send_approval_congratulations
+  def send_approval_congratulations(force = false)
     return false if !self.respond_to?(:approved_at_changed?)
-    if self.confirmed_at && self.approved_at_changed? && self.approved?
+    if force || self.confirmed_at && self.approved_at_changed? && self.approved?
       MemberMailer.admin_approved_your_account(self).deliver
     end
+  end
+
+  def send_approval_congratulations!
+    send_approval_congratulations(true)
   end
 
   def user_data
