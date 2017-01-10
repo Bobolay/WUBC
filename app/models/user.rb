@@ -135,12 +135,16 @@ class User < ActiveRecord::Base
   end
 
   after_save :send_admin_mail
-  def send_admin_mail
-    if (self.confirmed_at && self.confirmed_at_changed?) && !self.approved?
+  def send_admin_mail(force = false)
+    if force || (self.confirmed_at && self.confirmed_at_changed?) && !self.approved?
       AdminMailer.new_user_waiting_approval(self).deliver
     end
 
     true
+  end
+
+  def send_admin_mail!
+    send_admin_mail(true)
   end
 
   after_save :send_approval_congratulations
