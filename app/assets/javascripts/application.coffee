@@ -71,3 +71,5 @@
 #= require _event_subscribe
 
 #= require subscribe_popup
+
+#= require characters_limit

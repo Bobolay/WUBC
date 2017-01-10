@@ -280,6 +280,8 @@
   background-color: $dark-grey
   padding: 70px 0
   margin-top: -15px
+  @media #{$small-only}
+    padding: 50px 0
   .line
     background-color: $main
   .section-header
@@ -297,6 +299,7 @@
     margin-top: 100px
     @media #{$small-only}
       height: 500px
+      margin-top: 30px
     @media #{$xxlarge-up}
       margin-left: 20%
       margin-right: 20%
@@ -380,10 +383,11 @@
         top: 10px
         color: $green
       @media #{$small-only}
-        margin-top: 30px
-        padding-left: 40px
+        margin-top: 20px
+        padding-left: 0
+        max-width: 80%
         &:before
-          font-size: 4rem
+          display: none
   .slider-selectors
     position: relative
     text-align: center
@@ -392,6 +396,8 @@
       width: 30px
       fill: $light-grey
       stroke: $light-grey
+    @media #{$small-only}
+      margin: 20px 0
     .slider-prev, .slider-next, .current-slide
       vertical-align: middle
     .current-slide
@@ -520,7 +526,7 @@
 .companies
   padding: 70px 0
   @media #{$small-only}
-    display: none
+    // display: none
   .slider-container
     position: relative
     margin-top: 50px
