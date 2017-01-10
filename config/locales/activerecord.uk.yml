@@ -22,6 +22,23 @@ uk:
       form_configs/new_user_waiting_approval: "Новий користувач чекає на підтвердження"
       form_configs/user_subscribed_to_event: "Член клубу підписався на подію"
       form_configs/user_unsubscribed_from_event: "Член клубу відписався від події"
+      pages/partners: "Партнери"
+      partner_company:
+        one: "Компанія-партнер"
+        other: "Компанії-партнери"
+      pages/members: "Члени клубу"
+      pages/sign_in: "Вхід"
+      pages/sign_up: "Реєстрація"
+      pages/events: "Події"
+      testimonial:
+        one: "Відгук"
+        other: "Відгуки"
+      club_member_value:
+        one: "Цінність членів клубу"
+        other: "Цінності членів клубу"
+      industry_slide:
+        one: "Слайд індустрій"
+        other: "Слайди індустрій"
 
     attributes:
       premium: "Тільки для членів клубу"
@@ -33,3 +50,4 @@ uk:
       email: "Логін e-maill"
       password: "Пароль"
       password_confirmation: "Підтвердження паролю"
+
