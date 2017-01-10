@@ -386,6 +386,34 @@ module RailsAdminDynamicConfig
           field :name
           field :description
         end
+
+        config.include_models ClubMemberValue
+
+        config.model ClubMemberValue do
+          nestable_list(position_field: :sorting_position)
+          field :published
+          field :translations, :globalize_tabs
+        end
+
+        config.model_translation ClubMemberValue do
+          field :locale, :hidden
+          field :name
+          field :description
+        end
+
+        config.include_models IndustrySlide
+
+        config.model IndustrySlide do
+          nestable_list(position_field: :sorting_position)
+          field :published
+          field :translations, :globalize_tabs
+          field :image
+        end
+
+        config.model_translation IndustrySlide do
+          field :locale, :hidden
+          field :name
+        end
       end
     end
   end

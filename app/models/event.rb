@@ -6,7 +6,9 @@ class Event < ActiveRecord::Base
   has_seo_tags
   has_sitemap_record
 
-  image :avatar, styles: {list: "500x275#", thumb: "152x100#", navigation_avatar: "200x200#"}
+  image :avatar, styles: {list: "500x275#", thumb: "152x100#", navigation_avatar: "200x200#"},
+        url: "/system/:class/:attachment/:id_partition/:style/:filename",
+        path: ":rails_root/public:url"
 
   has_images :slider_images, styles: {large: "1370x600#", thumb: "274x120#", events_banner: "2048x500#"}, class_name: "EventGalleryImage"
   has_images :gallery_images, styles: { large: "1400x740#", small: "200x200#", thumb: "100x100#" }, class_name: "EventSlide"

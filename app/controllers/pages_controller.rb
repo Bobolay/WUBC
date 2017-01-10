@@ -13,7 +13,8 @@ class PagesController < ApplicationController
   end
 
   def about_us
-
+    @member_values = ClubMemberValue.published.sort_by_sorting_position
+    @industry_slides = IndustrySlide.published.sort_by_sorting_position
   end
 
   def events
