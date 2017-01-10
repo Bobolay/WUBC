@@ -7,7 +7,7 @@
       .input
         label for="#selectize-field-1" Пошук ПІБ:
         select#selectize-field-1.member-filter data-prop-name="data-name" data-placeholder="Вкажіть ПІБ члена клубу"
-          option value="all" Не вибрано
+          option value=""
           - @names.each do |m|
             option value=m[:id]
               = m[:name_or_email]
@@ -15,14 +15,14 @@
       .input
         label for="selectize-field-2" Сфера діяльності:
         select#selectize-field-2.member-filter data-prop-name="data-industries" data-placeholder="Вкажіть сферу діяльності"
-          option value="all" Не вибрано
+          option value=""
           - @industries.each do |industry|
             option value=industry[:id]
               = industry[:name]
       .input
         label for="selectize-field-3" Місце діяльності:
         select#selectize-field-3.member-filter data-prop-name="data-regions" data-placeholder="Вкажіть місце ведення діяльності"
-          option value="all" Не вибрано
+          option value=""
           - @regions.each do |r|
             option value=r
               = r
@@ -30,7 +30,7 @@
       .input
         label for="selectize-field-4" Назва компанії:
         select#selectize-field-4.member-filter data-prop-name="data-companies" data-placeholder="Вкажіть назву компанії"
-          option value="all" Не вибрано
+          option value=""
           - @companies_dropdown_options.each do |c|
             option value=c[:id]
               = c[:name]
