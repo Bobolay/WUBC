@@ -110,6 +110,7 @@ module RailsAdminDynamicConfig
         end
 
         config.include_models Attachable::Asset
+        config.include_models EventGalleryImage, EventSlide, HomeSlide
 
         config.model Attachable::Asset do
           field :data
@@ -119,6 +120,36 @@ module RailsAdminDynamicConfig
         config.model_translation Attachable::Asset do
           field :locale, :hidden
           field :data_alt
+        end
+
+        config.model EventGalleryImage do
+          visible false
+          field :data do
+            help do
+              "1400x740#"
+            end
+          end
+          field :translations, :globalize_tabs
+        end
+
+        config.model EventSlide do
+          visible false
+          field :data do
+            help do
+              "2048x600#"
+            end
+          end
+          field :translations, :globalize_tabs
+        end
+
+        config.model HomeSlide do
+          visible false
+          field :data do
+            help do
+              "2048x600#"
+            end
+          end
+          field :translations, :globalize_tabs
         end
 
         config.include_models User, Administrator, Member
