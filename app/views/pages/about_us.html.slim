@@ -4,17 +4,7 @@
     p про нас
     .line
   .margin-block.grey-block
-    .row
-      .columns.large-5.medium-6.large-push-1.about-us-text
-        p.regular-grey
-          | West Ukrainian Business Club - це закритий клуб для власників та перших осіб бізнесу західної України. Спільнота, яка характеризується високим  ступенем поваги, довіри, відповідальності, взаємодії та підтримки серед його членів.
-        p.regular-grey
-          | WUBC cтворений з метою об'єднання бізнес-лідерів за для особистісного розвитку, розвитку своїх компаній та зв'язків.
-      .columns.large-5.medium-6.large-push-1.end.about-us-text
-        p.regular-grey
-          | Клуб проводить більше 12 зустрічей на рік у різних форматах: бізнес   сніданки, бізнес вечері, виїздні заходи, зустрічі з іншими спільнотами, сімейні зустрічі. Гостями клубу є провідні бізнесмени країни, політики, члени інших спільнот, консультанти та аналітики.
-        p.regular-grey
-          | Головне, що нас об’єднує, це бажання розвиватись, рухатись вперед, швидко, правильно і екологічно
+    = Cms.t("about-us.intro")
 
     .row.collapse.collage
       .columns.medium-6
@@ -36,54 +26,28 @@
     p.main-title.center цінності членів клубу
 
     .row.member-values-container
-      .columns.medium-6.large-4
-        .member-value
-          p.title професіоналізм
-          .line-separator
-          p.regular-grey Члени клубу є професіоналами своєї справи, орієнтуються на найвищі стандарти, що дозволяє їм успішно вести і розвивати свій бізнес.
-      .columns.medium-6.large-4
-        .member-value
-          p.title прагнення до розвитку
-          .line-separator
-          p.regular-grey Члени клубу постійно прагнуть до нових знань, нового досвіду, не зупиняючись на досягнутому.
-      .columns.medium-6.large-4
-        .member-value
-          p.title лідерство
-          .line-separator
-          p.regular-grey Члени клубу є лідерами, як у своїй компанії, так і по життю. Вони готові брати відповідальність, висловлювати свою думку і відстоювати її.
-      .columns.medium-6.large-4
-        .member-value
-          p.title ділова репутація
-          .line-separator
-          p.regular-grey Члени клубу є порядними людьми, з позитивними моральними цінностями.
-      .columns.medium-6.large-4
-        .member-value
-          p.title відкритість
-          .line-separator
-          p.regular-grey Члени клубу готові ділитися своїм досвідом, переймати досвід інших, співпрацювати.
-      .columns.medium-6.large-4
-        .member-value
-          p.title надійність і відповідальність
-          .line-separator
-          p.regular-grey Члени клубу готові виконувати свої зобов'язання перед клубом, його членами, є господарями свого слова.
+      - @member_values.each do |item|
+        .columns.medium-6.large-4
+          .member-value
+            p.title
+              = item.name
+            .line-separator
+            p.regular-grey
+              = item.description
 
     p.main-title.center сфери бізнес діяльності членів wubc
     
     .row.activity-slider-pager
       .columns#bx-pager-about-us
-        a.pager data-slide-index="0" Рітейл
-        a.pager data-slide-index="1" Будівництво
-        a.pager data-slide-index="2" Готелі
-        a.pager data-slide-index="3" Ресторани
-        a.pager data-slide-index="4" Виробництво
-        a.pager data-slide-index="5" Сільське господарство
-        a.pager data-slide-index="6" Імпорт та експорт
-        a.pager data-slide-index="7" E commerce
+        - @industry_slides.each_with_index do |slide, i|
+          a.pager data-slide-index=i
+            = slide.name
 
     .activity-slider-container
       
       .fade-block
-        .activity Рітейл
+        .activity
+          = @industry_slides.first.name
         .slider-controls
           .slider-prev
             = inline_svg "icons/arrow-left.svg"
@@ -93,35 +57,9 @@
         p.smaller * Для членів клубу діє максимальна знижка у всіх компаніях учасників WUBC
       
       .slider-4
-        li
-          .img-background style="background-image: url(#{asset_path('photo/baner-1.jpg')})"
-        li
-          .img-background style="background-image: url(#{asset_path('photo/baner-2.jpg')})"
-        li
-          .img-background style="background-image: url(#{asset_path('photo/baner-3.jpg')})"
-        li
-          .img-background style="background-image: url(#{asset_path('photo/baner-4.jpg')})"
-        li
-          .img-background style="background-image: url(#{asset_path('photo/baner-5.jpg')})"
-        li
-          .img-background style="background-image: url(#{asset_path('photo/baner-6.jpg')})"
-        li
-          .img-background style="background-image: url(#{asset_path('photo/baner-7.jpg')})"
-        li
-          .img-background style="background-image: url(#{asset_path('photo/baner-8.jpg')})"
+        - @industry_slides.each do |slide|
+          li
+            .img-background style="background-image: url(#{slide.image.url(:large)})"
 
-    .row.membership
-      .columns.medium-6
-        p.main-title учасники
-        p.regular-grey  Учасники клубу це власники та перші особи бізнесу, що займають передові позиції в різних галузях бізнесу України; персони, які мають хорошу ділову репутацію у бізнес-колах. Вони і їхні компанії не стоять на місті та завжди вдосконалюються.
-        a.green-button.registration-link href=new_user_registration_path Стати учасником
-      .columns.medium-6
-        p.main-title критерії членства
-        ul
-          li Власник або перше лице компанії.
-          li Схожість за життєвими цінностями.
-          li Хороша ділова репутація.
-          li Мінімальний оборот компанії 10 000 000грн. на рік.
-          li Досвід управління від 5 років.
-          li Довіра до клубу.
-          li Бажання розвивати клуб, залучаючи нових членів.
+
+    = Cms.t("about-us.membership")
