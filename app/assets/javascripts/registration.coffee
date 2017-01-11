@@ -110,7 +110,7 @@ window.inputs = {
     placeholder: (name)->
       t("placeholders.#{name}") || name
     wrap_attributes: (name, options)->
-      validation_attributes = ["required", "must_equal", "email", "min_length", "max_length"]
+      validation_attributes = ["required", "must_equal", "email", "min_length", "max_length", "check_if_email_available"]
       validation = {}
       options = {} if !options
       for k, v of options
@@ -261,7 +261,7 @@ window.inputs = {
       label = inputs.base.label(name, options)
       input_str = inputs.email.input(name, options, data)
       help = inputs.base.help(name, options)
-      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{help}</div>"
+      "<div #{wrap_attributes} class='input register-input input-email' data-key='#{name}'>#{label}#{input_str}#{help}</div>"
 
   }
 
@@ -522,6 +522,7 @@ column( "medium-6", {
   email: {
     required: true
     email: true
+    check_if_email_available: true
   }
   password: {
     required: true
@@ -702,14 +703,66 @@ set_input_presence_classes = ()->
   add_presence_class = if empty then "empty" else "not-empty"
   remove_presence_class = if empty then "not-empty" else "empty"
   console.log "set_input_presence_classes: add_presence_class: ", add_presence_class, "remove_presence_class: ", remove_presence_class
-  $input_wrap.changeClasses([add_presence_class], [remove_presence_class])
+  $input_wrap.changeClasses(add_presence_class, remove_presence_class)
 
 validateEmail = (email)->
   re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 
 
-validate_input = (update_dom = false)->
+validate_input__update_dom = (value, valid, add_presence_class, remove_presence_class)->
+  #console.log "validate_input__update_dom: args: ", arguments
+  console.log "validate_input__update_dom: value: ", value, "; valid: ", valid, "; add_presence_class: ", add_presence_class
+  $input_wrap = $(this)
+  empty = !value || !value.length
+  add_presence_class ?= ""
+  add_presence_class += if empty then " empty" else " not-empty"
+  remove_presence_class ?= ""
+  remove_presence_class += if empty then " not-empty" else " empty"
+
+  if valid == "ajax"
+    add_presence_class += " ajax-validation-in-progress"
+    remove_presence_class += " valid invalid invalid-email-exists"
+
+  else
+    remove_presence_class += " ajax-validation-in-progress"
+
+    if valid == true
+      add_presence_class += " valid"
+      remove_presence_class += " invalid invalid-email-exists"
+
+    else
+      add_presence_class += " invalid"
+      remove_presence_class += " valid"
+
+
+  $input_wrap.changeClasses(add_presence_class, remove_presence_class)
+  return
+
+  ###
+  if valid == true
+    $input_wrap.changeClasses(["valid", add_presence_class], ["invalid", "invalid-email-exists", "ajax-validation-in-progress", remove_presence_class])
+  else if valid == "ajax"
+    $input_wrap.changeClasses(["ajax-validation-in-progress"], ["valid", add_presence_class, "invalid", remove_presence_class])
+
+  else
+    $input_wrap.changeClasses(["invalid", add_presence_class], ["valid", remove_presence_class])
+  ###
+
+append_email_exists_error_message = ()->
+  $input_wrap = $(this)
+  $error_message = $input_wrap.find(".email-exists-error-message")
+  if !$error_message.length
+    $input_wrap.append("<span class='email-exists-error-message'>Користувач з таким email'ом email вже існує</span>")
+
+append_email_ajax_loader = ()->
+  $input_wrap = $(this)
+  $error_message = $input_wrap.find(".email-ajax-loader")
+  if !$error_message.length
+    $input_wrap.append("<span class='email-ajax-loader'>Перевіряю, чи email вільний...</span>")
+
+
+window.validate_input = (update_dom = false)->
   $input_wrap = $(this)
   #alert($input_wrap.attr("data-key"))
   validation = $input_wrap.attr("validation")
@@ -745,14 +798,45 @@ validate_input = (update_dom = false)->
 
 
 
-    if update_dom
-      empty = !value || !value.length
-      add_presence_class = if empty then "empty" else "not-empty"
-      remove_presence_class = if empty then "not-empty" else "empty"
-      if valid
-        $input_wrap.changeClasses(["valid", add_presence_class], ["invalid", remove_presence_class])
+    if valid != false && validation.check_if_email_available
+      if update_dom
+        valid = check_email(value,
+          (data)->
+            local_valid = !data.exists
+            console.log "local_valid: ", local_valid
+            add_presence_class = ""
+            remove_presence_class = ""
+            add_presence_class = "invalid-email-exists" if local_valid == false
+            validate_input__update_dom.call($input_wrap, value, local_valid, add_presence_class, remove_presence_class)
+            if local_valid == false
+              append_email_exists_error_message.call($input_wrap)
+        )
+
+        if valid == "ajax"
+          append_email_ajax_loader.call($input_wrap)
+          validate_input__update_dom.call($input_wrap, value, valid)
+
+        if valid != "ajax"
+          add_presence_class = ""
+          remove_presence_class = ""
+          add_presence_class = "invalid-email-exists" if valid == false
+          validate_input__update_dom.call($input_wrap, value, valid, add_presence_class, remove_presence_class)
+
+          if valid == false
+            append_email_exists_error_message.call($input_wrap)
       else
-        $input_wrap.changeClasses(["invalid", add_presence_class], ["valid", remove_presence_class])
+        valid = check_email(value)
+
+
+      return valid
+
+
+    if !valid
+      console.log "invalid: clear email exists"
+      validate_input__update_dom.call($input_wrap, value, valid, "", "invalid-email-exists")
+    else
+      validate_input__update_dom.call($input_wrap, value, valid)
+
     return valid
   else
     if update_dom
@@ -908,7 +992,7 @@ window.form_to_json = ()->
 window.steps_to_json = ()->
   {user: form_to_json.call($("#registration-user")), company: form_to_json.call($("#registration-company")) }
 
-window.validate_inputs = (update_dom = false)->
+window.validate_inputs = (update_dom = false, handler)->
 
   valid = true
   all_valid = true
@@ -916,12 +1000,14 @@ window.validate_inputs = (update_dom = false)->
     ()->
       #console.log "validate"
       #alert("validate_inputs: #{$(this).attr('data-key')}")
-      if valid || update_dom
+      if valid == true || update_dom
 
-        valid = validate_input.call(this, update_dom)
+        valid = validate_input.call(this, update_dom, handler)
 
         if !valid
           all_valid = false
+      else if valid == "ajax"
+        all_valid = "ajax"
       #else
       #  return false
 
@@ -1058,7 +1144,16 @@ window.render_summary = (data)->
 
 
 
+navigate_step = (direction)->
+  $active_step_content = $(this)
+  $step_headers = $(".step-headers")
+  $active_step_header = $step_headers.children().filter(".active")
+  $active_step_header.removeClass("active")
+  $active_step_header[direction]().addClass("active")
 
+
+  $active_step_content.removeClass("active")
+  $active_step_content[direction]().addClass("active")
 
 $document.on "click", ".prev-step-button, .next-step-button", (e)->
   e.preventDefault()
@@ -1070,20 +1165,20 @@ $document.on "click", ".prev-step-button, .next-step-button", (e)->
   direction = if $button.hasClass("prev-step-button") then 'prev' else 'next'
   valid_step = true
   if direction == 'next'
-    valid_step = validate_inputs.call($active_step_content.find(".input[validation]"), true)
+    valid_step = validate_inputs.call($active_step_content.find(".input[validation]")
+      (data)->
+        if !data.exists
+          navigate_step.call($active_step_content, direction)
+      true)
+
     if $active_step_content.index() == 1
       window.steps_json = steps_to_json()
       render_summary(steps_json)
-  if !valid_step
+  if valid_step != true
     return
-  $step_headers = $(".step-headers")
-  $active_step_header = $step_headers.children().filter(".active")
-  $active_step_header.removeClass("active")
-  $active_step_header[direction]().addClass("active")
 
+  navigate_step.call($active_step_content, direction)
 
-  $active_step_content.removeClass("active")
-  $active_step_content[direction]().addClass("active")
 
 ajaxit = (iframe_id, form_id)->
   iFrameWindow = document.getElementById(iframe_id).contentWindow
@@ -1333,4 +1428,89 @@ $document.on "keyup blur change", ".input-office input", ()->
   $save_button.addClass("disabled") if !has_data && !$save_button.hasClass("disabled")
 
 
+
+window.check_email = (email, handler, update_dom = false)->
+  #console.log("1")
+  email ?= $("#registration-user .input-email input").val()
+
+  console.log "check_email: ", email
+
+  window.email_checks ?= []
+  check_in_progress = window.email_checks.filter(
+    (c)->
+      c && c.in_progress && c.email == email
+  )[0] || false
+
+  email_check = window.email_checks.filter(
+    (c)->
+      c && c.email == email
+  )[0] || false
+
+
+
+  if check_in_progress
+    return "ajax"
+
+  if email_check
+    return email_check.exists || false
+
+  if email && email.length
+    return if !validateEmail(email)
+
+    window.email_checks.push({email: email, in_progress: true})
+
+    $.ajax(
+      url: "/check_email"
+      dataType: "json"
+      data: {email: email}
+      success: (data)->
+
+        h = window.email_checks.filter(
+          (a)->
+            a && a.email == data.email
+        )[0]
+
+        if !h
+          return
+
+
+        h.in_progress = false
+        h.exists = data.exists
+
+
+        #if !window.email_check
+        #  window.email_check = data
+        if handler && typeof(handler) == 'function'
+          handler(data)
+
+    )
+
+
+  return "ajax"
+
+update_dom_for_email_presence = (data)->
+  $input_wrap = $("#registration-user .input-email")
+  if data.exists
+    $input_wrap.changeClasses(["invalid", "invalid-email-exists"], ["valid"])
+    $error_message = $input_wrap.find(".email-exists-error-message")
+    if !$error_message.length
+      $input_wrap.append("<span class='email-exists-error-message'>Користувач з таким email'ом email вже існує</span>")
+  else
+    $input_wrap.changeClasses(["valid"], ["invalid", "invalid-email-exists"])
+
+
+
+###
+$document.on "blur keyup change", "#registration-user .input-email input", ()->
+  #console.log "event"
+  $input = $(this)
+  delay("check_email",
+    ()->
+      email = $input.val()
+      if check_email(email, update_dom_for_email_presence)
+        update_dom_for_email_presence(window.email_check)
+
+  , 1000)
+
+###
 

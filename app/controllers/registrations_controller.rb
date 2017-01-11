@@ -43,4 +43,12 @@ class RegistrationsController < Users::RegistrationsController
 
     translation_params
   end
+
+  def check_email
+    #sleep 3
+    params_email = params[:email]
+    return render status: 400 if params_email.blank?
+    exists = User.where(email: params_email).count > 0
+    render json: { email: params_email, exists: exists }, status: 200
+  end
 end

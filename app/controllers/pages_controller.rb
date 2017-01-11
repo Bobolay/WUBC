@@ -8,7 +8,7 @@ class PagesController < ApplicationController
     @articles = Article.featured
     @slider_images = @page_instance.slider_images
     @testimonials = Testimonial.published.sort_by_sorting_position
-    @speakers = Speaker.published
+    @speakers = Speaker.published.sort_by_sorting_position
     @club_companies = HomeClubCompany.published.sort_by_sorting_position
   end
 
