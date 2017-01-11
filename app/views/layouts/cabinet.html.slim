@@ -24,7 +24,7 @@
       p.person-name#cabinet-person-name
         = current_user.full_name(false)
 
-  .margin-block.cabinet-container data-user=current_user.user_data.to_json data-companies=current_user.companies_data.to_json
+  .margin-block.cabinet-container data-user=current_user.user_data.to_json data-companies=current_user.companies_data.to_json data-available-industries=@available_industries.join(",")
     .row
       .columns.large-10.large-centered
         .tabs

@@ -4,6 +4,7 @@ class CabinetController < ApplicationController
   def index
     #redirect_to cabinet_events_path
     @events = Event.subscribed_by_user(current_user)
+    @available_industries = Industry.all.map(&:name)
     render "layouts/cabinet", layout: false
   end
 

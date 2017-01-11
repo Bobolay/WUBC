@@ -160,6 +160,46 @@ window.inputs = {
 
   }
 
+  select_with_custom_value: {
+    input: (name, options, data = '')->
+      html_name = inputs.base.html_name(name, options)
+      options = $.extend({}, options)
+      placeholder = inputs.base.placeholder(name)
+      autocomplete_str = inputs.base.autocomplete(name, options)
+      readonly_str = inputs.base.readonly(name, options)
+      options.class ?= ""
+      options.class = "#{options.class} input-select-with-custom-value"
+      "<input #{readonly_str} #{autocomplete_str} name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
+      options_html = ""
+      options.select_options ?= []
+      for opt in options.select_options
+        selected_str = ""
+        selected_str = "selected='selected'" if opt == data
+        options_html += "<option value='#{opt}'>#{opt}</option>"
+
+      "<select #{readonly_str} name='#{html_name}' data-placeholder='#{placeholder}' class='#{options.class}' #{selected_str}>#{options_html}</select>"
+
+    render: (name, options, data)->
+      wrap_attributes = inputs.base.wrap_attributes(name, options)
+      label = inputs.base.label(name, options)
+      key = options.key || name
+      input_str = inputs.select_with_custom_value.input(name, options, data)
+      help = inputs.base.help(name, options)
+      "<div #{wrap_attributes} class='input register-input input-select-with-custom-value' data-key='#{key}'>#{label}#{input_str}#{help}</div>"
+
+    initialize: ()->
+      $(".input-select-with-custom-value:not(.select-initialized)").each(
+        ()->
+          $(this).addClass("select-initialized")
+          $(this).find("select").selectize({
+            sortField: 'text'
+            createOnBlur: true
+            create: true
+
+          })
+      )
+  }
+
   social: {
 
     input: (name, options, data = '')->
@@ -537,10 +577,13 @@ render_company_name_block = (company_name)->
 render_company_form = (data, render_controls = false)->
   data ?= {}
   company_name_str = render_company_name_block(data.name)
+  window.available_industries ?= $(".cabinet-container").attr("data-available-industries").split(",")
   form_str = company_name_str +
   column("medium-6", {
     industry: {
       required: true
+      type: "select_with_custom_value"
+      select_options: window.available_industries
     }
     description: {
       type: "text"
@@ -592,6 +635,7 @@ initialize_inputs = ()->
   inputs.date.initialize()
   inputs.phone.initialize()
   inputs.social.initialize()
+  inputs.select_with_custom_value.initialize()
 
 put_profile = ()->
   data = {user: form_to_json.call($("#cabinet-profile-form"))}
@@ -800,7 +844,7 @@ window.form_to_json = ()->
 
 
 
-      val = $input.find("input, textarea").val()
+      val = $input.find("input, textarea, select").val()
 
 
 #      k = k.split("[]").map(
@@ -894,6 +938,7 @@ summary_field_types = {
       field_name = t("summary_labels.#{name}") || t("attributes.#{name}") || name
       field_value = value
       type = options.type || "string"
+
       "<div class='field #{type} field-#{name}'><div class='field-name'>#{field_name}</div><div class='field-value'>#{field_value}</div></div>"
   }
 
@@ -1079,6 +1124,10 @@ $document.on "keyup blur change", ".input", ()->
     validate_input.call($input, true)
   else
     set_input_presence_classes.call($input)
+
+
+$document.on "change", ".input-select-with-custom-value select", ()->
+  put_companies()
 
 $document.on "click", ".phones .inputs-collection-control", ()->
   $button = $(this)
@@ -1282,3 +1331,6 @@ $document.on "keyup blur change", ".input-office input", ()->
   $save_button = $office.find(".office-control-save")
   $save_button.removeClass("disabled") if has_data && $save_button.hasClass("disabled")
   $save_button.addClass("disabled") if !has_data && !$save_button.hasClass("disabled")
+
+
+
