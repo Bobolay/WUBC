@@ -45,7 +45,7 @@ class RegistrationsController < Users::RegistrationsController
   end
 
   def check_email
-    sleep 3
+    #sleep 3
     params_email = params[:email]
     return render status: 400 if params_email.blank?
     exists = User.where(email: params_email).count > 0
