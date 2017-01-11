@@ -175,7 +175,7 @@ window.inputs = {
       for opt in options.select_options
         selected_str = ""
         selected_str = "selected='selected'" if opt == data
-        options_html += "<option value='#{opt}'>#{opt}</option>"
+        options_html += "<option value='#{opt}' #{selected_str} >#{opt}</option>"
 
       "<select #{readonly_str} name='#{html_name}' data-placeholder='#{placeholder}' class='#{options.class}' #{selected_str}>#{options_html}</select>"
 
@@ -769,7 +769,7 @@ window.validate_input = (update_dom = false)->
   validation = validation && validation.length && JSON.parse(validation)
 
   if validation && keys(validation).length
-    value = $input_wrap.find("input, textarea").val()
+    value = $input_wrap.find("select, input, textarea").val()
     value = "" if $input_wrap.hasClass("input-phone") && value.indexOf("_") >= 0
     valid = true
     present = value && value.length && true
@@ -999,7 +999,6 @@ window.steps_to_json = ()->
 
 window.validate_inputs = (update_dom = false, handler)->
 
-  valid = true
   all_valid = true
   $(this).each(
     ()->
@@ -1179,7 +1178,7 @@ $document.on "click", ".prev-step-button, .next-step-button", (e)->
       true)
 
 
-    #console.log "change_step: valid_step: ", valid_step
+    console.log "change_step: valid_step: ", valid_step
 
     if $active_step_content.index() == 1
       window.steps_json = steps_to_json()
@@ -1232,7 +1231,8 @@ $document.on "keyup blur change", ".input", ()->
 
 
 $document.on "change", ".input-select-with-custom-value select", ()->
-  put_companies()
+  if is_cabinet
+    put_companies()
 
 $document.on "click", ".phones .inputs-collection-control", ()->
   $button = $(this)
