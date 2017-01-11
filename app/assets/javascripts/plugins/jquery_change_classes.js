@@ -1,12 +1,16 @@
 $.fn.changeClasses = function(add_classes, remove_classes){
     var any_changed = false
+    if (!remove_classes){
+      remove_classes = []
+    }
+
     $(this).each(function(index, element){
         if (typeof add_classes == 'string'){
-            add_classes = add_classes.split(" ")
+            add_classes = add_classes.split(" ").getUnique()
         }
 
         if (typeof remove_classes == 'string'){
-            remove_classes = remove_classes.split(" ")
+            remove_classes = remove_classes.split(" ").getUnique()
         }
 
         var classes_str = element.classList.toString()
@@ -44,7 +48,7 @@ $.fn.changeClasses = function(add_classes, remove_classes){
 
     if (add_classes.length) {
         for (ac in add_classes) {
-            if (!remove_classes.includes(ac) && !classes.includes(ac)) {
+            if (!remove_classes.includes(ac) && !classes_to_add.includes(ac)) {
                 classes_to_add.push(ac)
             }
         }
@@ -52,7 +56,7 @@ $.fn.changeClasses = function(add_classes, remove_classes){
 
     if ( remove_classes.length){
         for (rc in remove_classes){
-            if (classes.includes(rc)){
+            if (classes_to_add.includes(rc)){
                 classes_to_remove.push(rc)
             }
         }

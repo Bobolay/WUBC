@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount Ckeditor::Engine => '/ckeditor'
+  get "check_email", to: "registrations#check_email", as: :check_email
   post "sign_up", to: "registrations#create", as: "sign_up"
   devise_for :users, path: "", module: "users", path_names: {
       sign_in: "login",

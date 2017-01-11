@@ -383,3 +383,22 @@ input[name=social_facebook] + .input-social-icon
 
 html input[disabled]
   cursor: default
+
+
+.email-exists-error-message
+  display: none
+  color: red
+
+#registration-user .input-email
+  &.invalid-email-exists
+    .email-exists-error-message
+      display: block
+
+
+.email-ajax-loader
+  display: none
+
+.input-email
+  &.ajax-validation-in-progress
+    .email-ajax-loader
+      display: block
