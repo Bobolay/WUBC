@@ -578,7 +578,7 @@ render_company_name_block = (company_name)->
 render_company_form = (data, render_controls = false)->
   data ?= {}
   company_name_str = render_company_name_block(data.name)
-  window.available_industries ?= $(".cabinet-container").attr("data-available-industries").split(",")
+  window.available_industries ?= $(".cabinet-container, .registration-container").attr("data-available-industries").split(",")
   form_str = company_name_str +
   column("medium-6", {
     industry: {
@@ -712,7 +712,7 @@ validateEmail = (email)->
 
 validate_input__update_dom = (value, valid, add_presence_class, remove_presence_class)->
   #console.log "validate_input__update_dom: args: ", arguments
-  console.log "validate_input__update_dom: value: ", value, "; valid: ", valid, "; add_presence_class: ", add_presence_class
+  #console.log "validate_input__update_dom: value: ", value, "; valid: ", valid, "; add_presence_class: ", add_presence_class
   $input_wrap = $(this)
   empty = !value || !value.length
   add_presence_class ?= ""
@@ -800,8 +800,12 @@ window.validate_input = (update_dom = false)->
 
     if valid != false && validation.check_if_email_available
       if update_dom
-        valid = check_email(value,
+        valid = check_if_email_available(value,
           (data)->
+            current_input_value = $input_wrap.find("input, textarea").val()
+            console.log "validate_input: check_input: callback: value: ", value, "; current_input_value: ", current_input_value
+            if current_input_value != value
+              return
             local_valid = !data.exists
             console.log "local_valid: ", local_valid
             add_presence_class = ""
@@ -820,19 +824,20 @@ window.validate_input = (update_dom = false)->
           add_presence_class = ""
           remove_presence_class = ""
           add_presence_class = "invalid-email-exists" if valid == false
+          console.log "validate_input: valid != ajax: valid: ", valid, "value: ", value
           validate_input__update_dom.call($input_wrap, value, valid, add_presence_class, remove_presence_class)
 
           if valid == false
             append_email_exists_error_message.call($input_wrap)
       else
-        valid = check_email(value)
+        valid = check_if_email_available(value)
 
 
       return valid
 
 
     if !valid
-      console.log "invalid: clear email exists"
+      #console.log "invalid: clear email exists"
       validate_input__update_dom.call($input_wrap, value, valid, "", "invalid-email-exists")
     else
       validate_input__update_dom.call($input_wrap, value, valid)
@@ -1433,7 +1438,7 @@ window.check_email = (email, handler, update_dom = false)->
   #console.log("1")
   email ?= $("#registration-user .input-email input").val()
 
-  console.log "check_email: ", email
+  #console.log "check_email: ", email
 
   window.email_checks ?= []
   check_in_progress = window.email_checks.filter(
@@ -1487,6 +1492,14 @@ window.check_email = (email, handler, update_dom = false)->
 
 
   return "ajax"
+
+window.check_if_email_available = ()->
+  exists = check_email.apply(this, arguments)
+
+  if exists != "ajax"
+    return !exists
+  else
+    return "ajax"
 
 update_dom_for_email_presence = (data)->
   $input_wrap = $("#registration-user .input-email")
