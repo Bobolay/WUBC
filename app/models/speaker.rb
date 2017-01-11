@@ -6,4 +6,5 @@ class Speaker < ActiveRecord::Base
   image :image, styles: { wide: "670x300#" }
 
   boolean_scope :published
+  scope :sort_by_sorting_position, -> { order("sorting_position asc") }
 end
