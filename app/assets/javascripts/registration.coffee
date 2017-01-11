@@ -702,7 +702,7 @@ set_input_presence_classes = ()->
   empty = !value || !value.length
   add_presence_class = if empty then "empty" else "not-empty"
   remove_presence_class = if empty then "not-empty" else "empty"
-  console.log "set_input_presence_classes: add_presence_class: ", add_presence_class, "remove_presence_class: ", remove_presence_class
+  #console.log "set_input_presence_classes: add_presence_class: ", add_presence_class, "remove_presence_class: ", remove_presence_class
   $input_wrap.changeClasses(add_presence_class, remove_presence_class)
 
 validateEmail = (email)->
@@ -803,11 +803,11 @@ window.validate_input = (update_dom = false)->
         valid = check_if_email_available(value,
           (data)->
             current_input_value = $input_wrap.find("input, textarea").val()
-            console.log "validate_input: check_input: callback: value: ", value, "; current_input_value: ", current_input_value
+            #console.log "validate_input: check_input: callback: value: ", value, "; current_input_value: ", current_input_value
             if current_input_value != value
               return
             local_valid = !data.exists
-            console.log "local_valid: ", local_valid
+            #console.log "local_valid: ", local_valid
             add_presence_class = ""
             remove_presence_class = ""
             add_presence_class = "invalid-email-exists" if local_valid == false
@@ -824,7 +824,7 @@ window.validate_input = (update_dom = false)->
           add_presence_class = ""
           remove_presence_class = ""
           add_presence_class = "invalid-email-exists" if valid == false
-          console.log "validate_input: valid != ajax: valid: ", valid, "value: ", value
+          #console.log "validate_input: valid != ajax: valid: ", valid, "value: ", value
           validate_input__update_dom.call($input_wrap, value, valid, add_presence_class, remove_presence_class)
 
           if valid == false
@@ -1005,12 +1005,13 @@ window.validate_inputs = (update_dom = false, handler)->
     ()->
       #console.log "validate"
       #alert("validate_inputs: #{$(this).attr('data-key')}")
-      if valid == true || update_dom
+      if all_valid != false || update_dom
 
         valid = validate_input.call(this, update_dom, handler)
 
-        if !valid
-          all_valid = false
+        if valid != true && (all_valid == true || all_valid == "ajax")
+          all_valid = valid
+
       else if valid == "ajax"
         all_valid = "ajax"
       #else
@@ -1170,11 +1171,15 @@ $document.on "click", ".prev-step-button, .next-step-button", (e)->
   direction = if $button.hasClass("prev-step-button") then 'prev' else 'next'
   valid_step = true
   if direction == 'next'
+
     valid_step = validate_inputs.call($active_step_content.find(".input[validation]")
       (data)->
         if !data.exists
           navigate_step.call($active_step_content, direction)
       true)
+
+
+    #console.log "change_step: valid_step: ", valid_step
 
     if $active_step_content.index() == 1
       window.steps_json = steps_to_json()
@@ -1263,7 +1268,7 @@ $document.on "click", ".office-control-save", ()->
   $company = $office.closest(".company")
   company_json = form_to_json.call($company)
   data = company_json.offices[office_index]
-  console.log "OFFICES: ", company_json.offices
+  #console.log "OFFICES: ", company_json.offices
 
   str = inputs.office.render_locked(data)
   $office_preview = $office.find(".office-preview")
@@ -1377,7 +1382,7 @@ $document.on "click", ".remove-company-popup .btn-remove-company-ok", (e)->
   if !removing_popup
     $popup.data("data_removing_popup", true)
 
-    console.log "remove popup"
+    #console.log "remove popup"
     $popup.fadeOut('100')
     setTimeout(
       ()->
