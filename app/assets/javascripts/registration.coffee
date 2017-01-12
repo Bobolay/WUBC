@@ -175,7 +175,7 @@ window.inputs = {
       for opt in options.select_options
         selected_str = ""
         selected_str = "selected='selected'" if opt == data
-        options_html += "<option value='#{opt}'>#{opt}</option>"
+        options_html += "<option value='#{opt}' #{selected_str} >#{opt}</option>"
 
       "<select #{readonly_str} name='#{html_name}' data-placeholder='#{placeholder}' class='#{options.class}' #{selected_str}>#{options_html}</select>"
 
@@ -578,7 +578,7 @@ render_company_name_block = (company_name)->
 render_company_form = (data, render_controls = false)->
   data ?= {}
   company_name_str = render_company_name_block(data.name)
-  window.available_industries ?= $(".cabinet-container").attr("data-available-industries").split(",")
+  window.available_industries ?= $(".cabinet-container, .registration-container").attr("data-available-industries").split(",")
   form_str = company_name_str +
   column("medium-6", {
     industry: {
@@ -702,7 +702,7 @@ set_input_presence_classes = ()->
   empty = !value || !value.length
   add_presence_class = if empty then "empty" else "not-empty"
   remove_presence_class = if empty then "not-empty" else "empty"
-  console.log "set_input_presence_classes: add_presence_class: ", add_presence_class, "remove_presence_class: ", remove_presence_class
+  #console.log "set_input_presence_classes: add_presence_class: ", add_presence_class, "remove_presence_class: ", remove_presence_class
   $input_wrap.changeClasses(add_presence_class, remove_presence_class)
 
 validateEmail = (email)->
@@ -712,7 +712,7 @@ validateEmail = (email)->
 
 validate_input__update_dom = (value, valid, add_presence_class, remove_presence_class)->
   #console.log "validate_input__update_dom: args: ", arguments
-  console.log "validate_input__update_dom: value: ", value, "; valid: ", valid, "; add_presence_class: ", add_presence_class
+  #console.log "validate_input__update_dom: value: ", value, "; valid: ", valid, "; add_presence_class: ", add_presence_class
   $input_wrap = $(this)
   empty = !value || !value.length
   add_presence_class ?= ""
@@ -769,7 +769,7 @@ window.validate_input = (update_dom = false)->
   validation = validation && validation.length && JSON.parse(validation)
 
   if validation && keys(validation).length
-    value = $input_wrap.find("input, textarea").val()
+    value = $input_wrap.find("select, input, textarea").val()
     value = "" if $input_wrap.hasClass("input-phone") && value.indexOf("_") >= 0
     valid = true
     present = value && value.length && true
@@ -800,10 +800,14 @@ window.validate_input = (update_dom = false)->
 
     if valid != false && validation.check_if_email_available
       if update_dom
-        valid = check_email(value,
+        valid = check_if_email_available(value,
           (data)->
+            current_input_value = $input_wrap.find("input, textarea").val()
+            #console.log "validate_input: check_input: callback: value: ", value, "; current_input_value: ", current_input_value
+            if current_input_value != value
+              return
             local_valid = !data.exists
-            console.log "local_valid: ", local_valid
+            #console.log "local_valid: ", local_valid
             add_presence_class = ""
             remove_presence_class = ""
             add_presence_class = "invalid-email-exists" if local_valid == false
@@ -820,19 +824,20 @@ window.validate_input = (update_dom = false)->
           add_presence_class = ""
           remove_presence_class = ""
           add_presence_class = "invalid-email-exists" if valid == false
+          #console.log "validate_input: valid != ajax: valid: ", valid, "value: ", value
           validate_input__update_dom.call($input_wrap, value, valid, add_presence_class, remove_presence_class)
 
           if valid == false
             append_email_exists_error_message.call($input_wrap)
       else
-        valid = check_email(value)
+        valid = check_if_email_available(value)
 
 
       return valid
 
 
     if !valid
-      console.log "invalid: clear email exists"
+      #console.log "invalid: clear email exists"
       validate_input__update_dom.call($input_wrap, value, valid, "", "invalid-email-exists")
     else
       validate_input__update_dom.call($input_wrap, value, valid)
@@ -994,18 +999,18 @@ window.steps_to_json = ()->
 
 window.validate_inputs = (update_dom = false, handler)->
 
-  valid = true
   all_valid = true
   $(this).each(
     ()->
       #console.log "validate"
       #alert("validate_inputs: #{$(this).attr('data-key')}")
-      if valid == true || update_dom
+      if all_valid != false || update_dom
 
         valid = validate_input.call(this, update_dom, handler)
 
-        if !valid
-          all_valid = false
+        if valid != true && (all_valid == true || all_valid == "ajax")
+          all_valid = valid
+
       else if valid == "ajax"
         all_valid = "ajax"
       #else
@@ -1165,11 +1170,15 @@ $document.on "click", ".prev-step-button, .next-step-button", (e)->
   direction = if $button.hasClass("prev-step-button") then 'prev' else 'next'
   valid_step = true
   if direction == 'next'
+
     valid_step = validate_inputs.call($active_step_content.find(".input[validation]")
       (data)->
         if !data.exists
           navigate_step.call($active_step_content, direction)
       true)
+
+
+    console.log "change_step: valid_step: ", valid_step
 
     if $active_step_content.index() == 1
       window.steps_json = steps_to_json()
@@ -1222,7 +1231,8 @@ $document.on "keyup blur change", ".input", ()->
 
 
 $document.on "change", ".input-select-with-custom-value select", ()->
-  put_companies()
+  if is_cabinet
+    put_companies()
 
 $document.on "click", ".phones .inputs-collection-control", ()->
   $button = $(this)
@@ -1258,7 +1268,7 @@ $document.on "click", ".office-control-save", ()->
   $company = $office.closest(".company")
   company_json = form_to_json.call($company)
   data = company_json.offices[office_index]
-  console.log "OFFICES: ", company_json.offices
+  #console.log "OFFICES: ", company_json.offices
 
   str = inputs.office.render_locked(data)
   $office_preview = $office.find(".office-preview")
@@ -1372,7 +1382,7 @@ $document.on "click", ".remove-company-popup .btn-remove-company-ok", (e)->
   if !removing_popup
     $popup.data("data_removing_popup", true)
 
-    console.log "remove popup"
+    #console.log "remove popup"
     $popup.fadeOut('100')
     setTimeout(
       ()->
@@ -1433,7 +1443,7 @@ window.check_email = (email, handler, update_dom = false)->
   #console.log("1")
   email ?= $("#registration-user .input-email input").val()
 
-  console.log "check_email: ", email
+  #console.log "check_email: ", email
 
   window.email_checks ?= []
   check_in_progress = window.email_checks.filter(
@@ -1487,6 +1497,14 @@ window.check_email = (email, handler, update_dom = false)->
 
 
   return "ajax"
+
+window.check_if_email_available = ()->
+  exists = check_email.apply(this, arguments)
+
+  if exists != "ajax"
+    return !exists
+  else
+    return "ajax"
 
 update_dom_for_email_presence = (data)->
   $input_wrap = $("#registration-user .input-email")
