@@ -1,6 +1,9 @@
 class MembersController < ApplicationController
   before_action :set_user, only: [:show]
   def index
+    if !current_user
+      return render_locked_members
+    end
     @members = Member.confirmed.approved.not_speakers.order("approved_at desc")
     @names = @members.map{|m| {id: m.id, name_or_email: m.full_name_or_email(false)} }
     @companies = @members.map{|m| m.valid_companies }.flatten

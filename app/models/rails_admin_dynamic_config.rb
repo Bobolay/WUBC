@@ -267,6 +267,7 @@ module RailsAdminDynamicConfig
           field :url_fragment
           field :content, :ck_editor
           field :text_speakers
+          field :place
         end
 
         config.include_models Article, Cms::Tag, Cms::Tagging

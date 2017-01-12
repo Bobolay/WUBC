@@ -67,6 +67,10 @@ class ApplicationController < ActionController::Base
     render_locked(members_path, "До всіх членів", "Перегляд профілю членів доступний лише для учасників клубу WUBC")
   end
 
+  def render_locked_members
+    render_locked(members_path, "На головну", "Перегляд членів клубу доступний лише для учасників клубу WUBC")
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     #redirect_to main_app.root_path, :alert => exception.message
     render_not_authorized
