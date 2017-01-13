@@ -148,15 +148,23 @@ class User < ActiveRecord::Base
   end
 
   after_save :send_approval_congratulations
-  def send_approval_congratulations(force = false)
+  def send_approval_congratulations(force = false, emails = self.email)
     return false if !self.respond_to?(:approved_at_changed?)
     if force || self.confirmed_at && self.approved_at_changed? && self.approved?
-      MemberMailer.admin_approved_your_account(self).deliver
+      MemberMailer.admin_approved_your_account(self, emails).deliver
     end
   end
 
   def send_approval_congratulations!
     send_approval_congratulations(true)
+  end
+
+  def notify_admin_about_subscription(event)
+    AdminMailer.user_subscribed_to_event(self, event).deliver
+  end
+
+  def notify_admin_about_unsubscription(event)
+    AdminMailer.user_unsubscribed_from_event(self, event).deliver
   end
 
   def user_data
