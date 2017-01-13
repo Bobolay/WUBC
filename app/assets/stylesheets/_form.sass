@@ -402,3 +402,49 @@ html input[disabled]
   &.ajax-validation-in-progress
     .email-ajax-loader
       display: block
+
+
+.company-self-controls
+  text-align: right
+
+  .company-control
+    text-align: center
+    vertical-align: top
+
+    .company-control-icon
+      display: inline-block
+    .company-control-label
+      cursor: pointer
+      display: inline-block
+      vertical-align: top
+      line-height: 45px
+      padding: 0 15px
+      font-size: 16px
+      color: #414141
+
+    &:last-child
+      margin-right: 0
+
+.company-controls-separator
+  width: 100%
+  margin: 32px 0 80px 0
+  height: 1px
+  background-color: rgba($light-grey, 0.5)
+
+.company-control-save
+  display: none
+  svg
+    fill: white
+    width: 25px
+    height: 25px
+
+  .has-explicitly-unsaved-changes &
+    display: inline-block
+
+
+
+#cabinet-companies
+  .company
+    &:first-child:last-child
+      .company-control-remove
+        display: none !important

@@ -271,3 +271,6 @@ class User < ActiveRecord::Base
   end
 end
 
+# User.last.send_approval_congratulations!(["p.korenev@voroninstudio.eu", "voronin.nick@gmail.com"])
+# User.approved.last.notify_admin_about_subscription(Event.published.last)
+# User.approved.last.notify_admin_about_unsubscription(Event.published.last)
