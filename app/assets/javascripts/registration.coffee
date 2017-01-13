@@ -864,7 +864,22 @@ $document.on "keyup change", "#cabinet-profile-form", ()->
 $document.on "keyup change", "#cabinet-companies", (e)->
   $company = $(e.target).closest(".company")
   if !$company.hasClass("has-explicitly-unsaved-changes")
-    $company.addClass("has-explicitly-unsaved-changes")
+    $save_button = $company.find(".company-control-save")
+    #$save_button.css({display: "inline-block"})
+    $save_button.css({display: "inline-block"})
+    setTimeout(
+      ()->
+        $company.addClass("has-explicitly-unsaved-changes")
+      10
+    )
+
+    setTimeout(
+      ()->
+        $save_button.css({display: ""})
+      500
+
+    )
+
   delay("put_companies", put_companies, 1000)
 
 
@@ -1544,6 +1559,16 @@ $document.on "blur keyup change", "#registration-user .input-email input", ()->
 $document.on "click", ".company-control-save", ()->
   $button = $(this)
   $company = $button.closest(".company")
+  $button.css({display: "inline-block"})
+  if $company.hasClass("has-explicitly-unsaved-changes")
+    $company.removeClass("has-explicitly-unsaved-changes")
+
+  setTimeout(
+    ()->
+      $button.css({display: ""})
+    500
+  )
+
   $company_inputs = $company.find(".input[validation]")
   validate_inputs.call($company_inputs, true)
 

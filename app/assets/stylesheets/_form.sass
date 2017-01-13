@@ -433,6 +433,9 @@ html input[disabled]
 
 .company-control-save
   display: none
+  opacity: 0
+  +transition-duration(0.5s)
+  +transition-property(opacity)
   svg
     fill: white
     width: 25px
@@ -440,6 +443,7 @@ html input[disabled]
 
   .has-explicitly-unsaved-changes &
     display: inline-block
+    opacity: 1
 
 
 
