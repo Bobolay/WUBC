@@ -1,7 +1,11 @@
+- user_url_in_admin_panel = "#{@admin_root}/member/#{@user.id}"
 h3
   |WUBC
 h1
-  |Новий член клубу чекає чекає підтвердження адміністратором
+  |Новий член клубу&thinsp;&thinsp;
+  a href=user_url_in_admin_panel
+    = @user.full_name_or_email(false)
+  |&thinsp;(#{@user.email}) чекає чекає підтвердження адміністратором
 p
-  a href="#{@admin_root}/member/#{@user.id}"
+  a href=user_url_in_admin_panel
     = "перейти в адмін-панель на цього члена клубу"
