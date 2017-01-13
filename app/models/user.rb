@@ -155,8 +155,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def send_approval_congratulations!
-    send_approval_congratulations(true)
+  def send_approval_congratulations!(emails = self.email)
+    send_approval_congratulations(true, emails)
   end
 
   def notify_admin_about_subscription(event)
