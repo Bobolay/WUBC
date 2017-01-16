@@ -256,9 +256,11 @@
 
 
 .meeting-container
-  height: 600px
+  //height: 600px
+  height: 0
+  padding-top: 33.33333%
   position: relative
-  @media #{$small-only}
+  //@media #{$small-only}
     height: 300px
   .slider-top-shadow
     position: absolute
@@ -274,6 +276,11 @@
     left: 50%
     top: 20px
     +translate(-50%,0)
+
+  .bx-wrapper
+    height: 100%
+    position: absolute
+    top: 0
   @media #{$xxlarge-up}
     height: 700px
 
