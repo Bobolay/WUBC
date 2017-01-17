@@ -6,8 +6,9 @@ locales = {
     remove_office: "Видалити"
     add_phone: "Додати ще телефон"
     remove_phone: "Видалити телефон"
-    add_company: "Додати нову компанію"
+    add_company: "Додати компанію"
     remove_company: "Видалити компанію"
+    save_company: "Підтвердити зміни"
     attributes: {
       premium: "Тільки для членів клубу"
       first_name: "Ім'я"
@@ -188,7 +189,7 @@ window.inputs = {
       "<div #{wrap_attributes} class='input register-input input-select-with-custom-value' data-key='#{key}'>#{label}#{input_str}#{help}</div>"
 
     initialize: ()->
-      $(".input-select-with-custom-value:not(.select-initialized)").each(
+      $(".input.input-select-with-custom-value:not(.select-initialized)").each(
         ()->
           $(this).addClass("select-initialized")
           $(this).find("select").selectize({
@@ -218,7 +219,7 @@ window.inputs = {
       "<div #{wrap_attributes} class='input register-input input-social' data-key='#{name}'>#{label}#{input_str}#{icon_str}#{help}</div>"
 
     initialize: ()->
-      $(".input-social").filter(
+      $(".input-social:not(.initialized)").addClass("initialized").filter(
         ()->
           !$(this).hasClass("empty") && !$(this).hasClass("not-empty")
       ).each(set_input_presence_classes)
@@ -325,7 +326,7 @@ window.inputs = {
 
 
     initialize: ()->
-      $(".datepicker").datepicker({
+      $(".datepicker:not(.initialized)").addClass("initialized").datepicker({
         dateFormat: "dd.mm.yy",
         monthNames: [ "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень" ],
         dayNames: [ "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя" ],
@@ -613,8 +614,11 @@ render_company_form = (data, render_controls = false)->
 
   add_title = t("add_company")
   remove_title = t("remove_company")
+  save_title = t("save_company")
   if render_controls
-    company_controls_str = "<div class='company-controls'><div class='company-control company-control-add' title='#{add_title}'><div class='company-control-icon'>#{svg_images.plus}</div><label class='company-control-label'>#{add_title}</label></label></div><div class='company-control company-control-remove' title='#{remove_title}'><div class='company-control-icon'>#{svg_images.plus}</div><label class='company-control-label'>#{remove_title}</label></div></div>"
+    add_company_button_str = "<div class='btn company-button-add role-company-control-add' title='#{add_title}'><div class='btn-content'>#{svg_images.plus}<span class='btn-text'>#{add_title}</span></div></div>"
+    save_company_control_str = "<div class='company-control company-control-save' title='#{save_title}'><div class='company-control-icon'>#{svg_images.check}</div><label class='company-control-label'>#{save_title}</label></div>"
+    company_controls_str = "<div class='company-controls'><div class='company-self-controls'>#{save_company_control_str}<div class='company-control company-control-remove' title='#{remove_title}'><div class='company-control-icon'>#{svg_images.plus}</div><label class='company-control-label'>#{remove_title}</label></div></div><div class='company-controls-separator'></div><div class='new-company-controls'>#{add_company_button_str}</div></div>"
   else
     company_controls_str = ""
   "<div class='company'><div class='row'>#{form_str}</div>#{company_controls_str}</div>"
@@ -857,7 +861,25 @@ $document.on "keyup change", "#cabinet-profile-form", ()->
   delay("put_profile", put_profile, 1000)
 
 
-$document.on "keyup change", "#cabinet-companies", ()->
+$document.on "keyup change", "#cabinet-companies", (e)->
+  $company = $(e.target).closest(".company")
+  if !$company.hasClass("has-explicitly-unsaved-changes")
+    $save_button = $company.find(".company-control-save")
+    #$save_button.css({display: "inline-block"})
+    $save_button.css({display: "inline-block"})
+    setTimeout(
+      ()->
+        $company.addClass("has-explicitly-unsaved-changes")
+      10
+    )
+
+    setTimeout(
+      ()->
+        $save_button.css({display: ""})
+      500
+
+    )
+
   delay("put_companies", put_companies, 1000)
 
 
@@ -1320,12 +1342,13 @@ $document.on "change", "#user_photo", ()->
 
   })
 
-$document.on "click", ".company-control-add", ()->
+$document.on "click", ".company-control-add, .role-company-control-add", ()->
   $button = $(this)
   $company = $button.closest(".company")
   company_str = render_company_form({}, true)
   $new_company = $(company_str)
   $new_company.insertAfter($company)
+  initialize_inputs()
 
 $document.on "click", ".company-control-remove", ()->
   $button = $(this)
@@ -1531,4 +1554,21 @@ $document.on "blur keyup change", "#registration-user .input-email input", ()->
   , 1000)
 
 ###
+
+
+$document.on "click", ".company-control-save", ()->
+  $button = $(this)
+  $company = $button.closest(".company")
+  $button.css({display: "inline-block"})
+  if $company.hasClass("has-explicitly-unsaved-changes")
+    $company.removeClass("has-explicitly-unsaved-changes")
+
+  setTimeout(
+    ()->
+      $button.css({display: ""})
+    500
+  )
+
+  $company_inputs = $company.find(".input[validation]")
+  validate_inputs.call($company_inputs, true)
 

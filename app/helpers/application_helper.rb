@@ -1,6 +1,6 @@
 module ApplicationHelper
   def main_menu
-    menu([{url: root_path, key: "home"}, :about_us, :events, :articles, :members, :partners, :contacts])
+    menu([{url: root_path, key: "home"}, :about_us, :events, :articles, {key: "members", for_users_only: true}, :partners, :contacts])
   end
 
   def formatted_date(date, locale = I18n.locale)

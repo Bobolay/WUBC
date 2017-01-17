@@ -146,7 +146,7 @@ module RailsAdminDynamicConfig
           visible false
           field :data do
             help do
-              "2048x600#"
+              "2048x676#"
             end
           end
           field :translations, :globalize_tabs
@@ -267,6 +267,7 @@ module RailsAdminDynamicConfig
           field :url_fragment
           field :content, :ck_editor
           field :text_speakers
+          field :place
         end
 
         config.include_models Article, Cms::Tag, Cms::Tagging

@@ -39,13 +39,13 @@ class EventsController < ApplicationController
 
 
     status = current_user.subscribe_on_event(@event)
-    AdminMailer.user_subscribed_to_event(current_user, @event).deliver
+    current_user.notify_admin_about_subscription(@event)
     render json: { status: status }
   end
 
   def unsubscribe
     current_user.unsubscribe_from_event(@event)
-    AdminMailer.user_unsubscribed_from_event(current_user, @event).deliver
+    current_user.notify_admin_about_unsubscription(@event)
     render json: { status: "OK" }
   end
 

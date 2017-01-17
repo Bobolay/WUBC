@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
   attr_accessible *attribute_names
 
-  globalize :name, :content, :url_fragment, :text_speakers
+  globalize :name, :content, :url_fragment, :text_speakers, :place
 
   has_seo_tags
   has_sitemap_record

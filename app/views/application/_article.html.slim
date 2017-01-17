@@ -1,5 +1,14 @@
+- has_link = !article.premium? || current_user
+- wrap_tag = has_link ? "a" : "div"
+- wrap_attributes = {}
+- wrap_attributes["href"] = article.url if has_link
+- wrap_attributes["class"] = "news-block"
+- wrap_attributes["class"] += " open-login-popup" if !has_link
+- wrap_attributes["title"] = "Перейти на сторінку новини" if has_link
+
 .large-4.columns.article data-tag-ids=article.tags.map(&:id).join(",")
-  a.news-block href=article.url title="Перейти на сторінку новини"
+  /a.news-block href=article.url title="Перейти на сторінку новини" class=("open-login-popup" if article.premium? && !current_user)
+  = content_tag(wrap_tag, wrap_attributes) do
     .img-container
       - if article.premium? && !current_user
         .img-background.blur style="background-image: url(#{article.avatar.url(:list)})"

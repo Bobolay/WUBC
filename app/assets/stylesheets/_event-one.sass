@@ -53,7 +53,8 @@
       @media #{$small-only}
         width: 180px
   .main-text
-    max-width: 1000px
+    //max-width: 1000px
+    max-width: 1300px
     margin: 0 auto
     color: $dark-grey
     .event-info-container
@@ -67,12 +68,15 @@
           font-family: Vremena
           font-size: 1.125em
           color: $green
+          margin-bottom: 5px
         .regular
           color: $grey
           a
             color: $dark-grey
             &:hover
               color: $green
+
+
         a
           display: inline-block
           margin-right: 10px
@@ -225,3 +229,12 @@
   .regular
     color: $green
     margin-left: 20px
+
+.place-description
+  a
+    display: inline !important
+
+@media #{$large-up}
+  .event-info-column
+    width: 20% !important
+    float: left !important

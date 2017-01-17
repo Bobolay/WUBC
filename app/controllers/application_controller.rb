@@ -67,6 +67,11 @@ class ApplicationController < ActionController::Base
     render_locked(members_path, "До всіх членів", "Перегляд профілю членів доступний лише для учасників клубу WUBC")
   end
 
+
+  def render_locked_members
+    render_locked(members_path, "На головну", "Перегляд членів клубу доступний лише для учасників клубу WUBC")
+  end
+
   def available_industries
     @available_industries ||= Industry.all.map(&:name)
   end

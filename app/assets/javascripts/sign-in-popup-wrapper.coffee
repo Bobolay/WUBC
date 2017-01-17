@@ -1,4 +1,5 @@
-$document.on 'click', ".open-login-popup", ->
+
+$document.on 'click', ".open-login-popup", (event)->
   event.preventDefault()
   $('.sign-in-popup-wrapper').fadeIn('200')
 
