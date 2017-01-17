@@ -1,7 +1,7 @@
 - if event.future?
   - if !current_user
-    a.link href=subscribe_on_event_path(id: event.url_fragment)
-      = "Зареєструватися або увійти та Відвідати зустріч"
+    a.link.open-login-popup href=subscribe_on_event_path(id: event.url_fragment)
+      = "Відвідати зустріч"
   - elsif !current_user.subscribed_on_event?(event)
     a.link.subscribe-button.subscribe href=subscribe_on_event_path(id: event.url_fragment)
       = "Відвідати зустріч"
