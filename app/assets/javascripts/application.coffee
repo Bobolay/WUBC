@@ -63,6 +63,8 @@
 
 #= require event-popup
 
+#= require registration_scripts/locales
+#= require registration_scripts/inputs
 #= require registration
 
 #= require sign-in-popup-wrapper

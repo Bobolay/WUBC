@@ -154,6 +154,5 @@ if use_custom_scroll_speed
         })
 
 $document.on "click", ".menu-button", ()->
-  console.log "MENU_BUTTON_CLICK"
   $(this).toggleClass("opened")
   $('.menu-wrapper').toggleClass("opened")

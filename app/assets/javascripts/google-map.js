@@ -1,4 +1,11 @@
 function initialize() {
+
+
+  var $map = $('#googleMap')
+  if(!$map.length){
+    return
+  }
+
   var styles = [
     {
       stylers: [
@@ -23,6 +30,9 @@ function initialize() {
       ]
     }
   ];
+
+  var map_element = $map.get(0)
+
     var styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
     
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -48,7 +58,7 @@ function initialize() {
             mapTypeIds: [google.maps.MapTypeId.ROADMAP, "map_style"]
         }
     };
-    var map = new google.maps.Map(document.getElementById('googleMap'),
+    var map = new google.maps.Map(map_element,
         mapOptions);
     var image = image_urls.marker
     var marker = new google.maps.Marker({
@@ -63,3 +73,5 @@ function initialize() {
 google.maps.event.addDomListener(window, 'resize', initialize)
 //google.maps.event.addDomListener(window, 'load', initialize)
 $document.on("ready page:load", initialize)
+
+
