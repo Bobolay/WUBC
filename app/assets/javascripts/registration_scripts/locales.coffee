@@ -8,6 +8,7 @@ window.locales = {
     add_company: "Додати компанію"
     remove_company: "Видалити компанію"
     save_company: "Підтвердити зміни"
+    save_profile: "Підтвердити зміни"
     attributes: {
       premium: "Тільки для членів клубу"
       first_name: "Ім'я"

@@ -58,7 +58,7 @@ column( "medium-6", {
 
 
 render_cabinet_user_form = (data)->
-  column("medium-6", {
+  form_str = column("medium-6", {
     first_name: {required: true}
     middle_name: {required: true}
     last_name: {required: true},
@@ -87,6 +87,14 @@ render_cabinet_user_form = (data)->
     #social_facebook: {}
     #social_google_plus: {}
   }, data)
+
+  save_title = t("save_profile")
+
+  save_profile_control_str = "<div class='cabinet-profile-control cabinet-profile-control-save' title='#{save_title}'><div class='cabinet-profile-control-icon'>#{svg_images.check}</div><label class='cabinet-profile-control-label'>#{save_title}</label></div>"
+
+  res = form_str + "<div class='cabinet-controls'>" + save_profile_control_str + "</div>"
+
+  res
 
 
 render_company_name_block = (company_name)->
@@ -420,6 +428,28 @@ $document.on "keyup change", "#cabinet-companies", (e)->
   delay("put_companies", put_companies, 1000)
 
 
+
+
+$document.on "keyup change", "#cabinet-profile-form", (e)->
+  $form = $(this)
+  if !$form.hasClass("has-explicitly-unsaved-changes")
+    $save_button = $form.find(".cabinet-profile-control-save")
+    #$save_button.css({display: "inline-block"})
+    $save_button.css({display: "inline-block"})
+    setTimeout(
+      ()->
+        $form.addClass("has-explicitly-unsaved-changes")
+      10
+    )
+
+    setTimeout(
+      ()->
+        $save_button.css({display: ""})
+      500
+
+    )
+
+  delay("put_profile", put_profile, 1000)
 
 
 
@@ -1036,12 +1066,10 @@ update_dom_for_email_presence = (data)->
     $input_wrap.changeClasses(["valid"], ["invalid", "invalid-email-exists"])
 
 
-$document.on "click", ".company-control-save", ()->
-  $button = $(this)
-  $company = $button.closest(".company")
+handle_save_button_click = ($button, $form)->
   $button.css({display: "inline-block"})
-  if $company.hasClass("has-explicitly-unsaved-changes")
-    $company.removeClass("has-explicitly-unsaved-changes")
+  if $form.hasClass("has-explicitly-unsaved-changes")
+    $form.removeClass("has-explicitly-unsaved-changes")
 
   setTimeout(
     ()->
@@ -1049,6 +1077,24 @@ $document.on "click", ".company-control-save", ()->
     500
   )
 
-  $company_inputs = $company.find(".input[validation]")
-  validate_inputs.call($company_inputs, true)
+  $form_inputs = $form.find(".input[validation]")
+  validate_inputs.call($form_inputs, true)
+
+$document.on "click", ".company-control-save", ()->
+  $button = $(this)
+  $form = $button.closest(".company")
+  handle_save_button_click($button, $form)
+
+$document.on "click", ".cabinet-profile-control-save", ()->
+  $button = $(this)
+  $form = $button.closest("#cabinet-profile-form")
+  handle_save_button_click($button, $form)
+
+
+
+
+
+
+
+
 
