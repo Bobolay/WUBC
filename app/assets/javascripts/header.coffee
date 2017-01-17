@@ -81,10 +81,10 @@ handle_scroll = (e)->
       $banner_title.data("translateY", future_translate)
       $banner_title.css("transform", "translateY(#{future_translate}px)")
 
-$("body").on "mouseover", "#{header_selector}.scrolled, div.top-nav.scrolled *", ()->
+$document.on "mouseover", "#{header_selector}.scrolled, div.top-nav.scrolled *", ()->
   window.top_nav_locked = true
 
-$("body").on "mouseout", "#{header_selector}.scrolled", (e)->
+$document.on "mouseout", "#{header_selector}.scrolled", (e)->
   $target = $(e.relatedTarget)
   if $target.closest(".navigationleft").length == 0 && $target.closest(".header-logo").length == 0
     window.top_nav_locked = false
@@ -92,7 +92,7 @@ $("body").on "mouseout", "#{header_selector}.scrolled", (e)->
 
 
 
-$(window).on "scrolldelta", handle_scroll
+$window.on "scrolldelta", handle_scroll
 
 handle_scroll(0)
 
@@ -101,8 +101,7 @@ use_custom_scroll_speed = false
 
 if use_custom_scroll_speed
 
-  $(window).on "wheel", (e)->
-    console.log "wheel"
+  $window.on "wheel", (e)->
     if e.ctrlKey
       return true
     $body = $('body')
@@ -154,6 +153,7 @@ if use_custom_scroll_speed
 #easing: "easeOutBack"
         })
 
-$(".menu-button").on "click", ()->
+$document.on "click", ".menu-button", ()->
+  console.log "MENU_BUTTON_CLICK"
   $(this).toggleClass("opened")
   $('.menu-wrapper').toggleClass("opened")

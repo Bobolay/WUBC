@@ -1,18 +1,16 @@
-$document.on 'ready', ->
+$document.on 'click', '.choose-option', ->
+  $('.current-events').toggleClass('active')
+  $('.expand-field').toggleClass('expand')
+  $('.expand-field p').toggleClass('show-it')
 
-  $('.choose-option').on 'click', ->
-    $('.current-events').toggleClass('active')
-    $('.expand-field').toggleClass('expand')
-    $('.expand-field p').toggleClass('show-it')
+$document.on 'click', '.expand-field .future', ->
+  $('.event').removeClass('hide')
+  $('.past-event').addClass('hide')
 
-  $('.expand-field .future').on 'click', ->
-    $('.event').removeClass('hide')
-    $('.past-event').addClass('hide')
+$document.on 'click', '.expand-field .past', ->
+  $('.event').addClass('hide')
+  $('.past-event').removeClass('hide')
 
-  $('.expand-field .past').on 'click', ->
-    $('.event').addClass('hide')
-    $('.past-event').removeClass('hide')
-
-  $('.choose-option').on 'click', ->
-    $('.event').removeClass('hide')
-    $('.past-event').removeClass('hide')
+$document.on 'click', '.choose-option', ->
+  $('.event').removeClass('hide')
+  $('.past-event').removeClass('hide')

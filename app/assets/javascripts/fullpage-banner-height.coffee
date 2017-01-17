@@ -1,4 +1,4 @@
-$(document).on "ready", ->
+$(document).on "ready page:load", ->
 
   $screenWidth = $(window).width()
   $screenHeight = $(window).height()

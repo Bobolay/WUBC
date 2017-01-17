@@ -40,5 +40,5 @@ html
     = render "registration_success_popup"
 
 
-    script src="//maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_API_KEY']}"
-    = javascript_include_tag "application", 'data-turbolinks-track' => true
+    script src="//maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_API_KEY']}" data-turbolinks-eval="false" data-turbolinks-track="true"
+    = javascript_include_tag "application", 'data-turbolinks-track' => true, "data-turbolinks-eval" => false

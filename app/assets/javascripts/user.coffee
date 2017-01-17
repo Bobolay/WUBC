@@ -8,7 +8,7 @@ ajax_link = (opts)->
   $.ajax(options)
 
 
-$("body").on "click", ".logout-link", ()->
+$document.on "click", ".logout-link", ()->
   ajax_link.call(this, {
     complete: ()->
       window.location = "/"

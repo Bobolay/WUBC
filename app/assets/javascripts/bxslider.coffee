@@ -1,4 +1,4 @@
-$(document).ready ->
+$(document).on "ready page:load", ->
 
   #     F I R S T     M E E T I N G
 

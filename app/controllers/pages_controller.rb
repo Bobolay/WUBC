@@ -17,14 +17,6 @@ class PagesController < ApplicationController
     @industry_slides = IndustrySlide.published.sort_by_sorting_position
   end
 
-  def events
-
-  end
-
-  def members
-
-  end
-
   def partners
     @club_companies = PartnerCompany.published.sort_by_sorting_position
   end

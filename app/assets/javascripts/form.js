@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on("ready page:load", function() {
   $('input').blur(function() {
     var $this = $(this);
     if ($this.val())
