@@ -64,13 +64,13 @@ window.init_user = ()->
 
     )
 
+###
 $document.on "page:load", ()->
   if window.current_user
     render_user_components(window.current_user)
 
 init_user()
-
-
+###
 
 $document.on "click", ".logout-link", ()->
   ajax_link.call(this, {
