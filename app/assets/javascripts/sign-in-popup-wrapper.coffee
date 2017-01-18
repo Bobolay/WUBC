@@ -14,3 +14,23 @@ $.clickOut(".sign-in-popup-wrapper .login-form-wrapper",
     $(".sign-in-popup-wrapper").fadeOut('100')
   {except: ".sign-in-popup-wrapper .login-form-wrapper, .open-login-popup"}
 )
+
+
+###
+$document.on "click", ".sign-in-popup-wrapper form button", (e)->
+  e.preventDefault()
+
+  data = $(this).closest("form").serializeArray()
+  $.ajax(
+    url: "/login"
+    type: "post"
+    data: data
+    success: ()->
+      #window.location.reload()
+    error: (data)->
+      #alert("error")
+      #window.location = "/login"
+      console.log "args: ", arguments
+  )
+
+###
