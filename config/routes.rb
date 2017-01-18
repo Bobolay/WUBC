@@ -51,5 +51,5 @@ Rails.application.routes.draw do
   end
 
 
-  match "*url", to: "application#render_not_found", via: [:get, :post, :path, :put, :update, :delete]
+  match "*url", to: "application#render_not_found", via: [:get, :post, :patch, :put, :update, :delete]
 end
