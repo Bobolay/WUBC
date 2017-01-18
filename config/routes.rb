@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get "current_user", to: "registrations#current_user_short_info"
+
   resources :locales do
     resources :translations, constraints: { :id => /[^\/]+/ }
   end
@@ -43,7 +45,7 @@ Rails.application.routes.draw do
   resources :members, only: [:index, :show]
 
   controller :pages do
-    get "about_us", action: "about_us", as: :about_us
+    get "about-us", action: "about_us", as: :about_us
     get "partners", action: "partners", as: :partners
     get "contacts", action: "contacts", as: :contacts
   end
