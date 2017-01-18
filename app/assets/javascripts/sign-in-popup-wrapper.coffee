@@ -1,5 +1,8 @@
 
 $document.on 'click', ".open-login-popup", (event)->
+  if window.current_user
+    return
+
   event.preventDefault()
   $('.sign-in-popup-wrapper').fadeIn('200')
 

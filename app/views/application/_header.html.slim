@@ -13,7 +13,7 @@
     .menu-button title="Відкрити/закрити меню"
       .menu-button-lines
     .login-field class=("logged" if current_user)
-      - if current_user
+      - if false && current_user
         a.user-icon href=cabinet_path
           - user_image = current_user.avatar.exists?(:small) ? current_user.avatar.url(:small) : nil
           - if user_image

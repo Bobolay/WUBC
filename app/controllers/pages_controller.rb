@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_action :set_page_instance, except: [:index]
+  caches_page :index, :about_us, :partners, :contacts
 
   def index
     set_page_metadata(:home)

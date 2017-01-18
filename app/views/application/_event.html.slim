@@ -1,12 +1,15 @@
-- has_link = event.past? || !event.premium? || current_user
-- wrap_tag = has_link ? "a" : "div"
+- has_link = event.past? || !event.premium?
+/- wrap_tag = has_link ? "a" : "div"
+- wrap_tag = "a"
 - wrap_attributes = {}
-- wrap_attributes["href"] = event_path(event) if has_link
+- wrap_attributes["href"] = event_path(event)
 - wrap_attributes["class"] = "event-container"
 - wrap_attributes["class"] +=  " past-event" if event.past?
 - wrap_attributes["class"] += " open-login-popup" if !has_link
+- wrap_attributes["data-url"] = event_path(event)
+- wrap_attributes["rel"] = "nofollow" if !has_link
 
-.large-4.medium-12.columns.event class=('past-event' if event.past?) 
+.large-4.medium-12.columns.event class=('past-event' if event.past?) class=('premium' if event.premium?)
 
   /a.event-container href=event_path(event) class=("past-event" if event.past?)
   = content_tag(wrap_tag, wrap_attributes ) do
@@ -15,15 +18,15 @@
       = formatted_date(event.date)
 
     .img-container
-      .img-background style="background-image: url(#{event.avatar.exists?(:list) ? event.avatar.url(:list) : asset_path('photo/event1.jpg')})" class=("blur" if !current_user)
+      .img-background style="background-image: url(#{event.avatar.exists?(:list) ? event.avatar.url(:list) : asset_path('photo/event1.jpg')})" class=("blur" if event.premium?)
       - if !has_link
         .text.premium-text
           = inline_svg "icons/lock.svg"
           p Тільки для учасників
           .login-link.sign-in-button title="Увійти в особистий кабінет" Увійти
-      - else
-        .hover-text
-          p Детальніше
+      /- else
+      .hover-text
+        p Детальніше
 
     p.description
       = raw event.name

@@ -1,43 +1,44 @@
-- u = current_user || User.new
-p.title особистий кабінет
-- if !current_user
-  = simple_form_for User.new, as: :user,  url: new_user_session_path, authenticity_token: false, enforce_utf8: false, html: {class: "material_form"} do |f|
-    .input
-      input type="text" name="user[email]"
-        span.bar
-      label Логін
-    .input
-      input type="password" name="user[password]"
-        span.bar
-      label Пароль
-    button.sign-in-button title="Увійти в особистий кабінет" type="submit" Вхід
-    p.or-separator або
-    a.join-us-link title="Заповнити анкетні дані та створити свій власний профіль клубу" href=new_user_registration_path
-      |Стати учасником
-- else
-  - show_icon = !u.avatar.exists?(:small)
-  .user-block.menu-user-block
-    a.user-avatar href=cabinet_path class=("icon" if show_icon)
-      - if show_icon
-        /= embedded_svg_from_assets "icons/user_no_avatar.svg"
-        img src=asset_path("photo/user_no_avatar-72.png")
-      - else
-        img src=u.avatar.url(:small)
-    .user-details
-      a.user-name href=cabinet_path
-        = u.full_name_or_email(false)
+.login-form-wrap
+  - u = current_user || User.new
+  p.title особистий кабінет
+  - if true || !current_user
+    = simple_form_for User.new, as: :user,  url: new_user_session_path, authenticity_token: false, enforce_utf8: false, html: {class: "material_form"} do |f|
+      .input
+        input type="text" name="user[email]"
+          span.bar
+        label Логін
+      .input
+        input type="password" name="user[password]"
+          span.bar
+        label Пароль
+      button.sign-in-button title="Увійти в особистий кабінет" type="submit" Вхід
+      p.or-separator або
+      a.join-us-link title="Заповнити анкетні дані та створити свій власний профіль клубу" href=new_user_registration_path
+        |Стати учасником
+  - else
+    - show_icon = !u.avatar.exists?(:small)
+    .user-block.menu-user-block
+      a.user-avatar href=cabinet_path class=("icon" if show_icon)
+        - if show_icon
+          /= embedded_svg_from_assets "icons/user_no_avatar.svg"
+          img src=asset_path("photo/user_no_avatar-72.png")
+        - else
+          img src=u.avatar.url(:small)
+      .user-details
+        a.user-name href=cabinet_path
+          = u.full_name_or_email(false)
 
-      / .user-events
-      /   - if current_user.events_i_am_subscribed_on.count > 0
-      /     | #{current_user.events_i_am_subscribed_on.count} майбуні зустрічі
-      /   - else
-      /     | Жодної зустрічі
-      .user-links
-        a.green href=cabinet_path
-          |Мій акаунт
-        span |
-        a.grey class="logout-link" data-method="delete" href=destroy_user_session_path
-          |Вихід
+        / .user-events
+        /   - if current_user.events_i_am_subscribed_on.count > 0
+        /     | #{current_user.events_i_am_subscribed_on.count} майбуні зустрічі
+        /   - else
+        /     | Жодної зустрічі
+        .user-links
+          a.green href=cabinet_path
+            |Мій акаунт
+          span |
+          a.grey class="logout-link" data-method="delete" href=destroy_user_session_path
+            |Вихід
 
 
 

@@ -76,6 +76,14 @@ class ApplicationController < ActionController::Base
     @available_industries ||= Industry.all.map(&:name)
   end
 
+  def controller_asset_path(rel_path)
+    ext = rel_path.split(".").last
+    path_with_star = rel_path.gsub(/\.#{ext}\Z/, "-*.#{ext}")
+
+    public_path = Rails.root.join("public")
+    Dir[Rails.root.join("public/assets", path_with_star)].first.try{|s| s.gsub(/\A#{public_path}/, "")} || "/assets/#{rel_path}"
+  end
+
   helper_method :available_industries
 
   rescue_from CanCan::AccessDenied do |exception|

@@ -51,4 +51,18 @@ class RegistrationsController < Users::RegistrationsController
     exists = User.where(email: params_email).count > 0
     render json: { email: params_email, exists: exists }, status: 200
   end
+
+  def current_user_short_info
+    if !current_user
+      return render json: {}, status: 401
+    end
+
+    u = current_user
+
+    h = { email: u.email, first_and_last_name: u.full_name_or_email(false), small_avatar: u.avatar.exists?(:small) ? u.avatar.url(:small) : nil }
+
+    h[:default_small_avatar] = controller_asset_path("photo/user_no_avatar-72.png")
+
+    render json: h
+  end
 end

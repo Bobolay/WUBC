@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  caches_page :index
+
   def index
     articles_collection
     @page_banner = {

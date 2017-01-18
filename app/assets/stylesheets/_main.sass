@@ -218,6 +218,7 @@
     .img-background
       +transition(0.25s)
     .hover-text
+      display: none
       position: absolute
       left: 50%
       top: 50%
@@ -293,6 +294,14 @@
       opacity: 1
     &.past-event
       +disable-grayscale
+
+body.logged-in
+  .event
+    .premium-text
+      display: none !important
+
+    .hover-text
+      display: block
 
 
 .meeting-container

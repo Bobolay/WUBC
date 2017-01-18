@@ -3,19 +3,6 @@ html
   head
     = seo_tags
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    /sass:
-      body
-        margin: 0
-        padding: 0
-        box-sizing: border-box
-      #preloader
-        //background: rgba(#00E575, 1)
-        //position: fixed
-        //top: 0
-        //left: 0
-        //height: 100%
-        //width: 100%
-        //z-index: 9999
 
     = stylesheet_link_tag    "application", media: 'all', 'data-turbolinks-track' => true
 
@@ -27,7 +14,7 @@ html
 
     link rel="apple-touch-icon-precomposed" sizes="180x180" href=asset_path("icons/touch-icon-iphone-6plus.png")
 
-  body class="#{controller_name}__#{action_name}" class=("event-locked" if @event && !current_user && @event.premium? && @event.future?) class=("logged-in" if current_user) class=("white-bg" if @white_bg)
+  body class="#{controller_name}__#{action_name}" class=("event-locked" if @event && !current_user && @event.premium? && @event.future?) class=("white-bg" if @white_bg)
     #preloader
 
 
