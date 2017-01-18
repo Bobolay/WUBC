@@ -1,0 +1,31 @@
+.row
+  .columns
+    #googleMapWrapper.map-wrapper
+      .marker
+        .marker-icon.svg-icon.svg-icon-location
+          = inline_svg "icons/map-marker.svg"
+      .info-window
+        .info-window-header
+          .logo
+            = inline_svg("icons/logo.svg")
+          .title
+            = raw t("maps.marker.info-window.header.title")
+
+        .info-window-content
+          .group
+            .group-label
+              = t("maps.marker.info-window.phones")
+            .group-content
+              a.phone href=site_phone_link
+                = formatted_site_phone
+          .group
+            .group-label
+              = t("maps.marker.info-window.address")
+            .group-content
+              = raw t("address")
+          .google-map-link-wrap
+            a.google-map-link rel="nofollow" href="https://www.google.com.ua/maps/place/Sukhovolya+St,+11,+Truskavets',+Lviv+Oblast,+82200/@49.2785263,23.5012912,17z/data=!3m1!4b1!4m5!3m4!1s0x473a49b25b64d63f:0x1d6fe023f46e63d!8m2!3d49.2785263!4d23.5034799"
+              = t("maps.marker.info-window.google-map-link-text")
+
+
+      #map-container.map-container

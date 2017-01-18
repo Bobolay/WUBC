@@ -53,6 +53,7 @@
 
 #= require user
 
+#= require plugins/richmarker
 #= require google-map
 
 #= require datepick

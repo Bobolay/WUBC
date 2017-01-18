@@ -19,10 +19,9 @@
       span.small-vertical-line
       span.smaller Адреса
       p.larger
-        | вул. Суховоля, 11, 
-        span м. Трускавець,&nbsp;
-        | Україна
+        /| вул. Суховоля, 11,
+        /span м. Трускавець,&nbsp;
+        /| Україна
+        = raw t("address")
 
-.row
-  .columns
-    #googleMap
+= render "map"

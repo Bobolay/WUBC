@@ -15,6 +15,17 @@ uk:
         company-info: "Інформація про компанію"
         registration-confirmation: "Підтвердження реєстрації"
 
+  address: "Україна, м. Трускавець,<br/>вул. Суховоля, 11"
+
+  maps:
+    marker:
+      info-window:
+        header:
+          title: "WUBC"
+        phones: "Телефон"
+        address: "Адреса"
+        google-map-link-text: "відкрити карту"
+
   genitive_month_names:
     month-1: "січня"
     month-2: "лютого"
