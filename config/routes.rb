@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   end
 
+  patch "login", to: "users#create", as: "sign_in_user_via_patch"
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount Ckeditor::Engine => '/ckeditor'
   get "check_email", to: "registrations#check_email", as: :check_email
