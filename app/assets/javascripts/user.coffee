@@ -71,6 +71,8 @@ $document.on "page:load", ()->
 
 init_user()
 
+console.log "test"
+
 
 $document.on "click", ".logout-link", ()->
   ajax_link.call(this, {
