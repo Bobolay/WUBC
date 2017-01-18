@@ -3,7 +3,7 @@
   h2
     | Увійти
 
-  = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "material_form"}) do |f|
+  = form_for(resource, as: resource_name, url: session_path(resource_name), authenticity_token: false, enforce_utf8: false, html: {class: "material_form"}) do |f|
     - if alert.present?
       .form-errors
         = alert
