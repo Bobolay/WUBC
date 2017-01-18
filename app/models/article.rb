@@ -17,7 +17,10 @@ class Article < ActiveRecord::Base
 
   has_seo_tags
   has_sitemap_record
-  has_cache
+  has_cache do
+    pages :home, :articles
+  end
+
   def url(locale = I18n.locale)
     "/articles/#{translations_by_locale[locale].url_fragment}"
   end

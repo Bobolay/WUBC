@@ -5,6 +5,13 @@ class Event < ActiveRecord::Base
 
   has_seo_tags
   has_sitemap_record
+  has_cache do
+    pages :home, :events
+  end
+
+  def url(locale = I18n.locale)
+    "/events/#{translations_by_locale[locale].url_fragment}"
+  end
 
   image :avatar, styles: {list: "500x275#", thumb: "152x100#", navigation_avatar: "200x200#"},
         url: "/system/:class/:attachment/:id_partition/:style/:filename",
@@ -57,6 +64,8 @@ class Event < ActiveRecord::Base
   def text_speakers_array
     (text_speakers || "").split("\r\n")
   end
+
+
 
 
 end
