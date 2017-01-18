@@ -1,4 +1,4 @@
-.error-wrapper data-ulr=@_request.url
+.error-wrapper data-url=@_request.url data-method=@_request.method data-referrer=(@_request.referrer || "")
   
   a.logo title="Повернутись на головну сторінку" href="/"
     = inline_svg "icons/logo.svg"
