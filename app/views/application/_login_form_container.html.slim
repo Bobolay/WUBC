@@ -8,10 +8,6 @@
       .form-errors
         = alert
         .inspect
-          |email: #{params[:user][:email]}
-          br
-          |password: #{params[:user][:password]}
-          br
           |params.user.inspect: #{params[:user].inspect}
     .input
       = f.label :email
