@@ -96,6 +96,9 @@ $window.on "scrolldelta", handle_scroll
 
 handle_scroll(0)
 
+$document.on "page:load", ()->
+  handle_scroll(0)
+
 
 use_custom_scroll_speed = false
 

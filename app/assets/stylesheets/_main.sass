@@ -218,7 +218,6 @@
     .img-background
       +transition(0.25s)
     .hover-text
-      display: none
       position: absolute
       left: 50%
       top: 50%
@@ -279,6 +278,10 @@
         height: 200%
         left: -50%
         top: -50%
+
+  &.premium
+    .hover-text
+      display: none
   .description
     color: $grey
     padding: 20px
@@ -294,6 +297,7 @@
       opacity: 1
     &.past-event
       +disable-grayscale
+
 
 body.logged-in
   .event
