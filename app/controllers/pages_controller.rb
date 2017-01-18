@@ -29,6 +29,6 @@ class PagesController < ApplicationController
   private
 
   def set_page_instance
-  #   set_page_metadata(action_name)
+     set_page_metadata(action_name)
   end
 end

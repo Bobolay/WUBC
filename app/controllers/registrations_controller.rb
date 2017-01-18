@@ -1,4 +1,6 @@
 class RegistrationsController < Users::RegistrationsController
+  before_action :set_sign_up_page_metadata, only: :new
+
   skip_all_before_action_callbacks
   def create
     user = Member.create(sign_up_user_params)
@@ -64,5 +66,10 @@ class RegistrationsController < Users::RegistrationsController
     h[:default_small_avatar] = controller_asset_path("photo/user_no_avatar-72.png")
 
     render json: h
+  end
+
+  protected
+  def set_sign_up_page_metadata
+    set_page_metadata(:sign_up)
   end
 end
