@@ -5,7 +5,7 @@
 
   = form_for(resource, as: resource_name, url: session_path(resource_name), authenticity_token: false, enforce_utf8: false, html: {class: "material_form"}) do |f|
     - if alert.present?
-      .form-errors
+      .form-errors data-user-inspect=params[:user].inspect
         = alert
         /.inspect
           |params.user.inspect: #{params[:user].inspect}
