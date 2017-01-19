@@ -24,7 +24,7 @@ uk:
           title: "WUBC"
         phones: "Телефон"
         address: "Адреса"
-        google-map-link-text: "відкрити карту"
+        google-map-link-text: "Відкрити карту"
 
   genitive_month_names:
     month-1: "січня"
