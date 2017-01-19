@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
 
   devise_scope :user do
-    match "login", to: "sessions#create", via: [:post, :patch], as: "sign_in_user_via_patch"
+    match "login", to: "users/sessions#create", via: [:post, :patch], as: "sign_in_user_via_patch"
   end
 
 
