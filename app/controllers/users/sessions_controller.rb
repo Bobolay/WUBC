@@ -27,4 +27,12 @@ class Users::SessionsController < Devise::SessionsController
   def set_sign_in_page_metadata
     set_page_metadata(:sign_in)
   end
+
+  def after_sign_in_path_for(resource_or_scope)
+    referrer_url = request.referrer
+    #referrer_uri = URI(referrer_url)
+    #premium_location = str.start_with?("/members")
+
+    referrer_url || "/"
+  end
 end

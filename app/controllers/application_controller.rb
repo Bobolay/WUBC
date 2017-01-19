@@ -86,6 +86,10 @@ class ApplicationController < ActionController::Base
 
   helper_method :available_industries
 
+  # before_action do
+  #   render inline: request.referrer.inspect
+  # end
+
   rescue_from CanCan::AccessDenied do |exception|
     #redirect_to main_app.root_path, :alert => exception.message
     render_not_authorized
