@@ -35,17 +35,19 @@
     top: 50%
     //position: relative
     position: absolute
-    padding: 25px
+    padding: 0 0 25px 0
     +transform(translate(-50%, -100%))
     left: 50%
     z-index: 5
 
 
     .info-window-header
-      height: 60px
+      height: 85px
+      padding: 25px 25px 0 25px
       position: relative
+      background-color: $dark-grey
 
-      &:after
+      //&:after
         display: block
         position: absolute
         height: 1px
@@ -63,11 +65,13 @@
       .title
         float: left
         font-size: 18px
+        font-weight: 600
         width: 150px
-        color: $black
+        color: white
         margin: 6px 0 0 0
 
     .info-window-content
+      padding: 0 25px
       .group
         margin-top: 15px
       .group-label
