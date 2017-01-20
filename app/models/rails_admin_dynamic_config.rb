@@ -325,7 +325,7 @@ module RailsAdminDynamicConfig
         config.include_models Testimonial
         config.model Testimonial do
           parent Pages::Home
-          nestable_list(position_field: :sorting_position)
+          nestable_list(position_field: :sorting_position, scope: :published)
           field :published
           field :translations, :globalize_tabs
           field :image
@@ -354,7 +354,7 @@ module RailsAdminDynamicConfig
         config.include_models Speaker
         config.model Speaker do
           parent Pages::Home
-          nestable_list(position_field: :sorting_position)
+          nestable_list(position_field: :sorting_position, scope: :published)
 
           field :published
           field :translations, :globalize_tabs
@@ -382,7 +382,7 @@ module RailsAdminDynamicConfig
         config.include_models HomeClubCompany
         config.model HomeClubCompany do
           parent Pages::Home
-          nestable_list(position_field: :sorting_position)
+          nestable_list(position_field: :sorting_position, scope: :published)
           field :published
           field :translations, :globalize_tabs
           field :image
@@ -398,7 +398,7 @@ module RailsAdminDynamicConfig
         config.include_models PartnerCompany
         config.model PartnerCompany do
           parent Pages::Partners
-          nestable_list(position_field: :sorting_position)
+          nestable_list(position_field: :sorting_position, scope: :published)
           field :published
           field :translations, :globalize_tabs
           field :image
@@ -415,7 +415,7 @@ module RailsAdminDynamicConfig
 
         config.model ClubMemberValue do
           parent Pages::AboutUs
-          nestable_list(position_field: :sorting_position)
+          nestable_list(position_field: :sorting_position, scope: :published)
           field :published
           field :translations, :globalize_tabs
         end
@@ -430,7 +430,7 @@ module RailsAdminDynamicConfig
 
         config.model IndustrySlide do
           parent Pages::AboutUs
-          nestable_list(position_field: :sorting_position)
+          nestable_list(position_field: :sorting_position, scope: :published)
           field :published
           field :translations, :globalize_tabs
           field :image
