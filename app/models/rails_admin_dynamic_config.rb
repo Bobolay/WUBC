@@ -440,6 +440,17 @@ module RailsAdminDynamicConfig
           field :locale, :hidden
           field :name
         end
+
+        config.include_models Industry
+        config.model Industry do
+          field :translations, :globalize_tabs
+          field :companies
+        end
+
+        config.model_translation Industry do
+          field :locale, :hidden
+          field :name
+        end
       end
     end
   end
