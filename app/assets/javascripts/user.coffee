@@ -24,7 +24,7 @@ render_header_user = (user_data)->
   if user_data
     user_img_src = user_data.small_avatar || user_data.default_small_avatar
     user_full_name = user_data.first_and_last_name
-    str = "<a class='user-icon' href='/cabinet'><img src='#{user_img_src}'/></a><div class='user-info-panel'><a class='user-name' href='/cabinet'>#{user_full_name}</a><a class='logout-link' title='Вийти з особистого кабінету' href='logout' data-method='delete'>Вихід</a></div>"
+    str = "<a class='user-icon' href='/cabinet'><img src='#{user_img_src}'/></a><div class='user-info-panel'><a class='user-name' href='/cabinet'>#{user_full_name}</a><a class='logout-link' title='Вийти з особистого кабінету' href='/logout' data-method='delete'>Вихід</a></div>"
 
   else
     str = "<a class='open-login-popup' title='Увійти в свій особистий кабінет'><p>Логін</p>#{svg_images.lock}</a>"
@@ -77,5 +77,5 @@ console.log "test"
 $document.on "click", ".logout-link", ()->
   ajax_link.call(this, {
     complete: ()->
-      window.location = "/"
+      #window.location = "/"
   })

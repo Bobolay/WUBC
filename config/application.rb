@@ -25,6 +25,6 @@ module WUBC
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
-    Rails.application.config.action_mailer.default_url_options = {host: ENV["#{Rails.env}.host"]}
+    Rails.application.config.action_mailer.default_url_options = {host: (ENV["#{Rails.env}.host_with_port"] || ENV["#{Rails.env}.host"])}
   end
 end

@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.published.includes(:translations).where(article_translations: { url_fragment: params[:id] }).first
+    @article = Article.get(params[:id])
     if @article.nil?
       return render_not_found
     end

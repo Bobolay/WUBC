@@ -33,5 +33,13 @@ class Article < ActiveRecord::Base
     self.release_date = Date.today if self.release_date.blank?
   end
 
+  def self.get(url_fragment)
+    self.published.includes(:translations).where(article_translations: { url_fragment: url_fragment, locale: I18n.locale }).first
+  end
+
+  def public?
+    published && !premium?
+  end
+
 
 end

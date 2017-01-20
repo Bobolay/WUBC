@@ -7,7 +7,7 @@ class MemberMailer < ApplicationMailer
   #
   def admin_approved_your_account(member, to = nil)
     to ||= member.email
-    @admin_root = ENV["#{Rails.env}.host"] + "/admin"
+    @admin_root = (ENV["#{Rails.env}.host_with_port"] || ENV["#{Rails.env}.host"]) + "/admin"
     @member = member
     mail to: to, subject: "Ваш акаунт підтверджено адміністратором"
   end

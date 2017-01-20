@@ -61,11 +61,17 @@ class Event < ActiveRecord::Base
     self.date == date && start_time >= time && end_time <= time
   end
 
+  def public?
+    published && (past? || !premium?)
+  end
+
   def text_speakers_array
     (text_speakers || "").split("\r\n")
   end
 
 
-
+  def self.get(url_fragment)
+    self.published.joins(:translations).where(event_translations: { url_fragment: url_fragment, locale: I18n.locale }).first
+  end
 
 end

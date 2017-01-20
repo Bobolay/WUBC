@@ -264,7 +264,11 @@ module RailsAdminDynamicConfig
         config.model_translation Event do
           field :locale, :hidden
           field :name
-          field :url_fragment
+          field :url_fragment do
+            help do
+              I18n.t("admin.help.#{name}")
+            end
+          end
           field :content, :ck_editor
           field :text_speakers
           field :place
@@ -280,7 +284,11 @@ module RailsAdminDynamicConfig
         config.model_translation Cms::Tag do
           field :locale, :hidden
           field :name
-          field :url_fragment
+          field :url_fragment do
+            help do
+              I18n.t("admin.help.#{name}")
+            end
+          end
         end
 
         config.model Cms::Tagging do
@@ -306,7 +314,11 @@ module RailsAdminDynamicConfig
         config.model_translation Article do
           field :locale, :hidden
           field :name
-          field :url_fragment
+          field :url_fragment do
+            help do
+              I18n.t("admin.help.#{name}")
+            end
+          end
           field :content, :ck_editor
         end
 

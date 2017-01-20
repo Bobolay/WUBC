@@ -25,7 +25,7 @@ class EventsController < ApplicationController
   end
 
   def set_event
-    @event = Event.published.joins(:translations).where(event_translations: { url_fragment: params[:id], locale: I18n.locale }).first
+    @event = Event.get(params[:id])
     if !@event
       render_not_found
     end

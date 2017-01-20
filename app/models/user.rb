@@ -80,7 +80,13 @@ class User < ActiveRecord::Base
 
   def ages
     return nil if birth_date.blank?
-    Date.today.year - birth_date.year
+    today = Date.today
+    v = today.year - birth_date.year
+    if today.month < birth_date.month || today.day < birth_date.day
+      return v - 1
+    end
+
+    v
   end
 
   def formatted_ages
