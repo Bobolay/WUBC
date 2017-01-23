@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "images_test", to: "pages#images_test"
 
   get "current_user", to: "registrations#current_user_short_info"
 

@@ -1,0 +1,4 @@
+- base_images_path = Rails.root.join("app/assets/images").to_s
+- Dir[base_images_path + "/photo/*"].map{|s| "/assets" + s.gsub(/\A#{base_images_path}/, "") }.each do |url|
+  div
+    img src=asset_path(url)
