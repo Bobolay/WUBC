@@ -12,13 +12,15 @@ class Article < ActiveRecord::Base
   globalize :name, :url_fragment, :content
 
   boolean_scope :published
+  boolean_scope :premium
   scope :order_by_release_date, -> { order("release_date desc") }
   scope :featured, -> { published.order_by_release_date.limit(3) }
+  scope :public_articles, -> { published.unpremium }
 
   has_seo_tags
   has_sitemap_record
   has_cache do
-    pages :home, :articles
+    pages :home, :articles, self, Article.public_articles
   end
 
   def url(locale = I18n.locale)

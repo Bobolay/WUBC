@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
   has_seo_tags
   has_sitemap_record
   has_cache do
-    pages :home, :events
+    pages :home, :events, self, Event.published
   end
 
   def url(locale = I18n.locale)

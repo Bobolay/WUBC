@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   caches_page :index
+  caches_page :show, if: -> { @article && @article.public? }
 
   def index
     articles_collection
