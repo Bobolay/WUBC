@@ -3,5 +3,5 @@ class Pages::Home < Cms::Page
     "/"
   end
 
-  has_images :slider_images, styles: {large: "2048x676#", thumb: "200x60#"}, class_name: "HomeSlide"
+  has_images :slider_images, styles: {large: "2048x676#", thumb: "200x60#"}, processors: [:tinify], class_name: "HomeSlide"
 end

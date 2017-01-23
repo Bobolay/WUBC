@@ -129,4 +129,4 @@ gem 'sshkit'
 
 #gem "bcrypt",  platforms: [:x64_mingw]
 
-#Administrator.create(email: "support@voroninstudio.eu", password: "casper12345", password_confirmation: "casper12345", confirmed_at: DateTime.now)
+gem 'paperclip-tinify'

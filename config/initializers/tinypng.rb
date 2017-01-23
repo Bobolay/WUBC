@@ -1,0 +1,1 @@
+Paperclip::Tinify.tinify_key = ENV['tinypng_key']

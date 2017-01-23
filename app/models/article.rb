@@ -6,8 +6,8 @@ class Article < ActiveRecord::Base
 
   enumerize :article_type, in: [:blog, :news], default: :blog
 
-  image :banner, styles: {large: "2048x400#"}
-  image :avatar, styles: { list: "500x250#" }
+  image :banner, styles: {large: "2048x400#"}, processors: [:tinify]
+  image :avatar, styles: { list: "500x250#" }, processors: [:tinify]
 
   globalize :name, :url_fragment, :content
 
