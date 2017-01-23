@@ -45,3 +45,6 @@ class Article < ActiveRecord::Base
 
 
 end
+
+# [Article, Event, IndustrySlide, Speaker, Testimonial, User].each(&:reprocess_attachments)
+# [Event].each{|m| m.all.each(&:reprocess_all) }

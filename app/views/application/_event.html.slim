@@ -18,7 +18,7 @@
       = formatted_date(event.date)
 
     .img-container
-      .img-background style="background-image: url(#{event.avatar.exists?(:list) ? event.avatar.url(:list) : asset_path('photo/event1.jpg')})" class=("blur" if event.premium?)
+      .img-background style="background-image: url(#{event.avatar.exists?(:list) ? event.avatar.url(:list) : asset_path('photo/event_default_avatar.jpg')})" class=("blur" if event.premium?)
       - if !has_link
         .text.premium-text
           = inline_svg "icons/lock.svg"

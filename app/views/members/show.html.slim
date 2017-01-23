@@ -1,5 +1,5 @@
 .person-one-banner-container
-  - banner_image_url = asset_path('photo/new-5.jpg')
+  - banner_image_url = asset_path('photo/member_bg.jpg')
   - user_image_url = @user.avatar.exists?(:member) ? @user.avatar.url(:member) : asset_path('photo/user_no_avatar-620.png')
   .img-background style="background-image: url('#{banner_image_url}')"
 
