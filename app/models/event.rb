@@ -16,10 +16,10 @@ class Event < ActiveRecord::Base
   image :avatar, styles: {list: "500x275#", thumb: "152x100#", navigation_avatar: "200x200#"},
         url: "/system/:class/:attachment/:id_partition/:style/:filename",
         path: ":rails_root/public:url",
-        processors: [:tinify]
+        processors: [:thumbnail, :tinify]
 
-  has_images :slider_images, styles: {large: "1370x600#", thumb: "274x120#", events_banner: "2048x500#"}, processors: [:tinify], class_name: "EventGalleryImage"
-  has_images :gallery_images, styles: { large: "1400x740#", small: "200x200#", thumb: "100x100#" }, processors: [:tinify], class_name: "EventSlide"
+  has_images :slider_images, styles: {large: "1370x600#", thumb: "274x120#", events_banner: "2048x500#"}, processors: [:thumbnail, :tinify], class_name: "EventGalleryImage"
+  has_images :gallery_images, styles: { large: "1400x740#", small: "200x200#", thumb: "100x100#" }, processors: [:thumbnail, :tinify], class_name: "EventSlide"
 
   boolean_scope :published
   scope :past, -> { date = Date.today; time = Time.now;  where("date < ? OR (date = ? AND end_time < ?)", date, date, time) }

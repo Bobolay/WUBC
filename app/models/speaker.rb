@@ -3,7 +3,7 @@ class Speaker < ActiveRecord::Base
 
   globalize :name, :description
 
-  image :image, styles: { wide: "670x300#" }, processors: [:tinify]
+  image :image, styles: { wide: "670x300#" }, processors: [:thumbnail, :tinify]
 
   boolean_scope :published
   scope :sort_by_sorting_position, -> { order("sorting_position asc") }
