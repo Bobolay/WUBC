@@ -146,7 +146,7 @@ module RailsAdminDynamicConfig
           visible false
           field :data do
             help do
-              "2048x600#"
+              "2048x676#"
             end
           end
           field :translations, :globalize_tabs
@@ -264,9 +264,14 @@ module RailsAdminDynamicConfig
         config.model_translation Event do
           field :locale, :hidden
           field :name
-          field :url_fragment
+          field :url_fragment do
+            help do
+              I18n.t("admin.help.#{name}")
+            end
+          end
           field :content, :ck_editor
           field :text_speakers
+          field :place
         end
 
         config.include_models Article, Cms::Tag, Cms::Tagging
@@ -279,7 +284,11 @@ module RailsAdminDynamicConfig
         config.model_translation Cms::Tag do
           field :locale, :hidden
           field :name
-          field :url_fragment
+          field :url_fragment do
+            help do
+              I18n.t("admin.help.#{name}")
+            end
+          end
         end
 
         config.model Cms::Tagging do
@@ -305,13 +314,18 @@ module RailsAdminDynamicConfig
         config.model_translation Article do
           field :locale, :hidden
           field :name
-          field :url_fragment
+          field :url_fragment do
+            help do
+              I18n.t("admin.help.#{name}")
+            end
+          end
           field :content, :ck_editor
         end
 
         config.include_models Testimonial
         config.model Testimonial do
-          nestable_list(position_field: :sorting_position)
+          parent Pages::Home
+          nestable_list(position_field: :sorting_position, scope: :published)
           field :published
           field :translations, :globalize_tabs
           field :image
@@ -324,15 +338,23 @@ module RailsAdminDynamicConfig
           field :description
         end
 
-        config.include_models Pages::Home
+        config.include_models Pages::Home, Pages::AboutUs, Pages::Articles, Pages::Contacts, Pages::Events, Pages::Members, Pages::Partners, Pages::SignIn, Pages::SignUp
         config.model Pages::Home do
           field :slider_images
           field :seo_tags
         end
 
+        [Pages::AboutUs, Pages::Articles, Pages::Contacts, Pages::Events, Pages::Members, Pages::Partners, Pages::SignIn, Pages::SignUp].each do |m|
+          config.model m do
+            field :seo_tags
+          end
+        end
+
+
         config.include_models Speaker
         config.model Speaker do
-          nestable_list(position_field: :sorting_position)
+          parent Pages::Home
+          nestable_list(position_field: :sorting_position, scope: :published)
 
           field :published
           field :translations, :globalize_tabs
@@ -359,7 +381,8 @@ module RailsAdminDynamicConfig
 
         config.include_models HomeClubCompany
         config.model HomeClubCompany do
-          nestable_list(position_field: :sorting_position)
+          parent Pages::Home
+          nestable_list(position_field: :sorting_position, scope: :published)
           field :published
           field :translations, :globalize_tabs
           field :image
@@ -374,7 +397,8 @@ module RailsAdminDynamicConfig
 
         config.include_models PartnerCompany
         config.model PartnerCompany do
-          nestable_list(position_field: :sorting_position)
+          parent Pages::Partners
+          nestable_list(position_field: :sorting_position, scope: :published)
           field :published
           field :translations, :globalize_tabs
           field :image
@@ -390,7 +414,8 @@ module RailsAdminDynamicConfig
         config.include_models ClubMemberValue
 
         config.model ClubMemberValue do
-          nestable_list(position_field: :sorting_position)
+          parent Pages::AboutUs
+          nestable_list(position_field: :sorting_position, scope: :published)
           field :published
           field :translations, :globalize_tabs
         end
@@ -404,13 +429,25 @@ module RailsAdminDynamicConfig
         config.include_models IndustrySlide
 
         config.model IndustrySlide do
-          nestable_list(position_field: :sorting_position)
+          parent Pages::AboutUs
+          nestable_list(position_field: :sorting_position, scope: :published)
           field :published
           field :translations, :globalize_tabs
           field :image
         end
 
         config.model_translation IndustrySlide do
+          field :locale, :hidden
+          field :name
+        end
+
+        config.include_models Industry
+        config.model Industry do
+          field :translations, :globalize_tabs
+          field :companies
+        end
+
+        config.model_translation Industry do
           field :locale, :hidden
           field :name
         end

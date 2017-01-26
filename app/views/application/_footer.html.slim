@@ -16,7 +16,7 @@
                 a href=articles_path title="Перейти на сторінку даного розділу" Блог та новини
                 br
               .large-12.medium-12.small-6.columns
-                a href=members_path title="Перейти на сторінку даного розділу" Члени клубу
+                a href=members_path title="Перейти на сторінку даного розділу" rel="nofollow" class=("open-login-popup" if !current_user) Члени клубу
                 br
                 a href=partners_path title="Перейти на сторінку даного розділу" Партнери
                 br
@@ -54,4 +54,4 @@
         | Розроблено в студії М. Вороніна в 2016 році
     .large-6.medium-7.small-12.columns
       p
-        | &copy; 2015 &mdash; 2016 &#171;Західно Український бізнес клуб&#187;
+        | &copy; 2014 &mdash; #{Date.today.year} &#171;Західно Український бізнес клуб&#187;

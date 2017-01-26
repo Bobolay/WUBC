@@ -1,4 +1,4 @@
-$(function() {
+$document.on("ready page:load", function() {
   //return;
   $(".datepicker").datepicker({
       dateFormat: "dd.mm.yy",

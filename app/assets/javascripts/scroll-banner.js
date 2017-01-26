@@ -36,7 +36,7 @@ if(is_touch_screen || width < 640) {
         }
     }
 
-    $('.bottom').on("click", function(){
+    $document.on("click", '.bottom', function(){
         var $slider = $(".home-banner")
         var slider_height = $slider.height()
         var $next_section = $slider.next()
@@ -44,8 +44,7 @@ if(is_touch_screen || width < 640) {
         scroll_home_banner(next_section_top)
     })
 
-    $("body").on("wheel", function(e){
-
+    $document.on("wheel", function(e){
         if(e && e.ctrlKey) {
             return true
         }

@@ -7,7 +7,7 @@
           - main_menu.in_groups(2).each do |group|
             .large-6.medium-12.small-6.columns
               - group.each do |menu_item_key, menu_item_definition|
-                a href=menu_item_definition[:url]
+                a href=menu_item_definition[:url] rel=("nofollow" if menu_item_definition[:for_users_only]) class=("open-login-popup" if menu_item_definition[:for_users_only] && !current_user)
                   = menu_item_definition[:name]
                 br
 
@@ -27,7 +27,7 @@
               | wubc.club
           .large-12.medium-12.small-6.columns
             p.smaller соц.
-            a.contact-link href="https://www.facebook.com/westukrainianbusinessclub/?fref=ts" title="Перейти на сторінку клубу в соціальній мережі" = inline_svg "icons/social-facebook.svg"
+            a.contact-link rel="nofollow" href="https://www.facebook.com/westukrainianbusinessclub/?fref=ts" title="Перейти на сторінку клубу в соціальній мережі" = inline_svg "icons/social-facebook.svg"
             / a = inline_svg "icons/social-google_plus.svg"
     .large-4.medium-5.columns
       = render "login_form"

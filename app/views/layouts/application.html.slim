@@ -1,21 +1,9 @@
 doctype html
 html
   head
+    meta charset="utf-8"
     = seo_tags
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    /sass:
-      body
-        margin: 0
-        padding: 0
-        box-sizing: border-box
-      #preloader
-        //background: rgba(#00E575, 1)
-        //position: fixed
-        //top: 0
-        //left: 0
-        //height: 100%
-        //width: 100%
-        //z-index: 9999
 
     = stylesheet_link_tag    "application", media: 'all', 'data-turbolinks-track' => true
 
@@ -27,7 +15,7 @@ html
 
     link rel="apple-touch-icon-precomposed" sizes="180x180" href=asset_path("icons/touch-icon-iphone-6plus.png")
 
-  body class="#{controller_name}__#{action_name}" class=("event-locked" if @event && !current_user && @event.premium? && @event.future?) class=("logged-in" if current_user) class=("white-bg" if @white_bg)
+  body class="#{controller_name}__#{action_name}" class=("event-locked" if @event && !current_user && @event.premium? && @event.future?) class=("white-bg" if @white_bg)
     #preloader
 
 
@@ -40,5 +28,5 @@ html
     = render "registration_success_popup"
 
 
-    script src="//maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_API_KEY']}"
-    = javascript_include_tag "application", 'data-turbolinks-track' => true
+    script src="//maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_API_KEY']}" data-turbolinks-eval="false" data-turbolinks-track="true"
+    = javascript_include_tag "application", 'data-turbolinks-track' => true, "data-turbolinks-eval" => false

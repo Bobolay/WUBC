@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   globalize :first_name, :last_name, :middle_name, :description, :hobby
 
-  image :avatar, styles: { small: "72x72#", member: "620x620#", cabinet: "240x240#", thumb: "100x100#" }
+  image :avatar, styles: { small: "72x72#", member: "620x620#", cabinet: "240x240#", thumb: "100x100#" }, processors: [:thumbnail, :tinify]
   crop_attached_file :avatar
 
   has_and_belongs_to_many :events_i_am_subscribed_on, class_name: Event, join_table: "event_subscriptions"
@@ -80,7 +80,13 @@ class User < ActiveRecord::Base
 
   def ages
     return nil if birth_date.blank?
-    Date.today.year - birth_date.year
+    today = Date.today
+    v = today.year - birth_date.year
+    if today.month < birth_date.month || today.day < birth_date.day
+      return v - 1
+    end
+
+    v
   end
 
   def formatted_ages
@@ -135,20 +141,36 @@ class User < ActiveRecord::Base
   end
 
   after_save :send_admin_mail
-  def send_admin_mail
-    if (self.confirmed_at && self.confirmed_at_changed?) && !self.approved?
+  def send_admin_mail(force = false)
+    if force || (self.confirmed_at && self.confirmed_at_changed?) && !self.approved?
       AdminMailer.new_user_waiting_approval(self).deliver
     end
 
     true
   end
 
+  def send_admin_mail!
+    send_admin_mail(true)
+  end
+
   after_save :send_approval_congratulations
-  def send_approval_congratulations
+  def send_approval_congratulations(force = false, emails = self.email)
     return false if !self.respond_to?(:approved_at_changed?)
-    if self.confirmed_at && self.approved_at_changed? && self.approved?
-      MemberMailer.admin_approved_your_account(self).deliver
+    if force || self.confirmed_at && self.approved_at_changed? && self.approved?
+      MemberMailer.admin_approved_your_account(self, emails).deliver
     end
+  end
+
+  def send_approval_congratulations!(emails = self.email)
+    send_approval_congratulations(true, emails)
+  end
+
+  def notify_admin_about_subscription(event)
+    AdminMailer.user_subscribed_to_event(self, event).deliver
+  end
+
+  def notify_admin_about_unsubscription(event)
+    AdminMailer.user_unsubscribed_from_event(self, event).deliver
   end
 
   def user_data
@@ -255,3 +277,6 @@ class User < ActiveRecord::Base
   end
 end
 
+# User.last.send_approval_congratulations!(["p.korenev@voroninstudio.eu", "voronin.nick@gmail.com"])
+# User.approved.last.notify_admin_about_subscription(Event.published.last)
+# User.approved.last.notify_admin_about_unsubscription(Event.published.last)

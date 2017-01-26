@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "images_test", to: "pages#images_test"
+
+  get "current_user", to: "registrations#current_user_short_info"
 
   resources :locales do
     resources :translations, constraints: { :id => /[^\/]+/ }
@@ -16,9 +19,13 @@ Rails.application.routes.draw do
 
   end
 
+  #patch "login", to: "users/sessions#create", as: "sign_in_user_via_patch"
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount Ckeditor::Engine => '/ckeditor'
+  get "check_email", to: "registrations#check_email", as: :check_email
   post "sign_up", to: "registrations#create", as: "sign_up"
+
+
   devise_for :users, path: "", module: "users", path_names: {
       sign_in: "login",
       sign_out: 'logout',
@@ -27,6 +34,13 @@ Rails.application.routes.draw do
 
       #user_registration
   }, controllers: { registrations: "registrations" }
+
+
+  devise_scope :user do
+    match "login", to: "users/sessions#create", via: [:post, :patch], as: "sign_in_user_via_patch"
+  end
+
+
 
   root to: "pages#index"
 
@@ -42,11 +56,11 @@ Rails.application.routes.draw do
   resources :members, only: [:index, :show]
 
   controller :pages do
-    get "about_us", action: "about_us", as: :about_us
+    get "about-us", action: "about_us", as: :about_us
     get "partners", action: "partners", as: :partners
     get "contacts", action: "contacts", as: :contacts
   end
 
 
-  match "*url", to: "application#render_not_found", via: [:get, :post, :path, :put, :update, :delete]
+  match "*url", to: "application#render_not_found", via: [:get, :post, :patch, :put, :update, :delete]
 end

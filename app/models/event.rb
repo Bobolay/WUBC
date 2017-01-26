@@ -1,17 +1,25 @@
 class Event < ActiveRecord::Base
   attr_accessible *attribute_names
 
-  globalize :name, :content, :url_fragment, :text_speakers
+  globalize :name, :content, :url_fragment, :text_speakers, :place
 
   has_seo_tags
   has_sitemap_record
+  has_cache do
+    pages :home, :events, self, Event.published
+  end
+
+  def url(locale = I18n.locale)
+    "/events/#{translations_by_locale[locale].url_fragment}"
+  end
 
   image :avatar, styles: {list: "500x275#", thumb: "152x100#", navigation_avatar: "200x200#"},
         url: "/system/:class/:attachment/:id_partition/:style/:filename",
-        path: ":rails_root/public:url"
+        path: ":rails_root/public:url",
+        processors: [:thumbnail, :tinify]
 
-  has_images :slider_images, styles: {large: "1370x600#", thumb: "274x120#", events_banner: "2048x500#"}, class_name: "EventGalleryImage"
-  has_images :gallery_images, styles: { large: "1400x740#", small: "200x200#", thumb: "100x100#" }, class_name: "EventSlide"
+  has_images :slider_images, styles: {large: "1370x600#", thumb: "274x120#", events_banner: "2048x500#"}, processors: [:thumbnail, :tinify], class_name: "EventGalleryImage"
+  has_images :gallery_images, styles: { large: "1400x740#", small: "200x200#", thumb: "100x100#" }, processors: [:thumbnail, :tinify], class_name: "EventSlide"
 
   boolean_scope :published
   scope :past, -> { date = Date.today; time = Time.now;  where("date < ? OR (date = ? AND end_time < ?)", date, date, time) }
@@ -54,9 +62,17 @@ class Event < ActiveRecord::Base
     self.date == date && start_time >= time && end_time <= time
   end
 
+  def public?
+    published && (past? || !premium?)
+  end
+
   def text_speakers_array
     (text_speakers || "").split("\r\n")
   end
 
+
+  def self.get(url_fragment)
+    self.published.joins(:translations).where(event_translations: { url_fragment: url_fragment, locale: I18n.locale }).first
+  end
 
 end

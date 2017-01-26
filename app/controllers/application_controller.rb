@@ -67,6 +67,29 @@ class ApplicationController < ActionController::Base
     render_locked(members_path, "До всіх членів", "Перегляд профілю членів доступний лише для учасників клубу WUBC")
   end
 
+
+  def render_locked_members
+    render_locked(members_path, "На головну", "Перегляд членів клубу доступний лише для учасників клубу WUBC")
+  end
+
+  def available_industries
+    @available_industries ||= Industry.all.map(&:name)
+  end
+
+  def controller_asset_path(rel_path)
+    ext = rel_path.split(".").last
+    path_with_star = rel_path.gsub(/\.#{ext}\Z/, "-*.#{ext}")
+
+    public_path = Rails.root.join("public")
+    Dir[Rails.root.join("public/assets", path_with_star)].first.try{|s| s.gsub(/\A#{public_path}/, "")} || "/assets/#{rel_path}"
+  end
+
+  helper_method :available_industries
+
+  # before_action do
+  #   render inline: request.referrer.inspect
+  # end
+
   rescue_from CanCan::AccessDenied do |exception|
     #redirect_to main_app.root_path, :alert => exception.message
     render_not_authorized

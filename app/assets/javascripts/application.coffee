@@ -1,14 +1,21 @@
 #= require jquery
 #= require jquery-ui
 #= require jquery_ujs
+#= require turbolinks
 
 #= require images.js.erb
 #= require functions
 #= require js_functions
 
 #= require global
-#= require jquery.jcrop
-#= require papercrop
+
+# require test
+
+#= require nprogress
+#= require nprogress-turbolinks
+# require jquery.jcrop
+# require papercrop
+
 #= require plugins/jquery.appear
 #= require appear-initialize
 #= require jquery-form/jquery.form
@@ -22,11 +29,13 @@
 #= require jquery.maskedinput/dist/jquery.maskedinput.min
 #= require plugins/selectize.min
 
+#= require lightgallery
+
 #= require selectize-initialize
 
 #= require fullpage-banner-height
 
-#= require lightgallery
+
 
 #= require scroll-banner
 
@@ -44,6 +53,7 @@
 
 #= require user
 
+#= require plugins/richmarker
 #= require google-map
 
 #= require datepick
@@ -54,6 +64,8 @@
 
 #= require event-popup
 
+#= require registration_scripts/locales
+#= require registration_scripts/inputs
 #= require registration
 
 #= require sign-in-popup-wrapper

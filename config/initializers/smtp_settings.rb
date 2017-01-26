@@ -1,4 +1,4 @@
-ActionMailer::Base.config.default_url_options = {host: ENV["#{Rails.env}.host"]}
+ActionMailer::Base.config.default_url_options = {host: (ENV["#{Rails.env}.host_with_port"] || ENV["#{Rails.env}.host"])}
 
 ActionMailer::Base.smtp_settings = {
     :address              => ENV["smtp_server"],

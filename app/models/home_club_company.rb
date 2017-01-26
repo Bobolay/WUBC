@@ -7,4 +7,8 @@ class HomeClubCompany < ActiveRecord::Base
 
   boolean_scope :published
   scope :sort_by_sorting_position, -> { order("sorting_position asc") }
+
+  has_cache do
+    pages :home
+  end
 end

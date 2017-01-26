@@ -21,7 +21,7 @@
         = content_tag(has_url ? :a : :span, company.name, title_html_options)
         - if company.description.present?
           p.regular-grey
-            = company.description
+            = raw company.description
           - if has_url
             .line-separator
         - if has_url

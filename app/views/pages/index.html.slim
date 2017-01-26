@@ -1,12 +1,14 @@
 .home-banner
-  .banner-background style="background-image: url(#{asset_path('photo/home-banner-background.jpg')})"
-  .banner-man style="background-image: url(#{asset_path('photo/home-banner-man.png')})"
+  /.banner-background style="background-image: url(#{asset_path('photo/home-banner-background.jpg')})"
+  /.banner-man style="background-image: url(#{asset_path('photo/home-banner-man.png')})"
+  /.banner-compass
+    = inline_svg "icons/compass.svg"
   .row
     .columns
       .text
         p.main-title West Ukrainian
         p.main-header business club
-        hr
+        .line
         p.regular Спільнота для комунікації і розвитку власників та перших осіб бізнесу.
 
         a.btn.registration-link title="Заповнити анкетні дані та створити свій власний профіль клубу" href=new_user_registration_path
@@ -105,10 +107,10 @@
               - if speaker.social_facebook.present? || speaker.social_google_plus.present?
                 .social-links
                   - if speaker.social_facebook.present?
-                    a href=speaker.social_facebook title="Перейти на фейсбук профіль"
+                    a rel="nofollow" href=speaker.social_facebook title="Перейти на фейсбук профіль"
                       = inline_svg("icons/social-facebook.svg")
                   - if speaker.social_google_plus.present?
-                    a href=speaker.social_google_plus title="Перейти на гугл-плюс профіль"
+                    a rel="nofollow" href=speaker.social_google_plus title="Перейти на гугл-плюс профіль"
                       = inline_svg("icons/social-google_plus.svg")
 
 
@@ -155,4 +157,4 @@
                 = content_tag(has_url ? :a : :span, company.name, title_html_options)
 
                 p.description
-                  = company.description
+                  = raw company.description

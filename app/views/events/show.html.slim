@@ -7,7 +7,7 @@
           = formatted_date(@event.date)
         p.event-name
           = @event.name
-      - if @event.slider_images.any?
+      - if @event.slider_images.count > 1
         .slider-container.event-photo
           .slider-prev
             = inline_svg "icons/arrow-left.svg"
@@ -23,11 +23,12 @@
       - else
         .event-default-banner
           .slider-bottom-shadow
-
-          .img-background style="background-image: url(#{asset_path("photo/event_default_banner.jpg")})"
+          - slide = @event.slider_images.first
+          - image_url = slide && slide.data.exists?(:large) ? slide.data.url(:large) : asset_path("photo/event_default_banner.jpg")
+          .img-background style="background-image: url(#{image_url})"
       .main-text
         .row.event-info-container
-          .large-3.medium-6.small-6.columns
+          .medium-6.small-6.columns.event-info-column
             .event-info
               p.title Спікери
               - @event.speakers.each do |speaker|
@@ -37,28 +38,25 @@
               - @event.text_speakers_array.each do |text_speaker|
                 p.regular
                   = text_speaker
-          .large-3.medium-6.small-6.columns
+          - if @event.place.present?
+            .medium-6.small-6.columns.event-info-column
+              .event-info
+                p.title Місце проведення
+
+                p.regular.place-description
+                  = raw @event.place
+          .medium-6.small-6.columns.event-info-column
             .event-info
               p.title Час проведення
               p.regular
                 = day_name(@event.date)
               p.regular
                 = formatted_time_range(@event.start_time, @event.end_time)
-          .large-3.medium-6.small-6.columns
+          .medium-6.small-6.columns.event-info-column
             .event-info
               = render "share_block", object: @event, url: event_path(id: @event.url_fragment), title: @event.name
-          /- if @event.future?
-            .large-3.medium-6.small-6.columns
-            - if !current_user
-              a.link href=subscribe_on_event_path(id: @event.url_fragment)
-                = "Зареєструватися або увійти та Відвідати зустріч"
-            - elsif @event.premium? && !current_user.subscribed_on_event?(@event)
-              a.link href=subscribe_on_event_path(id: @event.url_fragment)
-                = "Відвідати зустріч"
-            - elsif current_user && @event.premium?
-              a.link href=unsubscribe_from_event_path(id: @event.url_fragment)
-                = "Відписатися"
-          .large-3.medium-6.small-6.columns
+
+          .medium-6.small-6.columns.event-info-column
             = render "event_subscription_button", event: @event
 
         .article-content

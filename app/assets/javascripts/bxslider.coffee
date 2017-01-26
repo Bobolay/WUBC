@@ -1,4 +1,4 @@
-$(document).ready ->
+$(document).on "ready page:load", ->
 
   #     F I R S T     M E E T I N G
 
@@ -69,7 +69,7 @@ $(document).ready ->
   $('#bx-pager-about-us .pager').each(->
     $pager_list.push($(this).text())
     )
-  console.log($pager_list)
+  #console.log($pager_list)
 
   slider4 = $('.slider-4').bxSlider
     pagerCustom: '#bx-pager-about-us'

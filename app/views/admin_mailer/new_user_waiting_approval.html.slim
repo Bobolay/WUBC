@@ -1,0 +1,19 @@
+- user_url_in_admin_panel = "#{@admin_root}/member/#{@user.id}"
+h3
+  |WUBC
+h4
+  |Новий член клубу
+  br
+  a href=user_url_in_admin_panel
+    = @user.full_name_or_email(false)
+  br
+  |#{@user.email}
+  - @user.phones.each do |phone|
+    br
+    a.phone href=phone_url(phone)
+      = formatted_phone(phone)
+  br
+  |чекає підтвердження адміністратором
+p
+  a href=user_url_in_admin_panel
+    = "перейти в адмін-панель на цього члена клубу"

@@ -10,19 +10,42 @@
       display: inline-block
       margin: 0 10px
 
-      svg
-        position: relative !important
+    svg
+      position: relative !important
+      width: 30px
+      fill: #fff
 .home-banner
   position: relative
-  height: 100vh
+  height: 100vh !important
   overflow: hidden
+  background-image: image_url("photo/home_compass_bg.jpg")
+  background-color: #424242
+  background-size: cover
+  background-position: center right
 
-  .banner-background
+  .banner-compass
+    position: absolute
+    top: -10vmax
+    right: 0
+    width: 50%
+    height: 0
+    padding-top: 75%
+
+    svg
+      width: 150%
+      height: 150%
+      position: absolute
+      padding-right: 0
+      top: -25%
+      right: -25%
+
+  //.banner-background
     position: absolute
     background-size: cover
     background-position: center
     width: 100%
     height: 100%
+    background-image: image_url("photo/home_compass_bg.jpg")
   .banner-man
     position: absolute
     background-size: contain
@@ -63,13 +86,32 @@
       font-family: 'Lora', serif
       font-size: 2rem
       line-height: 2rem
-  hr
+  .line
     border: 0
-    margin: 30px 0
+    //margin: 30px 0
+    margin: 0 0 75px 0
     height: 1px
-    background: linear-gradient(to right, rgba(0,0,0,0), rgba(188,188,188,0.75), rgba(0,0,0,0))  
+    width: 632px
+    //background: linear-gradient(to right, rgba(0,0,0,0), rgba(188,188,188,0.75), rgba(0,0,0,0))
+    background: linear-gradient(to right, rgb(93, 93, 93), rgba(0,0,0,0))
+    position: relative
+    left: 0
+
+
+    //&:after
+      content: ""
+      background-image: image_url("icons/compass.svg")
+      position: absolute
+      background-size: cover
+      width: 100vw
+      height: 200vh
+      top: -100vh
+      left: 100%
+
     @media #{$small-only}
       margin: 10px 0
+
+
   .regular
     font-size: 1.125rem
     color: #fff
@@ -183,6 +225,8 @@
       padding: 50%
       opacity: 0
       +transition(0.25s)
+      display: none
+
       p
         font-style: italic
         color: #fff
@@ -236,6 +280,10 @@
         height: 200%
         left: -50%
         top: -50%
+
+  &.premium
+    .hover-text
+      display: none
   .description
     color: $grey
     padding: 20px
@@ -253,10 +301,21 @@
       +disable-grayscale
 
 
+body.logged-in
+  .event
+    .premium-text
+      display: none !important
+
+    .hover-text
+      display: block
+
+
 .meeting-container
-  height: 600px
+  //height: 600px
+  height: 0
+  padding-top: 33.33333%
   position: relative
-  @media #{$small-only}
+  //@media #{$small-only}
     height: 300px
   .slider-top-shadow
     position: absolute
@@ -272,7 +331,14 @@
     left: 50%
     top: 20px
     +translate(-50%,0)
-  @media #{$xxlarge-up}
+
+  .bx-wrapper
+    height: 100% !important
+    position: absolute
+    top: 0
+  .bx-viewport
+    height: 100% !important
+  //@media #{$xxlarge-up}
     height: 700px
 
 .members-container
@@ -559,6 +625,8 @@
     width: 100%
   .company-block
     text-align: center
+    height: 250px
+    overflow: hidden
     @media #{$small-only}
       width: 100%
     @media #{$medium-only}

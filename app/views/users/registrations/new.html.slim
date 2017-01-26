@@ -8,10 +8,11 @@
 
 iframe#registration-form-frame src=""
 
-.margin-block.grey-block.registration-container
+.margin-block.grey-block.registration-container data-available-industries=available_industries.join(",")
   .row
     .columns.large-10.large-centered
       .wizard.devise-form
+        .mobile-step-headers-dash
         .step-headers.tab-headers
           - ["main-info", "company-info", "registration-confirmation"].each_with_index do |step_key, i|
             .step-header.tab-header class=("active" if i == 0)
@@ -97,18 +98,22 @@ iframe#registration-form-frame src=""
             /= render "company_form", resource: resource
             #registration-company
             .columns.actions
-              .btn.prev-step-button.step-navigation-button
-                span
-                  = "Попередній крок"
-              a.next-step-button.step-navigation-button
-                | Наступний крок
-                = inline_svg "icons/arrow-right.svg"
+              .actions-inner
+                a.next-step-button.step-navigation-button
+                  | Наступний крок
+                  = inline_svg "icons/arrow-right.svg"
+                .btn.prev-step-button.step-navigation-button
+                  span
+                    = "Попередній крок"
+
 
           .step-content.tab-content
             #registration-summary
             .columns.actions
-              .btn.prev-step-button.step-navigation-button
-                span
-                  = "Попередній крок"
-              a.next-step-button.step-navigation-button.send-form
-                | Подати заявку
+              .actions-inner
+                a.next-step-button.step-navigation-button.send-form
+                  | Подати заявку
+                .btn.prev-step-button.step-navigation-button
+                  span
+                    = "Попередній крок"
+

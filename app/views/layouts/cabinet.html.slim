@@ -24,7 +24,7 @@
       p.person-name#cabinet-person-name
         = current_user.full_name(false)
 
-  .margin-block.cabinet-container data-user=current_user.user_data.to_json data-companies=current_user.companies_data.to_json
+  .margin-block.cabinet-container data-user=current_user.user_data.to_json data-companies=current_user.companies_data.to_json data-available-industries=available_industries.join(",")
     .row
       .columns.large-10.large-centered
         .tabs
@@ -32,15 +32,18 @@
             .tab-header.active
               p
                 span = inline_svg "icons/calendar.svg"
-                | події
+                span.tab-name
+                  | події
             .tab-header
               p
                 span = inline_svg "icons/account_balance.svg"
-                | мій бізнес
+                span.tab-name
+                  | мій бізнес
             .tab-header
               p
                 span = inline_svg "icons/person_black.svg"
-                | особисті дані
+                span.tab-name
+                  | особисті дані
           .line-container
             .line.active-line-position
           .tab-contents

@@ -11,4 +11,8 @@ class PartnerCompany < ActiveRecord::Base
   def formatted_company_site
     company_site.gsub(/\Ahttps?\:/, "").gsub(/\A\/\//, "")
   end
+
+  has_cache do
+    pages :partners
+  end
 end

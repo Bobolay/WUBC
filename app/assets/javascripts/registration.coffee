@@ -1,456 +1,14 @@
-is_cabinet = $("body").hasClass("cabinet__index")
-locales = {
-  uk: {
-    add_office: "Додати ще офіс"
-    save_office: "Зберегти"
-    remove_office: "Видалити"
-    add_phone: "Додати ще телефон"
-    remove_phone: "Видалити телефон"
-    add_company: "Додати нову компанію"
-    remove_company: "Видалити компанію"
-    attributes: {
-      premium: "Тільки для членів клубу"
-      first_name: "Ім'я"
-      last_name: "Прізвище"
-      middle_name: "По батькові"
-      birth_date: "Дата народження"
-      phone: "Телефон"
-      email: "Логін e-maill"
-      password: "Пароль"
-      new_password: "Новий пароль"
-      password_confirmation: "Підтвердження паролю"
-      phones: "Телефони"
+check_if_cabinet = ()->
+  $("body").hasClass("cabinet__index")
 
-      industry: "Сфера здійснення діяльності"
-      region: "Місце здійснення діяльності"
-      position: "Посада"
-      employees_count: "Кількість працівників"
-      company_site: "Сайт компанії"
-      offices: "Контакти офісів"
-      social_networks: "Соц. мережі компанії"
-      user_social_networks: "Особисті соц. мережі"
-      description: "Опис діяльності"
 
-      city: "Місто"
-      address: "Адреса"
-      hobby: "Хоббі"
-      name: "Назва компанії"
+window.is_cabinet = check_if_cabinet()
 
-    }
-    placeholders: {
-      first_name: "Петро"
-      middle_name: "Петрович"
-      last_name: "Петренко"
-      birth_date: "01.12.1991"
-      email: "user@server.com"
-      password: "Пароль"
-      password_confirmation: "Повторіть пароль"
 
-      description: "Напишіть щось про свою компанію"
-      industry: "Розваги"
-      region: "Львів"
-      position: "директор"
-      employees_count: "24"
-      company_site: "site.com"
 
-      city: "Львів"
-      address: "вул. Наукова, 21"
-      hobby: "Читаю книжки, слухаю музику, ходжу в театр"
-      name: "Моя компанія"
-      phone: "Телефон"
 
-      social_facebook: "https://www.facebook.com/YOUR_ACCOUNT"
-      social_google_plus: "https://plus.google.com/YOUR_ACCOUNT"
 
-    }
-    summary_labels: {
-      social_facebook: "Сторінка Facebook"
-      social_google_plus: "Сторінка Google+"
-    }
-    help: {
-      password: "Мінімум 8 символів"
 
-    }
-  }
-}
-
-current_locale = "uk"
-window.t = (key)->
-  translation = locales[current_locale]
-  key_parts = key.split(".")
-  i = 0
-  for key_part in key_parts
-    #console.log "key_part: ", key_part
-    translation = translation[key_part]
-    if translation == undefined || translation == null
-      return null
-    else if i == key_parts - 1
-      return translation
-    i++
-
-  translation
-
-window.inputs = {
-  base: {
-    help: (name, options)->
-      help = options.help || t("help.#{name}")
-      help_str = if help && help.length then "<label class='help'>#{help}</label>" else ""
-
-    html_name: (name, options)->
-      options.name || name
-    label: (name, options)->
-      if options.label == false
-        return ""
-      if options.label
-        s = options.label
-      else
-        s = t("attributes.#{name}") || name
-      required_mark_str = if options.required then "<span class='required-mark'>*</span>" else ""
-      "<label class='input-label'>#{s}: #{required_mark_str}</label>"
-    placeholder: (name)->
-      t("placeholders.#{name}") || name
-    wrap_attributes: (name, options)->
-      validation_attributes = ["required", "must_equal", "email", "min_length", "max_length"]
-      validation = {}
-      options = {} if !options
-      for k, v of options
-        if validation_attributes.includes(k)
-          validation[k] = v
-
-      res = {validation: validation}
-
-      s = ""
-      for k, v of res
-        s+= "#{k}='#{JSON.stringify(v)}'"
-
-      s
-
-    autocomplete: (name, options = {})->
-      k = options.autocomplete
-      if k
-        return "autocomplete='#{k}'"
-      else
-        return ""
-
-
-    readonly: (name, options)->
-      readonly = options.readonly || options.disabled
-      if readonly
-        return "disabled='disabled'"
-      else
-        return ""
-  }
-  string: {
-
-    input: (name, options, data = '')->
-      html_name = inputs.base.html_name(name, options)
-      options = $.extend({}, options)
-      placeholder = inputs.base.placeholder(name)
-      autocomplete_str = inputs.base.autocomplete(name, options)
-      readonly_str = inputs.base.readonly(name, options)
-      "<input #{readonly_str} #{autocomplete_str} name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
-
-    render: (name, options, data)->
-      wrap_attributes = inputs.base.wrap_attributes(name, options)
-      label = inputs.base.label(name, options)
-      key = options.key || name
-      input_str = inputs.string.input(name, options, data)
-      help = inputs.base.help(name, options)
-      "<div #{wrap_attributes} class='input register-input' data-key='#{key}'>#{label}#{input_str}#{help}</div>"
-
-  }
-
-  social: {
-
-    input: (name, options, data = '')->
-      html_name = inputs.base.html_name(name, options)
-      options = $.extend({}, options)
-      placeholder = inputs.base.placeholder(name)
-      autocomplete_str = inputs.base.autocomplete(name, options)
-      "<input #{autocomplete_str} name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
-
-    render: (name, options, data)->
-      wrap_attributes = inputs.base.wrap_attributes(name, options)
-      label = inputs.base.label(name, options)
-      input_str = inputs.string.input(name, options, data)
-      help = inputs.base.help(name, options)
-      icon_str = "<div class='input-social-icon'>#{svg_images[options.icon]}</div>"
-      "<div #{wrap_attributes} class='input register-input input-social' data-key='#{name}'>#{label}#{input_str}#{icon_str}#{help}</div>"
-
-    initialize: ()->
-      $(".input-social").filter(
-        ()->
-          !$(this).hasClass("empty") && !$(this).hasClass("not-empty")
-      ).each(set_input_presence_classes)
-  }
-
-  social_networks: {
-    render: (name, options, data = {})->
-      #options = $.extend({label: false}, options)
-      social_inputs_str = ""
-      label = inputs.base.label(name, options)
-      social_options = $.extend({label: false}, options.social_options)
-
-      social_facebook_options = $.extend({}, social_options, {icon: "social_facebook"}, social_options.facebook)
-      social_google_plus_options = $.extend({}, social_options, {icon: "social_google_plus"}, social_options.facebook)
-
-
-      #social_facebook: { type: "social", icon: "facebook" }
-      #social_google_plus: { type: "social", icon: "google_plus" }
-
-      social_inputs_str += inputs.social.render("social_facebook", social_facebook_options, data.facebook)
-      social_inputs_str += inputs.social.render("social_google_plus", social_google_plus_options, data.google_plus)
-      social_inputs_wrap_str = "<div class='inputs-collection-inputs'>#{social_inputs_str}</div>"
-      #inputs_collection_controls = inputs.inputs_collection.inputs_collection_controls()
-      inputs_collection_controls = ""
-      help = inputs.base.help(name, options)
-      "<div class='inputs-collection social-networks inputs-collection-single-input'>#{label}#{social_inputs_wrap_str}#{inputs_collection_controls}#{help}</div>"
-  }
-
-  email: {
-    input: (name, options, data = '')->
-      html_name = inputs.base.html_name(name, options)
-      options = $.extend({}, options)
-      placeholder = inputs.base.placeholder(name)
-      autocomplete_str = inputs.base.autocomplete(name, options)
-      readonly_str = inputs.base.readonly(name, options)
-      "<input #{readonly_str} #{autocomplete_str} name='#{html_name}' type='email' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
-
-    render: (name, options, data = '')->
-      wrap_attributes = inputs.base.wrap_attributes(name, options)
-      label = inputs.base.label(name, options)
-      input_str = inputs.email.input(name, options, data)
-      help = inputs.base.help(name, options)
-      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{help}</div>"
-
-  }
-
-  password: {
-    input: (name, options, data = '')->
-      html_name = inputs.base.html_name(name, options)
-      options = $.extend({}, options)
-      placeholder = inputs.base.placeholder(name)
-      autocomplete_str = inputs.base.autocomplete(name, options)
-      "<input #{autocomplete_str} name='#{html_name}' type='password' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
-    render: (name, options, data = '')->
-      wrap_attributes = inputs.base.wrap_attributes(name, options)
-      label = inputs.base.label(name, options)
-      input_str = inputs.password.input(name, options, data)
-      help = inputs.base.help(name, options)
-
-      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{help}</div>"
-  }
-
-  text: {
-    input: (name, options, data = '')->
-      html_name = inputs.base.html_name(name, options)
-      options = $.extend({}, options)
-      placeholder = inputs.base.placeholder(name)
-      options.class ?= ""
-      "<textarea name='#{html_name}' placeholder='#{placeholder}' class='#{options.class}'>#{data}</textarea>"
-    render: (name, options, data)->
-      wrap_attributes = inputs.base.wrap_attributes(name, options, data)
-      label = inputs.base.label(name, options)
-      input_str = inputs.text.input(name, options, data)
-      textarea_corner = "<div class='textarea-corner'></div>"
-      help = inputs.base.help(name, options)
-      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{textarea_corner}#{help}</div>"
-  }
-
-  integer: {
-    input: (name, options, data = '')->
-      html_name = inputs.base.html_name(name, options)
-      options = $.extend({}, options)
-      placeholder = inputs.base.placeholder(name)
-      "<input name='#{html_name}' type='number' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
-
-    render: (name, options, data)->
-      wrap_attributes = inputs.base.wrap_attributes(name, options)
-      label = inputs.base.label(name, options)
-      input_str = inputs.integer.input(name, options, data)
-      help = inputs.base.help(name, options)
-      "<div #{wrap_attributes} class='input register-input' data-key='#{name}'>#{label}#{input_str}#{help}</div>"
-  }
-  date: {
-    render: (name, options, data)->
-      wrap_attributes = inputs.base.wrap_attributes(name, options)
-      options = $.extend({class: "datepicker"}, options)
-      icon_source = svg_images.calendar
-      label = inputs.base.label(name, options)
-      input_str = inputs.string.input(name, options, data)
-      icon_label = "<label class='icon icon-calendar'>#{icon_source}</label>"
-      key = options.key || name
-      help = inputs.base.help(name, options)
-      "<div #{wrap_attributes} class='input register-input input-date' data-key='#{key}'>#{label}#{input_str}#{icon_label}#{help}</div>"
-
-
-    initialize: ()->
-      $(".datepicker").datepicker({
-        dateFormat: "dd.mm.yy",
-        monthNames: [ "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень" ],
-        dayNames: [ "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя" ],
-        dayNamesMin: [ "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд" ],
-        dayNamesShort: [ "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд" ],
-        prevText: 'Попередній',
-        nextText: 'Наступний',
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '1930:2010',
-        minDate: "01.01.1930"
-        maxDate: "31.12.2010"
-        defaultDate: "01.01.1991"
-        onSelect: ()->
-          $input_wrap = $(this).closest(".input")
-          #$input_wrap.changeClasses(["not-empty"], ["empty"])
-          validate_input.call($input_wrap, true)
-          if is_cabinet
-            put_profile()
-
-      })
-
-
-  }
-
-  inputs_collection: {
-    inputs_collection_controls: ()->
-      add_title = t("add_phone")
-      remove_title = t("remove_phone")
-      "<div class='inputs-collection-controls'><div class='inputs-collection-control inputs-collection-control-add' title='#{add_title}'>#{svg_images.plus}</div><div class='inputs-collection-control inputs-collection-control-remove' title='#{remove_title}'>#{svg_images.plus}</div></div>"
-
-  }
-
-  phones: {
-    render: (name, options, data)->
-      options = $.extend({label: false}, options)
-
-      phone_inputs_str = ""
-      label = inputs.base.label(name, options)
-      phone_options = options.phone_options || {}
-      phone_options.required = true if options.min && options.min >= 1
-      key = options.key || name
-      phone_options = $.extend({key: "#{key}[]"}, phone_options)
-
-      phones_count = (data && Array.isArray(data) && data.length ) || 0
-
-
-      if phones_count
-        for phone in data
-          phone_inputs_str += inputs.phone.render("phone", phone_options, phone)
-      else
-        phone_inputs_str += inputs.phone.render("phone", phone_options)
-      phone_inputs_str = "<div class='inputs-collection-inputs'>#{phone_inputs_str}</div>"
-      inputs_collection_controls = inputs.inputs_collection.inputs_collection_controls()
-
-      html_class = "inputs-collection phones"
-      html_class += " inputs-collection-single-input" if !phones_count || phones_count == 0 || phones_count == 1
-      help = inputs.base.help(name, options)
-      "<div class='#{html_class}'>#{label}#{phone_inputs_str}#{inputs_collection_controls}#{help}</div>"
-  }
-
-  phone: {
-    input: (name, options, data = '')->
-      html_name = inputs.base.html_name(name, options)
-      options = $.extend({}, options)
-      placeholder = inputs.base.placeholder(name)
-      autocomplete_options = $.extend({autocomplete: "tel"}, options)
-      autocomplete_str = inputs.base.autocomplete(name, autocomplete_options)
-      "<input #{autocomplete_str} name='#{html_name}' type='tel' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
-
-    render: (name, options, data)->
-      #console.log "phone: options: ", options
-      wrap_attributes = inputs.base.wrap_attributes(name, options)
-      key = options.key || name
-      label = inputs.base.label(name, options)
-      input_str = inputs.phone.input(name, options, data)
-      help = inputs.base.help(name, options)
-      "<div #{wrap_attributes} class='input register-input input-phone' data-key='#{key}'>#{label}#{input_str}#{help}</div>"
-
-    initialize: ()->
-      $inputs = $(".input-phone:not(.mask-initialized)")
-      $inputs.find("input").mask("+99 (999) 999 99 99")
-      $inputs.addClass("mask-initialized")
-
-  }
-
-  offices: {
-    render: (name, options, data)->
-      #console.log "offices: data: ", data
-      office_inputs_str = ""
-      label = inputs.base.label(name, options)
-      office_options = options.office_options || {}
-      key = options.key || name
-      office_options.key = "#{key}[]"
-      if data && data.length
-        for office_data in data
-          office_inputs_str += inputs.office.render("office", office_options, office_data)
-      else
-        office_inputs_str += inputs.office.render("office", office_options)
-      office_inputs_str = "<div class='inputs-collection-inputs'>#{office_inputs_str}</div>"
-      #inputs_collection_controls = "<div class='inputs-collection-controls'><div class='inputs-collection-control inputs-collection-control-add'>#{svg_images.plus}</div><div class='inputs-collection-control inputs-collection-control-remove'>#{svg_images.plus}</div></div>"
-      inputs_collection_controls = ""
-      help = inputs.base.help(name, options)
-      "<div class='inputs-collection offices inputs-collection-single-input' data-key='#{key}'>#{label}#{office_inputs_str}#{inputs_collection_controls}#{help}</div>"
-  }
-
-  office: {
-    input: (name, options)->
-      options = $.extend({}, options)
-      placeholder = inputs.base.placeholder(name)
-      "<input type='tel' placeholder='#{placeholder}' class='#{options.class}' />"
-
-    render: (name, options, data)->
-      #console.log "OFFICE: data: ", data
-      data ?= {}
-      options = $.extend({label: false}, options)
-      wrap_attributes = inputs.base.wrap_attributes(name, options)
-      label = inputs.base.label(name, options)
-      input_str = inputs.email.input(name, options)
-      key = options.key || name
-
-      office_inputs_wrap = inputs.office.render_inputs(key, data)
-      has_data = data && ((data.city && data.city.length) || (data.address && data.address.length) || (data.phones && data.phones.length && data.phones[0].length) ) && true
-      preview_mode = has_data
-      preview_mode_class = if preview_mode then "preview-mode" else ""
-      save_button_disabled_class = if has_data then "" else "disabled"
-
-      office_controls_str = "<div class='office-controls'><div class='office-control office-control-save #{save_button_disabled_class}'>#{t("save_office")}</div><div class='office-control office-control-add'>#{t("add_office")}</div><div class='office-control office-control-edit'>#{svg_images.edit}</div><div class='office-control office-control-remove'>#{t("remove_office")}</div></div>"
-      help = inputs.base.help(name, options)
-      preview_str = if preview_mode then inputs.office.render_locked(data) else ""
-      preview_wrap = "<div class='office-preview'>#{preview_str}</div>"
-
-
-      "<div #{wrap_attributes} class='input register-input input-office #{preview_mode_class}' data-key='#{key}'>#{label}#{preview_wrap}#{office_inputs_wrap}#{office_controls_str}#{help}</div>"
-
-
-    render_inputs: (key, data)->
-      office_inputs_str = ""
-
-      office_inputs_str += inputs.string.render("city",
-        {key: "#{key}.city", autocomplete: "address-line1"},
-        data.city)
-      office_inputs_str += inputs.string.render("address",
-        {key: "#{key}.address", autocomplete: "address-line2"}, data.address)
-      office_inputs_str += inputs.phones.render("phones", {key: "#{key}.phones"}, data.phones)
-      "<div class='office-inputs'>#{office_inputs_str}</div>"
-
-    render_locked: (obj)->
-      return "" if !obj
-      phones = obj.phones
-      if phones && phones.filter
-        phones = phones.filter(
-          (a)->
-            a && a.length > 0
-        )
-      #console.log "DATA: city: ", obj.city, "; address: ", obj.address, "; phones: ", phones
-      return "" if (!obj.city || !obj.city.length) && (!obj.address || !obj.address.length) && (!phones || !phones.length)
-
-      city_str = if obj.city && obj.city.length > 0 then "<p><span>#{t('attributes.city')}:</span>#{obj.city}</p>" else ""
-      address_str = if obj.address && obj.address.length > 0 then "<p><span>#{t('attributes.address')}:</span>#{obj.address}</p>" else ""
-      phones_str = if phones && phones.length then "<p><span>#{t('attributes.phones')}:</span>#{phones.join("<br/>")}</p>" else ""
-      "<div class='filled-info'>#{city_str}#{address_str}#{phones_str}</div>"
-
-  }
-}
 render_inputs_to_string = (props, data = {})->
   res = ""
   for k, v of props
@@ -482,6 +40,7 @@ column( "medium-6", {
   email: {
     required: true
     email: true
+    check_if_email_available: true
   }
   password: {
     required: true
@@ -499,7 +58,7 @@ column( "medium-6", {
 
 
 render_cabinet_user_form = (data)->
-  column("medium-6", {
+  form_str = column("medium-6", {
     first_name: {required: true}
     middle_name: {required: true}
     last_name: {required: true},
@@ -529,6 +88,14 @@ render_cabinet_user_form = (data)->
     #social_google_plus: {}
   }, data)
 
+  save_title = t("save_profile")
+
+  save_profile_control_str = "<div class='cabinet-profile-control cabinet-profile-control-save' title='#{save_title}'><div class='cabinet-profile-control-icon'>#{svg_images.check}</div><label class='cabinet-profile-control-label'>#{save_title}</label></div>"
+
+  res = form_str + "<div class='cabinet-controls'>" + save_profile_control_str + "</div>"
+
+  res
+
 
 render_company_name_block = (company_name)->
   company_name = t("placeholders.name") if !company_name || !company_name.length
@@ -537,10 +104,13 @@ render_company_name_block = (company_name)->
 render_company_form = (data, render_controls = false)->
   data ?= {}
   company_name_str = render_company_name_block(data.name)
+  window.available_industries ?= $(".cabinet-container, .registration-container").attr("data-available-industries").split(",")
   form_str = company_name_str +
   column("medium-6", {
     industry: {
       required: true
+      type: "select_with_custom_value"
+      select_options: window.available_industries
     }
     description: {
       type: "text"
@@ -569,8 +139,11 @@ render_company_form = (data, render_controls = false)->
 
   add_title = t("add_company")
   remove_title = t("remove_company")
+  save_title = t("save_company")
   if render_controls
-    company_controls_str = "<div class='company-controls'><div class='company-control company-control-add' title='#{add_title}'><div class='company-control-icon'>#{svg_images.plus}</div><label class='company-control-label'>#{add_title}</label></label></div><div class='company-control company-control-remove' title='#{remove_title}'><div class='company-control-icon'>#{svg_images.plus}</div><label class='company-control-label'>#{remove_title}</label></div></div>"
+    add_company_button_str = "<div class='btn company-button-add role-company-control-add' title='#{add_title}'><div class='btn-content'>#{svg_images.plus}<span class='btn-text'>#{add_title}</span></div></div>"
+    save_company_control_str = "<div class='company-control company-control-save' title='#{save_title}'><div class='company-control-icon'>#{svg_images.check}</div><label class='company-control-label'>#{save_title}</label></div>"
+    company_controls_str = "<div class='company-controls'><div class='company-self-controls'>#{save_company_control_str}<div class='company-control company-control-remove' title='#{remove_title}'><div class='company-control-icon'>#{svg_images.plus}</div><label class='company-control-label'>#{remove_title}</label></div></div><div class='company-controls-separator'></div><div class='new-company-controls'>#{add_company_button_str}</div></div>"
   else
     company_controls_str = ""
   "<div class='company'><div class='row'>#{form_str}</div>#{company_controls_str}</div>"
@@ -592,6 +165,7 @@ initialize_inputs = ()->
   inputs.date.initialize()
   inputs.phone.initialize()
   inputs.social.initialize()
+  inputs.select_with_custom_value.initialize()
 
 put_profile = ()->
   data = {user: form_to_json.call($("#cabinet-profile-form"))}
@@ -619,10 +193,14 @@ put_companies = ()->
   )
 
 initialize_registration_forms = ()->
+  return if is_cabinet
   if $("#registration-user").length
     $("#registration-user").html(registration_user_form)
   if $("#registration-company").length
     $("#registration-company").html(render_company_form())
+
+
+  initialize_inputs()
 
 
 
@@ -650,29 +228,81 @@ initialize_cabinet = ()->
 
 
 
-set_input_presence_classes = ()->
+window.set_input_presence_classes = ()->
   $input_wrap = $(this)
   value = $input_wrap.find("input, textarea").val()
 
   empty = !value || !value.length
   add_presence_class = if empty then "empty" else "not-empty"
   remove_presence_class = if empty then "not-empty" else "empty"
-  console.log "set_input_presence_classes: add_presence_class: ", add_presence_class, "remove_presence_class: ", remove_presence_class
-  $input_wrap.changeClasses([add_presence_class], [remove_presence_class])
+  #console.log "set_input_presence_classes: add_presence_class: ", add_presence_class, "remove_presence_class: ", remove_presence_class
+  $input_wrap.changeClasses(add_presence_class, remove_presence_class)
 
 validateEmail = (email)->
   re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 
 
-validate_input = (update_dom = false)->
+validate_input__update_dom = (value, valid, add_presence_class, remove_presence_class)->
+  #console.log "validate_input__update_dom: args: ", arguments
+  #console.log "validate_input__update_dom: value: ", value, "; valid: ", valid, "; add_presence_class: ", add_presence_class
+  $input_wrap = $(this)
+  empty = !value || !value.length
+  add_presence_class ?= ""
+  add_presence_class += if empty then " empty" else " not-empty"
+  remove_presence_class ?= ""
+  remove_presence_class += if empty then " not-empty" else " empty"
+
+  if valid == "ajax"
+    add_presence_class += " ajax-validation-in-progress"
+    remove_presence_class += " valid invalid invalid-email-exists"
+
+  else
+    remove_presence_class += " ajax-validation-in-progress"
+
+    if valid == true
+      add_presence_class += " valid"
+      remove_presence_class += " invalid invalid-email-exists"
+
+    else
+      add_presence_class += " invalid"
+      remove_presence_class += " valid"
+
+
+  $input_wrap.changeClasses(add_presence_class, remove_presence_class)
+  return
+
+  ###
+  if valid == true
+    $input_wrap.changeClasses(["valid", add_presence_class], ["invalid", "invalid-email-exists", "ajax-validation-in-progress", remove_presence_class])
+  else if valid == "ajax"
+    $input_wrap.changeClasses(["ajax-validation-in-progress"], ["valid", add_presence_class, "invalid", remove_presence_class])
+
+  else
+    $input_wrap.changeClasses(["invalid", add_presence_class], ["valid", remove_presence_class])
+  ###
+
+append_email_exists_error_message = ()->
+  $input_wrap = $(this)
+  $error_message = $input_wrap.find(".email-exists-error-message")
+  if !$error_message.length
+    $input_wrap.append("<span class='email-exists-error-message'>Користувач з таким email'ом email вже існує</span>")
+
+append_email_ajax_loader = ()->
+  $input_wrap = $(this)
+  $error_message = $input_wrap.find(".email-ajax-loader")
+  if !$error_message.length
+    $input_wrap.append("<span class='email-ajax-loader'>Перевіряю, чи email вільний...</span>")
+
+
+window.validate_input = (update_dom = false)->
   $input_wrap = $(this)
   #alert($input_wrap.attr("data-key"))
   validation = $input_wrap.attr("validation")
   validation = validation && validation.length && JSON.parse(validation)
 
   if validation && keys(validation).length
-    value = $input_wrap.find("input, textarea").val()
+    value = $input_wrap.find("select, input, textarea").val()
     value = "" if $input_wrap.hasClass("input-phone") && value.indexOf("_") >= 0
     valid = true
     present = value && value.length && true
@@ -701,14 +331,50 @@ validate_input = (update_dom = false)->
 
 
 
-    if update_dom
-      empty = !value || !value.length
-      add_presence_class = if empty then "empty" else "not-empty"
-      remove_presence_class = if empty then "not-empty" else "empty"
-      if valid
-        $input_wrap.changeClasses(["valid", add_presence_class], ["invalid", remove_presence_class])
+    if valid != false && validation.check_if_email_available
+      if update_dom
+        valid = check_if_email_available(value,
+          (data)->
+            current_input_value = $input_wrap.find("input, textarea").val()
+            #console.log "validate_input: check_input: callback: value: ", value, "; current_input_value: ", current_input_value
+            if current_input_value != value
+              return
+            local_valid = !data.exists
+            #console.log "local_valid: ", local_valid
+            add_presence_class = ""
+            remove_presence_class = ""
+            add_presence_class = "invalid-email-exists" if local_valid == false
+            validate_input__update_dom.call($input_wrap, value, local_valid, add_presence_class, remove_presence_class)
+            if local_valid == false
+              append_email_exists_error_message.call($input_wrap)
+        )
+
+        if valid == "ajax"
+          append_email_ajax_loader.call($input_wrap)
+          validate_input__update_dom.call($input_wrap, value, valid)
+
+        if valid != "ajax"
+          add_presence_class = ""
+          remove_presence_class = ""
+          add_presence_class = "invalid-email-exists" if valid == false
+          #console.log "validate_input: valid != ajax: valid: ", valid, "value: ", value
+          validate_input__update_dom.call($input_wrap, value, valid, add_presence_class, remove_presence_class)
+
+          if valid == false
+            append_email_exists_error_message.call($input_wrap)
       else
-        $input_wrap.changeClasses(["invalid", add_presence_class], ["valid", remove_presence_class])
+        valid = check_if_email_available(value)
+
+
+      return valid
+
+
+    if !valid
+      #console.log "invalid: clear email exists"
+      validate_input__update_dom.call($input_wrap, value, valid, "", "invalid-email-exists")
+    else
+      validate_input__update_dom.call($input_wrap, value, valid)
+
     return valid
   else
     if update_dom
@@ -717,21 +383,76 @@ validate_input = (update_dom = false)->
 
 
 
+
+
 initialize_registration_forms()
 initialize_cabinet()
+
+init_forms = (e)->
+  ###
+  if e
+    console.log "init registration forms: e.type: ", e.type
+  else
+    console.log "init forms"
+  ###
+  window.is_cabinet = check_if_cabinet()
+  initialize_registration_forms()
+  initialize_cabinet()
+
+init_forms()
+$document.on "page:load ready", init_forms
 
 $document.on "keyup change", "#cabinet-profile-form", ()->
   delay("put_profile", put_profile, 1000)
 
 
-$document.on "keyup change", "#cabinet-companies", ()->
+$document.on "keyup change", "#cabinet-companies", (e)->
+  $company = $(e.target).closest(".company")
+  if !$company.hasClass("has-explicitly-unsaved-changes")
+    $save_button = $company.find(".company-control-save")
+    #$save_button.css({display: "inline-block"})
+    $save_button.css({display: "inline-block"})
+    setTimeout(
+      ()->
+        $company.addClass("has-explicitly-unsaved-changes")
+      10
+    )
+
+    setTimeout(
+      ()->
+        $save_button.css({display: ""})
+      500
+
+    )
+
   delay("put_companies", put_companies, 1000)
 
 
 
 
-initialize_inputs()
-initialize_cabinet()
+$document.on "keyup change", "#cabinet-profile-form", (e)->
+  $form = $(this)
+  if !$form.hasClass("has-explicitly-unsaved-changes")
+    $save_button = $form.find(".cabinet-profile-control-save")
+    #$save_button.css({display: "inline-block"})
+    $save_button.css({display: "inline-block"})
+    setTimeout(
+      ()->
+        $form.addClass("has-explicitly-unsaved-changes")
+      10
+    )
+
+    setTimeout(
+      ()->
+        $save_button.css({display: ""})
+      500
+
+    )
+
+  delay("put_profile", put_profile, 1000)
+
+
+
 
 
 
@@ -776,17 +497,6 @@ window.form_to_json = ()->
   $form.find(".input").map(
     ()->
       $input = $(this)
-      ###
-      $parent_inputs_collection = $input.closest(".inputs-collection")
-      if $parent_inputs_collection.length > 0
-        if $parent_inputs_collection.hasClass("phones")
-          val = $parent_inputs_collection.find(".input-phone input").map(
-            ()->
-              $(this).val()
-          ).toArray()
-
-        return
-      ###
 
       k = $input.attr("data-key")
       if k == undefined
@@ -798,44 +508,13 @@ window.form_to_json = ()->
         if k.startsWith(except_key + ".")
           return null
 
+      val = $input.find("input, textarea, select").val()
 
-
-      val = $input.find("input, textarea").val()
-
-
-#      k = k.split("[]").map(
-#        (s, i, w)->
-#          #console.log "map: this: ", this, "; args: ", arguments
-#          is_array = s.endsWith("[]")
-#          res = ""
-#          if s.startsWith(".")
-#            if !s.startsWith("[") && !s.endsWith("]")
-#              res = "[#{s.substr(1, s.length)}]"
-#            else
-#              res = s.substr(1, s.length)
-#          else if s == "[]"
-#            res = ""
-#          else if !(s.startsWith("[") || s.startsWith(".[") ) && !s.endsWith("]")
-#            res = "[#{s.substr(0, s.length)}]"
-#            res = s
-#          else
-#            res = s
-#
-#          res = "#{res}[]" if is_array
-#
-#          s
-#      ).join("[]")
-
-      #k = k.substr(0, k.length - 2) if k.endsWith("[][]")
-
-
-      #console.log "k: ", k
 
       if k.endsWith("[]")
         k = k.substr(0, k.length - 2)
         obj[k] = [] if !obj[k]
         key_parts = k.split(".")
-        #set_value_to_object_key(obj, k, val)
         target = obj[k]
         target.push(val)
       else
@@ -864,20 +543,22 @@ window.form_to_json = ()->
 window.steps_to_json = ()->
   {user: form_to_json.call($("#registration-user")), company: form_to_json.call($("#registration-company")) }
 
-window.validate_inputs = (update_dom = false)->
+window.validate_inputs = (update_dom = false, handler)->
 
-  valid = true
   all_valid = true
   $(this).each(
     ()->
       #console.log "validate"
       #alert("validate_inputs: #{$(this).attr('data-key')}")
-      if valid || update_dom
+      if all_valid != false || update_dom
 
-        valid = validate_input.call(this, update_dom)
+        valid = validate_input.call(this, update_dom, handler)
 
-        if !valid
-          all_valid = false
+        if valid != true && (all_valid == true || all_valid == "ajax")
+          all_valid = valid
+
+      else if valid == "ajax"
+        all_valid = "ajax"
       #else
       #  return false
 
@@ -894,6 +575,7 @@ summary_field_types = {
       field_name = t("summary_labels.#{name}") || t("attributes.#{name}") || name
       field_value = value
       type = options.type || "string"
+
       "<div class='field #{type} field-#{name}'><div class='field-name'>#{field_name}</div><div class='field-value'>#{field_value}</div></div>"
   }
 
@@ -1013,24 +695,8 @@ window.render_summary = (data)->
 
 
 
-
-
-$document.on "click", ".prev-step-button, .next-step-button", (e)->
-  e.preventDefault()
-
-  $step_contents = $(".step-contents")
-  $active_step_content = $step_contents.children().filter(".active")
-
-  $button = $(this)
-  direction = if $button.hasClass("prev-step-button") then 'prev' else 'next'
-  valid_step = true
-  if direction == 'next'
-    valid_step = validate_inputs.call($active_step_content.find(".input[validation]"), true)
-    if $active_step_content.index() == 1
-      window.steps_json = steps_to_json()
-      render_summary(steps_json)
-  if !valid_step
-    return
+navigate_step = (direction)->
+  $active_step_content = $(this)
   $step_headers = $(".step-headers")
   $active_step_header = $step_headers.children().filter(".active")
   $active_step_header.removeClass("active")
@@ -1047,6 +713,37 @@ ajaxit = (iframe_id, form_id)->
   frameForm.onsubmit = null
   frameForm.submit()
   false
+
+$document.on "click", ".prev-step-button, .next-step-button", (e)->
+  e.preventDefault()
+
+  $step_contents = $(".step-contents")
+  $active_step_content = $step_contents.children().filter(".active")
+
+  $button = $(this)
+  direction = if $button.hasClass("prev-step-button") then 'prev' else 'next'
+  valid_step = true
+  if direction == 'next'
+
+    valid_step = validate_inputs.call($active_step_content.find(".input[validation]")
+      (data)->
+        if !data.exists
+          navigate_step.call($active_step_content, direction)
+      true)
+
+
+    console.log "change_step: valid_step: ", valid_step
+
+    if $active_step_content.index() == 1
+      window.steps_json = steps_to_json()
+      render_summary(steps_json)
+  if valid_step != true
+    return
+
+  navigate_step.call($active_step_content, direction)
+
+
+
 
 $document.on "click", ".step-navigation-button.send-form", ()->
   json = steps_to_json()
@@ -1079,6 +776,11 @@ $document.on "keyup blur change", ".input", ()->
     validate_input.call($input, true)
   else
     set_input_presence_classes.call($input)
+
+
+$document.on "change", ".input-select-with-custom-value select", ()->
+  if is_cabinet
+    put_companies()
 
 $document.on "click", ".phones .inputs-collection-control", ()->
   $button = $(this)
@@ -1114,7 +816,7 @@ $document.on "click", ".office-control-save", ()->
   $company = $office.closest(".company")
   company_json = form_to_json.call($company)
   data = company_json.offices[office_index]
-  console.log "OFFICES: ", company_json.offices
+  #console.log "OFFICES: ", company_json.offices
 
   str = inputs.office.render_locked(data)
   $office_preview = $office.find(".office-preview")
@@ -1166,12 +868,13 @@ $document.on "change", "#user_photo", ()->
 
   })
 
-$document.on "click", ".company-control-add", ()->
+$document.on "click", ".company-control-add, .role-company-control-add", ()->
   $button = $(this)
   $company = $button.closest(".company")
   company_str = render_company_form({}, true)
   $new_company = $(company_str)
   $new_company.insertAfter($company)
+  initialize_inputs()
 
 $document.on "click", ".company-control-remove", ()->
   $button = $(this)
@@ -1228,7 +931,7 @@ $document.on "click", ".remove-company-popup .btn-remove-company-ok", (e)->
   if !removing_popup
     $popup.data("data_removing_popup", true)
 
-    console.log "remove popup"
+    #console.log "remove popup"
     $popup.fadeOut('100')
     setTimeout(
       ()->
@@ -1282,3 +985,116 @@ $document.on "keyup blur change", ".input-office input", ()->
   $save_button = $office.find(".office-control-save")
   $save_button.removeClass("disabled") if has_data && $save_button.hasClass("disabled")
   $save_button.addClass("disabled") if !has_data && !$save_button.hasClass("disabled")
+
+
+
+window.check_email = (email, handler, update_dom = false)->
+  #console.log("1")
+  email ?= $("#registration-user .input-email input").val()
+
+  #console.log "check_email: ", email
+
+  window.email_checks ?= []
+  check_in_progress = window.email_checks.filter(
+    (c)->
+      c && c.in_progress && c.email == email
+  )[0] || false
+
+  email_check = window.email_checks.filter(
+    (c)->
+      c && c.email == email
+  )[0] || false
+
+
+
+  if check_in_progress
+    return "ajax"
+
+  if email_check
+    return email_check.exists || false
+
+  if email && email.length
+    return if !validateEmail(email)
+
+    window.email_checks.push({email: email, in_progress: true})
+
+    $.ajax(
+      url: "/check_email"
+      dataType: "json"
+      data: {email: email}
+      success: (data)->
+
+        h = window.email_checks.filter(
+          (a)->
+            a && a.email == data.email
+        )[0]
+
+        if !h
+          return
+
+
+        h.in_progress = false
+        h.exists = data.exists
+
+
+        #if !window.email_check
+        #  window.email_check = data
+        if handler && typeof(handler) == 'function'
+          handler(data)
+
+    )
+
+
+  return "ajax"
+
+window.check_if_email_available = ()->
+  exists = check_email.apply(this, arguments)
+
+  if exists != "ajax"
+    return !exists
+  else
+    return "ajax"
+
+update_dom_for_email_presence = (data)->
+  $input_wrap = $("#registration-user .input-email")
+  if data.exists
+    $input_wrap.changeClasses(["invalid", "invalid-email-exists"], ["valid"])
+    $error_message = $input_wrap.find(".email-exists-error-message")
+    if !$error_message.length
+      $input_wrap.append("<span class='email-exists-error-message'>Користувач з таким email'ом email вже існує</span>")
+  else
+    $input_wrap.changeClasses(["valid"], ["invalid", "invalid-email-exists"])
+
+
+handle_save_button_click = ($button, $form)->
+  $button.css({display: "inline-block"})
+  if $form.hasClass("has-explicitly-unsaved-changes")
+    $form.removeClass("has-explicitly-unsaved-changes")
+
+  setTimeout(
+    ()->
+      $button.css({display: ""})
+    500
+  )
+
+  $form_inputs = $form.find(".input[validation]")
+  validate_inputs.call($form_inputs, true)
+
+$document.on "click", ".company-control-save", ()->
+  $button = $(this)
+  $form = $button.closest(".company")
+  handle_save_button_click($button, $form)
+
+$document.on "click", ".cabinet-profile-control-save", ()->
+  $button = $(this)
+  $form = $button.closest("#cabinet-profile-form")
+  handle_save_button_click($button, $form)
+
+
+
+
+
+
+
+
+

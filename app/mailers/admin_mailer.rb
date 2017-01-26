@@ -6,7 +6,7 @@ class AdminMailer < ApplicationMailer
   #   en.admin_mailer.new_user_waiting_approval.subject
   #
   def new_user_waiting_approval(user)
-    @admin_root = ENV["#{Rails.env}.host"] + "/admin"
+    @admin_root = (ENV["#{Rails.env}.host_with_port"] || ENV["#{Rails.env}.host"]) + "/admin"
     @user = user
     @email_title = "Новий користувач чекає на підтвердження"
     mail to: receivers("new_user_waiting_approval"), subject: @email_title

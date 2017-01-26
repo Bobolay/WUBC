@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_action :set_page_instance, except: [:index]
+  caches_page :index, :about_us, :partners, :contacts
 
   def index
     set_page_metadata(:home)
@@ -8,21 +9,13 @@ class PagesController < ApplicationController
     @articles = Article.featured
     @slider_images = @page_instance.slider_images
     @testimonials = Testimonial.published.sort_by_sorting_position
-    @speakers = Speaker.published
+    @speakers = Speaker.published.sort_by_sorting_position
     @club_companies = HomeClubCompany.published.sort_by_sorting_position
   end
 
   def about_us
     @member_values = ClubMemberValue.published.sort_by_sorting_position
     @industry_slides = IndustrySlide.published.sort_by_sorting_position
-  end
-
-  def events
-
-  end
-
-  def members
-
   end
 
   def partners
@@ -36,6 +29,6 @@ class PagesController < ApplicationController
   private
 
   def set_page_instance
-  #   set_page_metadata(action_name)
+     set_page_metadata(action_name)
   end
 end

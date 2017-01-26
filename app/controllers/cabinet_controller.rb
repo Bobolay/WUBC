@@ -4,6 +4,7 @@ class CabinetController < ApplicationController
   def index
     #redirect_to cabinet_events_path
     @events = Event.subscribed_by_user(current_user)
+
     render "layouts/cabinet", layout: false
   end
 
@@ -70,6 +71,8 @@ class CabinetController < ApplicationController
 
     render json: { cabinet_avatar_url: u.avatar.url(:cabinet), small_avatar_url: u.avatar.url(:small) }
   end
+
+
 
 
 end
