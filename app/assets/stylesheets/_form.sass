@@ -510,3 +510,50 @@ html input[disabled]
     padding: 0 15px
     font-size: 16px
     color: #414141
+
+.restore_pass_form
+  width: 500px
+  position: relative
+  box-shadow: 0 0 15px rgba(0,0,0,0.5)
+  padding-top: 50px
+  background: white
+  max-width: 90%
+  z-index: 5
+  margin: 10% auto
+  padding: 10px 40px 50px
+  @media #{$small-only}
+    position: absolute
+    top: 50%
+    left: 50%
+    +translate(-50%,-50%)
+    padding: 10px 20px 40px
+
+  h2
+    color: $green
+    font-weight: 400
+    text-align: center
+    margin: 20px 0
+    line-height: 1.25
+
+  .input
+    margin-bottom: 20px
+    max-width: 100%
+    width: initial
+    input, textarea
+      color: $dark-grey
+      border-bottom: 1px solid $light-grey
+    label
+      position: absolute
+      color: $light-grey
+      font-size: 1em
+      top: 8px
+    input:focus ~ label, input.used ~ label, textarea:focus ~ label, textarea.used ~ label
+      top: -10px
+      font-size: 0.75em
+      color: $green
+    .bar
+      &:before
+        background: $green
+  
+  .action
+    text-align: center
