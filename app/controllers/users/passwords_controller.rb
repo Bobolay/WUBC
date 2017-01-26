@@ -1,4 +1,7 @@
 class Users::PasswordsController < Devise::PasswordsController
+  before_action :set_forgot_password_page_metadata, only: :new
+  before_action :set_edit_password_metadata, only: :edit
+  caches_page :new
   # GET /resource/password/new
   # def new
   #   super
@@ -19,7 +22,15 @@ class Users::PasswordsController < Devise::PasswordsController
   #   super
   # end
 
-  # protected
+  protected
+
+  def set_forgot_password_page_metadata
+    set_page_metadata(:forgot_password)
+  end
+
+  def set_edit_password_metadata
+    set_page_metadata(:edit_password)
+  end
 
   # def after_resetting_password_path_for(resource)
   #   super(resource)

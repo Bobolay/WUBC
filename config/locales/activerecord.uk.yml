@@ -29,6 +29,9 @@ uk:
       pages/members: "Члени клубу"
       pages/sign_in: "Вхід"
       pages/sign_up: "Реєстрація"
+      pages/cabinet: "Кабінет"
+      pages/forgot_password: "Забули пароль"
+      pages/edit_password: "Змінити пароль"
       pages/events: "Події"
       testimonial:
         one: "Відгук"

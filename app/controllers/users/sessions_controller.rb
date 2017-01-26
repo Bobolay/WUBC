@@ -1,6 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
 # before_filter :configure_sign_in_params, only: [:create]
-  #before_action :set_sign_in_page_metadata, only: :new
+  before_action :set_sign_in_page_metadata, only: :new
+  caches_page :new
 
   # GET /resource/sign_in
   # def new
