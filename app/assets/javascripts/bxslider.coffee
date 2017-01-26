@@ -5,7 +5,6 @@ $(document).on "ready page:load", ->
   slider = $('.slider-1').bxSlider
     controls: false
     pager: false
-    infiniteLoop: true
     hideControlOnEnd: true
     speed: 500
     pause: 7000
