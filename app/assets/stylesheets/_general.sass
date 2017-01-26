@@ -113,6 +113,10 @@ p
   padding: 50px 0
   background-color: $smoke
 
+  +breakpoint(small only)
+    &.registration-container
+      padding: 20px 0 50px 0
+
 .img
   position: relative
   background-position: center
@@ -207,6 +211,10 @@ p
       top: 40%
   .line
     background: $green
+
+  .registrations__new &
+    +breakpoint(small only)
+      height: 320px
 
 .green
   color: $green

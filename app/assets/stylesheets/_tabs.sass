@@ -39,3 +39,24 @@
 
     .step-navigation-button
       margin: 0 25px
+
+  .actions-inner
+    display: inline-block
+    .next-step-button
+      float: right
+    .prev-step-button
+      float: left
+  +breakpoint(small only)
+    .actions
+      margin-top: 20px
+      display: block
+
+    .actions-inner
+      .next-step-button, .prev-step-button
+        float: none
+
+      .prev-step-button
+        width: 220px
+        margin: 20px 25px 0 25px
+
+
