@@ -2,6 +2,7 @@
 #= require jquery-ui
 #= require jquery_ujs
 #= require turbolinks
+#= require ga-turbolinks
 
 #= require images.js.erb
 #= require functions
