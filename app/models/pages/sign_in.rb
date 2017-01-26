@@ -1,5 +1,5 @@
 class Pages::SignIn < Cms::Page
   def url(*args)
-    "/sign-in"
+    "/login"
   end
 end
