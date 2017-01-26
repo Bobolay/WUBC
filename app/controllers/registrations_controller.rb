@@ -1,8 +1,9 @@
 class RegistrationsController < Users::RegistrationsController
+  skip_all_before_action_callbacks
+
   before_action :set_sign_up_page_metadata, only: :new
   caches_page :new
 
-  skip_all_before_action_callbacks
   def create
     user = Member.create(sign_up_user_params)
     user.update_params(params[:user])
