@@ -16,7 +16,7 @@ window.locales = {
       middle_name: "По батькові"
       birth_date: "Дата народження"
       phone: "Телефон"
-      email: "Логін e-maill"
+      email: "Логін e-mail"
       password: "Пароль"
       new_password: "Новий пароль"
       password_confirmation: "Підтвердження паролю"
