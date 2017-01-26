@@ -530,6 +530,10 @@
   .slider-container
     position: relative
     margin-top: 50px
+    @media #{$small-only}
+      padding: 0 50px
+    @media #{$medium-only}
+      padding: 0 80px
   .carousel-slider-prev, .carousel-slider-next
     position: absolute
     fill: $grey
@@ -543,13 +547,16 @@
     right: 0
   .bx-wrapper
     @media #{$small-only}
-      width: 400px
-      max-width: 60% !important
+      // width: 400px
+      // max-width: 60% !important
+      width: 100%
     @media #{$medium-only}
-      width: 600px
+      // width: 600px
+      width: 100%
   .slider-3
-    margin: 0 auto
-    padding: 0 70px
+    // margin: 0 auto
+    // padding: 0 70px
+    width: 100%
   .company-block
     text-align: center
     @media #{$small-only}
