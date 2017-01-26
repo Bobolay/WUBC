@@ -1,14 +1,13 @@
 #= require jquery
 #= require jquery-ui
 #= require jquery_ujs
+#= require global
 #= require turbolinks
 #= require ga-turbolinks
 
 #= require images.js.erb
 #= require functions
 #= require js_functions
-
-#= require global
 
 # require test
 
