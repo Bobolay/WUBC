@@ -4,3 +4,6 @@ uk:
       user:
         not_approved: "Ваш аккаунт не підтверджено адміністратором"
         not_confirmed: "Підтвердіть свою реєстрацію"
+    mailer:
+      reset_password_instructions:
+        greeting: "Доброго дня, %{recipient}!"

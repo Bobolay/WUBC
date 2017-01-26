@@ -33,7 +33,7 @@ Rails.application.routes.draw do
       #sign_up: "sign_up"
 
       #user_registration
-  }, controllers: { registrations: "registrations" }
+  }, controllers: { registrations: "registrations", sessions: "users/sessions", passwords: "users/passwords" }
 
 
   devise_scope :user do

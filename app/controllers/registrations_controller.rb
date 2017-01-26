@@ -1,5 +1,6 @@
 class RegistrationsController < Users::RegistrationsController
   before_action :set_sign_up_page_metadata, only: :new
+  caches_page :new
 
   skip_all_before_action_callbacks
   def create

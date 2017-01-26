@@ -1,5 +1,6 @@
 class CabinetController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_cabinet_page_metadata
 
   def index
     #redirect_to cabinet_events_path
@@ -73,6 +74,9 @@ class CabinetController < ApplicationController
   end
 
 
-
+  protected
+  def set_cabinet_page_metadata
+    set_page_metadata(:cabinet)
+  end
 
 end

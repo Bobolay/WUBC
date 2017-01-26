@@ -1,3 +1,14 @@
+
+$document.on("click", ".ui-datepicker .ui-datepicker-calendar td a", function(e){
+    e.preventDefault()
+    $(this).closest(".ui-datepicker").hide()
+
+})
+
+$document.on("click", ".input input.hasDatepicker", function(){
+    $(".ui-datepicker").show()
+})
+
 $document.on("ready page:load", function() {
   //return;
   $(".datepicker").datepicker({

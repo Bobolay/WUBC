@@ -247,6 +247,7 @@ window.inputs = {
         minDate: "01.01.1930"
         maxDate: "31.12.2010"
         defaultDate: "01.01.1991"
+        autoclose: true
         onSelect: ()->
           $input_wrap = $(this).closest(".input")
           #$input_wrap.changeClasses(["not-empty"], ["empty"])

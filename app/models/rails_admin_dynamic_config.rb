@@ -338,13 +338,13 @@ module RailsAdminDynamicConfig
           field :description
         end
 
-        config.include_models Pages::Home, Pages::AboutUs, Pages::Articles, Pages::Contacts, Pages::Events, Pages::Members, Pages::Partners, Pages::SignIn, Pages::SignUp
+        config.include_models Pages::Home, Pages::AboutUs, Pages::Articles, Pages::Contacts, Pages::Events, Pages::Members, Pages::Partners, Pages::SignIn, Pages::SignUp, Pages::Cabinet, Pages::ForgotPassword, Pages::EditPassword
         config.model Pages::Home do
           field :slider_images
           field :seo_tags
         end
 
-        [Pages::AboutUs, Pages::Articles, Pages::Contacts, Pages::Events, Pages::Members, Pages::Partners, Pages::SignIn, Pages::SignUp].each do |m|
+        [Pages::AboutUs, Pages::Articles, Pages::Contacts, Pages::Events, Pages::Members, Pages::Partners, Pages::SignIn, Pages::SignUp, Pages::Cabinet, Pages::ForgotPassword, Pages::EditPassword].each do |m|
           config.model m do
             field :seo_tags
           end
