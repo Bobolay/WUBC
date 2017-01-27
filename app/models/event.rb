@@ -47,7 +47,11 @@ class Event < ActiveRecord::Base
   def past?
     date = Date.today;
     time = Time.now;
-    self.date < date || (self.date == date && end_time < time)
+    event_end_time = end_time
+    event_end_time.year = date.year
+    event_end_time.month = event_end_time.month
+    event_end_time.day = event_end_time.day
+    self.date < date || (self.date == date && event_end_time < time)
   end
 
   def future?
