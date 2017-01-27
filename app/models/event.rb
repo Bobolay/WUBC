@@ -44,28 +44,44 @@ class Event < ActiveRecord::Base
     url_fragment
   end
 
+  def start_date_time
+    DateTime.new(self.date.year, self.date.month, self.date.day, self.start_time.hour, self.start_time.min)
+  end
+
+  def end_date_time
+    DateTime.new(self.date.year, self.date.month, self.date.day, self.end_time.hour, self.end_time.min)
+  end
+
   def past?
-    date = Date.today;
-    time = Time.now;
-    event_end_time = end_time
+    #date = Date.today;
+    #time = Time.now;
+    #event_end_time = end_time
     #event_end_time.year = date.year
     #event_end_time.month = event_end_time.month
     #event_end_time.day = event_end_time.day
-    #end_date_time = DateTime.new(self.date.year, self.date.month, self.date.day, self.end_time.hour, self.date.minute)
-    #self.date < date || (self.date == date && (event_end_time < time))
-    false
+
+
+    #self.date < date || (self.date == date && (end_date_time < time))
+    date_time = DateTime.now
+    date_time > end_date_time
   end
 
   def future?
-    date = Date.today;
-    time = Time.now;
-    self.date > date || (self.date == date && start_time > time)
+    #date = Date.today
+    #time = Time.now
+    #self.date > date || (self.date == date && start_date_time > time)
+    date_time = DateTime.now
+    date_time < start_date_time
   end
 
   def active?
-    date = Date.today;
-    time = Time.now;
-    self.date == date && start_time >= time && end_time <= time
+    #date = Date.today;
+    #time = Time.now;
+    #start_date_time = DateTime.new(self.date.year, self.date.month, self.date.day, self.start_time.hour, self.start_time.min)
+    #end_date_time = DateTime.new(self.date.year, self.date.month, self.date.day, self.end_time.hour, self.end_time.min)
+    #self.date == date && start_date_time >= time && end_date_time <= time
+    date_time = DateTime.now
+    date_time >= start_date_time && date_time <= end_date_time
   end
 
   def public?
