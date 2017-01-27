@@ -48,10 +48,12 @@ class Event < ActiveRecord::Base
     date = Date.today;
     time = Time.now;
     event_end_time = end_time
-    event_end_time.year = date.year
-    event_end_time.month = event_end_time.month
-    event_end_time.day = event_end_time.day
-    self.date < date || (self.date == date && event_end_time < time)
+    #event_end_time.year = date.year
+    #event_end_time.month = event_end_time.month
+    #event_end_time.day = event_end_time.day
+    #end_date_time = DateTime.new(self.date.year, self.date.month, self.date.day, self.end_time.hour, self.date.minute)
+    #self.date < date || (self.date == date && (event_end_time < time))
+    false
   end
 
   def future?
