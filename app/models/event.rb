@@ -45,10 +45,12 @@ class Event < ActiveRecord::Base
   end
 
   def start_date_time
+    return nil if !self.date || !self.start_time
     DateTime.new(self.date.year, self.date.month, self.date.day, self.start_time.hour, self.start_time.min, 0, '+2')
   end
 
   def end_date_time
+    return nil if !self.date || !self.end_time
     DateTime.new(self.date.year, self.date.month, self.date.day, self.end_time.hour, self.end_time.min, 0, '+2')
   end
 
