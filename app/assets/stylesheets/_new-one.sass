@@ -1,5 +1,9 @@
 .article
   float: left !important
+  +breakpoint(large up)
+    &.large-4
+      &:nth-child(3n+4)
+        clear: left
 .new-one-wrapper
 
   h1, h2, h3, h4, h5, h6

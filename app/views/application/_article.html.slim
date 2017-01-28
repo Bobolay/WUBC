@@ -30,9 +30,10 @@
     .bottom-text
       .date
         p.day
-          = article.release_date.day
+          = article.release_date.strftime("%d")
         p.month
-          = "#{article.release_date.month}.#{article.release_date.year}"
+          /= "#{article.release_date.month}.#{article.release_date.year}"
+          = article.release_date.strftime("%m.%Y")
       .text
         p
           = article.name
