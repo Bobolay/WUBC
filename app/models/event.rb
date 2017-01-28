@@ -25,7 +25,7 @@ class Event < ActiveRecord::Base
   scope :past, -> { date = Date.today; time = Time.now; time_str = time.strftime("%H:%M");  where("date < ? OR (date = ? AND end_time < ?)", date, date, time_str) }
   scope :future, -> { date = Date.today; time = Time.now; time_str = time.strftime("%H:%M"); where("date > ? OR (date = ? AND start_time > ?)", date, date, time_str) }
   scope :active, -> { date = Date.today; time = Time.now; time_str = time.strftime("%H:%M"); where("date = ? AND start_time <= ? AND end_time >= ?", date, time_str, time_str) }
-  scope :past_and_active, -> { date = Date.today; time = Time.now; time_str = time.strftime("%H:%M"); where("date < ? OR (date = ? AND end_time >= ?)", date, date, time_str) }
+  scope :past_and_active, -> { date = Date.today; time = Time.now; time_str = time.strftime("%H:%M"); where("date < ? OR (date = ? AND start_time <= ?)", date, date, time_str) }
   scope :subscribed_by_user, ->(user) { return current_scope if user.nil?; current_scope.joins(:subscribed_users).where(event_subscriptions: { user_id: user.id }) }
   scope :visited_by_user, ->(user) { past_and_active.subscribed_by_user(user) }
   scope :home_future, -> { published.future.limit(3).order("date desc") }

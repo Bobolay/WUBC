@@ -4,13 +4,14 @@
 - wrap_attributes = {}
 - wrap_attributes["href"] = event_path(event)
 - wrap_attributes["class"] = "event-container"
+- wrap_attributes["class"] += " future-event" if event.future?
 - wrap_attributes["class"] +=  " past-event" if event.past_or_active?
 - wrap_attributes["class"] += " active-event" if event.active?
 - wrap_attributes["class"] += " open-login-popup" if !has_link
 - wrap_attributes["data-url"] = event_path(event)
 - wrap_attributes["rel"] = "nofollow" if !has_link
 
-.large-4.medium-12.columns.event class=('past-event' if event.past_or_active?) class=('premium' if event.premium?)
+.large-4.medium-12.columns.event class=('past-event' if event.past_or_active?) class=("future-event" if event.future?) class=('premium' if event.premium?) data-date=event.date.strftime("%d.%m.%Y") data-start-time=event.start_time.strftime("%H:%M") data-end-time=event.end_time.strftime("%H:%M")
 
   /a.event-container href=event_path(event) class=("past-event" if event.past?)
   = content_tag(wrap_tag, wrap_attributes ) do

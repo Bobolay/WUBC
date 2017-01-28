@@ -85,3 +85,6 @@
 #= require subscribe_popup
 
 #= require characters_limit
+
+#= require plugins/js-date-format.min
+#= require events_timing
