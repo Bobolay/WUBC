@@ -22,14 +22,14 @@ class Event < ActiveRecord::Base
   has_images :gallery_images, styles: { large: "1400x740#", small: "200x200#", thumb: "100x100#" }, processors: [:thumbnail, :tinify], class_name: "EventSlide"
 
   boolean_scope :published
-  scope :past, -> { date = Date.today; time = Time.now;  where("date < ? OR (date = ? AND end_time < ?)", date, date, time) }
-  scope :future, -> { date = Date.today; time = Time.now; where("date > ? OR (date = ? AND start_time > ?)", date, date, time) }
-  scope :active, -> { date = Date.today; time = Time.now; where("date = ? AND start_time >= ? AND end_time <= ?", date, time, time) }
-  scope :past_and_active, -> { date = Date.today; time = Time.now; where("date < ? OR (date = ? AND end_time <= ?)", date, date, time) }
+  scope :past, -> { date = Date.today; time = Time.now; time_str = time.strftime("%H:%M");  where("date < ? OR (date = ? AND end_time < ?)", date, date, time_str) }
+  scope :future, -> { date = Date.today; time = Time.now; time_str = time.strftime("%H:%M"); where("date > ? OR (date = ? AND start_time > ?)", date, date, time_str) }
+  scope :active, -> { date = Date.today; time = Time.now; time_str = time.strftime("%H:%M"); where("date = ? AND start_time <= ? AND end_time >= ?", date, time_str, time_str) }
+  scope :past_and_active, -> { date = Date.today; time = Time.now; time_str = time.strftime("%H:%M"); where("date < ? OR (date = ? AND end_time >= ?)", date, date, time_str) }
   scope :subscribed_by_user, ->(user) { return current_scope if user.nil?; current_scope.joins(:subscribed_users).where(event_subscriptions: { user_id: user.id }) }
   scope :visited_by_user, ->(user) { past_and_active.subscribed_by_user(user) }
   scope :home_future, -> { published.future.limit(3).order("date desc") }
-  scope :home_past, -> { published.past.limit(3).order("date desc") }
+  scope :home_past, -> { published.past_and_active.limit(3).order("date desc") }
 
   validates :date, :start_time, :end_time, presence: true, if: :published?
 
@@ -84,6 +84,10 @@ class Event < ActiveRecord::Base
     #self.date == date && start_date_time >= time && end_date_time <= time
     date_time = DateTime.now
     date_time >= start_date_time && date_time <= end_date_time
+  end
+
+  def past_or_active?
+    past? || active?
   end
 
   def public?
