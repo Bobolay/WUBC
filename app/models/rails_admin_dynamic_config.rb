@@ -146,7 +146,7 @@ module RailsAdminDynamicConfig
           visible false
           field :data do
             help do
-              "2048x676#"
+              "1920x850#"
             end
           end
           field :translations, :globalize_tabs
