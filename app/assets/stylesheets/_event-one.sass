@@ -133,6 +133,7 @@
           @media #{$small-only}
             width: 100px
             height: 100px
+            float: none
         p
           font-size: 1em
           color: $grey
@@ -183,6 +184,8 @@
         .main
           .img
             float: left
+            @media #{$small-only}
+              float: none
           p
             @media #{$large-up}
               position: absolute
