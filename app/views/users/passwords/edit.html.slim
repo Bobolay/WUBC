@@ -1,7 +1,10 @@
-form.material_form.restore_pass_form method="post"
+form.material_form.restore_pass_form method="post" action="/password/edit"
+  /= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "material_form restore_pass_form" }) do |f|
   
   h2 Форма відновлення паролю
-
+  .devise-error-messages
+    = devise_error_messages!
+  input type="hidden" name="user[reset_password_token]" value=params[:reset_password_token]
   .input
     input name="user[password]" type="password"
     span.bar

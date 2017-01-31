@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   get "check_email", to: "registrations#check_email", as: :check_email
   post "sign_up", to: "registrations#create", as: "sign_up"
+  #post "/password/edit", to: "passwords#update", as: "custom_edit_password"
 
 
   devise_for :users, path: "", module: "users", path_names: {
@@ -38,6 +39,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     match "login", to: "users/sessions#create", via: [:post, :patch], as: "sign_in_user_via_patch"
+    post "/password/edit", to: "passwords#update", as: "edit_password_via_post"
   end
 
 

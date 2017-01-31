@@ -22,14 +22,14 @@ class Event < ActiveRecord::Base
   has_images :gallery_images, styles: { large: "1400x740#", small: "200x200#", thumb: "100x100#" }, processors: [:thumbnail, :tinify], class_name: "EventSlide"
 
   boolean_scope :published
-  scope :past, -> { date = Date.today; time = Time.now;  where("date < ? OR (date = ? AND end_time < ?)", date, date, time) }
-  scope :future, -> { date = Date.today; time = Time.now; where("date > ? OR (date = ? AND start_time > ?)", date, date, time) }
-  scope :active, -> { date = Date.today; time = Time.now; where("date = ? AND start_time >= ? AND end_time <= ?", date, time, time) }
-  scope :past_and_active, -> { date = Date.today; time = Time.now; where("date < ? OR (date = ? AND end_time <= ?)", date, date, time) }
+  scope :past, -> { date = Date.today; time = Time.now; time_str = time.strftime("%H:%M");  where("date < ? OR (date = ? AND end_time < ?)", date, date, time_str) }
+  scope :future, -> { date = Date.today; time = Time.now; time_str = time.strftime("%H:%M"); where("date > ? OR (date = ? AND start_time > ?)", date, date, time_str) }
+  scope :active, -> { date = Date.today; time = Time.now; time_str = time.strftime("%H:%M"); where("date = ? AND start_time <= ? AND end_time >= ?", date, time_str, time_str) }
+  scope :past_and_active, -> { date = Date.today; time = Time.now; time_str = time.strftime("%H:%M"); where("date < ? OR (date = ? AND start_time <= ?)", date, date, time_str) }
   scope :subscribed_by_user, ->(user) { return current_scope if user.nil?; current_scope.joins(:subscribed_users).where(event_subscriptions: { user_id: user.id }) }
   scope :visited_by_user, ->(user) { past_and_active.subscribed_by_user(user) }
   scope :home_future, -> { published.future.limit(3).order("date desc") }
-  scope :home_past, -> { published.past.limit(3).order("date desc") }
+  scope :home_past, -> { published.past_and_active.limit(3).order("date desc") }
 
   validates :date, :start_time, :end_time, presence: true, if: :published?
 
@@ -44,22 +44,50 @@ class Event < ActiveRecord::Base
     url_fragment
   end
 
+  def start_date_time
+    return nil if !self.date || !self.start_time
+    DateTime.new(self.date.year, self.date.month, self.date.day, self.start_time.hour, self.start_time.min, 0, '+2')
+  end
+
+  def end_date_time
+    return nil if !self.date || !self.end_time
+    DateTime.new(self.date.year, self.date.month, self.date.day, self.end_time.hour, self.end_time.min, 0, '+2')
+  end
+
   def past?
-    date = Date.today;
-    time = Time.now;
-    self.date < date || (self.date == date && end_time < time)
+    #date = Date.today;
+    #time = Time.now;
+    #event_end_time = end_time
+    #event_end_time.year = date.year
+    #event_end_time.month = event_end_time.month
+    #event_end_time.day = event_end_time.day
+
+
+    #self.date < date || (self.date == date && (end_date_time < time))
+    date_time = DateTime.now
+    date_time > end_date_time
   end
 
   def future?
-    date = Date.today;
-    time = Time.now;
-    self.date > date || (self.date == date && start_time > time)
+    #date = Date.today
+    #time = Time.now
+    #self.date > date || (self.date == date && start_date_time > time)
+    date_time = DateTime.now
+    date_time < start_date_time
   end
 
   def active?
-    date = Date.today;
-    time = Time.now;
-    self.date == date && start_time >= time && end_time <= time
+    #date = Date.today;
+    #time = Time.now;
+    #start_date_time = DateTime.new(self.date.year, self.date.month, self.date.day, self.start_time.hour, self.start_time.min)
+    #end_date_time = DateTime.new(self.date.year, self.date.month, self.date.day, self.end_time.hour, self.end_time.min)
+    #self.date == date && start_date_time >= time && end_date_time <= time
+    date_time = DateTime.now
+    date_time >= start_date_time && date_time <= end_date_time
+  end
+
+  def past_or_active?
+    past? || active?
   end
 
   def public?

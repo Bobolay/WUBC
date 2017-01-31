@@ -48,4 +48,4 @@ end
 
 # [Event].each(&:reprocess_attachments)
 # [Event].each{|m| m.all.each(&:reprocess_all) }
-# [Event].map {|m| puts "model: #{m.name}; records count: #{m.all.count}"; images_count_for_record = m.attachment_definitions.map{|k, v| v[:styles].keys.count  }.sum; puts "images_cout_for_record: #{images_count_for_record}"; model_images_count = m.count * images_count_for_record; puts "model_images_count: #{model_images_count}"; model_images_count }.sum
+# [Article].map {|m| puts "model: #{m.name}; records count: #{m.all.count}"; images_count_for_record = m.attachment_definitions.map{|k, v| v[:styles].keys.count  }.sum; puts "images_cout_for_record: #{images_count_for_record}"; model_images_count = m.count * images_count_for_record; puts "model_images_count: #{model_images_count}"; model_images_count }.sum
