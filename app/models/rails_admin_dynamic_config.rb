@@ -242,23 +242,15 @@ module RailsAdminDynamicConfig
         end
 
         config.model CompanyOffice do
+          field :company
           field :translations, :globalize_tabs
           field :phones
         end
 
         config.model_translation CompanyOffice do
-          edit do
-            field :locale, :hidden
-            field :company
-            field :city
-            field :address
-          end
-
-          nested do
             field :locale, :hidden
             field :city
             field :address
-          end
         end
 
         config.include_models Event
