@@ -184,6 +184,11 @@ module RailsAdminDynamicConfig
           navigation_label "Users"
 
           list do
+            #field :is_speaker
+            field :avatar
+            field :full_name
+            field :email
+
             field :confirmed_at do
               date_format do
                 :default
@@ -194,10 +199,6 @@ module RailsAdminDynamicConfig
                 :default
               end
             end
-            #field :is_speaker
-            field :email
-            field :full_name
-            field :avatar
           end
 
           edit do
@@ -255,22 +256,36 @@ module RailsAdminDynamicConfig
 
         config.include_models Event
         config.model Event do
-          field :published
-          field :premium
-          field :translations, :globalize_tabs
-          field :date do
-            date_format do
-              :default
+          edit do
+            field :published
+            field :premium
+            field :translations, :globalize_tabs
+            field :date do
+              date_format do
+                :default
+              end
             end
+            field :start_time
+            field :end_time
+            field :avatar
+            field :slider_images
+            field :gallery_images
+            field :speakers
+            field :seo_tags
+            field :sitemap_record
           end
-          field :start_time
-          field :end_time
-          field :avatar
-          field :slider_images
-          field :gallery_images
-          field :speakers
-          field :seo_tags
-          field :sitemap_record
+          list do
+            field :avatar
+            field :name
+            field :event_date_time_range do
+              pretty_value do
+                @bindings[:object].send(name)
+              end
+            end
+            field :published
+            field :premium
+
+          end
         end
 
         config.model_translation Event do
