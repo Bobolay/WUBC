@@ -54,6 +54,16 @@ class Event < ActiveRecord::Base
     DateTime.new(self.date.year, self.date.month, self.date.day, self.end_time.hour, self.end_time.min, 0, '+2')
   end
 
+  def event_date_time_range
+    if !date && !start_time && !end_time
+      return "-"
+    end
+    date_str = date ? "#{date.strftime('%d.%m.%Y')} " : ""
+
+    time_range_str = "#{start_time ? start_time.strftime('%H:%M') : 'X'} &mdash; #{end_time ? end_time.strftime('%H:%M') : 'X'}"
+    "#{date_str}#{time_range_str}".html_safe
+  end
+
   def past?
     #date = Date.today;
     #time = Time.now;

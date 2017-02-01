@@ -4,6 +4,7 @@ class Company < ActiveRecord::Base
   include RecursiveParams
 
   has_many :company_offices, autosave: true
+  accepts_nested_attributes_for :company_offices
   belongs_to :industry
 
 

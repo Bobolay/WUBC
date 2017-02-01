@@ -184,6 +184,11 @@ module RailsAdminDynamicConfig
           navigation_label "Users"
 
           list do
+            #field :is_speaker
+            field :avatar
+            field :full_name
+            field :email
+
             field :confirmed_at do
               date_format do
                 :default
@@ -194,10 +199,6 @@ module RailsAdminDynamicConfig
                 :default
               end
             end
-            #field :is_speaker
-            field :email
-            field :full_name
-            field :avatar
           end
 
           edit do
@@ -223,14 +224,14 @@ module RailsAdminDynamicConfig
           end
         end
 
-        config.include_models Company
+        config.include_models Company, CompanyOffice
         config.model Company do
           field :industry
           field :employees_count
           field :translations, :globalize_tabs
           field :company_site
           #:social_networks
-          field :offices
+          field :company_offices
         end
 
         config.model_translation Company do
@@ -241,24 +242,59 @@ module RailsAdminDynamicConfig
           field :position
         end
 
+        config.model CompanyOffice do
+          field :company
+          field :translations, :globalize_tabs
+          field :phones
+        end
+
+        config.model_translation CompanyOffice do
+            field :locale, :hidden
+            field :city
+            field :address
+        end
+
         config.include_models Event
         config.model Event do
-          field :published
-          field :premium
-          field :translations, :globalize_tabs
-          field :date do
-            date_format do
-              :default
+          edit do
+            field :published
+            field :premium
+            field :translations, :globalize_tabs
+            field :date do
+              date_format do
+                :default
+              end
+            end
+            field :start_time
+            field :end_time
+            field :avatar
+            field :slider_images
+            field :gallery_images
+            field :speakers
+            field :seo_tags
+            field :sitemap_record
+          end
+          list do
+            field :avatar
+            field :name
+            field :event_date_time_range do
+              pretty_value do
+                @bindings[:object].send(name)
+              end
+            end
+            field :published
+            field :premium
+            field :created_at do
+              pretty_value do
+                v = @bindings[:object].send(name)
+                if v
+                  v.strftime("%d.%m.%Y %H:%M:%S")
+                else
+                  "-"
+                end
+              end
             end
           end
-          field :start_time
-          field :end_time
-          field :avatar
-          field :slider_images
-          field :gallery_images
-          field :speakers
-          field :seo_tags
-          field :sitemap_record
         end
 
         config.model_translation Event do
