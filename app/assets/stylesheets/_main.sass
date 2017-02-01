@@ -311,13 +311,11 @@ body.logged-in
 
 
 .meeting-container
-  //height: 600px
   height: 0
   padding-top: 52.08%
-  // padding-top: 30%
   position: relative
   margin-top: -15px
-  @media #{$xxlarge-up}
+  @media only screen and (min-width: 1920px)
     height: 800px
     padding-top: 0
     .img-background
@@ -353,6 +351,7 @@ body.logged-in
   margin-top: -15px
   @media #{$small-only}
     padding: 50px 0
+    margin-top: 0
   .line
     background-color: $main
   .section-header
@@ -496,6 +495,8 @@ body.logged-in
   padding: 70px 1em
   text-align: center
   margin-top: -15px
+  @media #{$small-only}
+    margin-top: 0
   .line
     background-color: $grey
   .title
