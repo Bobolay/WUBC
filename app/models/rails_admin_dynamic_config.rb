@@ -223,14 +223,14 @@ module RailsAdminDynamicConfig
           end
         end
 
-        config.include_models Company
+        config.include_models Company, CompanyOffice
         config.model Company do
           field :industry
           field :employees_count
           field :translations, :globalize_tabs
           field :company_site
           #:social_networks
-          field :offices
+          field :company_offices
         end
 
         config.model_translation Company do
