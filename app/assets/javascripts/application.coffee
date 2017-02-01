@@ -25,7 +25,7 @@
 #= require plugins/jquery.scrolldelta
 #= require plugins/lightgallery
 #= require lightgallery_plugins/lg-thumbnail.min.js
-#= require plugins/lg-thumbnail.min
+# require plugins/lg-thumbnail.min
 #= require plugins/clickout
 #= require jquery.maskedinput/dist/jquery.maskedinput.min
 #= require plugins/selectize.min
