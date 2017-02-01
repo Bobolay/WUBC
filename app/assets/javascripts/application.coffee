@@ -23,7 +23,7 @@
 #= require plugins/delay
 #= require plugins/jquery-easing
 #= require plugins/jquery.scrolldelta
-#= require plugins/lightgallery.min
+#= require plugins/lightgallery
 #= require lightgallery_plugins/lg-thumbnail.min.js
 #= require plugins/lg-thumbnail.min
 #= require plugins/clickout
