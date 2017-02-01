@@ -1,0 +1,12 @@
+.margin-block.meeting-container.slider-container
+  .slider-prev
+    = inline_svg "icons/arrow-left.svg"
+  .slider-next
+    = inline_svg "icons/arrow-right.svg"
+  ul.slider-1
+    - @slider_images.each do |slide|
+      li
+        .slider-top-shadow
+        p.description
+          = slide.data_alt
+        .img-background style="background-image: url(#{slide.data.url(:large)})"

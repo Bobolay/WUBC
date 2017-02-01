@@ -1,0 +1,18 @@
+.home-banner
+  /.banner-background style="background-image: url(#{asset_path('photo/home-banner-background.jpg')})"
+  /.banner-man style="background-image: url(#{asset_path('photo/home-banner-man.png')})"
+  /.banner-compass
+    = inline_svg "icons/compass.svg"
+  .row
+    .columns
+      .text
+        p.main-title West Ukrainian
+        p.main-header business club
+        .line
+        p.regular Спільнота для комунікації і розвитку власників та перших осіб бізнесу.
+
+        a.btn.registration-link title="Заповнити анкетні дані та створити свій власний профіль клубу" href=new_user_registration_path
+          span Долучитись до клубу
+        .bottom title="прогорнути сторінку вниз"
+          = inline_svg "icons/arrow-down.svg"
+          span Детальніше

@@ -1,0 +1,20 @@
+- if @future_events.try(:any?) || @past_events.try(:any?)
+  .margin-block.calendar-container
+    p.section-header календар подій клубу
+    - if @future_events.try(:any?)
+      p.future-events Майбутні події
+
+      .row
+        - @future_events.each do |event|
+          = render "event", event: event
+
+    - if @past_events.try(:any?)
+      p.past-events Минулі події
+      .row
+        - @past_events.each do |event|
+          = render "event", event: event
+
+
+    .btn-container
+      a.btn.light title="Переглянути всі події клубу (майбутні та минулі)" href=events_path
+        span Переглянути всі

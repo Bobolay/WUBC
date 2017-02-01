@@ -1,160 +1,19 @@
-.home-banner
-  /.banner-background style="background-image: url(#{asset_path('photo/home-banner-background.jpg')})"
-  /.banner-man style="background-image: url(#{asset_path('photo/home-banner-man.png')})"
-  /.banner-compass
-    = inline_svg "icons/compass.svg"
-  .row
-    .columns
-      .text
-        p.main-title West Ukrainian
-        p.main-header business club
-        .line
-        p.regular Спільнота для комунікації і розвитку власників та перших осіб бізнесу.
+= render "home_banner"
 
-        a.btn.registration-link title="Заповнити анкетні дані та створити свій власний профіль клубу" href=new_user_registration_path
-          span Долучитись до клубу
-        .bottom title="прогорнути сторінку вниз"
-          = inline_svg "icons/arrow-down.svg"
-          span Детальніше
 .about-us-container
   = inline_svg "icons/logo2.svg"
   = Cms.t("home.about-us-text")
-- if @future_events.try(:any?) || @past_events.try(:any?)
-  .margin-block.calendar-container
-    p.section-header календар подій клубу
-    - if @future_events.try(:any?)
-      p.future-events Майбутні події
 
-      .row
-        - @future_events.each do |event|
-          = render "event", event: event
+= render "home_meetings_slider"
 
-    - if @past_events.try(:any?)
-      p.past-events Минулі події
-      .row
-        - @past_events.each do |event|
-          = render "event", event: event
+= render "home_events"
 
+= render "home_testimonials"
 
-    .btn-container
-      a.btn.light title="Переглянути всі події клубу (майбутні та минулі)" href=events_path
-        span Переглянути всі
-.margin-block.meeting-container.slider-container
-  .slider-prev
-    = inline_svg "icons/arrow-left.svg"
-  .slider-next
-    = inline_svg "icons/arrow-right.svg"
-  ul.slider-1
-    - @slider_images.each do |slide|
-      li
-        .slider-top-shadow
-        p.description
-          = slide.data_alt
-        .img-background style="background-image: url(#{slide.data.url(:large)})"
+= render "home_join_us"
 
-- if @testimonials.try(:any?)
-  .margin-block.members-container
-    .line
-    p.section-header учасники клубу
-    p.under-header Відомі люди, які є учасниками нашого клубу
-    ul.slider-2
-      - @testimonials.each_with_index do |testimonial, i|
-        li.slide class=("active-slide" if i == 0)
-          .img-background style="background-image: url(#{testimonial.image.url(:large)})"
-          .overlay
-          .text
-            p.title
-              = raw testimonial.name
-            p.subtitle
-              = testimonial.position
-            p.comment
-              = testimonial.description
+= render "home_speakers"
 
-    .slider-selectors
-      .slider-prev
-        = inline_svg "icons/arrow-left.svg"
-      .current-slide
-        span.number
-          | 1
-        span.slash
-          | &#47;
-        span.total-slides
-          | 3
-      .slider-next
-        = inline_svg "icons/arrow-right.svg"
-.join-us-container
-  .line
-  p.title Бажаєте приєднатись до нашого клубу?
-  a.green-button href=new_user_registration_path title="Заповнити анкетні дані та створити свій власний профіль клубу" Cтати учасником
-.margin-block.club-speakers-container
-  p.section-header спікери клубу
-  p.under-header Люди, які виступали у нашому клубі
-  .block-wrapper
-    .row
+= render "home_articles"
 
-      - @speakers.each_with_index do |speaker, i|
-        - large_width = "3"
-        - large_width = "6" if i == 0 || i % 6 == 0 || i % 6 == 4
-        .medium-12.columns.home-speaker-column class="large-#{large_width}"
-          .block-container
-            .img-background style="background-image: url(#{speaker.image.url(:wide)})"
-            .title
-              = raw speaker.name
-            - if speaker.description.present?
-              p.hover-text
-                = speaker.description
-            .hover-block
-              - if speaker.social_facebook.present? || speaker.social_google_plus.present?
-                .social-links
-                  - if speaker.social_facebook.present?
-                    a rel="nofollow" href=speaker.social_facebook title="Перейти на фейсбук профіль"
-                      = inline_svg("icons/social-facebook.svg")
-                  - if speaker.social_google_plus.present?
-                    a rel="nofollow" href=speaker.social_google_plus title="Перейти на гугл-плюс профіль"
-                      = inline_svg("icons/social-google_plus.svg")
-
-
-  - if @articles.try(:any?)
-    .subheader блог та новини
-    .news-container
-      .row
-        - @articles.each do |article|
-          = render "article", article: article
-
-    .btn-container
-      a.btn.light href=articles_path title="Переглянути всі новини клубу"
-        span Всі новини
-- if @club_companies.try(:any?)
-  .companies
-    p.subheader компанії учасники клубу
-    .row
-      .columns
-        .slider-container
-          .carousel-slider-prev
-            = inline_svg "icons/arrow-left.svg"
-          .carousel-slider-next
-            = inline_svg "icons/arrow-right.svg"
-          ul.slider-3
-            - @club_companies.each do |company|
-              - url =  company.company_site
-              - has_url =url.present?
-              - title_html_options = {class: "name"}
-
-              - image_wrap_html_options = {class: "image"}
-              - if has_url
-                - title_html_options[:href] = url
-                - title_html_options[:rel] = "nofollow"
-                - image_wrap_html_options[:href] = url
-                - image_wrap_html_options[:rel] = "nofollow"
-              li.company-block
-                = content_tag(has_url ? :a : :span, image_wrap_html_options) do
-                  - if company.image_file_name.end_with?(".svg")
-                    .img-svg
-                      = embedded_svg_from_absolute_path(company.image.path)
-                  - else
-                    .img style="background-image: url(#{company.image.url(:home)})"
-
-                = content_tag(has_url ? :a : :span, company.name, title_html_options)
-
-                p.description
-                  = raw company.description
+= render "home_companies"

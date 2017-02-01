@@ -1,0 +1,27 @@
+.margin-block.club-speakers-container
+  p.section-header спікери клубу
+  p.under-header Люди, які виступали у нашому клубі
+  .block-wrapper
+    .row
+      - @speakers.each_with_index do |speaker, i|
+        - large_width = "3"
+        - large_width = "6" if i == 0 || i % 6 == 0 || i % 6 == 4
+        .medium-12.columns.home-speaker-column class="large-#{large_width}"
+          .block-container
+            .img-background style="background-image: url(#{speaker.image.url(:wide)})"
+            .title
+              = raw speaker.name
+            - if speaker.description.present?
+              p.hover-text
+                = speaker.description
+            .hover-block
+              - if speaker.social_facebook.present? || speaker.social_google_plus.present?
+                .social-links
+                  - if speaker.social_facebook.present?
+                    a rel="nofollow" href=speaker.social_facebook title="Перейти на фейсбук профіль"
+                      = inline_svg("icons/social-facebook.svg")
+                  - if speaker.social_google_plus.present?
+                    a rel="nofollow" href=speaker.social_google_plus title="Перейти на гугл-плюс профіль"
+                      = inline_svg("icons/social-google_plus.svg")
+
+

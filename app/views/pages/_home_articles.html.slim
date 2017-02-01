@@ -1,0 +1,10 @@
+- if @articles.try(:any?)
+  .subheader блог та новини
+  .news-container
+    .row
+      - @articles.each do |article|
+        = render "article", article: article
+
+  .btn-container
+    a.btn.light href=articles_path title="Переглянути всі новини клубу"
+      span Всі новини

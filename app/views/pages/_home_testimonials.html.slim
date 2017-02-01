@@ -1,0 +1,30 @@
+- if @testimonials.try(:any?)
+  .margin-block.members-container
+    .line
+    p.section-header учасники клубу
+    p.under-header Відомі люди, які є учасниками нашого клубу
+    ul.slider-2
+      - @testimonials.each_with_index do |testimonial, i|
+        li.slide class=("active-slide" if i == 0)
+          .img-background style="background-image: url(#{testimonial.image.url(:large)})"
+          .overlay
+          .text
+            p.title
+              = raw testimonial.name
+            p.subtitle
+              = testimonial.position
+            p.comment
+              = testimonial.description
+
+    .slider-selectors
+      .slider-prev
+        = inline_svg "icons/arrow-left.svg"
+      .current-slide
+        span.number
+          | 1
+        span.slash
+          | &#47;
+        span.total-slides
+          | 3
+      .slider-next
+        = inline_svg "icons/arrow-right.svg"
