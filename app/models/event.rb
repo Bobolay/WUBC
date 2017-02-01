@@ -55,6 +55,9 @@ class Event < ActiveRecord::Base
   end
 
   def event_date_time_range
+    if !date && !start_time && !end_time
+      return "-"
+    end
     date_str = date ? "#{date.strftime('%d.%m.%Y')} " : ""
 
     time_range_str = "#{start_time ? start_time.strftime('%H:%M') : 'X'} &mdash; #{end_time ? end_time.strftime('%H:%M') : 'X'}"

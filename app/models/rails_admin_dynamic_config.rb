@@ -284,7 +284,16 @@ module RailsAdminDynamicConfig
             end
             field :published
             field :premium
-
+            field :created_at do
+              pretty_value do
+                v = @bindings[:object].send(name)
+                if v
+                  v.strftime("%d.%m.%Y %H:%M:%S")
+                else
+                  "-"
+                end
+              end
+            end
           end
         end
 
