@@ -311,12 +311,13 @@ body.logged-in
 
 
 .meeting-container
-  //height: 600px
   height: 0
-  padding-top: 44.2708%
-  // padding-top: 30%
+  padding-top: 52.08%
   position: relative
   margin-top: -15px
+  @media #{$xxlarge-up}
+    height: 800px
+    padding-top: 0
   .slider-top-shadow
     position: absolute
     width: 100%
@@ -332,9 +333,8 @@ body.logged-in
     top: 20px
     +translate(-50%,0)
   .img-background
-    // background-position: center top
-    // background-repeat: no-repeat
-    // background-size: contain
+    background-position: center top
+    background-repeat: no-repeat
 
   .bx-wrapper
     height: 100% !important
@@ -352,6 +352,7 @@ body.logged-in
   margin-top: -15px
   @media #{$small-only}
     padding: 50px 0
+    margin-top: 0
   .line
     background-color: $main
   .section-header
@@ -495,6 +496,8 @@ body.logged-in
   padding: 70px 1em
   text-align: center
   margin-top: -15px
+  @media #{$small-only}
+    margin-top: 0
   .line
     background-color: $grey
   .title
