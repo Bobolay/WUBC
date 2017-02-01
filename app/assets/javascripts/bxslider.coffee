@@ -54,7 +54,7 @@ $(document).on "ready page:load", ->
     maxSlides: 5
     slideWidth: $blockWidth
     slideMargin: 10
-    infiniteLoop: true
+    infiniteLoop: false
   $('.carousel-slider-prev').click ->
     current = slider3.getCurrentSlide()
     slider3.goToPrevSlide(current) - 1
