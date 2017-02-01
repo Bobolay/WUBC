@@ -24,6 +24,7 @@
 #= require plugins/jquery-easing
 #= require plugins/jquery.scrolldelta
 #= require plugins/lightgallery.min
+#= require lightgallery_plugins/lg-thumbnail.min.js
 #= require plugins/lg-thumbnail.min
 #= require plugins/clickout
 #= require jquery.maskedinput/dist/jquery.maskedinput.min
@@ -66,6 +67,7 @@
 
 #= require registration_scripts/locales
 #= require registration_scripts/inputs
+#= require registration_scripts/validation
 #= require registration
 
 #= require sign-in-popup-wrapper
