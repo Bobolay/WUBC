@@ -67,7 +67,7 @@
 
 #= require registration_scripts/locales
 #= require registration_scripts/inputs
-#= require registration_scripts/validation
+
 #= require registration
 
 #= require sign-in-popup-wrapper
