@@ -1,5 +1,5 @@
 $document.on("ready page:load", function() {
-  //$('#animated-thumbnails').lightGallery({
+  $('#animated-thumbnails').lightGallery({
       //thumbnail: true
-  //});
+  });
 });
