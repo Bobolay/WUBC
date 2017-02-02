@@ -36,11 +36,10 @@ register_speaker_click_handler = ()->
       #window.location = url
     #$bg_block = $(this).find("a.img-background")
 
+  $.clickOut(".home-speaker-column",
+    ()->
+      $(this).data("clicked", null)
+  )
 
 if is_touch_device()
   register_speaker_click_handler()
-
-$.clickOut(".home-speaker-column",
-  ()->
-    $(this).data("clicked", null)
-)
