@@ -8,6 +8,7 @@
 #= require images.js.erb
 #= require functions
 #= require js_functions
+#= require mobile_check
 
 # require test
 
@@ -90,3 +91,5 @@
 
 #= require plugins/js-date-format.min
 #= require events_timing
+
+#= require home_speakers

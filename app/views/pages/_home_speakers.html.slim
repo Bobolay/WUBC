@@ -8,7 +8,10 @@
         - large_width = "6" if i == 0 || i % 6 == 0 || i % 6 == 4
         .medium-12.columns.home-speaker-column class="large-#{large_width}"
           .block-container
-            .img-background style="background-image: url(#{speaker.image.url(:wide)})"
+            - speaker_url = speaker.url.present? ? speaker.url : nil
+            - bg_element_options = {class: "img-background", style: "background-image: url(#{speaker.image.url(:wide)})"}
+            - bg_element_options[:href] = speaker_url if speaker_url
+            = raw content_tag(speaker_url ? :a : :div, "", bg_element_options)
             .title
               = raw speaker.name
             - if speaker.description.present?

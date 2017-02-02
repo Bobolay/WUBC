@@ -11,4 +11,8 @@ class Speaker < ActiveRecord::Base
   has_cache do
     pages :home
   end
+
+  def url
+    self['url']
+  end
 end

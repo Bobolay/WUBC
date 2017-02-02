@@ -397,6 +397,7 @@ module RailsAdminDynamicConfig
           field :image
           field :social_facebook
           field :social_google_plus
+          field :url
         end
 
         config.model_translation Speaker do

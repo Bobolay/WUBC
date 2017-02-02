@@ -86,7 +86,7 @@ $document.on "mouseover", "#{header_selector}.scrolled, div.top-nav.scrolled *",
 
 $document.on "mouseout", "#{header_selector}.scrolled", (e)->
   $target = $(e.relatedTarget)
-  if $target.closest(".navigationleft").length == 0 && $target.closest(".header-logo").length == 0
+  if $target.closest(".navigationleft").length == 0 && $target.closest(".header-logo").length == 0 && !$(".menu-wrapper").hasClass("opened")
     window.top_nav_locked = false
     setClosingTimeout.apply($(header_selector))
 
@@ -156,6 +156,30 @@ if use_custom_scroll_speed
 #easing: "easeOutBack"
         })
 
+close_menu = ()->
+  $menu_wrapper = $('.menu-wrapper')
+  if $menu_wrapper.hasClass("opened")
+    $menu_wrapper.removeClass("opened")
+    $(".menu-button").removeClass("opened")
+
+check_if_menu_opened = ()->
+  $menu_wrapper = $('.menu-wrapper')
+  $menu_wrapper.hasClass("opened")
+
+
+$document.on "wheel", (e)->
+  console.log "wheel: e: ", e
+  if e && e.originalEvent && e.originalEvent.deltaY > 0
+    close_menu()
+
+
+
+
+
 $document.on "click", ".menu-button", ()->
   $(this).toggleClass("opened")
   $('.menu-wrapper').toggleClass("opened")
+
+$.clickOut(".header-container",
+  close_menu
+)
