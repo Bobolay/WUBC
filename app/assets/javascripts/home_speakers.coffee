@@ -8,7 +8,7 @@ register_speaker_click_handler = ()->
     $target = $(e.target)
 
 
-    if $target.hasClass("hover-text") || $target.hasClass("hover-block") || $target.closest("speaker-info-button").length
+    if $target.hasClass("hover-text") || $target.hasClass("hover-block") || $target.closest(".speaker-info-button").length
       #alert("hover-text")
       if $speaker_block.data("clicked")
         e.preventDefault()
