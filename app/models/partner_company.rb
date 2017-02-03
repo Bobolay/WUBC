@@ -3,7 +3,7 @@ class PartnerCompany < ActiveRecord::Base
 
   globalize :name, :description
 
-  image :image, styles: {partner: "180x120>"}
+  image :image, styles: {medium: "180x120>"}
 
   boolean_scope :published
   scope :sort_by_sorting_position, -> { order("sorting_position asc") }

@@ -3,7 +3,7 @@ class ClubCompany < ActiveRecord::Base
 
   globalize :name, :description
 
-  image :image, styles: {home: "110x100#"}
+  image :image, styles: {home: "110x100#", medium: "180x120>"}
 
   boolean_scope :published
   boolean_scope :featured

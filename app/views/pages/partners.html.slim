@@ -14,9 +14,9 @@
       .columns.small-6.medium-4.partner-block
         - if has_url
           a.image href=url rel="nofollow"
-            img src=company.image.url(:partner)
+            img src=company.image.url(:medium)
         - else
-          img src=company.image.url(:partner)
+          img src=company.image.url(:medium)
 
         = content_tag(has_url ? :a : :span, company.name, title_html_options)
         - if company.description.present?
