@@ -380,7 +380,7 @@ module RailsAdminDynamicConfig
           field :seo_tags
         end
 
-        [Pages::AboutUs, Pages::Articles, Pages::Contacts, Pages::Events, Pages::Members, Pages::Partners, Pages::SignIn, Pages::SignUp, Pages::Cabinet, Pages::ForgotPassword, Pages::EditPassword].each do |m|
+        [Pages::AboutUs, Pages::Articles, Pages::Contacts, Pages::Events, Pages::Members, Pages::Partners, Pages::ClubCompanies, Pages::SignIn, Pages::SignUp, Pages::Cabinet, Pages::ForgotPassword, Pages::EditPassword].each do |m|
           config.model m do
             field :seo_tags
           end
