@@ -18,7 +18,10 @@
               .large-12.medium-12.small-6.columns
                 a href=members_path title="Перейти на сторінку даного розділу" rel="nofollow" class=("open-login-popup" if !current_user) Члени клубу
                 br
-                a href=partners_path title="Перейти на сторінку даного розділу" Партнери
+                /a href=partners_path title="Перейти на сторінку даного розділу" Партнери
+                /br
+                a href=club_companies_path title="Перейти на сторінку даного розділу"
+                  = I18n.t("menu.club_companies")
                 br
                 a href=contacts_path title="Перейти на сторінку даного розділу" Контакти
         .large-4.medium-4.columns
