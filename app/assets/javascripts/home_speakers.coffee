@@ -44,3 +44,8 @@ register_speaker_click_handler = ()->
 
 if is_touch_device()
   register_speaker_click_handler()
+else
+  $document.on "click", "div.speaker-info-button", ()->
+    url = $(this).closest(".home-speaker-column").find(".img-background").attr("hover")
+    if url && url
+      window.location = url

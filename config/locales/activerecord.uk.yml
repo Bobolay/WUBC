@@ -16,13 +16,14 @@ uk:
       member:
         one: "Член"
         other: "Члени"
-      home_club_company:
+      club_company:
         one: "Кращі компанії"
         other: "Краща компанія"
       form_configs/new_user_waiting_approval: "Новий користувач чекає на підтвердження"
       form_configs/user_subscribed_to_event: "Член клубу підписався на подію"
       form_configs/user_unsubscribed_from_event: "Член клубу відписався від події"
       pages/partners: "Партнери"
+      pages/club_companies: "Компанії клубу"
       partner_company:
         one: "Компанія-партнер"
         other: "Компанії-партнери"
@@ -53,4 +54,4 @@ uk:
       email: "Логін e-maill"
       password: "Пароль"
       password_confirmation: "Підтвердження паролю"
-
+      featured: "Показувати на головній"

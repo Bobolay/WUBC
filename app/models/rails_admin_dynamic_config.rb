@@ -374,7 +374,7 @@ module RailsAdminDynamicConfig
           field :description
         end
 
-        config.include_models Pages::Home, Pages::AboutUs, Pages::Articles, Pages::Contacts, Pages::Events, Pages::Members, Pages::Partners, Pages::SignIn, Pages::SignUp, Pages::Cabinet, Pages::ForgotPassword, Pages::EditPassword
+        config.include_models Pages::Home, Pages::AboutUs, Pages::Articles, Pages::Contacts, Pages::Events, Pages::Members, Pages::Partners, Pages::ClubCompanies, Pages::SignIn, Pages::SignUp, Pages::Cabinet, Pages::ForgotPassword, Pages::EditPassword
         config.model Pages::Home do
           field :slider_images
           field :seo_tags
@@ -416,17 +416,17 @@ module RailsAdminDynamicConfig
           end
         end
 
-        config.include_models HomeClubCompany
-        config.model HomeClubCompany do
-          parent Pages::Home
+        config.include_models ClubCompany
+        config.model ClubCompany do
           nestable_list(position_field: :sorting_position, scope: :published)
           field :published
+          field :featured
           field :translations, :globalize_tabs
           field :image
           field :company_site
         end
 
-        config.model_translation HomeClubCompany do
+        config.model_translation ClubCompany do
           field :locale, :hidden
           field :name
           field :description

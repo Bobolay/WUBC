@@ -5,7 +5,8 @@ uk:
     events: "Події"
     articles: "Блог та новини"
     members: "Члени клубу"
-    partners: "Компанії клубу"
+    partners: "Партнери"
+    club_companies: "Компанії клубу"
     contacts: "Контакти"
 
   users:

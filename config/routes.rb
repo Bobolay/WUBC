@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   controller :pages do
     get "about-us", action: "about_us", as: :about_us
     get "partners", action: "partners", as: :partners
+    get "club-companies", action: "club_companies", as: :club_companies
     get "contacts", action: "contacts", as: :contacts
   end
 

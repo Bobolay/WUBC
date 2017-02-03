@@ -10,7 +10,7 @@ class PagesController < ApplicationController
     @slider_images = @page_instance.slider_images
     @testimonials = Testimonial.published.sort_by_sorting_position
     @speakers = Speaker.published.sort_by_sorting_position
-    @club_companies = HomeClubCompany.published.sort_by_sorting_position
+    @club_companies = ClubCompany.published.featured.sort_by_sorting_position
   end
 
   def about_us
@@ -20,6 +20,11 @@ class PagesController < ApplicationController
 
   def partners
     @club_companies = PartnerCompany.published.sort_by_sorting_position
+  end
+
+  def club_companies
+    @club_companies = ClubCompany.published.unfeatured.sort_by_sorting_position
+    render "partners"
   end
 
   def contacts
