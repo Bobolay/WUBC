@@ -23,7 +23,7 @@ class PagesController < ApplicationController
   end
 
   def club_companies
-    @club_companies = ClubCompany.published.unfeatured.sort_by_sorting_position
+    @club_companies = ClubCompany.published.sort_by_sorting_position
     render "partners"
   end
 
