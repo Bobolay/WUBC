@@ -220,8 +220,25 @@ module RailsAdminDynamicConfig
             end
             field :phones
             field :avatar
+            field :personal_helpers
             field :companies
           end
+        end
+
+        config.include_models PersonalHelper
+        config.model PersonalHelper do
+          field :user do
+            label "Член клубу"
+          end
+          field :translations, :globalize_tabs
+          field :email
+          field :phones
+        end
+
+        config.model_translation PersonalHelper do
+          field :locale, :hidden
+          field :first_name
+          field :last_name
         end
 
         config.include_models Company, CompanyOffice

@@ -321,9 +321,72 @@ window.inputs = {
 
   }
 
+  personal_helpers: {
+    render: (name, options, data)->
+      personal_helper_inputs_str = ""
+      label = inputs.base.label(name, options)
+      personal_helper_options = options.personal_helper_options || {}
+      key = options.key || name
+      personal_helper_options.key = "#{key}[]"
+      if data && data.length
+        for personal_helper_data in data
+          personal_helper_inputs_str += inputs.personal_helper.render("personal_helper", personal_helper_options, personal_helper_data)
+      else
+        personal_helper_inputs_str += inputs.personal_helper.render("personal_helper", personal_helper_options)
+      personal_helper_inputs_str = "<div class='inputs-collection-inputs'>#{personal_helper_inputs_str}</div>"
+
+      inputs_collection_controls = ""
+      help = inputs.base.help(name, options)
+      "<div class='inputs-collection personal-helpers inputs-collection-single-input' data-key='#{key}'>#{label}#{personal_helper_inputs_str}#{inputs_collection_controls}#{help}</div>"
+  }
+
+  personal_helper: {
+
+    render: (name, options, data)->
+      data ?= {}
+      options = $.extend({label: false}, options)
+      wrap_attributes = inputs.base.wrap_attributes(name, options)
+      label = inputs.base.label(name, options)
+      input_str = inputs.email.input(name, options)
+      key = options.key || name
+
+      personal_helper_inputs_wrap = inputs.personal_helper.render_inputs(key, data)
+      has_data = data && ((data.first_name && data.first_name.length) || (data.last_name && data.last_name.length) || (data.email && data.email.length) || (data.phones && data.phones.length && data.phones[0].length) ) && true
+      preview_mode = has_data
+      preview_mode_class = if preview_mode then "preview-mode" else ""
+      save_button_disabled_class = if has_data then "" else "disabled"
+
+      personal_helper_controls_str = "<div class='personal-helper-controls'><div class='personal-helper-control personal-helper-control-save #{save_button_disabled_class}'>#{t("save_personal_helper")}</div><div class='personal-helper-control personal-helper-control-add'>#{t("add_personal_helper")}</div><div class='personal-helper-control personal-helper-control-edit'>#{svg_images.edit}</div><div class='personal-helper-control personal-helper-control-remove'>#{t("remove_personal_helper")}</div></div>"
+      help = inputs.base.help(name, options)
+      preview_str = if preview_mode then inputs.personal_helper.render_locked(data) else ""
+      preview_wrap = "<div class='personal-helper-preview'>#{preview_str}</div>"
+
+
+      "<div #{wrap_attributes} class='input register-input input-personal-helper #{preview_mode_class}' data-key='#{key}'>#{label}#{preview_wrap}#{personal_helper_inputs_wrap}#{personal_helper_controls_str}#{help}</div>"
+
+
+    render_inputs: (key, data)->
+      personal_helper_inputs_str = ""
+
+      personal_helper_inputs_str += "<div class='columns medium-6'>" + inputs.string.render("first_name",
+        {key: "#{key}.first_name"},
+        data.first_name)
+      personal_helper_inputs_str += inputs.string.render("last_name",
+        {key: "#{key}.last_name"}, data.last_name)
+      personal_helper_inputs_str += "</div>"
+      personal_helper_inputs_str += "<div class='columns medium-6'>"
+      personal_helper_inputs_str += inputs.email.render("email",
+        {key: "#{key}.email", autocomplete: "address-line2", label: "E-mail"}, data.email)
+
+      personal_helper_inputs_str += inputs.phones.render("phones", {key: "#{key}.phones"}, data.phones)
+      personal_helper_inputs_str += "</div>"
+
+      "<div class='personal-helper-inputs'><div class='row'>#{personal_helper_inputs_str}</div></div>"
+
+  }
+
   offices: {
     render: (name, options, data)->
-#console.log "offices: data: ", data
       office_inputs_str = ""
       label = inputs.base.label(name, options)
       office_options = options.office_options || {}

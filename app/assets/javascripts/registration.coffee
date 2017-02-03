@@ -50,6 +50,11 @@ column( "medium-6", {
     required: true
     must_equal: "password"
   }
+}) +
+column("medium-12", {
+  personal_helpers: {
+    type: "personal_helpers"
+  }
 })
 
 
@@ -807,27 +812,6 @@ $document.on "click", ".phones .inputs-collection-control", ()->
 
 
 
-$document.on "click", ".office-control-save", ()->
-  $button = $(this)
-  return if $button.hasClass("disabled")
-
-  $office = $button.closest(".input-office")
-  office_index = $office.index()
-  $company = $office.closest(".company")
-  company_json = form_to_json.call($company)
-  data = company_json.offices[office_index]
-  #console.log "OFFICES: ", company_json.offices
-
-  str = inputs.office.render_locked(data)
-  $office_preview = $office.find(".office-preview")
-
-  if $office_preview.length > 0
-    $office_preview.html(str)
-  else
-    $office_preview = $("<div class='office-preview'>#{str}</div>")
-    $office.prepend($office_preview)
-
-  $office.addClass("preview-mode")
 
 
 
@@ -884,6 +868,31 @@ $document.on "click", ".company-control-remove", ()->
 
   show_remove_company_confirm_popup($company)
 
+
+
+$document.on "click", ".office-control-save", ()->
+  $button = $(this)
+  return if $button.hasClass("disabled")
+
+  $office = $button.closest(".input-office")
+  office_index = $office.index()
+  $company = $office.closest(".company")
+  company_json = form_to_json.call($company)
+  data = company_json.offices[office_index]
+  #console.log "OFFICES: ", company_json.offices
+
+  str = inputs.office.render_locked(data)
+  $office_preview = $office.find(".office-preview")
+
+  if $office_preview.length > 0
+    $office_preview.html(str)
+  else
+    $office_preview = $("<div class='office-preview'>#{str}</div>")
+    $office.prepend($office_preview)
+
+  $office.addClass("preview-mode")
+
+
 $document.on "click", ".office-control-remove", ()->
   $button = $(this)
   $office = $button.closest(".input-office")
@@ -894,6 +903,14 @@ $document.on "click", ".office-control-remove", ()->
 
 $document.on "click", ".office-control-edit", ()->
   $(this).closest(".input-office").removeClass("preview-mode")
+
+$document.on "click", ".office-control-add", ()->
+  $office = $(this).closest(".input-office")
+  new_office_str = inputs.office.render("office", {key: "offices[]"}, {})
+  $new_office = $(new_office_str)
+  $new_office.insertAfter($office)
+  inputs.phone.initialize()
+
 
 $document.on "click", ".remove-office-popup .btn-remove-office-ok", (e)->
   e.preventDefault()
@@ -916,12 +933,6 @@ $document.on "click", ".remove-office-popup .btn-remove-office-ok", (e)->
   close_popup.call($wrap)
 
 
-$document.on "click", ".office-control-add", ()->
-  $office = $(this).closest(".input-office")
-  new_office_str = inputs.office.render("office", {key: "offices[]"}, {})
-  $new_office = $(new_office_str)
-  $new_office.insertAfter($office)
-  inputs.phone.initialize()
 
 $document.on "click", ".remove-company-popup .btn-remove-company-ok", (e)->
   e.preventDefault()

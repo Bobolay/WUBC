@@ -29,6 +29,9 @@ class User < ActiveRecord::Base
   scope :confirmed, -> { where("confirmed_at is not null") }
   scope :approved, -> { where("approved_at is not null") }
 
+  has_many :personal_helpers
+  attr_accessible :personal_helpers
+
   boolean_scope :is_speaker, :speakers, :not_speakers
 
   def admin?
@@ -107,10 +110,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def phones
-    [phone]
-  end
-
   def approved
     approved_at.present?
   end
@@ -174,7 +173,7 @@ class User < ActiveRecord::Base
   end
 
   def user_data
-    user_columns = [:first_name, :middle_name, :last_name, :hobby, :phones, :email, :hobby]
+    user_columns = [:first_name, :middle_name, :last_name, :hobby, :phones, :email]
     h = Hash[user_columns.map{|k|
       [k, self.send(k)]
     }]
@@ -184,6 +183,14 @@ class User < ActiveRecord::Base
     h[:birth_date] = birth_date.present? ? birth_date.strftime("%d.%m.%Y") : nil
     h[:social_networks] = social_links
 
+    h[:personal_helpers] = personal_helpers.map{ |helper|
+      {
+          first_name: helper.first_name,
+          last_name: helper.last_name,
+          email: helper.email,
+          phones: helper.phones
+      }
+    }
 
     h
   end
@@ -220,30 +227,7 @@ class User < ActiveRecord::Base
     }
   end
 
-  def phones=(val)
-    puts "phones: #{val}"
-    if val.is_a?(Array)
-      val = val.join("\r\n")
-    end
-
-    puts "phones: formatted: #{val}"
-
-    self['phones'] = val
-
-    true
-  end
-
-  def phones(parse = true)
-    val = self['phones']
-    if parse
-      if val.blank?
-        return []
-      end
-      return self['phones'].split("\r\n")
-    else
-      return self['phones']
-    end
-  end
+  include HasPhones
 
   def social_links
     Hash[[:facebook, :google_plus].map{|k| [k, send("social_#{k}") ]  }.select{|item| item[1].present? }]
