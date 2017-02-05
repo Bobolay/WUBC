@@ -40,6 +40,8 @@ window.locales = {
       hobby: "Хоббі"
       name: "Назва компанії"
 
+      personal_helpers: "Особисті помічники"
+
     }
     placeholders: {
       first_name: "Петро"

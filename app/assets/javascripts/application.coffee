@@ -68,8 +68,20 @@
 
 #= require registration_scripts/locales
 #= require registration_scripts/inputs
+#= require registration_scripts/summary_fields
+#= require registration_scripts/summary
+#= require registration_scripts/validation
+#= require registration_scripts/send_data_to_server
+#= require registration_scripts/avatar_upload
+#= require registration_scripts/rendering
+#= require registration_scripts/steps
 
 #= require registration
+
+#= require registration_scripts/phones_handlers
+#= require registration_scripts/offices_handlers
+#= require registration_scripts/companies_handlers
+
 
 #= require sign-in-popup-wrapper
 

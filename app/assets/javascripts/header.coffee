@@ -170,7 +170,7 @@ check_if_menu_opened = ()->
 
 if is_touch_device()
   $window.on "scroll", (e)->
-    console.log "wheel: e: ", e
+    #console.log "wheel: e: ", e
     #if e && e.originalEvent && e.originalEvent.deltaY > 0
     portrait = window.innerHeight > window.innerWidth
     if portrait
@@ -178,7 +178,7 @@ if is_touch_device()
 
 else
   $document.on "wheel", (e)->
-    console.log "wheel: e: ", e
+    #console.log "wheel: e: ", e
     if e && e.originalEvent && e.originalEvent.deltaY > 0
       close_menu()
 
