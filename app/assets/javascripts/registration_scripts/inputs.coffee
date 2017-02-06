@@ -383,6 +383,24 @@ window.inputs = {
 
       "<div class='personal-helper-inputs'><div class='row'>#{personal_helper_inputs_str}</div></div>"
 
+
+    render_locked: (obj)->
+      return "" if !obj
+      phones = obj.phones
+      if phones && phones.filter
+        phones = phones.filter(
+          (a)->
+            a && a.length > 0
+        )
+      #console.log "DATA: city: ", obj.city, "; address: ", obj.address, "; phones: ", phones
+      return "" if (!obj.first_name || !obj.first_name.length) && (!obj.last_name || !obj.last_name.length) && (!obj.email || !obj.email.length) && (!phones || !phones.length)
+
+      first_name_str = if obj.first_name && obj.first_name.length > 0 then "<p><span>#{t('attributes.first_name')}:</span>#{obj.first_name}</p>" else ""
+      last_name_str = if obj.last_name && obj.last_name.length > 0 then "<p><span>#{t('attributes.last_name')}:</span>#{obj.last_name}</p>" else ""
+      email_str = if obj.email && obj.email.length > 0 then "<p><span>#{t('attributes.email')}:</span>#{obj.email}</p>" else ""
+      phones_str = if phones && phones.length then "<p><span>#{t('attributes.phones')}:</span>#{phones.join("<br/>")}</p>" else ""
+      "<div class='filled-info'>#{first_name_str}#{last_name_str}#{email_str}#{phones_str}</div>"
+
   }
 
   offices: {

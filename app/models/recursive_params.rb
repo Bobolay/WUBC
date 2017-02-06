@@ -2,7 +2,7 @@ module RecursiveParams
   def update_params(params = {}, invoke_save = true)
 
     translation_param_names = (self.class.globalize_attributes rescue []).map(&:to_s)
-    if params.blank?
+    if params.blank? || params.is_a?(String)
       return false
     end
 

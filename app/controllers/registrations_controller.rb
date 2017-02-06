@@ -6,8 +6,9 @@ class RegistrationsController < Users::RegistrationsController
 
   def create
     user = Member.create(sign_up_user_params)
-    user.update_params(params[:user])
+    user.set_personal_helpers(params[:user][:personal_helpers])
     user.save
+    user.update_params(params[:user])
 
     company = user.companies.create(company_params)
     company.update_params(params[:company])

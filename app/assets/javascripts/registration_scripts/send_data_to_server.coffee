@@ -1,13 +1,25 @@
 window.form_to_json = ()->
   obj = {}
-  except_keys = ["offices[]"]
+  except_keys = ["offices[]", "personal_helpers[]"]
+  excepted_keys = []
   $form = $(this)
-  $form.find(".input").map(
+  $form.find(".input").each(
     ()->
       $input = $(this)
-
+      if $input.closest(".input-personal-helper").length
+        if excepted_keys.indexOf("personal_helpers[]") < 0
+          excepted_keys.push("personal_helpers[]")
+        return
+      if $input.closest(".input-office").length
+        if excepted_keys.indexOf("offices[]") < 0
+          excepted_keys.push("offices[]")
+        return
       k = $input.attr("data-key")
       if k == undefined
+        return
+
+      if except_keys.indexOf(k) >= 0
+        excepted_keys.push(k)
         return
 
       if except_keys.includes(k)
@@ -17,6 +29,7 @@ window.form_to_json = ()->
           return null
 
       val = $input.find("input, textarea, select").val()
+      console.log "#{k}: #{val}"
 
 
       if k.endsWith("[]")
@@ -30,21 +43,41 @@ window.form_to_json = ()->
 
   )
 
-  offices = []
-  $form.find(".office-inputs").map(
-    ()->
-      office = {}
-      $office = $(this)
-      office["city"] = $office.find(".input input[name='city']").val()
-      office["address"] = $office.find(".input input[name='address']").val()
-      office["phones"] = $office.find(".input input[name='phone']").map(
-        ()->
-          $(this).val()
-      ).toArray()
+  if excepted_keys.indexOf("offices[]") >= 0
+    offices = []
+    $form.find(".office-inputs").map(
+      ()->
+        office = {}
+        $office = $(this)
+        office["city"] = $office.find(".input input[name='city']").val()
+        office["address"] = $office.find(".input input[name='address']").val()
+        office["phones"] = $office.find(".input input[name='phone']").map(
+          ()->
+            $(this).val()
+        ).toArray()
 
-      offices.push(office)
-  )
-  obj['offices'] = offices
+        offices.push(office)
+    )
+    obj['offices'] = offices
+
+
+  if excepted_keys.indexOf("personal_helpers[]") >= 0
+    personal_helpers = []
+    $form.find(".personal-helper-inputs").map(
+      ()->
+        personal_helper = {}
+        $personal_helper = $(this)
+        personal_helper["first_name"] = $personal_helper.find(".input input[name='first_name']").val()
+        personal_helper["last_name"] = $personal_helper.find(".input input[name='last_name']").val()
+        personal_helper["email"] = $personal_helper.find(".input input[name='email']").val()
+        personal_helper["phones"] = $personal_helper.find(".input input[name='phone']").map(
+          ()->
+            $(this).val()
+        ).toArray()
+
+        personal_helpers.push(personal_helper)
+    )
+    obj['personal_helpers'] = personal_helpers
 
   obj
 

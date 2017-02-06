@@ -1,3 +1,20 @@
+$document.on "keyup blur change", ".input-office input", ()->
+  $office = $(this).closest(".input-office")
+  city = $office.find("input[name=city]").val()
+  address = $office.find("input[name=address]").val()
+  phones = $office.find("input[name=phone]").map(
+    ()->
+      $(this).val()
+  ).toArray().filter(
+    (a)->
+      a && a.length > 0 && a.indexOf("_") < 0
+  )
+  has_data = ((city && city.length) || (address && address.length) || (phones && phones.length && phones[0].length) ) && true
+
+  $save_button = $office.find(".office-control-save")
+  $save_button.removeClass("disabled") if has_data && $save_button.hasClass("disabled")
+  $save_button.addClass("disabled") if !has_data && !$save_button.hasClass("disabled")
+
 
 $document.on "click", ".office-control-save", ()->
   $button = $(this)
@@ -48,16 +65,16 @@ $document.on "click", ".remove-office-popup .btn-remove-office-ok", (e)->
   office_index = $wrap.attr("data-office-index")
   $company = $(".company").eq(company_index)
   $offices_input = $company.find(".offices")
-  $office_inpts_wrap = $offices_input.find(".inputs-collection-inputs")
-  $office = $office_inpts_wrap.children().eq(office_index)
+  $office_inputs_wrap = $offices_input.find(".inputs-collection-inputs")
+  $office = $office_inputs_wrap.children().eq(office_index)
   $office.remove()
   put_companies() if is_cabinet
 
 
-  if !$office_inpts_wrap.children().length
+  if !$office_inputs_wrap.children().length
     new_office_str = inputs.office.render("office", {key: "offices[]"}, {})
 
-    $office_inpts_wrap.append(new_office_str)
+    $office_inputs_wrap.append(new_office_str)
 
   close_popup.call($wrap)
 

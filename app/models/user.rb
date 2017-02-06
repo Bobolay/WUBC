@@ -259,6 +259,28 @@ class User < ActiveRecord::Base
       arr
     end
   end
+
+  def set_personal_helpers(personal_helpers_params)
+    puts "personal_helpers_params: #{personal_helpers_params.inspect}"
+    return if personal_helpers_params.nil?
+
+    params_personal_helpers_count = personal_helpers_params.count
+    params_personal_helpers_max_index = params_personal_helpers_count - 1
+    self.personal_helpers.each_with_index do |c, i|
+      c.delete if i > params_personal_helpers_max_index
+    end
+
+
+
+    personal_helpers_params.each_with_index do |personal_helper_params, personal_helper_index|
+      personal_helper_params = personal_helper_params[1] if personal_helper_params.is_a?(Array)
+      personal_helper_index = personal_helper_index.to_i
+      personal_helper = self.personal_helpers[personal_helper_index]
+      personal_helper ||= self.personal_helpers.new
+      puts "personal_helper_params: #{personal_helper_params.inspect}"
+      personal_helper.update_params(personal_helper_params)
+    end
+  end
 end
 
 # User.last.send_approval_congratulations!(["p.korenev@voroninstudio.eu", "voronin.nick@gmail.com"])
