@@ -27,15 +27,38 @@
       p.regular Контакти:
       - @user.phones.each do |phone|
         p.regular-grey
-          = phone
+          a href=phone_url(phone)
+            = formatted_phone(phone)
       p.regular-grey
-        = @user.email
+        a href=email_url(@user.email)
+          = @user.email
     - if @user.social_links.present?
       - @user.social_links.each do |k, url|
         a.social-link href=url
           = inline_svg "icons/social-#{k}.svg"
 
+    - personal_helpers = @user.personal_helpers.map{|h| {first_name: h.first_name, last_name: h.last_name, email: h.email, phones: h.phones} }.select{|h| h[:first_name].present? || h[:last_name].present? || h[:email].present? || h[:phones].present? }
+    - if personal_helpers.any?
+      .info-block
+        p.regular Особисті помічники:
+        .personal-helpers
 
+          - personal_helpers.each do |personal_helper|
+            .personal-helper
+              - name = [personal_helper[:first_name], personal_helper[:last_name]].select(&:present?).join(" ")
+              - if name.present?
+                .name
+                  = name
+                - if personal_helper[:email].present?
+                  .email
+                    a href=email_url(personal_helper[:email])
+                      = personal_helper[:email]
+                - if personal_helper[:phones].any?
+                  .phones
+                    - personal_helper[:phones].each do |phone|
+                      .phone
+                        a href=phone_url(phone)
+                          = formatted_phone(phone)
   .columns.large-9.personal-info-extended
     .person-name
       - if @user.is_speaker?

@@ -6,6 +6,7 @@ window.render_summary = (data)->
     birth_date: {}
     phones: {}
     email: {}
+    personal_helpers: {}
   }
 
   company_info = {

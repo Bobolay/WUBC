@@ -9,12 +9,13 @@ class Company < ActiveRecord::Base
 
 
 
-
-
   globalize :name, :description, :region, :position
 
   has_many :company_memberships
   has_many :users, through: :company_memberships#, class_name: User#, source: :user, source_type: User
+
+  has_and_belongs_to_many :regions
+  attr_accessible :regions, :region_ids
 
   attr_accessible :industry, :company_offices, :company_memberships, :users
 

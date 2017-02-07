@@ -72,6 +72,7 @@ window.locales = {
     summary_labels: {
       social_facebook: "Сторінка Facebook"
       social_google_plus: "Сторінка Google+"
+      personal_helpers: "Особисті<br/>помічники"
     }
     help: {
       password: "Мінімум 8 символів"

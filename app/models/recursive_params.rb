@@ -29,7 +29,9 @@ module RecursiveParams
 
 
     params.each do |k, v|
-      self.send("#{k}=", v) if self.respond_to?("#{k}=")
+      if !k.to_s.in?(%w(personal_helpers))
+        self.send("#{k}=", v) if self.respond_to?("#{k}=")
+      end
     end
 
 
