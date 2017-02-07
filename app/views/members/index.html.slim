@@ -24,8 +24,8 @@
         select#selectize-field-3.member-filter data-prop-name="data-regions" data-placeholder="Вкажіть місце ведення діяльності"
           option value=""
           - @regions.each do |r|
-            option value=r
-              = r
+            option value=r[:id]
+              = r[:name]
 
       .input
         label for="selectize-field-4" Назва компанії:

@@ -8,7 +8,7 @@ class MembersController < ApplicationController
     @names = @members.map{|m| {id: m.id, name_or_email: m.full_name_or_email(false)} }
     @companies = @members.map{|m| m.valid_companies }.flatten
     @industries = @companies.map{|c| {id: c.industry_id, name: c.industry_name } }.select(&:present?).uniq
-    @regions = @companies.map(&:region).select(&:present?).uniq
+    @regions = @companies.map{|c| c.regions.map{|r| {id: r.id, name: r.name} }}.flatten.select{|r|r[:name].present?}.uniq
     @companies_dropdown_options = @companies.map{|c| {id: c.id, name: c.name} }
   end
 

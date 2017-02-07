@@ -45,7 +45,7 @@ window.form_to_json = ()->
 
   if excepted_keys.indexOf("offices[]") >= 0
     offices = []
-    $form.find(".office-inputs").map(
+    $form.find(".office-inputs").each(
       ()->
         office = {}
         $office = $(this)
@@ -56,14 +56,15 @@ window.form_to_json = ()->
             $(this).val()
         ).toArray()
 
-        offices.push(office)
+        if office.city.length || office.address.length || (office.phones.length && office.phones[0].length)
+          offices.push(office)
     )
     obj['offices'] = offices
 
 
   if excepted_keys.indexOf("personal_helpers[]") >= 0
     personal_helpers = []
-    $form.find(".personal-helper-inputs").map(
+    $form.find(".personal-helper-inputs").each(
       ()->
         personal_helper = {}
         $personal_helper = $(this)
@@ -75,7 +76,8 @@ window.form_to_json = ()->
             $(this).val()
         ).toArray()
 
-        personal_helpers.push(personal_helper)
+        if personal_helper.first_name.length || personal_helper.last_name.length || personal_helper.email.length || (personal_helper.phones.length && personal_helper.phones[0].length)
+          personal_helpers.push(personal_helper)
     )
     obj['personal_helpers'] = personal_helpers
 

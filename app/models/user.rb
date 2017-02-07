@@ -200,7 +200,8 @@ class User < ActiveRecord::Base
       {name: company.name,
        description: company.description,
        position: company.position,
-       region: company.region,
+       #region: company.region,
+       regions: company.company_regions.map{|cr|cr.region.try(:name)}.select(&:present?),
        industry: company.industry_name,
        company_site: company.company_site,
        employees_count: company.employees_count,
@@ -213,7 +214,7 @@ class User < ActiveRecord::Base
   end
 
   def valid_companies
-    required_fields = [:name, :industry, :region, :position, :employees_count]
+    required_fields = [:name, :industry, :regions, :position, :employees_count]
     companies.to_a.select{|c|
       valid = true
       required_fields.each do |f|
@@ -234,7 +235,7 @@ class User < ActiveRecord::Base
   end
 
   def member_regions(format = false)
-    items = valid_companies.map(&:region)
+    items = valid_companies.map{|c| c.regions.map(&:id)}.flatten
     if format
       items.join(",")
     else

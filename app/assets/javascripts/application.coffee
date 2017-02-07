@@ -80,6 +80,7 @@
 
 #= require registration_scripts/phones_handlers
 #= require registration_scripts/offices_handlers
+#= require registration_scripts/regions_handlers
 #= require registration_scripts/personal_helpers_handlers
 #= require registration_scripts/companies_handlers
 

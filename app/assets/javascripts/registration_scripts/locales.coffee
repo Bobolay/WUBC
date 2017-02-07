@@ -27,6 +27,7 @@ window.locales = {
 
       industry: "Сфера здійснення діяльності"
       region: "Місце здійснення діяльності"
+      regions: "Місце здійснення діяльності"
       position: "Посада"
       employees_count: "Кількість працівників"
       company_site: "Сайт компанії"

@@ -13,7 +13,8 @@ window.render_summary = (data)->
     name: {}
     industry: {}
     description: {}
-    region: {}
+    #region: {}
+    regions: {type: "regions"}
     position: {}
     employees_count: {}
     company_site: {type: "site"}

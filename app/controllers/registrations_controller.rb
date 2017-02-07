@@ -9,13 +9,13 @@ class RegistrationsController < Users::RegistrationsController
     user.set_personal_helpers(params[:user][:personal_helpers])
     user.save
     user.update_params(params[:user])
-
+    params_company_regions = params[:company].delete(:regions)
     company = user.companies.create(company_params)
     company.update_params(params[:company])
     if params[:company] && params[:company][:offices]
-
       company.set_offices(params[:company][:offices])
     end
+    company.set_regions(params_company_regions)
     company.save
 
     # offices, industry

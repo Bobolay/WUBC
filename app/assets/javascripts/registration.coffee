@@ -50,7 +50,7 @@ render_cabinet_user_form = (data)->
       type: "text"
     }
   }, data) +
-  column( "medium-6", {
+  column("medium-6", {
     phones: { required: true, min: 1 }
     email: {
       readonly: true
@@ -100,7 +100,11 @@ render_company_form = (data, render_controls = false)->
     description: {
       type: "text"
     }
-    region: {required: true}
+    #region: {required: true}
+    regions: {
+      min: 1
+      type: "regions"
+    }
     name: { required: true }
     position: {required: true}
     employees_count: {

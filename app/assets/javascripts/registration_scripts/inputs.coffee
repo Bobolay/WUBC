@@ -6,7 +6,7 @@ window.inputs = {
 
     html_name: (name, options)->
       options.name || name
-    label: (name, options)->
+    label: (name, options = {})->
       if options.label == false
         return ""
       if options.label
@@ -15,8 +15,15 @@ window.inputs = {
         s = t("attributes.#{name}") || name
       required_mark_str = if options.required then "<span class='required-mark'>*</span>" else ""
       "<label class='input-label'>#{s}: #{required_mark_str}</label>"
-    placeholder: (name)->
-      t("placeholders.#{name}") || name
+    placeholder: (name, options = {})->
+      if options.placeholder == false
+        return ""
+      if options.placeholder
+        s = options.placeholder
+      else
+        s = t("placeholders.#{name}")
+
+      s || name
     wrap_attributes: (name, options)->
       validation_attributes = ["required", "must_equal", "email", "min_length", "max_length", "check_if_email_available"]
       validation = {}
@@ -53,7 +60,7 @@ window.inputs = {
     input: (name, options, data = '')->
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
-      placeholder = inputs.base.placeholder(name)
+      placeholder = inputs.base.placeholder(name, options)
       autocomplete_str = inputs.base.autocomplete(name, options)
       readonly_str = inputs.base.readonly(name, options)
       "<input #{readonly_str} #{autocomplete_str} name='#{html_name}' type='text' placeholder='#{placeholder}' class='#{options.class}' value='#{data}' />"
@@ -72,7 +79,7 @@ window.inputs = {
     input: (name, options, data = '')->
       html_name = inputs.base.html_name(name, options)
       options = $.extend({}, options)
-      placeholder = inputs.base.placeholder(name)
+      placeholder = inputs.base.placeholder(name, options)
       autocomplete_str = inputs.base.autocomplete(name, options)
       readonly_str = inputs.base.readonly(name, options)
       options.class ?= ""
@@ -319,6 +326,35 @@ window.inputs = {
       $inputs.find("input").mask("+99 (999) 999 99 99")
       $inputs.addClass("mask-initialized")
 
+  }
+
+  regions: {
+    render: (name, options, data)->
+      options = $.extend({label: false}, options)
+
+      region_inputs_str = ""
+      label = inputs.base.label(name, options)
+      region_options = options.region_options || {}
+      region_options.required = true if options.min && options.min >= 1
+      region_options.placeholder = t("placeholders.region")
+      key = options.key || name
+      region_options = $.extend({key: "#{key}[]"}, region_options)
+
+      regions_count = (data && Array.isArray(data) && data.length ) || 0
+
+
+      if regions_count
+        for region in data
+          region_inputs_str += inputs.string.render("region", region_options, region)
+      else
+        region_inputs_str += inputs.string.render("region", region_options)
+      region_inputs_str = "<div class='inputs-collection-inputs'>#{region_inputs_str}</div>"
+      inputs_collection_controls = inputs.inputs_collection.inputs_collection_controls()
+
+      html_class = "inputs-collection regions"
+      html_class += " inputs-collection-single-input" if !regions_count || regions_count == 0 || regions_count == 1
+      help = inputs.base.help(name, options)
+      "<div class='#{html_class}'>#{label}#{region_inputs_str}#{inputs_collection_controls}#{help}</div>"
   }
 
   personal_helpers: {

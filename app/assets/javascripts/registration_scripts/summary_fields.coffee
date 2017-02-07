@@ -15,6 +15,15 @@ window.summary_field_types = {
       "<div class='field #{type} field-#{name}'><div class='field-name'>#{field_name}</div><div class='field-value'>#{field_value}</div></div>"
   }
 
+  regions: {
+    render: (name, value, options = {})->
+      options.type ?= "regions"
+      if !value || !value.length
+        return ""
+      str = value.join(", ")
+      summary_field_types.string.render(name, str, options)
+  }
+
   phones: {
     render: (name, value, options = {})->
       options.type ?= "phones"
