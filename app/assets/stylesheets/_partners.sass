@@ -24,9 +24,14 @@
     width: 80%
     margin: 0 auto
 
+  img + .regular-grey
+    margin: 10px auto 0 auto
+
   @media #{$small-only}
-    &:nth-child(3n+3)
+    margin: 0 0 50px 0
+    //&:nth-child(3n+3)
       clear: left
+
   @media #{$medium-up}
     &:nth-child(3n+4)
       clear: left
