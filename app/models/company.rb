@@ -9,12 +9,14 @@ class Company < ActiveRecord::Base
 
 
 
-
-
   globalize :name, :description, :region, :position
 
   has_many :company_memberships
   has_many :users, through: :company_memberships#, class_name: User#, source: :user, source_type: User
+
+  has_many :company_regions
+  has_and_belongs_to_many :regions, through: :company_regions
+  attr_accessible :regions, :region_ids
 
   attr_accessible :industry, :company_offices, :company_memberships, :users
 
@@ -75,11 +77,38 @@ class Company < ActiveRecord::Base
   end
 
   def company_info_attributes
-    h = {industry: industry_name, description: description, region: region, employees_count: employees_count}
+    h = {industry: industry_name, description: description, regions: company_regions.map{|cr| cr.region.try(:name) }.select(&:present?).uniq.join(", "), employees_count: employees_count}
     h.keep_if{|k, v| v.present? }
   end
 
   def formatted_position
     "#{position} компанії &laquo;#{name}&raquo;"
+  end
+
+  def set_regions(values)
+    company_regions.delete_all
+    if values.blank?
+      return
+    end
+    values = values.uniq
+
+
+    values.each do |region_name|
+      is_region_id = region_name == region_name.to_i.to_s
+      if !is_region_id
+        region = Region.all.joins(:translations).where(region_translations: { name: region_name }).first
+        if !region
+          region = Region.new
+          region.translations << region.translations.new(name: region_name, locale: I18n.locale)
+          region.save
+        end
+
+        self.regions << region
+      else
+        self.regions << Region.find(region_name)
+      end
+    end
+
+    true
   end
 end

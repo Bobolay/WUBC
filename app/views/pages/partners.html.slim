@@ -11,7 +11,7 @@
         - title_html_options[:href] = url
         - title_html_options[:rel] = "nofollow"
 
-      .columns.small-6.medium-4.partner-block
+      .columns.small-12.medium-4.partner-block
         - if has_url
           a.image href=url rel="nofollow"
             img src=company.image.url(company.image_file_name.end_with?(".svg") ? :original : :medium)
@@ -20,8 +20,8 @@
 
 
 
-
-        = content_tag(has_url ? :a : :span, company.name, title_html_options)
+        - if company.name.present?
+          = content_tag(has_url ? :a : :span, company.name, title_html_options)
         - if company.description.present?
           p.regular-grey
             = raw company.description

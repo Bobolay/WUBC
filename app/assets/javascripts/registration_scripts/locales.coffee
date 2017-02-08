@@ -27,6 +27,7 @@ window.locales = {
 
       industry: "Сфера здійснення діяльності"
       region: "Місце здійснення діяльності"
+      regions: "Місце здійснення діяльності"
       position: "Посада"
       employees_count: "Кількість працівників"
       company_site: "Сайт компанії"
@@ -72,6 +73,7 @@ window.locales = {
     summary_labels: {
       social_facebook: "Сторінка Facebook"
       social_google_plus: "Сторінка Google+"
+      personal_helpers: "Особисті<br/>помічники"
     }
     help: {
       password: "Мінімум 8 символів"

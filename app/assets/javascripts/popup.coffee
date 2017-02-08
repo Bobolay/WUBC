@@ -44,6 +44,24 @@ get_office_name_or_number = ($office)->
 
   str
 
+get_personal_helper_name_or_number = ($personal_helper)->
+  first_name = $personal_helper.find("input[name=first_name]").val()
+  last_name = $personal_helper.find("input[name=last_name]").val()
+  #phones = $office.find("input[name=phone]").val()
+  str = ""
+  personal_helper_number = $personal_helper.index() + 1
+  personal_helper_number_str = "(Порядковий номер: #{personal_helper_number})"
+  if first_name.length && last_name.length
+    str = "&laquo;#{first_name} #{last_name}&raquo;"
+  else if first_name.length
+    str = "&laquo;#{first_name}&raquo; #{personal_helper_number_str}"
+  else if last_name.length
+    str = "&laquo;#{last_name}&raquo; #{personal_helper_number_str}"
+  else
+    str = personal_helper_number_str
+
+  str
+
 window.show_remove_company_confirm_popup = ($company)->
   company_index = $company.index()
   company_name_str = get_company_name_or_number($company)
@@ -88,3 +106,26 @@ window.show_remove_office_confirm_popup = ($office)->
     $remove_company_popup.find(".larger").html(popup_description)
     $remove_company_popup.fadeIn()
   $remove_company_popup = $(".remove-office-popup")
+
+
+window.show_remove_personal_helper_confirm_popup = ($personal_helper)->
+  $user = $("#registration-user")
+  personal_helper_index = $personal_helper.index()
+
+  personal_helper_name_str = get_personal_helper_name_or_number($personal_helper)
+
+  popup_description = "Ви дійсно хочете видалити особистого помічника #{personal_helper_name_str}?"
+  $remove_personal_helper_popup = $(".remove-personal-helper-popup")
+
+  if !$remove_personal_helper_popup.length
+    show_popup("remove-personal-helper", "", "", popup_description, "btn-remove-personal-helper-ok", "", "OK", "btn-cancel btn-remove-personal-helper-cancel", "", "Відміна")
+    $(".remove-personal-helper-popup").attr("data-personal-helper-index", personal_helper_index)
+  else
+
+    current_remove_personal_helper_popup_personal_helper_index = parseInt($remove_personal_helper_popup.attr("data-personal-helper-index"))
+    if current_remove_personal_helper_popup_personal_helper_index != personal_helper_index
+      $remove_personal_helper_popup.attr("data-personal-helper-index", personal_helper_index)
+    $("body").addClass("has-opened-remove-personal-helper-popup")
+    $remove_personal_helper_popup.find(".larger").html(popup_description)
+    $remove_personal_helper_popup.fadeIn()
+  #$remove_personal_helper_popup = $(".remove-office-popup")

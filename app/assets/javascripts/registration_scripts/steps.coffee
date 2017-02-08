@@ -46,7 +46,7 @@ $document.on "click", ".prev-step-button, .next-step-button", (e)->
 $document.on "click", ".step-navigation-button.send-form", ()->
   json = steps_to_json()
   $.ajax(
-
+    url: "/sign-up"
     type: "post"
     data: json
   )

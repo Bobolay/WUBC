@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount Ckeditor::Engine => '/ckeditor'
   get "check_email", to: "registrations#check_email", as: :check_email
-  post "sign_up", to: "registrations#create", as: "sign_up"
+  post "sign-up", to: "registrations#create", as: "sign_up"
   #post "/password/edit", to: "passwords#update", as: "custom_edit_password"
 
 
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       sign_in: "login",
       sign_out: 'logout',
       edit: 'profile',
-      #sign_up: "sign_up"
+      sign_up: "sign-up"
 
       #user_registration
   }, controllers: { registrations: "registrations", sessions: "users/sessions", passwords: "users/passwords" }

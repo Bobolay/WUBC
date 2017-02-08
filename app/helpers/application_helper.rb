@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def formatted_phone(phone)
-    "+38 097 784 65 78"
+    phone
   end
 
   def day_name(date)

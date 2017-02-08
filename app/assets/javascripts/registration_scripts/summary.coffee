@@ -6,13 +6,15 @@ window.render_summary = (data)->
     birth_date: {}
     phones: {}
     email: {}
+    personal_helpers: {}
   }
 
   company_info = {
     name: {}
     industry: {}
     description: {}
-    region: {}
+    #region: {}
+    regions: {type: "regions"}
     position: {}
     employees_count: {}
     company_site: {type: "site"}

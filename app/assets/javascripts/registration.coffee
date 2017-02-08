@@ -50,7 +50,7 @@ render_cabinet_user_form = (data)->
       type: "text"
     }
   }, data) +
-  column( "medium-6", {
+  column("medium-6", {
     phones: { required: true, min: 1 }
     email: {
       readonly: true
@@ -66,6 +66,11 @@ render_cabinet_user_form = (data)->
     social_networks: { type: "social_networks", label: t("attributes.user_social_networks") }
     #social_facebook: {}
     #social_google_plus: {}
+  }, data) +
+  column("medium-12", {
+    personal_helpers: {
+      type: "personal_helpers"
+    }
   }, data)
 
   save_title = t("save_profile")
@@ -95,7 +100,11 @@ render_company_form = (data, render_controls = false)->
     description: {
       type: "text"
     }
-    region: {required: true}
+    #region: {required: true}
+    regions: {
+      min: 1
+      type: "regions"
+    }
     name: { required: true }
     position: {required: true}
     employees_count: {
@@ -309,22 +318,6 @@ $document.on "keyup change", "#cabinet-companies .company input[name=name]", ()-
   $company.find(".company-name-column .company-name").text(company_name)
 
 
-$document.on "keyup blur change", ".input-office input", ()->
-  $office = $(this).closest(".input-office")
-  city = $office.find("input[name=city]").val()
-  address = $office.find("input[name=address]").val()
-  phones = $office.find("input[name=phone]").map(
-    ()->
-      $(this).val()
-  ).toArray().filter(
-    (a)->
-      a && a.length > 0 && a.indexOf("_") < 0
-  )
-  has_data = ((city && city.length) || (address && address.length) || (phones && phones.length && phones[0].length) ) && true
-
-  $save_button = $office.find(".office-control-save")
-  $save_button.removeClass("disabled") if has_data && $save_button.hasClass("disabled")
-  $save_button.addClass("disabled") if !has_data && !$save_button.hasClass("disabled")
 
 
 update_dom_for_email_presence = (data)->

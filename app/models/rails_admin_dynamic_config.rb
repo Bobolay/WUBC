@@ -247,7 +247,7 @@ module RailsAdminDynamicConfig
           field :employees_count
           field :translations, :globalize_tabs
           field :company_site
-          #:social_networks
+          field :regions
           field :company_offices
         end
 
@@ -255,7 +255,7 @@ module RailsAdminDynamicConfig
           field :locale, :hidden
           field :name
           field :description
-          field :region
+          #field :region
           field :position
         end
 
@@ -269,6 +269,17 @@ module RailsAdminDynamicConfig
             field :locale, :hidden
             field :city
             field :address
+        end
+
+        config.include_models Region
+        config.model Region do
+          field :translations, :globalize_tabs
+          field :companies
+        end
+
+        config.model_translation Region do
+          field :locale, :hidden
+          field :name
         end
 
         config.include_models Event
