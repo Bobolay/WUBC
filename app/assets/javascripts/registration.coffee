@@ -86,7 +86,7 @@ render_company_name_block = (company_name)->
   company_name = t("placeholders.name") if !company_name || !company_name.length
   "<div class='columns company-name-column'><div class='company-name'>#{company_name}</div></div>"
 
-render_company_form = (data, render_controls = false)->
+window.render_company_form = (data, render_controls = false)->
   data ?= {}
   company_name_str = render_company_name_block(data.name)
   window.available_industries ?= $(".cabinet-container, .registration-container").attr("data-available-industries").split(",")
@@ -150,7 +150,7 @@ render_companies = (data)->
   s
 
 
-initialize_inputs = ()->
+window.initialize_inputs = ()->
   inputs.date.initialize()
   inputs.phone.initialize()
   inputs.social.initialize()
