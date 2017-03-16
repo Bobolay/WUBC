@@ -383,19 +383,25 @@ body.logged-in
     font-size: 14px
     text-align: center
     margin-top: 10px
-  $slide-width: 1000px
+  // $slide-width-large-up: 800px
+  $slide-width-xxlarge-up: 1000px
   .slider-2
     height: 700px
     margin-top: 100px
     @media #{$small-only}
       height: 500px
       margin-top: 30px
+    @media #{$large-up}
+      margin-left: 12%
+      margin-right: 12%
     @media #{$xxlarge-up}
       margin-left: 20%
       margin-right: 20%
   .slide
-    @media #{$xxlarge-up}
-      width: $slide-width !important
+    @media #{$large-up}
+      width: $slide-width-xxlarge-up !important
+    // @media #{$xxlarge-up}
+    //   width: $slide-width-xxlarge-up !important
     .img-background
       top: 0px
       left: 0px
