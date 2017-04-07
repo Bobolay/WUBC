@@ -84,7 +84,13 @@ window.form_to_json = ()->
   obj
 
 window.steps_to_json = ()->
-  {user: form_to_json.call($("#registration-user")), company: form_to_json.call($("#registration-company")) }
+  {user: form_to_json.call($("#registration-user")),
+    companies: $("#registration-companies .company").map(
+      ()->
+        form_to_json.call($(this))
+    ).toArray()
+
+  }
 
 
 

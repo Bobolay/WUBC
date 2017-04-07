@@ -9,6 +9,7 @@ window.render_summary = (data)->
     personal_helpers: {}
   }
 
+
   company_info = {
     name: {}
     industry: {}

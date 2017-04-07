@@ -160,8 +160,10 @@ initialize_registration_forms = ()->
   return if is_cabinet
   if $("#registration-user").length
     $("#registration-user").html(registration_user_form)
-  if $("#registration-company").length
-    $("#registration-company").html(render_company_form())
+  if $("#registration-companies").length
+    company_forms_str = render_companies()
+    #company_forms_str = render_company_form()
+    $("#registration-companies").html(company_forms_str)
 
 
   initialize_inputs()

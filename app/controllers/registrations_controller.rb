@@ -35,6 +35,7 @@ class RegistrationsController < Users::RegistrationsController
   end
 
   def company_params
+    params[:companies]
     company = params[:company]
     company[:industry_name] ||= company.delete(:industry)
     company_params = company.permit(:industry_name, :company_site, :offices, :employees_count)
