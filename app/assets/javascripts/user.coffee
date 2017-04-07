@@ -48,6 +48,12 @@ render_menu_and_footer_user = (user_data)->
 
   $parent.html(str)
 
+window.init_subscribe_button = ($subscribe_button)->
+  $subscribe_button ?= $(".subscribe-button.open-login-popup")
+  if !$subscribe_button.length
+    return
+  $subscribe_button.changeClasses(["subscribe"], ["open-login-popup"])
+
 
 window.replace_subscribe_button_to_unsubscribe = (unsubscribe_url, $subscribe_button)->
   if !unsubscribe_url
@@ -57,7 +63,7 @@ window.replace_subscribe_button_to_unsubscribe = (unsubscribe_url, $subscribe_bu
   $subscribe_button ?= $(".subscribe-button")
   if $subscribe_button.hasClass("unsubscribe")
     return
-  $(".subscribe-button").replaceWith("<a href='#{unsubscribe_url}' class='link subscribe-button unsubscribe'>Відписатися</a>")
+  $subscribe_button.replaceWith("<a href='#{unsubscribe_url}' class='link subscribe-button unsubscribe'>Відписатися</a>")
 
 window.replace_unsubscribe_button_to_subscribe = (subscribe_url, $subscribe_button)->
   if !subscribe_url
@@ -84,6 +90,9 @@ window.init_subscription_buttons = (user)->
   if user.events_i_am_subscribed_on.includes(event_id)
     $subscribe_button = $event_wrapper.find(".subscribe-button")
     replace_subscribe_button_to_unsubscribe(null, $subscribe_button)
+  else
+    init_subscribe_button()
+
 
 
 window.init_user = ()->
