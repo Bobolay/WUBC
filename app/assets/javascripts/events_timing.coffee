@@ -22,7 +22,7 @@ window.select_events = ()->
       is_event_today = event_year == now_year && event_month == now_month && event_day == now_day
 
       is_future_date = !is_event_today
-      return false if is_future_datex
+      return false if is_future_date
 
 
 
