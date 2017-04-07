@@ -71,6 +71,8 @@ class User < ActiveRecord::Base
     if !subscribed_on_event?(event)
       es = EventSubscription.new(event_id: event.id, user_id: self.id)
       es.save
+    else
+      :already_subscribed
     end
   end
 

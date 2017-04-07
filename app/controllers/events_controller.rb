@@ -41,7 +41,10 @@ class EventsController < ApplicationController
 
 
     status = current_user.subscribe_on_event(@event)
-    current_user.notify_admin_about_subscription(@event)
+    if status == true
+      current_user.notify_admin_about_subscription(@event)
+    end
+
     render json: { status: status }
   end
 
