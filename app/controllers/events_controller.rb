@@ -37,9 +37,6 @@ class EventsController < ApplicationController
       return render status: 403
     end
 
-
-
-
     status = current_user.subscribe_on_event(@event)
     if status == true
       current_user.notify_admin_about_subscription(@event)

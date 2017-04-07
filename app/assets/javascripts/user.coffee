@@ -8,7 +8,7 @@ ajax_link = (opts)->
   $.ajax(options)
 
 render_user_components = (user_data)->
-  console.log "user_data: ", user_data
+  #console.log "user_data: ", user_data
   $("body").addClass("logged-in")
   render_header_user(user_data)
   render_menu_and_footer_user(user_data)
@@ -75,18 +75,18 @@ window.replace_unsubscribe_button_to_subscribe = (subscribe_url, $subscribe_butt
   $subscribe_button.replaceWith("<a href='#{subscribe_url}' class='link subscribe-button subscribe'>Відвідати зустріч</a>")
 
 window.init_subscription_buttons = (user)->
-  console.log "init_subscription_buttons: user: ", user
+  #console.log "init_subscription_buttons: user: ", user
   if !user && window.current_user
     user = window.current_user
   else if !user
     return
-  console.log "init_subscription_buttons: init_event_wrapper"
+  #console.log "init_subscription_buttons: init_event_wrapper"
   $event_wrapper = $(".event-one-wrapper")
   if !$event_wrapper.length
     return
 
   event_id = parseInt($event_wrapper.attr("data-id"))
-  console.log "init_subscription_buttons: events_i_am_subscribed_on: ", user.events_i_am_subscribed_on, "; event_id: ", event_id
+  #console.log "init_subscription_buttons: events_i_am_subscribed_on: ", user.events_i_am_subscribed_on, "; event_id: ", event_id
   if user.events_i_am_subscribed_on.includes(event_id)
     $subscribe_button = $event_wrapper.find(".subscribe-button")
     replace_subscribe_button_to_unsubscribe(null, $subscribe_button)
@@ -121,7 +121,7 @@ $document.on "page:load", ()->
 
 init_user()
 
-console.log "test"
+#console.log "test"
 
 
 $document.on "click", ".logout-link", ()->
