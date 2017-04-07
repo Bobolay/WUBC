@@ -64,7 +64,7 @@ class RegistrationsController < Users::RegistrationsController
 
     u = current_user
 
-    h = { email: u.email, first_and_last_name: u.full_name_or_email(false), small_avatar: u.avatar.exists?(:small) ? u.avatar.url(:small) : nil }
+    h = { email: u.email, first_and_last_name: u.full_name_or_email(false), small_avatar: u.avatar.exists?(:small) ? u.avatar.url(:small) : nil, events_i_am_subscribed_on: u.events_i_am_subscribed_on.pluck(:id) }
 
     h[:default_small_avatar] = controller_asset_path("photo/user_no_avatar-72.png")
 

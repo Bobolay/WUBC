@@ -48,6 +48,40 @@ render_menu_and_footer_user = (user_data)->
 
   $parent.html(str)
 
+
+window.replace_subscribe_button_to_unsubscribe = (unsubscribe_url, $subscribe_button)->
+  if !unsubscribe_url
+    event_url = $(".event-one-wrapper").attr("data-url")
+    unsubscribe_url = event_url + "/unsubscribe"
+
+  $subscribe_button ?= $(".subscribe-button")
+  if $subscribe_button.hasClass("unsubscribe")
+    return
+  $(".subscribe-button").replaceWith("<a href='#{unsubscribe_url}' class='link subscribe-button unsubscribe'>Відписатися</a>")
+
+window.replace_unsubscribe_button_to_subscribe = (subscribe_url, $subscribe_button)->
+  if !subscribe_url
+    event_url = $(".event-one-wrapper").attr("data-url")
+    subscribe_url = event_url + "/subscribe"
+  $subscribe_button ?= $(".subscribe-button")
+  if $subscribe_button.hasClass("subscribe")
+    return
+  $subscribe_button.replaceWith("<a href='#{subscribe_url}' class='link subscribe-button subscribe'>Відвідати зустріч</a>")
+
+window.init_subscription_buttons = (user)->
+  if !user && window.current_user
+    user = window.current_user
+  else if !user
+    return
+  $event_wrapper = $(".event-one-wrapper")
+  if !$event_wrapper.length
+    return
+  event_id = parseInt($event_wrapper.attr("data-id"))
+  if user.events_i_am_subscribed_on.includes(event_id)
+    $subscribe_button = $event_wrapper.find(".subscribe-button")
+    replace_subscribe_button_to_unsubscribe(null, $subscribe_button)
+
+
 window.init_user = ()->
   if (window.current_user == null || window.current_user == undefined) && !window.current_user_in_progress
     window.current_user_in_progress = true
@@ -60,8 +94,11 @@ window.init_user = ()->
         window.current_user = data
         render_user_components(data)
 
-      error: ()->
+        init_subscription_buttons(data)
 
+
+      error: ()->
+        window.current_user = false
     )
 
 

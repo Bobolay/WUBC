@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :subscribe, :unsubscribe]
   caches_page :index
-  caches_page :show, if: -> { @event && @event.public? }
+  caches_page :show, if: -> { @event && @event.public? && !current_user }
 
   def index
     events_collection
