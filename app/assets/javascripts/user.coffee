@@ -69,14 +69,18 @@ window.replace_unsubscribe_button_to_subscribe = (subscribe_url, $subscribe_butt
   $subscribe_button.replaceWith("<a href='#{subscribe_url}' class='link subscribe-button subscribe'>Відвідати зустріч</a>")
 
 window.init_subscription_buttons = (user)->
+  console.log "init_subscription_buttons: user: ", user
   if !user && window.current_user
     user = window.current_user
   else if !user
     return
+  console.log "init_subscription_buttons: init_event_wrapper"
   $event_wrapper = $(".event-one-wrapper")
   if !$event_wrapper.length
     return
+
   event_id = parseInt($event_wrapper.attr("data-id"))
+  console.log "init_subscription_buttons: events_i_am_subscribed_on: ", user.events_i_am_subscribed_on, "; event_id: ", event_id
   if user.events_i_am_subscribed_on.includes(event_id)
     $subscribe_button = $event_wrapper.find(".subscribe-button")
     replace_subscribe_button_to_unsubscribe(null, $subscribe_button)
