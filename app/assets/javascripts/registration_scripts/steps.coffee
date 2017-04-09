@@ -35,8 +35,8 @@ $document.on "click", ".prev-step-button, .next-step-button", (e)->
     if $active_step_content.index() == 1
       window.steps_json = steps_to_json()
       render_summary(steps_json)
-  #if valid_step != true
-  #  return
+  if valid_step != true
+    return
 
   navigate_step.call($active_step_content, direction)
 
