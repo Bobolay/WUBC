@@ -39,6 +39,7 @@ window.render_summary = (data)->
 
   for company in data.companies
     #company_str = ""
+    company_info_str = ""
     for k, field_definition of company_info_scheme
       v = company[k]
       if !field_definition.type
