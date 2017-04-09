@@ -94,8 +94,9 @@ class Company < ActiveRecord::Base
 
 
     values.each do |region_name|
+      found_region = Region.find(region_name) rescue nil
       is_region_id = region_name == region_name.to_i.to_s
-      if !is_region_id
+      if !is_region_id || !found_region
         region = Region.all.joins(:translations).where(region_translations: { name: region_name }).first
         if !region
           region = Region.new
@@ -105,7 +106,7 @@ class Company < ActiveRecord::Base
 
         self.regions << region
       else
-        self.regions << Region.find(region_name)
+        self.regions << found_region
       end
     end
 

@@ -1,17 +1,9 @@
 .forgot-password-container
   p.title
-    |Підтвердження реєстрації
+    |Інструкції підтвердження реєстрації
 
   = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: {method: :post}) do |f|
-    /= resource.errors.messages.inspect
-    /- I18n.with_locale(:json) do
-    - if resource.errors.any?
-      .error
-        - resource.errors.messages.each do |attr, error_keys|
-          p
-            = "#{attr}: #{error_keys.join(', ')}"
-
-    /= devise_error_messages!
+    = devise_error_messages!
     .field
       = f.label :email
       br

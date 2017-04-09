@@ -107,5 +107,17 @@
   display: none
 
 #registration-summary
+  > .columns
+    &:nth-child(2)
+      clear: left
+      &:last-child
+        clear: none
+    &:last-child
+      float: left !important
+    &:nth-child(1n + 2)
+      margin-top: 50px
+    &:nth-child(2):last-child
+      margin-top: 0
+
   span.phone
     display: inline-block

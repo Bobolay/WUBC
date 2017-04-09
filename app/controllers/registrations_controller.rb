@@ -9,14 +9,21 @@ class RegistrationsController < Users::RegistrationsController
     user.set_personal_helpers(params[:user][:personal_helpers])
     user.save
     user.update_params(params[:user])
-    params_company_regions = params[:company].delete(:regions)
-    company = user.companies.create(company_params)
-    company.update_params(params[:company])
-    if params[:company] && params[:company][:offices]
-      company.set_offices(params[:company][:offices])
+    params[:companies].each_with_index do |local_company_params, company_index|
+      company_key = local_company_params.first
+      local_company_params = local_company_params.second
+      params_company_regions = local_company_params.delete(:regions)
+      company = user.companies.create(company_params[company_index.to_i])
+      company.update_params(local_company_params)
+      if local_company_params[:offices]
+        company.set_offices(local_company_params[:offices])
+      end
+      company.set_regions(params_company_regions)
+      company.save
     end
-    company.set_regions(params_company_regions)
-    company.save
+
+
+
 
     # offices, industry
 
@@ -35,12 +42,16 @@ class RegistrationsController < Users::RegistrationsController
   end
 
   def company_params
-    params[:companies]
-    company = params[:company]
-    company[:industry_name] ||= company.delete(:industry)
-    company_params = company.permit(:industry_name, :company_site, :offices, :employees_count)
+    params[:companies].map do |company_key, company|
+      company[:industry_name] ||= company.delete(:industry)
+      company_params = company.permit(:industry_name, :company_site, :offices, :employees_count)
+      company_params
+    end
 
-    company_params
+
+
+
+
   end
 
   def company_translation_params
