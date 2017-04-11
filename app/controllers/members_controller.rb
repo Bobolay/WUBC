@@ -16,6 +16,9 @@ class MembersController < ApplicationController
     if !current_user
       return render_locked_member
     end
+
+    #set_page_metadata(@user)
+    @head_title = @user.full_name
   end
 
   private

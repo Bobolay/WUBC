@@ -78,12 +78,13 @@
               .info-block
                 p.regular
                   = I18n.t("attributes.#{k}") + ":"
-                p.regular-grey
-                  - if k == :company_site
-                    a href=v
+                div.expandable
+                  p.regular-grey
+                    - if k == :company_site
+                      a href=v
+                        = v
+                    - else
                       = v
-                  - else
-                    = v
 
 
 
