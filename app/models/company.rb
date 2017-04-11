@@ -77,7 +77,7 @@ class Company < ActiveRecord::Base
   end
 
   def company_info_attributes
-    h = {company_site: company_site, industry: industry_name, description: description, regions: company_regions.map{|cr| cr.region.try(:name) }.select(&:present?).uniq.join(", "), employees_count: employees_count}
+    h = {industry: industry_name, description: description, company_site: company_site, regions: company_regions.map{|cr| cr.region.try(:name) }.select(&:present?).uniq.join(", "), employees_count: employees_count}
     h.keep_if{|k, v| v.present? }
   end
 
