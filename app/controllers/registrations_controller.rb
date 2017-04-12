@@ -32,7 +32,7 @@ class RegistrationsController < Users::RegistrationsController
 
   def sign_up_user_params
     user_params = params[:user].permit(:birth_date, :phone, :email, :password, :password_confirmation)
-    user_params[:user][:confirmed_at] = DateTime.now
+    user_params[:confirmed_at] = DateTime.now
     user_params
   end
 
