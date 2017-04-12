@@ -75,16 +75,20 @@
           .columns.medium-6
             - attributes = company.company_info_attributes
             - attributes.each do |k, v|
+              - expandable =  company.expandable_attributes.include?(k)
               .info-block
                 p.regular
                   = I18n.t("attributes.#{k}") + ":"
-                div.expandable
+                div class=("expandable" if expandable)
                   p.regular-grey
                     - if k == :company_site
                       a href=v
                         = v
                     - else
                       = v
+                - if expandable
+                  .expander data-expand-text="Розгорнути" data-collapse-text="Згорнути"
+                    |Розгорнути
 
 
 

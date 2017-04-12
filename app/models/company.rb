@@ -81,6 +81,10 @@ class Company < ActiveRecord::Base
     h.keep_if{|k, v| v.present? }
   end
 
+  def expandable_attributes
+    [:description]
+  end
+
   def formatted_position
     "#{position} компанії &laquo;#{name}&raquo;"
   end

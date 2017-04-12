@@ -93,6 +93,8 @@
 
 #= require filter-members
 
+#= require member
+
 #= require registration-scroll
 
 #= require _share_popup

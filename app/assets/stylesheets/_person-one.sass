@@ -104,3 +104,15 @@
       color: inherit
       &:hover
         color: $green
+
+.expandable
+  max-height: 120px
+  overflow: hidden
+
+  &.expanded
+    max-height: none
+
+.expander
+  color: $green
+  font-style: italic
+  cursor: pointer
