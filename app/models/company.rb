@@ -76,6 +76,15 @@ class Company < ActiveRecord::Base
     Hash[[:facebook, :google_plus].map{|k| [k, send("social_#{k}") ]  }.select{|item| item[1].present? }]
   end
 
+  def company_site
+    s = self['company_site']
+    s = s.gsub(/\A\s/, "")
+    return nil if s.blank?
+
+    s = "http://#{s}" if !s.start_with?("http:") && !s.start_with?("https:") && !s.start_with?("//")
+    s
+  end
+
   def company_info_attributes
     h = {industry: industry_name, description: description, company_site: company_site, regions: company_regions.map{|cr| cr.region.try(:name) }.select(&:present?).uniq.join(", "), employees_count: employees_count}
     h.keep_if{|k, v| v.present? }
