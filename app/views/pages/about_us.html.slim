@@ -7,10 +7,12 @@
     = Cms.t("about-us.intro")
 
     .row.collapse.collage
-      .columns.medium-6
+      .columns
+        img src=asset_path("photo/about-collage.jpg")
+      /.columns.medium-6
         .square
           .img-background style="background-image: url(#{asset_path('photo/about_image_1.jpg')})"
-      .columns.medium-6
+      /.columns.medium-6
         .square
           .row.collapse.absolute
             .columns
