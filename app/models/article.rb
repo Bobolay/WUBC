@@ -43,6 +43,10 @@ class Article < ActiveRecord::Base
     published && !premium?
   end
 
+  def show_on_sitemap
+    public?
+  end
+
 
 end
 

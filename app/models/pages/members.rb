@@ -3,4 +3,8 @@ class Pages::Members < Cms::Page
   def url(*args)
     "/members"
   end
+
+  def show_on_sitemap
+    false
+  end
 end

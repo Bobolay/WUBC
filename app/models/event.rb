@@ -113,4 +113,8 @@ class Event < ActiveRecord::Base
     self.published.joins(:translations).where(event_translations: { url_fragment: url_fragment, locale: I18n.locale }).first
   end
 
+  def show_on_sitemap
+    public?
+  end
+
 end
