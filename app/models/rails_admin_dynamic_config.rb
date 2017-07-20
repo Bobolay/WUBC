@@ -102,7 +102,7 @@ module RailsAdminDynamicConfig
         end
 
         config.model Cms::SitemapElement do
-          #visible false
+          visible false
 
           field :display_on_sitemap
           field :changefreq

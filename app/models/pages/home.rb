@@ -5,4 +5,8 @@ class Pages::Home < Cms::Page
 
   # {large: "2048x676#", thumb: "200x60#"}
   has_images :slider_images, styles: {large: "1920x1000#", thumb: "200x60#"}, processors: [:thumbnail, :tinify], class_name: "HomeSlide"
+
+  def self.default_priority
+    1
+  end
 end
