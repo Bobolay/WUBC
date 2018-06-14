@@ -1,5 +1,5 @@
 - if images.any?
   #animated-thumbnails.gallery-images
     - images.each do |gallery_image|
-      a.square href=gallery_image.url
+      a.square href=gallery_image.url(:large)
         img src=gallery_image.url(:small)
