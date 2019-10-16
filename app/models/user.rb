@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
     return nil if birth_date.blank?
     today = Date.today
     v = today.year - birth_date.year
-    if today.month < birth_date.month || today.day < birth_date.day
+    if today.month < birth_date.month || (today.month == birth_date.month && today.day < birth_date.day)
       return v - 1
     end
 
