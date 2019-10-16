@@ -55,4 +55,16 @@ module ApplicationHelper
     "tel:+380680001717"
   end
 
+  def site_email
+    'westukrainianbusinessclub@gmail.com'
+  end
+
+  def facebook_url
+    'https://www.facebook.com/westukrainianbusinessclub/?fref=ts'
+  end
+
+  def youtube_url
+    'https://www.youtube.com/channel/UCv4hcWiiEzdyKZbFgoPlSXg'
+  end
+
 end

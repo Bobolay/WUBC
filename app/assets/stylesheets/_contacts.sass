@@ -27,6 +27,14 @@
       span
         display: inline-block
 
+    .contact-link
+      display: inline-block
+      margin-right: 20px
+      svg
+        +social-icon-svg
+        &:hover
+          +social-icon-svg-hover
+
 #map-container
   border: 1px solid rgba($light-grey, 0.5)
   height: 400px
