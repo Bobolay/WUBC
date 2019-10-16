@@ -34,7 +34,7 @@
           = @user.email
     - if @user.social_links.present?
       - @user.social_links.each do |k, url|
-        a.social-link href=url
+        a.social-link href=url target="_blank"
           = inline_svg "icons/social-#{k}.svg"
 
     - personal_helpers = @user.personal_helpers.map{|h| {first_name: h.first_name, last_name: h.last_name, email: h.email, phones: h.phones} }.select{|h| h[:first_name].present? || h[:last_name].present? || h[:email].present? || h[:phones].present? }
@@ -96,7 +96,7 @@
               .info-block
                 p.regular Соціальні мережі компанії:
                 - company.social_links.each do |k, url|
-                  a.social-link href=url
+                  a.social-link href=url target="_blank"
                     = inline_svg "icons/social-#{k}.svg"
 
           - if company.company_offices.any?

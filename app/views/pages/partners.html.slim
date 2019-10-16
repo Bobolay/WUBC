@@ -13,7 +13,7 @@
 
       .columns.small-12.medium-4.partner-block
         - if has_url
-          a.image href=url rel="nofollow"
+          a.image href=url target="_blank" rel="nofollow"
             img src=company.image.url(company.image_file_name.end_with?(".svg") ? :original : :medium)
         - else
           img src=company.image.url(company.image_file_name.end_with?(".svg") ? :original : :medium)
