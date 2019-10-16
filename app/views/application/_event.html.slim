@@ -2,13 +2,13 @@
 /- wrap_tag = has_link ? "a" : "div"
 - wrap_tag = "a"
 - wrap_attributes = {}
-- wrap_attributes["href"] = event_path(event)
+- wrap_attributes["href"] = event_path(id: event)
 - wrap_attributes["class"] = "event-container"
 - wrap_attributes["class"] += " future-event" if event.future?
 - wrap_attributes["class"] +=  " past-event" if event.past_or_active?
 - wrap_attributes["class"] += " active-event" if event.active?
 - wrap_attributes["class"] += " open-login-popup" if !has_link
-- wrap_attributes["data-url"] = event_path(event)
+- wrap_attributes["data-url"] = event_path(id: event)
 - wrap_attributes["rel"] = "nofollow" if !has_link
 
 .large-4.medium-12.columns.event class=('past-event' if event.past_or_active?) class=("future-event" if event.future?) class=('premium' if event.premium?) data-date=event.date.strftime("%d.%m.%Y") data-start-time=event.start_time.strftime("%H:%M") data-end-time=event.end_time.strftime("%H:%M")

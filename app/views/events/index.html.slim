@@ -1,7 +1,9 @@
 .events-wrapper
   - if @featured_event
     .events-banner
-      - banner_image = @featured_event.slider_images.first.try{|b| b.exists?(:events_banner) } ?  @featured_event.slider_images.first.url(:events_banner) : asset_path("photo/event_default_banner.jpg")
+      - banner_image = @featured_event.slider_images.first.try{|b| b.exists?(:events_banner) } ?  @featured_event.slider_images.first.url(:events_banner) : nil 
+      - banner_image ||= @featured_event.slider_images.first.try{|b| b.exists?(:large) } ?  @featured_event.slider_images.first.url(:large) : nil
+      - banner_image ||= asset_path("photo/event_default_banner.jpg")
       - if banner_image
         .img-background style="background-image: url('#{banner_image}')"
       .text

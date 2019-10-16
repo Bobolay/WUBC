@@ -46,11 +46,13 @@ module ApplicationHelper
   end
 
   def formatted_site_phone
-    "+38 (067) 866 71 13"
+    #"+38 (063) 941 47 43"
+    "+38 (068) 000 17 17"
   end
 
   def site_phone_link
-    "tel:+380678667113"
+    #"tel:+380639414743"
+    "tel:+380680001717"
   end
 
 end

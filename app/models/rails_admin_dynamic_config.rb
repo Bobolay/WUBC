@@ -221,7 +221,9 @@ module RailsAdminDynamicConfig
             field :phones
             field :avatar
             field :personal_helpers
-            field :companies
+            field :companies do
+              associated_collection_cache_all true
+            end
           end
         end
 
@@ -274,7 +276,9 @@ module RailsAdminDynamicConfig
         config.include_models Region
         config.model Region do
           field :translations, :globalize_tabs
-          field :companies
+          field :companies do
+            associated_collection_cache_all true
+          end
         end
 
         config.model_translation Region do
@@ -509,7 +513,9 @@ module RailsAdminDynamicConfig
         config.include_models Industry
         config.model Industry do
           field :translations, :globalize_tabs
-          field :companies
+          field :companies do
+            associated_collection_cache_all true
+          end
         end
 
         config.model_translation Industry do
