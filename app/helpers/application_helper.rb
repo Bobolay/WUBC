@@ -60,11 +60,15 @@ module ApplicationHelper
   end
 
   def facebook_url
-    'https://www.facebook.com/westukrainianbusinessclub/?fref=ts'
+    'https://www.facebook.com/westukrainianbusinessclub/'
   end
 
   def youtube_url
     'https://www.youtube.com/channel/UCv4hcWiiEzdyKZbFgoPlSXg'
+  end
+
+  def instagram_url
+    'https://www.instagram.com/wubc_club/'
   end
 
 end
