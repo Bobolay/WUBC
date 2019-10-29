@@ -32,15 +32,14 @@
                 p.smaller тел.
                 a.contact-link href=site_phone_link
                   = formatted_site_phone
-                p.smaller e-mail
-                a.contact-link href="mailto:office@wubc.club"
+                /p.smaller e-mail
+                /a.contact-link href="mailto:office@wubc.club"
                   | office
                   span @
                   | wubc.club
               .large-12.medium-12.small-6.columns
                 p.smaller соц.
-                a.contact-link target="_blank" rel="nofollow" href=facebook_url title="Перейти на сторінку клубу в соціальній мережі"
-                  = inline_svg "icons/social-facebook.svg"
+                = render "application/social_links"
                 / a title="Перейти на сторінку клубу в соціальній мережі" = inline_svg "icons/social-google_plus.svg"
         .large-5.medium-5.columns
           = render "login_form"
