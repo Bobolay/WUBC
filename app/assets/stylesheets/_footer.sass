@@ -69,13 +69,17 @@
         font-size: 0.875em
         color: $green
         font-style: italic
-      .contact-link
-        +social-icon
+      .phone-link
+        color: inherit
+
         span
           color: $green
       svg
-        +social-icon-svg
-        &:hover
+        path
+          //fill: $smoke
+          fill: $light-grey
+        //+social-icon-svg
+        //&:hover
           +social-icon-svg-hover
   .bottom
     padding: 30px 0
@@ -109,3 +113,11 @@
       @media #{$small-only}
         margin-top: 20px
         text-align: center
+
+.footer-wrapper
+  @media #{$small-only}
+    .contacts
+      margin-bottom: 30px
+
+    .social-link
+      margin-right: 10px

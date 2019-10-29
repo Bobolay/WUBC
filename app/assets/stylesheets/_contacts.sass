@@ -2,13 +2,16 @@
   padding: 50px 0
   @media #{$xxlarge-up}
     padding: 100px 0 200px
+  .contact-block-header
+    svg
+      width: 18px
+      height: 18px
+
   .contact-block
     float: left !important
     @media #{$small-only}
       margin-bottom: 20px
-    svg
-      width: 18px
-      height: 18px
+
     .small-vertical-line
       display: inline-block
       width: 1px
@@ -29,18 +32,8 @@
 
     .social-links
       margin-left: 40px
-    .contact-link
-      display: inline-block
-      margin-right: 20px
-      svg
-        +social-icon-svg
-        width: 30px
-        height: 30px
-        border: none
+    .social-link
 
-        &:hover
-          +social-icon-svg-hover
-          border: none
 
 #map-container
   border: 1px solid rgba($light-grey, 0.5)

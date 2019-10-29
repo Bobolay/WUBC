@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def formatted_phone(phone)
-    phone
+    phone.gsub('(', '<span>(</span>').gsub(')', '<span>)</span>').html_safe
   end
 
   def day_name(date)
@@ -47,7 +47,7 @@ module ApplicationHelper
 
   def formatted_site_phone
     #"+38 (063) 941 47 43"
-    "+38 (068) 000 17 17"
+    formatted_phone("+38 (068) 000 17 17")
   end
 
   def site_phone_link
