@@ -71,4 +71,7 @@ module ApplicationHelper
     'https://www.instagram.com/wubc_club/'
   end
 
+  def background_youtube_video_url(youtube_video_id)
+    "https://www.youtube.com/embed/#{youtube_video_id}?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=#{youtube_video_id}&mute=1"
+  end
 end

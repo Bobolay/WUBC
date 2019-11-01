@@ -31,6 +31,37 @@
       top: 213px
     .social-links
       top: 203px
+
+.video-background
+  +fullsize
+  //z-index: -1
+  +grayscale
+  +scale(1.35)
+  //background-color: rgba(0,0,0,0.25)
+  //background-blend-mode: darken
+
+  &.video-loaded
+    &:after
+      content: ''
+      display: block
+      +fullsize
+      //background: rgba(white, .75)
+      //background-color: rgba(0,0,0,0.25)
+      //background-blend-mode: darken
+      background: rgba(white, 0.25)
+
+  .video-foreground, iframe
+    +fullsize
+    pointer-events: none
+
+.open-video-popup-btn
+  margin-top: 35px
+  cursor: pointer
+  display: inline-block
+
+  @media #{$medium-up}
+    display: none
+
 .home-banner
   position: relative
   height: 100vh !important

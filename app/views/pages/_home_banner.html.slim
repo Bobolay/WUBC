@@ -3,6 +3,11 @@
   /.banner-man style="background-image: url(#{asset_path('photo/home-banner-man.png')})"
   /.banner-compass
     = inline_svg "icons/compass.svg"
+  .video-background
+    .video-foreground
+      .main-banner-iframe-wrap
+        iframe#bg-video frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" scrolling="no" data-src=background_youtube_video_url('kA753yq1JiM')
+
   .row
     .columns
       .text
@@ -13,6 +18,9 @@
 
         a.btn.registration-link title="Заповнити анкетні дані та створити свій власний профіль клубу" href=new_user_registration_path
           span Долучитись до клубу
+        div
+          .open-video-popup-btn
+            = inline_svg 'icons/play-button.svg'
         .bottom title="прогорнути сторінку вниз"
           = inline_svg "icons/arrow-down.svg"
           span Детальніше

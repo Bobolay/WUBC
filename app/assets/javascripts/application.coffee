@@ -17,6 +17,7 @@
 # require jquery.jcrop
 # require papercrop
 
+#= require plugins/isMobile.min
 #= require plugins/jquery.appear
 #= require appear-initialize
 #= require jquery-form/jquery.form
@@ -109,3 +110,4 @@
 #= require events_timing
 
 #= require home_speakers
+#= require home_bg_video
