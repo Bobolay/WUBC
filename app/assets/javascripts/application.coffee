@@ -31,6 +31,7 @@
 #= require plugins/clickout
 #= require jquery.maskedinput/dist/jquery.maskedinput.min
 #= require plugins/selectize.min
+#= require plugins/jquery-modal-video
 
 #= require lightgallery
 

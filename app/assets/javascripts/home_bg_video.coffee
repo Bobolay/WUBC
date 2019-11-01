@@ -7,3 +7,5 @@ window.addEventListener('load', ()->
 $('#bg-video').on('load', ()->
   $('.video-background').addClass('video-loaded')
 )
+
+$(".company_video_btn").modalVideo();
